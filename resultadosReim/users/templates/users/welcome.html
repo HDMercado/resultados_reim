@@ -1,0 +1,619 @@
+<!--{% load staticfiles %}-->
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Resultados REIM | Dashboard</title>
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/font-awesome.css' %}" rel="stylesheet">
+    <!-- Toastr style -->
+    <link href="{% static 'css/plugins/toastr/toastr.min.css' %}" rel="stylesheet">
+    <!-- Gritter -->
+    <link href="{% static 'css/plugins/gritter/jquery.gritter.css' %}" rel="stylesheet">
+    <link href="{% static 'css/animate.css' %}" rel="stylesheet">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+</head>
+<body>
+    <div id="wrapper">
+        <nav class="navbar-default navbar-static-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav metismenu" id="side-menu">
+                    <li class="nav-header">
+                        <div class="dropdown profile-element">
+                            <img alt="image" class="rounded-circle" src="{% static 'img/profile_small.jpg' %}"/>
+                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                                <span class="block m-t-xs font-bold">{{request.user.first_name}}</span>
+                                <span class="text-muted text-xs block">Opciones <b class="caret"></b></span>
+                            </a>
+                            <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                                <li class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="/logout">Cerrar sesión</a></li>
+                            </ul>
+                        </div>
+                        <div class="logo-element">
+                            RReim
+                        </div>
+                    </li>
+                    <li class="active">
+                        <a href="index.html"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboards</span> <span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <!--<li class="active"><a href="index.html">Dashboard</a></li>
+                            --> </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="gray-bg dashbard-1">
+            <div class="row  border-bottom white-bg dashboard-header">
+                    <div class="navbar-header">
+                            <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+                            <form role="search" class="navbar-form-custom" action="search_results.html">
+                                <div class="form-group">
+                                    <!--<input type="text" placeholder="Search for something..." class="form-control" name="top-search" id="top-search">-->
+                                </div>
+                            </form>
+                        </div>
+                    <div class="col-md-12">
+                            <div class="inbox float-e-margins">
+                                <div class="inbox-title">
+                                <div class="selector-colegio" >
+                                    <form>
+                                        <div class="row  border-bottom white-bg dashboard-header">
+                                            <div class="col-md-3">
+                                                    <label  class="font-normal">Colegio</label>
+                                                    <select  onchange = "this.form.submit()" id="school-filter-selector" name="school" class="form-control m-b">
+                                                        {% if schools|length == 0 or schools|length >= 1 %}
+                                                        <option value ="0" >Seleccione Colegio</option >
+                                                        {% endif %}
+                                                        {% if schools %}                                                        
+                                                        {% for school in schools %}
+                                                        <option value ={{school.id}}>{{ school.name }}</option >
+                                                        {% endfor %}                                                    
+                                                        {% endif %}
+                                                    </select>
+                                                </div>
+                        
+                                                <div  class="col-md-3">
+                                                    <label class="font-normal">Curso</label>
+                                                    <select onchange = "this.form.submit()" id="course-filter-selector" name="course" class="form-control m-b">
+                                                        {% if courses|length == 0 or courses|length >= 1 %}
+                                                        <option value ="0" >Seleccione Curso</option>
+                                                        {% endif %}
+                                                        {% if courses %}
+                                                        {% for course in courses %}
+                                                        <option value ={{course.id}}>{{course.name}}</option>
+                                                        {% endfor %}
+                                                        {% endif %}
+                                                    </select>
+                                                </div>
+                                            <div class="col-md-3">
+                                                <label  class="font-normal">Reim</label>
+                                                <select onchange="this.form.submit()" id="reim-filter-selector" name="reim" class="form-control m-b">
+                                                    <!--Para bloquear-->
+                                                    <!--{% if reims|length <= 1 %}disabled{% endif %}-->
+                                                    {% if reims|length == 0 or reims|length >= 1 %}
+                                                    <option value="0">Seleccione Reim</option>
+                                                    {% endif %}
+                                                    {% if reims %}
+                                                    {% for reim in reims %}
+                                                    <option value={{reim.id}}>{{ reim.name }}</option>
+                                                    {% endfor %}
+                                                    {% endif %}
+                                                </select>
+                                            </div>
+                                            <div  class="col-md-3">
+                                                <label  class="font-normal">Actividad</label>
+                                                <select onchange="this.form.submit()" id="activity-filter-selector" name="activity" class="form-control m-b">
+                                                    <option value ="0">Seleccione Actividad</option>
+                                                    {% if activities %}
+                                                    {% for activity in activities %}
+                                                    <option value ={{activity.id}}>{{activity.name}}</option>
+                                                    {% endfor %}
+                                                    {% endif %}
+                                                </select>
+                                            </div>
+                                    <div  class="col-md-12">
+                                        <div  class="ibox float-e-margins">
+                                                <div  class="form-group" id="data_5">
+                                                    <label  class="font-normal">Rango de fecha</label>
+                                                    <div  class="input-daterange input-group" id="datepicker">
+                                                        <span class="input-group-addon">Desde</span>
+                                                        <span  class="input-group-addon"><i class="fa fa-calendar"></i></span><input onchange="this.form.submit()" style="width:120" type="text" class="input-sm form-control" name="start" id="start-filter-selector" data-provide="datepicker" data-date-format="dd/mm/yyyy" value="dd/mm/aaaa"/>
+                                                        <span class="input-group-addon">Hasta</span>
+                                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input onchange="this.form.submit()" style="width:120px" type="text" class="input-sm form-control" name="end" id="end-filter-selector" data-provide="datepicker" data-date-format="dd/mm/yyyy" value="dd/mm/aaaa"/>
+                                                    </div>
+                                                </div>
+                                        </div>
+                                    </div>
+                                            <p class="col-lg-12">
+                                            <button class="btn btn-sm btn-primary m-t-n-xs float-right"><i class="fa fa-filter"></i> Filtrar</button>
+                                            <a href="/" class="btn btn-sm btn-secondary m-t-n-xs float-right" style="margin-right: 5px"><i class="fa fa-trash"></i> Limpiar</a>
+                                            </p>
+                                        </div>
+                                    </form>
+                            </div>
+                        </div> 
+                        </div> 
+                        </div>
+
+            </div>
+            <div class="wrapper wrapper-content">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
+                    <div class="col-lg-6">
+                        <div class="ibox ">
+                            <div class="ibox-title">
+                                <h5>Minutos de juego</h5>
+                                <div class="ibox-tools"></div>
+                            </div>
+                            <div class="ibox-content">
+                                    <div class="scroll_content">
+                                    <canvas id="stacked" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                </div>
+                            </div>
+                            </div>
+                    </div>
+                    <!--{% if school_filter != '' %}-->
+                    <div class="col-lg-6">
+                        <div class="ibox">
+                            <div class="ibox-title">
+                                <h5>Touch por alumno</h5>
+                                <div class="ibox-tools"></div>
+                            </div>
+                            <div class="ibox-content">
+                                    <div class="scroll_content">        
+                                <canvas id="horizontalBar" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                    <!--{% endif %}-->
+                </div>
+
+            </div>
+            </div>
+            <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
+                <div class="col-lg-12">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="ibox ">
+                                <div class="ibox-title">
+                                    <h5>Sesiones por alumno</h5>
+                                    <div class="ibox-tools"></div>
+                                </div>
+                                <div class="ibox-content">
+                                        <div class="scroll_content">
+                                        <canvas id="stacked2" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                    </div>
+                                </div>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            <div class="footer">
+                <div>
+                    <strong>Copyright</strong>  &copy; 2019
+
+
+        <!-- Button trigger modal -->
+      <button type="button" class="btn btn-link btn-sm" data-toggle="modal" data-target="#queriesModal">
+        queries
+      </button>
+      
+      <!-- Modal -->
+      <div class="modal fade" id="queriesModal" tabindex="-1" role="dialog" aria-labelledby="queriesModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="queriesModalTitle">Generated queries</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+            <ul>
+              {% for query in queries %}
+                <li><strong>{{query.name}}</strong>: {{query.query}}</li>
+              {% endfor %}
+            </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Mainly scripts -->
+    <script src="{% static 'js/jquery-3.1.1.min.js' %}"></script>
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.js' %}"></script>
+    <script src="{% static 'js/plugins/metisMenu/jquery.metisMenu.js' %}"></script>
+    <script src="{% static 'js/plugins/slimscroll/jquery.slimscroll.min.js' %}"></script>
+    <!-- Flot -->
+    <script src="{% static 'js/plugins/flot/jquery.flot.js' %}"></script>
+    <script src="{% static 'js/plugins/flot/jquery.flot.tooltip.min.js' %}"></script>
+    <script src="{% static 'js/plugins/flot/jquery.flot.spline.js' %}"></script>
+    <script src="{% static 'js/plugins/flot/jquery.flot.resize.js' %}"></script>
+    <script src="{% static 'js/plugins/flot/jquery.flot.pie.js' %}"></script>
+    <!-- Peity -->
+    <script src="{% static 'js/plugins/peity/jquery.peity.min.js' %}"></script>
+    <script src="{% static 'js/demo/peity-demo.js' %}"></script>
+    <!-- Custom and plugin javascript -->
+    <script src="{% static 'js/inspinia.js' %}"></script>
+    <script src="{% static 'js/plugins/pace/pace.min.js' %}"></script>
+    <!-- jQuery UI -->
+    <script src="{% static 'js/plugins/jquery-ui/jquery-ui.min.js' %}"></script>
+    <!-- GITTER -->
+    <script src="{% static 'js/plugins/gritter/jquery.gritter.min.js' %}"></script>
+    <!-- Sparkline -->
+    <script src="{% static 'js/plugins/sparkline/jquery.sparkline.min.js' %}"></script>
+    <!-- Sparkline demo data  -->
+    <script src="{% static 'js/demo/sparkline-demo.js' %}"></script>
+    <!-- ChartJS-->
+    <script src="{% static 'js/plugins/chartJs/Chart.min.js' %}"></script>
+    <!-- Toastr -->
+    <script src="{% static 'js/plugins/toastr/toastr.min.js' %}"></script>
+    <!-- Date range picker -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+    
+    <script>
+        $('.datepicker').datepicker({
+        });
+        </script>
+    
+        <script>
+            var stackedData = {
+            labels:
+             [
+                {% if game_time %}
+                {% for user in game_time %}
+                    '{{user.name}}',
+                {% endfor%}
+                {% endif%}
+                ],
+            datasets: [
+                {
+                    label: "Minutos de juego total",
+                    backgroundColor: 'rgba(255,203,124,100)',
+                    borderColor: "rgba(255,187,69,100)",
+                    pointBorderColor: "#fff",
+                    data: [
+                {% if game_time %}
+                {% for user in game_time %}
+                    '{{user.time}}',
+                {% endfor%}
+                {% endif%}
+                ]
+                }
+            ]
+        };
+    
+        var stackedOptions = {
+            animation: false,
+            isFixedWidth:true,
+            barWidth:50,
+            scales: {
+                xAxes:[{
+                    stacked:true,
+                    ticks: {
+                        min: 0,
+                        callback: function(value, index, values) {
+                            if (Math.floor(value) === value) {
+                                return value;
+                            }
+                        }
+                    }
+                }],
+                yAxes:[{
+                    stacked:true,
+                }]
+    
+            },
+            display: true
+            
+        };
+    
+    
+        var ctx = document.getElementById("stacked").getContext("2d");
+        new Chart(ctx, {type: 'horizontalBar', data: stackedData, options:stackedOptions});
+    
+        var barData = {
+            labels: [
+                {% if touch_quantity %}
+                {% for touch in touch_quantity %}
+                    '{{touch.name}}',
+                {% endfor%}
+                {% endif%}
+                ],
+            datasets: [
+                {
+                    label: "Cantidad de touch",
+                    backgroundColor: 'rgba(180,100,255,100)',
+                    borderColor: "rgba(168,75,255,100)",
+                    pointBorderColor: "#fff",
+                    data: [
+                {% if touch_quantity %}
+                {% for touch in touch_quantity %}
+                    '{{touch.quantity}}',
+                {% endfor%}
+                {% endif%}
+                ]
+                }
+            ]
+        };
+    
+        var barOptions = {
+            animation: false,
+            responsive: true,
+            isFixedWidth:true,
+            barWidth:20,
+            scales: {
+                xAxes:[{
+                    stacked:true,
+                    ticks: {
+                        min: 0,
+                        callback: function(value, index, values) {
+                            if (Math.floor(value) === value) {
+                                return value;
+                            }
+                        }
+                    }
+                }]
+            }
+        };
+    
+    
+        var ctx2 = document.getElementById("horizontalBar").getContext("2d");
+        new Chart(ctx2, {type: 'horizontalBar', data: barData, options:barOptions});
+        
+        var stacked2Data = {
+            labels: [
+                {% if sesion_quantity %}
+                {% for sesion in sesion_quantity %}
+                    '{{sesion.name}}',
+                {% endfor%}
+                {% endif%}
+                ],
+            datasets: [
+                {
+                    label: "Sesiones totales",
+                    backgroundColor: 'rgba(82,255,120,100)',
+                    borderColor: "rgba(46,255,108,100)",
+                    pointBorderColor: "#fff",
+                    data: [
+                {% if sesion_quantity %}
+                {% for sesion in sesion_quantity %}
+                    '{{sesion.quantity}}',
+                {% endfor%}
+                {% endif%}
+                ]
+                }
+            ]
+        };
+    
+        var stacked2Options = {
+            animation: false,
+            responsive: true,
+            isFixedWidth:true,
+            barWidth:20,
+            scales: {
+                xAxes:[{
+                    stacked:true,
+                    ticks: {
+                        min: 0,
+                        callback: function(value, index, values) {
+                            if (Math.floor(value) === value) {
+                                return value;
+                            }
+                        }
+                    }
+                }],
+                yAxes:[{
+                    stacked2:true,
+                }]
+    
+            },
+            display: true
+        };
+
+        var ctx = document.getElementById("stacked2").getContext("2d");
+        new Chart(ctx, {type: 'horizontalBar', data: stacked2Data, options:stacked2Options});
+        
+        var stackedElemento = {
+            labels: [
+                {% if game_time %}
+                {% for user in game_time %}
+                    '{{user.name}}',
+                {% endfor%}
+                {% endif%}
+                ],
+            datasets: [
+                {
+                    label: "Planetas",
+                    backgroundColor: 'rgba(82,123,255,100)',
+                    borderColor: "rgba(60,106,255,100)",
+                    pointBorderColor: "#fff",
+                    data: [
+                {% if correcta_quantity %}
+                {% for user in correcta_quantity %}
+                    '{{user.quantity}}',
+                {% endfor%}
+                {% endif%}
+                ]
+                },
+                {
+                    label: "Planetas con satelite",
+                    backgroundColor: 'rgba(82,123,255,100)',
+                    borderColor: "rgba(60,106,255,100)",
+                    pointBorderColor: "#fff",
+                    data: [
+                {% if correcta_quantity %}
+                {% for user in correcta_quantity %}
+                    '{{user.quantity}}',
+                {% endfor%}
+                {% endif%}
+                ]
+                },
+                {
+                    label: "Planetas con anillo",
+                    backgroundColor: 'rgba(82,123,255,100)',
+                    borderColor: "rgba(60,106,255,100)",
+                    pointBorderColor: "#fff",
+                    data: [
+                {% if correcta_quantity %}
+                {% for user in correcta_quantity %}
+                    '{{user.quantity}}',
+                {% endfor%}
+                {% endif%}
+                ]
+                },
+                {
+                    label: "Estrellas",
+                    backgroundColor: 'rgba(82,123,255,100)',
+                    borderColor: "rgba(60,106,255,100)",
+                    pointBorderColor: "#fff",
+                    data: [
+                {% if correcta_quantity %}
+                {% for user in correcta_quantity %}
+                    '{{user.quantity}}',
+                {% endfor%}
+                {% endif%}
+                ]
+                },
+                {
+                    label: "Supernova",
+                    backgroundColor: 'rgba(82,123,255,100)',
+                    borderColor: "rgba(60,106,255,100)",
+                    pointBorderColor: "#fff",
+                    data: [
+                {% if correcta_quantity %}
+                {% for user in correcta_quantity %}
+                    '{{user.quantity}}',
+                {% endfor%}
+                {% endif%}
+                ]
+                },
+                {
+                    label: "Nebulosa",
+                    backgroundColor: 'rgba(82,123,255,100)',
+                    borderColor: "rgba(60,106,255,100)",
+                    pointBorderColor: "#fff",
+                    data: [
+                {% if correcta_quantity %}
+                {% for user in correcta_quantity %}
+                    '{{user.quantity}}',
+                {% endfor%}
+                {% endif%}
+                ]
+                },
+                {
+                    label: "Galaxias",
+                    backgroundColor: 'rgba(240,66,49,94)',
+                    borderColor: "rgba(240,39,29,94)",
+                    pointBorderColor: "#fff",
+                    data: [
+                {% if incorrecta_quantity %}
+                {% for user in incorrecta_quantity %}
+                    '{{user.quantity}}',
+                {% endfor%}
+                {% endif%}
+                ]
+                }
+            ]
+        };
+        var ctx = document.getElementById("stacked3").getContext("2d");
+        new Chart(ctx, {type: 'horizontalBar', data: stackedElemento, options:stacked2Options});
+
+        var stacked3Data = {
+            labels: [
+                {% if game_time %}
+                {% for user in game_time %}
+                    '{{user.name}}',
+                {% endfor%}
+                {% endif%}
+                ],
+            datasets: [
+                {
+                    label: "Correctas",
+                    backgroundColor: 'rgba(82,123,255,100)',
+                    borderColor: "rgba(60,106,255,100)",
+                    pointBorderColor: "#fff",
+                    data: [
+                {% if correcta_quantity %}
+                {% for user in correcta_quantity %}
+                    '{{user.quantity}}',
+                {% endfor%}
+                {% endif%}
+                ]
+                },
+                {
+                    label: "Incorrectas",
+                    backgroundColor: 'rgba(240,66,49,94)',
+                    borderColor: "rgba(240,39,29,94)",
+                    pointBorderColor: "#fff",
+                    data: [
+                {% if incorrecta_quantity %}
+                {% for user in incorrecta_quantity %}
+                    '{{user.quantity}}',
+                {% endfor%}
+                {% endif%}
+                ]
+                }
+            ]
+        };
+        var ctx = document.getElementById("stacked3").getContext("2d");
+        new Chart(ctx, {type: 'horizontalBar', data: stacked2Data, options:stacked2Options});
+        </script>
+    
+        <script>
+            function setFilterSelectors(params){
+                let queryString = location.search;
+                let urlParams = new URLSearchParams(queryString);
+                let param = null;
+                for(let i = 0; i < params.length; i++ ) {
+                    param = urlParams.get(params[i])
+                    if(param && param != 0){
+                        document.getElementById(params[i] + "-filter-selector").value = param
+                    }
+                }
+            }
+            setFilterSelectors(['school','course','reim', 'activity', 'start', 'end'])
+        </script>
+    
+        <!-- <script type="text/javascript">
+            setTimeout(function(){
+              location = ''
+            },10000)
+          </script> -->
+    
+        <script>
+    
+            $(document).ready(function () {
+        
+                // Add slimscroll to element
+                $('.scroll_content').slimscroll({
+                    height: '250px'
+                })
+        
+            });
+        
+        </script>
+        <script>
+             function calculateBarWidth(datasetCount){
+                if(options.isFixedWidth){
+                    return options.barWidth;
+                }else{
+                var baseWidth = this.calculateBaseWidth() - ((datasetCount - 1) * options.barDatasetSpacing);
+            return (baseWidth / datasetCount);
+    }}
+        </script>
+    </body>
+    </html>
