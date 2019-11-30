@@ -613,28 +613,6 @@
                     </div>
                 </div>
                 {% endif %}
-                <!--Laberinto -->
-                {% if activity_num == '3004' %}
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
-                            <div class="col-lg-6">
-                                <div class="ibox ">
-                                    <div class="ibox-title">
-                                        <h5>Numero total de colisiones por alumnos en actividad laberinto</h5>
-                                        <div class="ibox-tools"></div>
-                                    </div>
-                                    <div class="ibox-content">
-                                        <div class="scroll_content">
-                                            <canvas id="colisions" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                {% endif %}
                 <!--Tesoro -->
                 {% if activity_num == '3005' %}
                 <div class="row">
@@ -992,8 +970,8 @@
         datasets: [
             {
                 label: "Colisiones totales",
-                backgroundColor: 'rgb(81,209,246)',
-                borderColor: "rgb(81,209,246)",
+                backgroundColor: 'rgb(207,52,118)',
+                borderColor: "rgb(207,52,118)",
                 pointBorderColor: "#fff",
                 data: [
                     {% if colision_quantity %}
@@ -1055,12 +1033,21 @@
         }
         ]
         };
-        //var ctx6 = document.getElementById("colisions").getContext("2d");
-        // new Chart(ctx6, {type: 'horizontalBar', data: ctx6data, options:barOptions});
-        // var ctx7 = document.getElementById("corrects").getContext("2d");
-        // new Chart(ctx7, {type: 'horizontalBar', data: ctx7data, options:barOptions});
-        var ctx8 = document.getElementById("jumps").getContext("2d");
-        new Chart(ctx8, {type: 'horizontalBar', data: ctx8data, options:barOptions});
+
+        if($('#colisions').length){
+            var ctx6 = document.getElementById("colisions").getContext("2d");
+            new Chart(ctx6, {type: 'horizontalBar', data: ctx6data, options:barOptions});
+        }
+
+        if ($('#corrects').length){
+            var ctx7 = document.getElementById("corrects").getContext("2d");
+            new Chart(ctx7, {type: 'horizontalBar', data: ctx7data, options:barOptions});
+        }
+
+        if ($('#jumps').length){
+            var ctx8 = document.getElementById("jumps").getContext("2d");
+            new Chart(ctx8, {type: 'horizontalBar', data: ctx8data, options:barOptions});
+        }
 
     </script>
 
