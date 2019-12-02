@@ -138,6 +138,10 @@ def welcome(request):
         corrects_quantity_response = []
         incorrects_quantity_response = []
         jumps_quantity_response = []
+        corrects_act1_quantity_response = []
+        incorrects_act1_quantity_response = []
+        corrects_act2_quantity_response = []
+        incorrects_act2_quantity_response = []
         if reim_num=="3":
             colision_query = get_colision_co(request)
             cursor.execute(colision_query)
@@ -170,6 +174,39 @@ def welcome(request):
             print ("jumps quantity" , jumps_quantity)
             for row in jumps_quantity:
                 jumps_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+
+            corrects_act1_query = get_corrects_act1_co(request)
+            cursor.execute(corrects_act1_query)
+            queries.append({"name": 'Corrects act1 query', "query": corrects_act1_query})
+            corrects_act1_quantity = cursor.fetchall()
+            print ("Corrects act1 quantity" , corrects_act1_quantity)
+            for row in corrects_act1_quantity:
+                corrects_act1_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+
+            incorrects_act1_query = get_incorrects_act1_co(request)
+            cursor.execute(incorrects_act1_query)
+            queries.append({"name": 'Incorrects act1 query', "query": jumps_query})
+            incorrects_act1_quantity = cursor.fetchall()
+            print ("Incorrects act1 quantity" , incorrects_act1_quantity)
+            for row in incorrects_act1_quantity:
+                incorrects_act1_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+
+            corrects_act2_query = get_corrects_act2_co(request)
+            cursor.execute(corrects_act2_query)
+            queries.append({"name": 'Corrects act2 query', "query": corrects_act2_query})
+            corrects_act2_quantity = cursor.fetchall()
+            print ("Corrects act2 quantity" , corrects_act2_quantity)
+            for row in corrects_act2_quantity:
+                corrects_act2_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+
+            incorrects_act2_query = get_incorrects_act2_co(request)
+            cursor.execute(incorrects_act2_query)
+            queries.append({"name": 'Incorrects act2 query', "query": incorrects_act2_query})
+            incorrects_act2_quantity = cursor.fetchall()
+            print ("Incorrects act2 quantity" , jumps_quantity)
+            for row in incorrects_act2_quantity:
+                incorrects_act2_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+       
     
         #Cantidad de Sesiones
         session_query = get_session_query(request)
@@ -207,6 +244,10 @@ def welcome(request):
                 'corrects_quantity':corrects_quantity_response,
                 'incorrects_quantity':incorrects_quantity_response,
                 'jumps_quantity':jumps_quantity_response,
+                'corrects_act1_quantity':corrects_act1_quantity_response,
+                'incorrects_act1_quantity':incorrects_act1_quantity_response,
+                'corrects_act2_quantity':corrects_act2_quantity_response,
+                'incorrects_act2_quantity':incorrects_act2_quantity_response,
             })
     # En otro caso redireccionamos al login
     return redirect('/login')
