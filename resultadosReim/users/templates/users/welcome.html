@@ -1067,171 +1067,176 @@
             var ctx8 = document.getElementById("jumps").getContext("2d");
             new Chart(ctx8, {type: 'horizontalBar', data: ctx8data, options:barOptions});
         }
-        var ctx10 = document.getElementById('prueba');
-        var myChart = new Chart(ctx10, {
-        type: 'horizontalBar',
-        data: {
-            labels: 
-            [
-                {% if corrects_quantity %}
-                    {% for corrects in corrects_quantity %}
-                        '{{corrects.name}}',
-                    {% endfor%}
-                {% endif%}
-                // ,
 
-                // {% if incorrects_quantity %}
-                //     {% for incorrects in incorrects_quantity %}
-                //         '{{incorrects.name}}',
-                //     {% endfor%}
-                // {% endif%}
-            ],
-            datasets: 
-            [
-                {
-                    label: "Correctas totales",
-                    backgroundColor: 'rgb(87,35,100)',
-                    borderColor: "rgb(87,35,100)",
-                    pointBorderColor: "#fff",
-                    data: 
-                    [
-                        {% if corrects_quantity %}
-                            {% for corrects in corrects_quantity %}
-                                '{{corrects.quantity}}',
-                            {% endfor%}
-                        {% endif%}
-                    ]
-                },
-                {
-                    label: "Incorrectas totales",
-                    backgroundColor: 'rgb(0,255,255)',
-                    borderColor: "rgb(0,255,255)",
-                    pointBorderColor: "#fff",
-                    data: 
-                    [
-                        {% if incorrects_quantity %}
-                            {% for incorrects in incorrects_quantity %}
-                                '{{incorrects.quantity}}',
-                            {% endfor%}
-                        {% endif%}
-                    ]
-                }
-            ]
-        },
-        options: {
-            scales: {
-                xAxes:[{
-                        stacked:true,
-                        ticks: {
-                            min: 0,
-                            callback: function(value, index, values) {
-                                if (Math.floor(value) === value) {
-                                    return value;
+        if ($('#prueba').length){
+            var ctx10 = document.getElementById('prueba');
+            var myChart = new Chart(ctx10, {
+            type: 'horizontalBar',
+            data: {
+                labels: 
+                [
+                    {% if corrects_quantity %}
+                        {% for corrects in corrects_quantity %}
+                            '{{corrects.name}}',
+                        {% endfor%}
+                    {% endif%}
+                    // ,
+
+                    // {% if incorrects_quantity %}
+                    //     {% for incorrects in incorrects_quantity %}
+                    //         '{{incorrects.name}}',
+                    //     {% endfor%}
+                    // {% endif%}
+                ],
+                datasets: 
+                [
+                    {
+                        label: "Correctas totales",
+                        backgroundColor: 'rgb(87,35,100)',
+                        borderColor: "rgb(87,35,100)",
+                        pointBorderColor: "#fff",
+                        data: 
+                        [
+                            {% if corrects_quantity %}
+                                {% for corrects in corrects_quantity %}
+                                    '{{corrects.quantity}}',
+                                {% endfor%}
+                            {% endif%}
+                        ]
+                    },
+                    {
+                        label: "Incorrectas totales",
+                        backgroundColor: 'rgb(0,255,255)',
+                        borderColor: "rgb(0,255,255)",
+                        pointBorderColor: "#fff",
+                        data: 
+                        [
+                            {% if incorrects_quantity %}
+                                {% for incorrects in incorrects_quantity %}
+                                    '{{incorrects.quantity}}',
+                                {% endfor%}
+                            {% endif%}
+                        ]
+                    }
+                ]
+            },
+            options: {
+                scales: {
+                    xAxes:[{
+                            stacked:true,
+                            ticks: {
+                                min: 0,
+                                callback: function(value, index, values) {
+                                    if (Math.floor(value) === value) {
+                                        return value;
+                                    }
                                 }
                             }
-                        }
-                    }],
-            yAxes: [{ stacked: true }]
-            }
-        }
-        });
-
-        var ctx11 = document.getElementById('analitics');
-        var Chart11 = new Chart(ctx11, {
-        type: 'horizontalBar',
-        data: {
-            labels: 
-            [
-                {% if corrects_quantity %}
-                    {% for corrects in corrects_quantity %}
-                        '{{corrects.name}}',
-                    {% endfor%}
-                {% endif%}
-                // ,
-
-                // {% if incorrects_quantity %}
-                //     {% for incorrects in incorrects_quantity %}
-                //         '{{incorrects.name}}',
-                //     {% endfor%}
-                // {% endif%}
-            ],
-            datasets: 
-            [
-                {
-                    label: "Correctas Actividad 1",
-                    backgroundColor: 'rgb(23,165,137)',
-                    borderColor: "rgb(23,165,137)",
-                    pointBorderColor: "#fff",
-                    data: 
-                    [
-                        {% if corrects_act1_quantity %}
-                            {% for corrects_act1 in corrects_act1_quantity %}
-                                '{{corrects_act1.quantity}}',
-                            {% endfor%}
-                        {% endif%}
-                    ]
-                },
-                {
-                    label: "Incorrectas Actividad 1",
-                    backgroundColor: 'rgb( 142, 68, 173 )',
-                    borderColor: "rgb( 142, 68, 173 )",
-                    pointBorderColor: "#fff",
-                    data: 
-                    [
-                        {% if incorrects_act1_quantity %}
-                            {% for incorrects_act1 in incorrects_act1_quantity %}
-                                '{{incorrects_act1.quantity}}',
-                            {% endfor%}
-                        {% endif%}
-                    ]
-                },
-                {
-                    label: "Correctas Actividad 2",
-                    backgroundColor: 'rgb(245, 176, 65)',
-                    borderColor: "rgb(245, 176, 65)",
-                    pointBorderColor: "#fff",
-                    data: 
-                    [
-                        {% if corrects_act2_quantity %}
-                            {% for corrects_act2 in corrects_act2_quantity %}
-                                '{{corrects_act2.quantity}}',
-                            {% endfor%}
-                        {% endif%}
-                    ]
-                },
-                {
-                    label: "Incorrectas Actividad 2",
-                    backgroundColor: 'rgb( 93, 173, 226 )',
-                    borderColor: "rgb( 93, 173, 226 )",
-                    pointBorderColor: "#fff",
-                    data: 
-                    [
-                        {% if incorrects_act2_quantity %}
-                            {% for incorrects_act2 in incorrects_act2_quantity %}
-                                '{{incorrects_act2.quantity}}',
-                            {% endfor%}
-                        {% endif%}
-                    ]
+                        }],
+                yAxes: [{ stacked: true }]
                 }
-            ]
-        },
-        options: {
-            scales: {
-                xAxes:[{
-                        stacked:true,
-                        ticks: {
-                            min: 0,
-                            callback: function(value, index, values) {
-                                if (Math.floor(value) === value) {
-                                    return value;
+            }
+            });
+        }
+
+        if ($('#analitics').length){
+            var ctx11 = document.getElementById('analitics');
+            var Chart11 = new Chart(ctx11, {
+            type: 'horizontalBar',
+            data: {
+                labels: 
+                [
+                    {% if corrects_quantity %}
+                        {% for corrects in corrects_quantity %}
+                            '{{corrects.name}}',
+                        {% endfor%}
+                    {% endif%}
+                    // ,
+
+                    // {% if incorrects_quantity %}
+                    //     {% for incorrects in incorrects_quantity %}
+                    //         '{{incorrects.name}}',
+                    //     {% endfor%}
+                    // {% endif%}
+                ],
+                datasets: 
+                [
+                    {
+                        label: "Correctas Actividad 1",
+                        backgroundColor: 'rgb(23,165,137)',
+                        borderColor: "rgb(23,165,137)",
+                        pointBorderColor: "#fff",
+                        data: 
+                        [
+                            {% if corrects_act1_quantity %}
+                                {% for corrects_act1 in corrects_act1_quantity %}
+                                    '{{corrects_act1.quantity}}',
+                                {% endfor%}
+                            {% endif%}
+                        ]
+                    },
+                    {
+                        label: "Incorrectas Actividad 1",
+                        backgroundColor: 'rgb( 142, 68, 173 )',
+                        borderColor: "rgb( 142, 68, 173 )",
+                        pointBorderColor: "#fff",
+                        data: 
+                        [
+                            {% if incorrects_act1_quantity %}
+                                {% for incorrects_act1 in incorrects_act1_quantity %}
+                                    '{{incorrects_act1.quantity}}',
+                                {% endfor%}
+                            {% endif%}
+                        ]
+                    },
+                    {
+                        label: "Correctas Actividad 2",
+                        backgroundColor: 'rgb(245, 176, 65)',
+                        borderColor: "rgb(245, 176, 65)",
+                        pointBorderColor: "#fff",
+                        data: 
+                        [
+                            {% if corrects_act2_quantity %}
+                                {% for corrects_act2 in corrects_act2_quantity %}
+                                    '{{corrects_act2.quantity}}',
+                                {% endfor%}
+                            {% endif%}
+                        ]
+                    },
+                    {
+                        label: "Incorrectas Actividad 2",
+                        backgroundColor: 'rgb( 93, 173, 226 )',
+                        borderColor: "rgb( 93, 173, 226 )",
+                        pointBorderColor: "#fff",
+                        data: 
+                        [
+                            {% if incorrects_act2_quantity %}
+                                {% for incorrects_act2 in incorrects_act2_quantity %}
+                                    '{{incorrects_act2.quantity}}',
+                                {% endfor%}
+                            {% endif%}
+                        ]
+                    }
+                ]
+            },
+            options: {
+                scales: {
+                    xAxes:[{
+                            stacked:true,
+                            ticks: {
+                                min: 0,
+                                callback: function(value, index, values) {
+                                    if (Math.floor(value) === value) {
+                                        return value;
+                                    }
                                 }
                             }
-                        }
-                    }],
-            yAxes: [{ stacked: true }]
+                        }],
+                yAxes: [{ stacked: true }]
+                }
             }
+            });
         }
-        });
 
     </script>
 
