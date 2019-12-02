@@ -553,15 +553,15 @@
                     <div class="row">
                             <div class="col-lg-12">
                                 <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-7">
                                         <div class="ibox ">
                                             <div class="ibox-title">
-                                                <h5>Numero total de correctas por alumno</h5>
+                                                <h5>Cantidad de correctas e incorrectas por alumno</h5>
                                                 <div class="ibox-tools"></div>
                                             </div>
                                             <div class="ibox-content">
                                                 <div class="scroll_content">
-                                                    <canvas id="corrects" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                                    <canvas id="prueba" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
                                                 </div>
                                             </div>
                                         </div>
@@ -1048,6 +1048,74 @@
             var ctx8 = document.getElementById("jumps").getContext("2d");
             new Chart(ctx8, {type: 'horizontalBar', data: ctx8data, options:barOptions});
         }
+        var ctx10 = document.getElementById('prueba');
+        var myChart = new Chart(ctx10, {
+        type: 'horizontalBar',
+        data: {
+            labels: 
+            [
+                {% if corrects_quantity %}
+                    {% for corrects in corrects_quantity %}
+                        '{{corrects.name}}',
+                    {% endfor%}
+                {% endif%}
+                // ,
+
+                // {% if incorrects_quantity %}
+                //     {% for incorrects in incorrects_quantity %}
+                //         '{{incorrects.name}}',
+                //     {% endfor%}
+                // {% endif%}
+            ],
+            datasets: 
+            [
+                {
+                    label: "Correctas totales",
+                    backgroundColor: 'rgb(87,35,100)',
+                    borderColor: "rgb(87,35,100)",
+                    pointBorderColor: "#fff",
+                    data: 
+                    [
+                        {% if corrects_quantity %}
+                            {% for corrects in corrects_quantity %}
+                                '{{corrects.quantity}}',
+                            {% endfor%}
+                        {% endif%}
+                    ]
+                },
+                {
+                    label: "Incorrectas totales",
+                    backgroundColor: 'rgb(0,255,255)',
+                    borderColor: "rgb(0,255,255)",
+                    pointBorderColor: "#fff",
+                    data: 
+                    [
+                        {% if incorrects_quantity %}
+                            {% for incorrects in incorrects_quantity %}
+                                '{{incorrects.quantity}}',
+                            {% endfor%}
+                        {% endif%}
+                    ]
+                }
+            ]
+        },
+        options: {
+            scales: {
+                xAxes:[{
+                        stacked:true,
+                        ticks: {
+                            min: 0,
+                            callback: function(value, index, values) {
+                                if (Math.floor(value) === value) {
+                                    return value;
+                                }
+                            }
+                        }
+                    }],
+            yAxes: [{ stacked: true }]
+            }
+        }
+        });
 
     </script>
 
@@ -1079,7 +1147,7 @@
 
             // Add slimscroll to element
             $('.scroll_content').slimscroll({
-                height: '250px'
+                height: '400px'
             })
 
         });
