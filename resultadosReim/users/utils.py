@@ -553,3 +553,27 @@ def get_incorrects_act2_co(request):
     start_base = 'SELECT u.id, concat(u.nombres ," ", u.apellido_paterno ," ", u.apellido_materno) as nombre, count(a.correcta) AS saltos, b.colegio_id, b.curso_id FROM alumno_respuesta_actividad a, usuario u, pertenece b WHERE' + date
     final_base = ' a.id_user= u.id && b.usuario_id = a.id_user && b.colegio_id IN (SELECT colegio_id from pertenece INNER JOIN usuario ON pertenece.usuario_id = usuario.id WHERE username="' + request.user.username + '") AND b.curso_id IN (SELECT curso_id FROM pertenece WHERE usuario_id = (SELECT id FROM usuario WHERE username = "' + request.user.username + '"))' + query_params + ' AND a.correcta=0 AND a.id_actividad = 3007 GROUP BY u.id'
     return start_base + final_base
+
+def get_move_element_query(request):
+    
+    query_params = ''
+    date = ''
+
+    if request.GET.get('reim') and request.GET.get('reim') != '0':
+        query_params = ' AND a.id_reim=' + request.GET.get('reim')
+    if request.GET.get('course') and request.GET.get('course') != '0':
+        query_params += " AND b.curso_id = " + request.GET.get('course')
+    if request.GET.get('school') and request.GET.get('school') != '0':
+        query_params += " AND b.colegio_id = " + request.GET.get('school') + ' AND (a.id_elemento= 2133 OR a.id_elemento= 2134 OR a.id_elemento= 2135 OR a.id_elemento= 2136 OR a.id_elemento= 2137 OR a.id_elemento= 2138 OR a.id_elemento= 2139)'
+    print(query_params)
+
+    if request.GET.get('start') and (request.GET.get('start') != 'dd/mm/aaaa') and request.GET.get('end') and (request.GET.get('end') != 'dd/mm/aaaa'):
+        start = str(datetime.strptime(request.GET.get('start'), '%d/%m/%Y').date())
+        end = str(datetime.strptime(request.GET.get('end'), '%d/%m/%Y').date())
+        start += " 00:00:00.000000"
+        end += " 23:59:59.000000"
+        date = ' (a.datetime_touch >= TIMESTAMP("'+ start + '") && a.datetime_touch <= TIMESTAMP("' + end  + '")) &&'
+
+    start_base = 'SELECT u.id, concat(u.nombres ," " , u.apellido_paterno ," " , u.apellido_materno) as nombre, count(a.id_user) AS CantidadTouch, b.colegio_id, b.curso_id FROM alumno_respuesta_actividad a, usuario u, pertenece b WHERE' + date
+    final_base = ' a.id_user = u.id && b.usuario_id = a.id_user && b.colegio_id IN (SELECT colegio_id from pertenece INNER JOIN usuario ON usuario.id = pertenece.usuario_id WHERE username="' + request.user.username + '") AND b.curso_id IN (SELECT curso_id FROM pertenece WHERE usuario_id = (SELECT id FROM usuario WHERE username = "' + request.user.username + '"))' + query_params + ' GROUP BY id_user'
+    return start_base + final_base

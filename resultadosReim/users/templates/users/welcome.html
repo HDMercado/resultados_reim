@@ -140,11 +140,10 @@
                 </div>
             </div>
         </div>
-        <!--PLUSSPACE -->
         {% if reim_num == '2' %}
         <div class="wrapper wrapper-content">
             <!--CREACION -->
-            {% if activity_num == '9' %}
+            {% if activity_num == '9'%}
             <div class="row">
                 <div class="col-lg-12">
                     <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
@@ -188,7 +187,7 @@
                                 </div>
                                 <div class="ibox-content">
                                     <div class="scroll_content">
-                                        <canvas id="horizontalCreacionVS" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                        <canvas id="CreacionVS" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
                                     </div>
                                 </div>
                             </div>
@@ -201,7 +200,7 @@
                                 </div>
                                 <div class="ibox-content">
                                     <div class="scroll_content">
-                                        <canvas id="horizontalMoveElement" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                        <canvas id="Desplazados" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
                                     </div>
                                 </div>
                             </div>
@@ -290,7 +289,7 @@
                                 </div>
                                 <div class="ibox-content">
                                     <div class="scroll_content">
-                                        <canvas id="horizontalBar" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                        <canvas id="stacked2" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
                                     </div>
                                 </div>
                             </div>
@@ -309,7 +308,7 @@
                                 </div>
                                 <div class="ibox-content">
                                     <div class="scroll_content">
-                                        <canvas id="stacked2" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                        <canvas id="horizontalBar" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
                                     </div>
                                 </div>
                             </div>
@@ -322,7 +321,7 @@
                                 </div>
                                 <div class="ibox-content">
                                     <div class="scroll_content">
-                                        <canvas id="stacked2" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                        <canvas id="movePS" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
                                     </div>
                                 </div>
                             </div>
@@ -330,7 +329,6 @@
                     </div>
                 </div>
             </div>
-
             {% endif %}
             <!--BUSCA -->
             {% if activity_num == '12' %}
@@ -494,80 +492,28 @@
                 </div>
             </div>
             {% endif %}
-            {% else %}
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
-                        <div class="col-lg-6">
-                            <div class="ibox ">
-                                <div class="ibox-title">
-                                    <h5>Minutos de juego</h5>
-                                    <div class="ibox-tools"></div>
-                                </div>
-                                <div class="ibox-content">
-                                    <div class="scroll_content">
-                                        <canvas id="stacked" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="ibox">
-                                <div class="ibox-title">
-                                    <h5>Cantidad de touch por alumno</h5>
-                                    <div class="ibox-tools"></div>
-                                </div>
-                                <div class="ibox-content">
-                                    <div class="scroll_content">
-                                        <canvas id="horizontalBar" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
-                <div class="col-lg-12">
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="ibox ">
-                                <div class="ibox-title">
-                                    <h5>Sesiones por alumno</h5>
-                                    <div class="ibox-tools"></div>
-                                </div>
-                                <div class="ibox-content">
-                                    <div class="scroll_content">
-                                        <canvas id="stacked2" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
             {% endif %}
             <!--Clean Ocean -->
             {% if reim_num == '3' %}
             <div class="wrapper wrapper-content">
                     <div class="row">
-                            <div class="col-lg-12">
-                                <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
-                                    <div class="col-lg-7">
-                                        <div class="ibox ">
-                                            <div class="ibox-title">
-                                                <h5>Cantidad de correctas e incorrectas por alumno</h5>
-                                                <div class="ibox-tools"></div>
-                                            </div>
-                                            <div class="ibox-content">
-                                                <div class="scroll_content">
-                                                    <canvas id="prueba" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
-                                                </div>
+                        <div class="col-lg-12">
+                            <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
+                                <div class="col-lg-7">
+                                    <div class="ibox ">
+                                        <div class="ibox-title">
+                                            <h5>Cantidad de correctas e incorrectas por alumno</h5>
+                                            <div class="ibox-tools"></div>
+                                        </div>
+                                        <div class="ibox-content">
+                                            <div class="scroll_content">
+                                                <canvas id="prueba" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
@@ -589,63 +535,97 @@
                         </div>
                     </div>
                 <!--Lancha -->
-                {% if activity_num == '3002' %}
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
-                            <div class="col-lg-6">
-                                <div class="ibox ">
-                                    <div class="ibox-title">
-                                        <h5>Numero total de colisiones por alumnos en actividad lancha</h5>
-                                        <div class="ibox-tools"></div>
-                                    </div>
-                                    <div class="ibox-content">
-                                        <div class="scroll_content">
-                                            <canvas id="colisions" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                    {% if activity_num == '3002' %}
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
+                                <div class="col-lg-6">
+                                    <div class="ibox ">
+                                        <div class="ibox-title">
+                                            <h5>Numero total de colisiones por alumnos en actividad lancha</h5>
+                                            <div class="ibox-tools"></div>
+                                        </div>
+                                        <div class="ibox-content">
+                                            <div class="scroll_content">
+                                                <canvas id="colisions" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                {% endif %}
+                    {% endif %}
                 <!--Laberinto -->
-                {% if activity_num == '3004' %}
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
-                            <div class="col-lg-6">
-                                <div class="ibox ">
-                                    <div class="ibox-title">
-                                        <h5>Numero total de colisiones por alumnos en actividad laberinto</h5>
-                                        <div class="ibox-tools"></div>
-                                    </div>
-                                    <div class="ibox-content">
-                                        <div class="scroll_content">
-                                            <canvas id="colisions" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                    {% if activity_num == '3004' %}
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
+                                <div class="col-lg-6">
+                                    <div class="ibox ">
+                                        <div class="ibox-title">
+                                            <h5>Numero total de colisiones por alumnos en actividad laberinto</h5>
+                                            <div class="ibox-tools"></div>
+                                        </div>
+                                        <div class="ibox-content">
+                                            <div class="scroll_content">
+                                                <canvas id="colisions" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                {% endif %}
+                    {% endif %}
                 <!--Tesoro -->
-                {% if activity_num == '3005' %}
+                    {% if activity_num == '3005' %}
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
+                                <div class="col-lg-6">
+                                    <div class="ibox ">
+                                        <div class="ibox-title">
+                                            <h5>Numero total de saltos por alumnos en actividad tesoro</h5>
+                                            <div class="ibox-tools"></div>
+                                        </div>
+                                        <div class="ibox-content">
+                                            <div class="scroll_content">
+                                                <canvas id="jumps" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+            {% endif %}
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
                             <div class="col-lg-6">
                                 <div class="ibox ">
                                     <div class="ibox-title">
-                                        <h5>Numero total de saltos por alumnos en actividad tesoro</h5>
+                                        <h5>Minutos de juego</h5>
                                         <div class="ibox-tools"></div>
                                     </div>
                                     <div class="ibox-content">
                                         <div class="scroll_content">
-                                            <canvas id="jumps" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                            <canvas id="stacked" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="ibox">
+                                    <div class="ibox-title">
+                                        <h5>Cantidad de touch por alumno</h5>
+                                        <div class="ibox-tools"></div>
+                                    </div>
+                                    <div class="ibox-content">
+                                        <div class="scroll_content">
+                                            <canvas id="horizontalBar" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
                                         </div>
                                     </div>
                                 </div>
@@ -653,8 +633,25 @@
                         </div>
                     </div>
                 </div>
-                {% endif %}
-                {% endif %}
+                <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="ibox ">
+                                    <div class="ibox-title">
+                                        <h5>Sesiones por alumno</h5>
+                                        <div class="ibox-tools"></div>
+                                    </div>
+                                    <div class="ibox-content">
+                                        <div class="scroll_content">
+                                            <canvas id="stacked2" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                 <div>
                     <strong>Copyright</strong>  &copy; 2019
@@ -884,98 +881,104 @@
         var ctx3 = document.getElementById("stacked2").getContext("2d");
         new Chart(ctx3, {type: 'horizontalBar', data: stacked2Data, options:stacked2Options});
 
-        // //ACTIVIDADES COMPLETADASVS NO COMPLETADAS CREACION PS
-        // var CreacionVSData = {
-        //     labels: [
-        //         {% if ingresar_creacion_quantity %}
-        // {% for ingresar_creacion in ingresar_creacion_quantity %}
-        // '{{ingresar_creacion.name}}',
-        // {% endfor%}
-        // {% endif%}
-        // ],
-        // datasets: [
-        //     {
-        //         label: "Cantidad de touch",
-        //         backgroundColor: 'rgba(180,100,255,100)',
-        //         borderColor: "rgba(168,75,255,100)",
-        //         pointBorderColor: "#fff",
-        //         data: [
-        //             {% if ingresar_creacion_quantity %}
-        //     {% for ingresar_creacion in ingresar_creacion_quantity %}
-        // '{{ingresar_creacion.quantity}}',
-        // {% endfor%}
-        // {% endif%}
-        // ]
-        // }
-        // ]
-        // };
+        //ACTIVIDADES COMPLETADASVS NO COMPLETADAS CREACION PS
+        var CreacionVSData = {
+            labels: [
+                {% if ingresar_creacion_quantity %}
+        {% for ingresar_creacion in ingresar_creacion_quantity %}
+        '{{ingresar_creacion.name}}',
+        {% endfor%}
+        {% endif%}
+        ],
+        datasets: [
+            {
+                label: "Cantidad de touch",
+                backgroundColor: 'rgba(180,100,255,100)',
+                borderColor: "rgba(168,75,255,100)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if ingresar_creacion_quantity %}
+            {% for ingresar_creacion in ingresar_creacion_quantity %}
+        '{{ingresar_creacion.quantity}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        }
+        ]
+        };
 
-        // var CreacionVSOptions = {
-        //     animation: false,
-        //     responsive: true,
-        //     isFixedWidth:true,
-        //     scales: {
-        //         xAxes:[{
-        //             stacked:true,
-        //             ticks: {
-        //                 min: 0,
-        //                 callback: function(value, index, values) {
-        //                     if (Math.floor(value) === value) {
-        //                         return value;
-        //                     }
-        //                 }
-        //             }
-        //         }]
-        //     }
-        // };
-        // var ctx4 = document.getElementById("horizontalCreacionVS").getContext("2d");
-        // new Chart(ctx4, {type: 'horizontalBar', data: CreacionVSData, options:CreacionVSOptions});
-        // //ELEMNTOS DESPLAZADOS - CREACION - PLSSPACE
-        // var MoveElementData = {
-        //     labels: [
-        //         {% if move_element_quantity %}
-        // {% for move_element in move_element_quantity %}
-        // '{{move_element.name}}',
-        // {% endfor%}
-        // {% endif%}
-        // ],
-        // datasets: [
-        //     {
-        //         label: "Elementos desplazados",
-        //         backgroundColor: 'rgba(180,100,255,100)',
-        //         borderColor: "rgba(168,75,255,100)",
-        //         pointBorderColor: "#fff",
-        //         data: [
-        //             {% if move_element_quantity %}
-        //     {% for move_element in move_element_quantity %}
-        // '{{move_element.quantity}}',
-        // {% endfor%}
-        // {% endif%}
-        // ]
-        // }
-        // ]
-        // };
+        var CreacionVSOptions = {
+            animation: false,
+            responsive: true,
+            isFixedWidth:true,
+            scales: {
+                xAxes:[{
+                    stacked:true,
+                    ticks: {
+                        min: 0,
+                        callback: function(value, index, values) {
+                            if (Math.floor(value) === value) {
+                                return value;
+                            }
+                        }
+                    }
+                }]
+            }
+        };
 
-        // var MoveElementOptions = {
-        //     animation: false,
-        //     responsive: true,
-        //     isFixedWidth:true,
-        //     scales: {
-        //         xAxes:[{
-        //             stacked:true,
-        //             ticks: {
-        //                 min: 0,
-        //                 callback: function(value, index, values) {
-        //                     if (Math.floor(value) === value) {
-        //                         return value;
-        //                     }
-        //                 }
-        //             }
-        //         }]
-        //     }
-        // };
-        // var ctx5 = document.getElementById("horizontalMoveElement").getContext("2d");
-        // new Chart(ctx5, {type: 'horizontalBar', data: MoveElementData, options:MoveElementOptions});
+        if ($('#horizontalCreacionVS').length){
+            var ctx4 = document.getElementById("horizontalCreacionVS").getContext("2d");
+            new Chart(ctx4, {type: 'horizontalBar', data: CreacionVSData, options:CreacionVSOptions});
+        }
+        //ELEMNTOS DESPLAZADOS - CREACION - PLSSPACE
+        var MoveElementData = {
+            labels: [
+                {% if move_element_quantity %}
+        {% for move_element in move_element_quantity %}
+        '{{move_element.name}}',
+        {% endfor%}
+        {% endif%}
+        ],
+        datasets: [
+            {
+                label: "Elementos desplazados",
+                backgroundColor: 'rgba(180,100,255,100)',
+                borderColor: "rgba(168,75,255,100)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if move_element_quantity %}
+            {% for move_element in move_element_quantity %}
+        '{{move_element.quantity}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        }
+        ]
+        };
+
+        var MoveElementOptions = {
+            animation: false,
+            responsive: true,
+            isFixedWidth:true,
+            scales: {
+                xAxes:[{
+                    stacked:true,
+                    ticks: {
+                        min: 0,
+                        callback: function(value, index, values) {
+                            if (Math.floor(value) === value) {
+                                return value;
+                            }
+                        }
+                    }
+                }]
+            }
+        };
+
+        if ($('#movePS').length){
+            var ctx5 = document.getElementById("movePS").getContext("2d");
+            new Chart(ctx5, {type: 'horizontalBar', data: MoveElementData, options:MoveElementOptions});
+        }
 
         //Colisiones totales
         var ctx6data = {
@@ -1080,7 +1083,8 @@
                             '{{corrects.name}}',
                         {% endfor%}
                     {% endif%}
-                    // ,
+                    
+                    //,
 
                     // {% if incorrects_quantity %}
                     //     {% for incorrects in incorrects_quantity %}
@@ -1123,7 +1127,7 @@
             options: {
                 scales: {
                     xAxes:[{
-                            stacked:true,
+                            stacked:false,
                             ticks: {
                                 min: 0,
                                 callback: function(value, index, values) {
@@ -1133,7 +1137,7 @@
                                 }
                             }
                         }],
-                yAxes: [{ stacked: true }]
+                yAxes: [{ stacked: false }]
                 }
             }
             });
