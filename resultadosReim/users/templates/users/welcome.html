@@ -116,7 +116,7 @@
                                             {% endif %}
                                         </select>
                                     </div>
-                                    <div  class="col-md-12">
+                                    <div  class="col-md-8">
                                         <div  class="ibox float-e-margins">
                                             <div  class="form-group" id="data_5">
                                                 <label  class="font-normal">Rango de fecha</label>
@@ -129,6 +129,17 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div  class="col-md-4">
+                                        <label  class="font-normal">Alumno</label>
+                                        <select onchange="this.form.submit()" id="student-filter-selector" name="student" class="form-control m-b">
+                                            <option value ="0">Seleccione Alumno</option>
+                                            {% if students %}
+                                            {% for student in students %}
+                                            <option value ={{student.id}}>{{student.name}}</option>
+                                            {% endfor %}
+                                            {% endif %}
+                                        </select>
+                                    </div>
                                     <p class="col-lg-12">
                                         <button class="btn btn-sm btn-primary m-t-n-xs float-right"><i class="fa fa-filter"></i> Filtrar</button>
                                         <a href="/" class="btn btn-sm btn-secondary m-t-n-xs float-right" style="margin-right: 5px"><i class="fa fa-trash"></i> Limpiar</a>
@@ -140,11 +151,10 @@
                 </div>
             </div>
         </div>
-        <!--PLUSSPACE -->
         {% if reim_num == '2' %}
         <div class="wrapper wrapper-content">
             <!--CREACION -->
-            {% if activity_num == '9' %}
+            {% if activity_num == '9'%}
             <div class="row">
                 <div class="col-lg-12">
                     <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
@@ -188,7 +198,7 @@
                                 </div>
                                 <div class="ibox-content">
                                     <div class="scroll_content">
-                                        <canvas id="horizontalCreacionVS" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                        <canvas id="CreacionVS" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
                                     </div>
                                 </div>
                             </div>
@@ -201,7 +211,7 @@
                                 </div>
                                 <div class="ibox-content">
                                     <div class="scroll_content">
-                                        <canvas id="horizontalMoveElement" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                        <canvas id="Desplazados" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
                                     </div>
                                 </div>
                             </div>
@@ -290,7 +300,7 @@
                                 </div>
                                 <div class="ibox-content">
                                     <div class="scroll_content">
-                                        <canvas id="horizontalBar" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                        <canvas id="stacked2" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
                                     </div>
                                 </div>
                             </div>
@@ -309,7 +319,7 @@
                                 </div>
                                 <div class="ibox-content">
                                     <div class="scroll_content">
-                                        <canvas id="stacked2" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                        <canvas id="horizontalBar" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
                                     </div>
                                 </div>
                             </div>
@@ -322,7 +332,7 @@
                                 </div>
                                 <div class="ibox-content">
                                     <div class="scroll_content">
-                                        <canvas id="stacked2" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                        <canvas id="movePS" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
                                     </div>
                                 </div>
                             </div>
@@ -330,7 +340,6 @@
                     </div>
                 </div>
             </div>
-
             {% endif %}
             <!--BUSCA -->
             {% if activity_num == '12' %}
@@ -494,161 +503,140 @@
                 </div>
             </div>
             {% endif %}
-            {% else %}
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
-                        <div class="col-lg-6">
-                            <div class="ibox ">
-                                <div class="ibox-title">
-                                    <h5>Minutos de juego</h5>
-                                    <div class="ibox-tools"></div>
-                                </div>
-                                <div class="ibox-content">
-                                    <div class="scroll_content">
-                                        <canvas id="stacked" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="ibox">
-                                <div class="ibox-title">
-                                    <h5>Cantidad de touch por alumno</h5>
-                                    <div class="ibox-tools"></div>
-                                </div>
-                                <div class="ibox-content">
-                                    <div class="scroll_content">
-                                        <canvas id="horizontalBar" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
-                <div class="col-lg-12">
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="ibox ">
-                                <div class="ibox-title">
-                                    <h5>Sesiones por alumno</h5>
-                                    <div class="ibox-tools"></div>
-                                </div>
-                                <div class="ibox-content">
-                                    <div class="scroll_content">
-                                        <canvas id="stacked2" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
             {% endif %}
             <!--Clean Ocean -->
             {% if reim_num == '3' %}
             <div class="wrapper wrapper-content">
                     <div class="row">
-                            <div class="col-lg-12">
-                                <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
-                                    <div class="col-lg-6">
-                                        <div class="ibox ">
-                                            <div class="ibox-title">
-                                                <h5>Numero total de correctas por alumno</h5>
-                                                <div class="ibox-tools"></div>
-                                            </div>
-                                            <div class="ibox-content">
-                                                <div class="scroll_content">
-                                                    <canvas id="corrects" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
-                                                </div>
+                        <div class="col-lg-12">
+                            <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
+                                <div class="col-lg-7">
+                                    <div class="ibox ">
+                                        <div class="ibox-title">
+                                            <h5>Cantidad de correctas e incorrectas por alumno</h5>
+                                            <div class="ibox-tools"></div>
+                                        </div>
+                                        <div class="ibox-content">
+                                            <div class="scroll_content">
+                                                <canvas id="prueba" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
+                                <div class="col-lg-7">
+                                    <div class="ibox ">
+                                        <div class="ibox-title">
+                                            <h5>Analítica</h5>
+                                            <div class="ibox-tools"></div>
+                                        </div>
+                                        <div class="ibox-content">
+                                            <div class="scroll_content">
+                                                <canvas id="analitics" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 <!--Lancha -->
-                {% if activity_num == '3002' %}
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
-                            <div class="col-lg-6">
-                                <div class="ibox ">
-                                    <div class="ibox-title">
-                                        <h5>Numero total de colisiones por alumnos en actividad lancha</h5>
-                                        <div class="ibox-tools"></div>
-                                    </div>
-                                    <div class="ibox-content">
-                                        <div class="scroll_content">
-                                            <canvas id="colisions" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                    {% if activity_num == '3002' %}
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
+                                <div class="col-lg-6">
+                                    <div class="ibox ">
+                                        <div class="ibox-title">
+                                            <h5>Numero total de colisiones por alumnos en actividad lancha</h5>
+                                            <div class="ibox-tools"></div>
+                                        </div>
+                                        <div class="ibox-content">
+                                            <div class="scroll_content">
+                                                <canvas id="colisions" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                {% endif %}
+                    {% endif %}
                 <!--Laberinto -->
-                {% if activity_num == '3004' %}
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
-                            <div class="col-lg-6">
-                                <div class="ibox ">
-                                    <div class="ibox-title">
-                                        <h5>Numero total de colisiones por alumnos en actividad laberinto</h5>
-                                        <div class="ibox-tools"></div>
-                                    </div>
-                                    <div class="ibox-content">
-                                        <div class="scroll_content">
-                                            <canvas id="colisions" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                    {% if activity_num == '3004' %}
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
+                                <div class="col-lg-6">
+                                    <div class="ibox ">
+                                        <div class="ibox-title">
+                                            <h5>Numero total de colisiones por alumnos en actividad laberinto</h5>
+                                            <div class="ibox-tools"></div>
+                                        </div>
+                                        <div class="ibox-content">
+                                            <div class="scroll_content">
+                                                <canvas id="colisions" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                {% endif %}
-                <!--Laberinto -->
-                {% if activity_num == '3004' %}
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
-                            <div class="col-lg-6">
-                                <div class="ibox ">
-                                    <div class="ibox-title">
-                                        <h5>Numero total de colisiones por alumnos en actividad laberinto</h5>
-                                        <div class="ibox-tools"></div>
-                                    </div>
-                                    <div class="ibox-content">
-                                        <div class="scroll_content">
-                                            <canvas id="colisions" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                {% endif %}
+                    {% endif %}
                 <!--Tesoro -->
-                {% if activity_num == '3005' %}
+                    {% if activity_num == '3005' %}
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
+                                <div class="col-lg-6">
+                                    <div class="ibox ">
+                                        <div class="ibox-title">
+                                            <h5>Numero total de saltos por alumnos en actividad tesoro</h5>
+                                            <div class="ibox-tools"></div>
+                                        </div>
+                                        <div class="ibox-content">
+                                            <div class="scroll_content">
+                                                <canvas id="jumps" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+            {% endif %}
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
                             <div class="col-lg-6">
                                 <div class="ibox ">
                                     <div class="ibox-title">
-                                        <h5>Numero total de saltos por alumnos en actividad tesoro</h5>
+                                        <h5>Minutos de juego</h5>
                                         <div class="ibox-tools"></div>
                                     </div>
                                     <div class="ibox-content">
                                         <div class="scroll_content">
-                                            <canvas id="jumps" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                            <canvas id="stacked" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="ibox">
+                                    <div class="ibox-title">
+                                        <h5>Cantidad de touch por alumno</h5>
+                                        <div class="ibox-tools"></div>
+                                    </div>
+                                    <div class="ibox-content">
+                                        <div class="scroll_content">
+                                            <canvas id="horizontalBar" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
                                         </div>
                                     </div>
                                 </div>
@@ -656,8 +644,25 @@
                         </div>
                     </div>
                 </div>
-                {% endif %}
-                {% endif %}
+                <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="ibox ">
+                                    <div class="ibox-title">
+                                        <h5>Sesiones por alumno</h5>
+                                        <div class="ibox-tools"></div>
+                                    </div>
+                                    <div class="ibox-content">
+                                        <div class="scroll_content">
+                                            <canvas id="stacked2" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                 <div>
                     <strong>Copyright</strong>  &copy; 2019
@@ -887,98 +892,104 @@
         var ctx3 = document.getElementById("stacked2").getContext("2d");
         new Chart(ctx3, {type: 'horizontalBar', data: stacked2Data, options:stacked2Options});
 
-        // //ACTIVIDADES COMPLETADASVS NO COMPLETADAS CREACION PS
-        // var CreacionVSData = {
-        //     labels: [
-        //         {% if ingresar_creacion_quantity %}
-        // {% for ingresar_creacion in ingresar_creacion_quantity %}
-        // '{{ingresar_creacion.name}}',
-        // {% endfor%}
-        // {% endif%}
-        // ],
-        // datasets: [
-        //     {
-        //         label: "Cantidad de touch",
-        //         backgroundColor: 'rgba(180,100,255,100)',
-        //         borderColor: "rgba(168,75,255,100)",
-        //         pointBorderColor: "#fff",
-        //         data: [
-        //             {% if ingresar_creacion_quantity %}
-        //     {% for ingresar_creacion in ingresar_creacion_quantity %}
-        // '{{ingresar_creacion.quantity}}',
-        // {% endfor%}
-        // {% endif%}
-        // ]
-        // }
-        // ]
-        // };
+        //ACTIVIDADES COMPLETADASVS NO COMPLETADAS CREACION PS
+        var CreacionVSData = {
+            labels: [
+                {% if ingresar_creacion_quantity %}
+        {% for ingresar_creacion in ingresar_creacion_quantity %}
+        '{{ingresar_creacion.name}}',
+        {% endfor%}
+        {% endif%}
+        ],
+        datasets: [
+            {
+                label: "Cantidad de touch",
+                backgroundColor: 'rgba(180,100,255,100)',
+                borderColor: "rgba(168,75,255,100)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if ingresar_creacion_quantity %}
+            {% for ingresar_creacion in ingresar_creacion_quantity %}
+        '{{ingresar_creacion.quantity}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        }
+        ]
+        };
 
-        // var CreacionVSOptions = {
-        //     animation: false,
-        //     responsive: true,
-        //     isFixedWidth:true,
-        //     scales: {
-        //         xAxes:[{
-        //             stacked:true,
-        //             ticks: {
-        //                 min: 0,
-        //                 callback: function(value, index, values) {
-        //                     if (Math.floor(value) === value) {
-        //                         return value;
-        //                     }
-        //                 }
-        //             }
-        //         }]
-        //     }
-        // };
-        // var ctx4 = document.getElementById("horizontalCreacionVS").getContext("2d");
-        // new Chart(ctx4, {type: 'horizontalBar', data: CreacionVSData, options:CreacionVSOptions});
-        // //ELEMNTOS DESPLAZADOS - CREACION - PLSSPACE
-        // var MoveElementData = {
-        //     labels: [
-        //         {% if move_element_quantity %}
-        // {% for move_element in move_element_quantity %}
-        // '{{move_element.name}}',
-        // {% endfor%}
-        // {% endif%}
-        // ],
-        // datasets: [
-        //     {
-        //         label: "Elementos desplazados",
-        //         backgroundColor: 'rgba(180,100,255,100)',
-        //         borderColor: "rgba(168,75,255,100)",
-        //         pointBorderColor: "#fff",
-        //         data: [
-        //             {% if move_element_quantity %}
-        //     {% for move_element in move_element_quantity %}
-        // '{{move_element.quantity}}',
-        // {% endfor%}
-        // {% endif%}
-        // ]
-        // }
-        // ]
-        // };
+        var CreacionVSOptions = {
+            animation: false,
+            responsive: true,
+            isFixedWidth:true,
+            scales: {
+                xAxes:[{
+                    stacked:true,
+                    ticks: {
+                        min: 0,
+                        callback: function(value, index, values) {
+                            if (Math.floor(value) === value) {
+                                return value;
+                            }
+                        }
+                    }
+                }]
+            }
+        };
 
-        // var MoveElementOptions = {
-        //     animation: false,
-        //     responsive: true,
-        //     isFixedWidth:true,
-        //     scales: {
-        //         xAxes:[{
-        //             stacked:true,
-        //             ticks: {
-        //                 min: 0,
-        //                 callback: function(value, index, values) {
-        //                     if (Math.floor(value) === value) {
-        //                         return value;
-        //                     }
-        //                 }
-        //             }
-        //         }]
-        //     }
-        // };
-        // var ctx5 = document.getElementById("horizontalMoveElement").getContext("2d");
-        // new Chart(ctx5, {type: 'horizontalBar', data: MoveElementData, options:MoveElementOptions});
+        if ($('#horizontalCreacionVS').length){
+            var ctx4 = document.getElementById("horizontalCreacionVS").getContext("2d");
+            new Chart(ctx4, {type: 'horizontalBar', data: CreacionVSData, options:CreacionVSOptions});
+        }
+        //ELEMNTOS DESPLAZADOS - CREACION - PLSSPACE
+        var MoveElementData = {
+            labels: [
+                {% if move_element_quantity %}
+        {% for move_element in move_element_quantity %}
+        '{{move_element.name}}',
+        {% endfor%}
+        {% endif%}
+        ],
+        datasets: [
+            {
+                label: "Elementos desplazados",
+                backgroundColor: 'rgba(180,100,255,100)',
+                borderColor: "rgba(168,75,255,100)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if move_element_quantity %}
+            {% for move_element in move_element_quantity %}
+        '{{move_element.quantity}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        }
+        ]
+        };
+
+        var MoveElementOptions = {
+            animation: false,
+            responsive: true,
+            isFixedWidth:true,
+            scales: {
+                xAxes:[{
+                    stacked:true,
+                    ticks: {
+                        min: 0,
+                        callback: function(value, index, values) {
+                            if (Math.floor(value) === value) {
+                                return value;
+                            }
+                        }
+                    }
+                }]
+            }
+        };
+
+        if ($('#movePS').length){
+            var ctx5 = document.getElementById("movePS").getContext("2d");
+            new Chart(ctx5, {type: 'horizontalBar', data: MoveElementData, options:MoveElementOptions});
+        }
 
         //Colisiones totales
         var ctx6data = {
@@ -992,8 +1003,8 @@
         datasets: [
             {
                 label: "Colisiones totales",
-                backgroundColor: 'rgb(81,209,246)',
-                borderColor: "rgb(81,209,246)",
+                backgroundColor: 'rgb(207,52,118)',
+                borderColor: "rgb(207,52,118)",
                 pointBorderColor: "#fff",
                 data: [
                     {% if colision_quantity %}
@@ -1042,8 +1053,8 @@
         datasets: [
             {
                 label: "Saltos totales",
-                backgroundColor: 'rgb(81,209,246)',
-                borderColor: "rgb(81,209,246)",
+                backgroundColor: 'rgb(207,52,118)',
+                borderColor: "rgb(207,52,118)",
                 pointBorderColor: "#fff",
                 data: [
                     {% if jumps_quantity %}
@@ -1055,12 +1066,191 @@
         }
         ]
         };
-        // var ctx6 = document.getElementById("colisions").getContext("2d");
-        // new Chart(ctx6, {type: 'horizontalBar', data: ctx6data, options:barOptions});
-        // var ctx7 = document.getElementById("corrects").getContext("2d");
-        // new Chart(ctx7, {type: 'horizontalBar', data: ctx7data, options:barOptions});
-        var ctx8 = document.getElementById("jumps").getContext("2d");
-        new Chart(ctx8, {type: 'horizontalBar', data: ctx8data, options:barOptions});
+
+        if($('#colisions').length){
+            var ctx6 = document.getElementById("colisions").getContext("2d");
+            new Chart(ctx6, {type: 'horizontalBar', data: ctx6data, options:barOptions});
+        }
+
+        if ($('#corrects').length){
+            var ctx7 = document.getElementById("corrects").getContext("2d");
+            new Chart(ctx7, {type: 'horizontalBar', data: ctx7data, options:barOptions});
+        }
+
+        if ($('#jumps').length){
+            var ctx8 = document.getElementById("jumps").getContext("2d");
+            new Chart(ctx8, {type: 'horizontalBar', data: ctx8data, options:barOptions});
+        }
+
+        if ($('#prueba').length){
+            var ctx10 = document.getElementById('prueba');
+            var myChart = new Chart(ctx10, {
+            type: 'horizontalBar',
+            data: {
+                labels: 
+                [
+                    {% if corrects_quantity %}
+                        {% for corrects in corrects_quantity %}
+                            '{{corrects.name}}',
+                        {% endfor%}
+                    {% endif%}
+                    //,
+
+                    // {% if incorrects_quantity %}
+                    //     {% for incorrects in incorrects_quantity %}
+                    //         '{{incorrects.name}}',
+                    //     {% endfor%}
+                    // {% endif%}
+                ],
+                datasets: 
+                [
+                    {
+                        label: "Correctas totales",
+                        backgroundColor: 'rgb(87,35,100)',
+                        borderColor: "rgb(87,35,100)",
+                        pointBorderColor: "#fff",
+                        data: 
+                        [
+                            {% if corrects_quantity %}
+                                {% for corrects in corrects_quantity %}
+                                    '{{corrects.quantity}}',
+                                {% endfor%}
+                            {% endif%}
+                        ]
+                    },
+                    {
+                        label: "Incorrectas totales",
+                        backgroundColor: 'rgb(0,255,255)',
+                        borderColor: "rgb(0,255,255)",
+                        pointBorderColor: "#fff",
+                        data: 
+                        [
+                            {% if incorrects_quantity %}
+                                {% for incorrects in incorrects_quantity %}
+                                    '{{incorrects.quantity}}',
+                                {% endfor%}
+                            {% endif%}
+                        ]
+                    }
+                ]
+            },
+            options: {
+                scales: {
+                    xAxes:[{
+                            stacked:false,
+                            ticks: {
+                                min: 0,
+                                callback: function(value, index, values) {
+                                    if (Math.floor(value) === value) {
+                                        return value;
+                                    }
+                                }
+                            }
+                        }],
+                yAxes: [{ stacked: false }]
+                }
+            }
+            });
+        }
+
+        if ($('#analitics').length){
+            var ctx11 = document.getElementById('analitics');
+            var Chart11 = new Chart(ctx11, {
+            type: 'horizontalBar',
+            data: {
+                labels: 
+                [
+                    {% if corrects_quantity %}
+                        {% for corrects in corrects_quantity %}
+                            '{{corrects.name}}',
+                        {% endfor%}
+                    {% endif%}
+                    // ,
+
+                    // {% if incorrects_quantity %}
+                    //     {% for incorrects in incorrects_quantity %}
+                    //         '{{incorrects.name}}',
+                    //     {% endfor%}
+                    // {% endif%}
+                ],
+                datasets: 
+                [
+                    {
+                        label: "Correctas Actividad 1",
+                        backgroundColor: 'rgb(23,165,137)',
+                        borderColor: "rgb(23,165,137)",
+                        pointBorderColor: "#fff",
+                        data: 
+                        [
+                            {% if corrects_act1_quantity %}
+                                {% for corrects_act1 in corrects_act1_quantity %}
+                                    '{{corrects_act1.quantity}}',
+                                {% endfor%}
+                            {% endif%}
+                        ]
+                    },
+                    {
+                        label: "Incorrectas Actividad 1",
+                        backgroundColor: 'rgb( 142, 68, 173 )',
+                        borderColor: "rgb( 142, 68, 173 )",
+                        pointBorderColor: "#fff",
+                        data: 
+                        [
+                            {% if incorrects_act1_quantity %}
+                                {% for incorrects_act1 in incorrects_act1_quantity %}
+                                    '{{incorrects_act1.quantity}}',
+                                {% endfor%}
+                            {% endif%}
+                        ]
+                    },
+                    {
+                        label: "Correctas Actividad 2",
+                        backgroundColor: 'rgb(245, 176, 65)',
+                        borderColor: "rgb(245, 176, 65)",
+                        pointBorderColor: "#fff",
+                        data: 
+                        [
+                            {% if corrects_act2_quantity %}
+                                {% for corrects_act2 in corrects_act2_quantity %}
+                                    '{{corrects_act2.quantity}}',
+                                {% endfor%}
+                            {% endif%}
+                        ]
+                    },
+                    {
+                        label: "Incorrectas Actividad 2",
+                        backgroundColor: 'rgb( 93, 173, 226 )',
+                        borderColor: "rgb( 93, 173, 226 )",
+                        pointBorderColor: "#fff",
+                        data: 
+                        [
+                            {% if incorrects_act2_quantity %}
+                                {% for incorrects_act2 in incorrects_act2_quantity %}
+                                    '{{incorrects_act2.quantity}}',
+                                {% endfor%}
+                            {% endif%}
+                        ]
+                    }
+                ]
+            },
+            options: {
+                scales: {
+                    xAxes:[{
+                            stacked:true,
+                            ticks: {
+                                min: 0,
+                                callback: function(value, index, values) {
+                                    if (Math.floor(value) === value) {
+                                        return value;
+                                    }
+                                }
+                            }
+                        }],
+                yAxes: [{ stacked: true }]
+                }
+            }
+            });
+        }
 
     </script>
 
@@ -1092,7 +1282,7 @@
 
             // Add slimscroll to element
             $('.scroll_content').slimscroll({
-                height: '250px'
+                height: '400px'
             })
 
         });
