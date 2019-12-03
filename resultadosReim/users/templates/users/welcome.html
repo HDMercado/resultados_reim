@@ -65,7 +65,7 @@
                                 <div class="row  border-bottom white-bg dashboard-header">
                                     <div class="col-md-3">
                                         <label  class="font-normal">Colegio</label>
-                                        <select  onchange = "this.form.submit()" id="school-filter-selector" name="school" class="form-control m-b">
+                                        <select onchange = "this.form.submit()" id="school-filter-selector" name="school" class="form-control m-b">
                                             {% if schools|length == 0 or schools|length >= 1 %}
                                             <option value ="0" >Seleccione Colegio</option >
                                             {% endif %}
@@ -107,7 +107,7 @@
                                     </div>
                                     <div  class="col-md-3">
                                         <label  class="font-normal">Actividad</label>
-                                        <select onchange="this.form.submit()" id="activity-filter-selector" name="activity" class="form-control m-b">
+                                        <select id="activity-filter-selector" name="activity" class="form-control m-b">
                                             <option value ="0">Seleccione Actividad</option>
                                             {% if activities %}
                                             {% for activity in activities %}
@@ -122,16 +122,16 @@
                                                 <label  class="font-normal">Rango de fecha</label>
                                                 <div  class="input-daterange input-group" id="datepicker">
                                                     <span class="input-group-addon">Desde</span>
-                                                    <span  class="input-group-addon"><i class="fa fa-calendar"></i></span><input onchange="this.form.submit()" style="width:120" type="text" class="input-sm form-control" name="start" id="start-filter-selector" data-provide="datepicker" data-date-format="dd/mm/yyyy" value="dd/mm/aaaa"/>
+                                                    <span  class="input-group-addon"><i class="fa fa-calendar"></i></span><input style="width:120" type="text" class="input-sm form-control" name="start" id="start-filter-selector" data-provide="datepicker" data-date-format="dd/mm/yyyy" value="dd/mm/aaaa"/>
                                                     <span class="input-group-addon">Hasta</span>
-                                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input onchange="this.form.submit()" style="width:120px" type="text" class="input-sm form-control" name="end" id="end-filter-selector" data-provide="datepicker" data-date-format="dd/mm/yyyy" value="dd/mm/aaaa"/>
+                                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input style="width:120px" type="text" class="input-sm form-control" name="end" id="end-filter-selector" data-provide="datepicker" data-date-format="dd/mm/yyyy" value="dd/mm/aaaa"/>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div  class="col-md-4">
                                         <label  class="font-normal">Alumno</label>
-                                        <select onchange="this.form.submit()" id="student-filter-selector" name="student" class="form-control m-b">
+                                        <select id="student-filter-selector" name="student" class="form-control m-b">
                                             <option value ="0">Seleccione Alumno</option>
                                             {% if students %}
                                             {% for student in students %}
@@ -505,7 +505,7 @@
             {% endif %}
             {% endif %}
             <!--Clean Ocean -->
-            {% if reim_num == '3' %}
+            {% if reim_num == '3' and student_num == '0' %}
             <div class="wrapper wrapper-content">
                     <div class="row">
                         <div class="col-lg-12">
@@ -612,6 +612,8 @@
                     </div>
                     {% endif %}
             {% endif %}
+
+            {% if student_num == '0' %}
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
@@ -663,6 +665,8 @@
                         </div>
                     </div>
                 </div>
+                
+                {% endif %}
 
                 <div>
                     <strong>Copyright</strong>  &copy; 2019
@@ -788,9 +792,10 @@
 
         };
 
-
-        var ctx = document.getElementById("stacked").getContext("2d");
-        new Chart(ctx, {type: 'horizontalBar', data: stackedData, options:stackedOptions});
+        if ($('#stacked').length){
+            var ctx = document.getElementById("stacked").getContext("2d");
+            new Chart(ctx, {type: 'horizontalBar', data: stackedData, options:stackedOptions});
+        }
         //TOUCH GENERAL
         var barData = {
             labels: [
@@ -836,9 +841,10 @@
             }
         };
 
-
-        var ctx2 = document.getElementById("horizontalBar").getContext("2d");
-        new Chart(ctx2, {type: 'horizontalBar', data: barData, options:barOptions});
+        if ($('#horizontalBar').length){
+            var ctx2 = document.getElementById("horizontalBar").getContext("2d");
+            new Chart(ctx2, {type: 'horizontalBar', data: barData, options:barOptions});
+        }
         //SESIONES TOTAL GENERAL
         var stacked2Data = {
             labels: [
@@ -888,9 +894,10 @@
             },
             display: true
         };
-
-        var ctx3 = document.getElementById("stacked2").getContext("2d");
-        new Chart(ctx3, {type: 'horizontalBar', data: stacked2Data, options:stacked2Options});
+        if ($('#stacked2').length){
+            var ctx3 = document.getElementById("stacked2").getContext("2d");
+            new Chart(ctx3, {type: 'horizontalBar', data: stacked2Data, options:stacked2Options});
+        }
 
         //ACTIVIDADES COMPLETADASVS NO COMPLETADAS CREACION PS
         var CreacionVSData = {
@@ -1267,7 +1274,7 @@
                 }
             }
         }
-        setFilterSelectors(['school','course','reim', 'activity', 'start', 'end'])
+        setFilterSelectors(['school','course','reim', 'activity', 'start', 'end', 'student'])
     </script>
 
     <!-- <script type="text/javascript">

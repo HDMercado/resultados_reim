@@ -98,6 +98,8 @@ def welcome(request):
         activity_num = request.GET.get('activity')
         #REIM SELECCIONADO
         reim_num = request.GET.get('reim')
+
+        student_num = request.GET.get('student')
         students_response = []
         if request.GET.get('school') and request.GET.get('school') != '0':
             if request.GET.get('course') and request.GET.get('course') != '0':
@@ -260,6 +262,7 @@ def welcome(request):
                 'sesion_quantity': sesion_quantity_response,
                 'cant_usuarios':cant_usuarios,
                 'activity_num':activity_num,
+                'student_num':student_num,
                 'reim_num':reim_num,
                 'move_element_quantity':move_element_quantity_response,
                 'colision_quantity':colision_quantity_response,
