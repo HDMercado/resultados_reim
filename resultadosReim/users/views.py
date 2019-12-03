@@ -98,6 +98,13 @@ def welcome(request):
         activity_num = request.GET.get('activity')
         #REIM SELECCIONADO
         reim_num = request.GET.get('reim')
+        students_response = []
+        if request.GET.get('school') and request.GET.get('school') != '0':
+            if request.GET.get('course') and request.GET.get('course') != '0':
+                cursor.execute('SELECT DISTINCT u.id, concat(u.nombres ," " , u.apellido_paterno ," " , u.apellido_materno) as nombre FROM alumno_respuesta_actividad a, usuario u, pertenece b WHERE a.id_user = u.id && b.usuario_id = a.id_user && b.colegio_id IN (SELECT colegio_id from pertenece INNER JOIN usuario ON usuario.id = pertenece.usuario_id WHERE username="' + request.user.username + '")' + 'AND b.curso_id IN (SELECT curso_id FROM pertenece WHERE usuario_id = (SELECT id FROM usuario WHERE username ="' + request.user.username + '"))' + 'AND a.id_reim="' + request.GET.get('reim') + '"' + 'AND b.curso_id ="' + request.GET.get('course') + '"' + 'AND b.colegio_id ="' + request.GET.get('school') + '";')
+                students = cursor.fetchall()
+                for row in students:
+                    students_response.append({ 'id': row[0], 'name': row[1] })
 
         #PLUS SPACE
         #Creacion
@@ -223,7 +230,7 @@ def welcome(request):
             print ("Incorrects act2 quantity" , jumps_quantity)
             for row in incorrects_act2_quantity:
                 incorrects_act2_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
-       #FIN CLEAN OCEAN
+        #FIN CLEAN OCEAN
     
         #Cantidad de Sesiones
         session_query = get_session_query(request)
@@ -248,6 +255,7 @@ def welcome(request):
                 'game_time': game_time_response,
                 'courses': courses_response,
                 'activities': activities_response,
+                'students': students_response,
                 'touch_quantity': touch_quantity_response,
                 'sesion_quantity': sesion_quantity_response,
                 'cant_usuarios':cant_usuarios,
