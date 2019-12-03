@@ -600,7 +600,31 @@
                         </div>
                     </div>
                     {% endif %}
-            {% endif %}
+                    {% endif %}
+            <!--Mundo Animal -->
+            {% if reim_num == '1' %}
+            <div class="wrapper wrapper-content">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
+                                <div class="col-lg-6">
+                                    <div class="ibox ">
+                                        <div class="ibox-title">
+                                            <h5>Cantidad de correctas por alumno</h5>
+                                            <div class="ibox-tools"></div>
+                                        </div>
+                                        <div class="ibox-content">
+                                            <div class="scroll_content">
+                                                <canvas id="piezas" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+           
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
@@ -1055,6 +1079,36 @@
         }
         ]
         };
+        
+        var ctx15data = {
+            labels: [
+                {% if piezas_quantity %}
+        {% for piezas in piezas_quantity %}
+        '{{piezas.name}}',
+        {% endfor%}
+        {% endif%}
+        ],
+        datasets: [
+            {
+                label: "Piezas totales",
+                backgroundColor: 'rgb(207,52,118)',
+                borderColor: "rgb(207,52,118)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if piezas_quantity %}
+            {% for piezas in piezas_quantity %}
+        '{{piezas.quantity}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        }
+        ]
+        };
+
+        if($('#piezas').length){
+            var ctx15 = document.getElementById("piezas").getContext("2d");
+            new Chart(ctx15, {type: 'horizontalBar', data: ctx15data, options:  barOptions});
+        }
 
         if($('#colisions').length){
             var ctx6 = document.getElementById("colisions").getContext("2d");
@@ -1070,6 +1124,7 @@
             var ctx8 = document.getElementById("jumps").getContext("2d");
             new Chart(ctx8, {type: 'horizontalBar', data: ctx8data, options:barOptions});
         }
+        
 
         if ($('#prueba').length){
             var ctx10 = document.getElementById('prueba');
