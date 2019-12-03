@@ -151,7 +151,7 @@ def welcome(request):
         #FIN PLUS SPACE
         #MUNDO ANIMAL 
         piezas_quantity_response =[]
-        incorrectas_quantity_response = []
+        malas_quantity_response = []
         
         if reim_num=="1":
             piezas_query = get_piezas(request)
@@ -162,6 +162,16 @@ def welcome(request):
             for row in piezas_quantity:
                 piezas_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
 
+            malas_query = get_malas(request)
+            cursor.execute(malas_query)
+            queries.append({"name": 'Malas query', "query": malas_query})
+            malas_quantity = cursor.fetchall()
+            print("malas quantity", malas_quantity)
+            for row in malas_quantity:
+                malas_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+       
+       
+       
         #FIN MUNDO ANIMAL 
 
         #CLEAN OCEAN
@@ -278,6 +288,8 @@ def welcome(request):
                 'incorrects_act2_quantity':incorrects_act2_quantity_response,
                 'move_element_quantity':move_element_quantity_response,
                 'piezas_quantity':piezas_quantity_response,
+                'malas_quantity':malas_quantity_response,
+                
             })
     # En otro caso redireccionamos al login
     return redirect('/login')

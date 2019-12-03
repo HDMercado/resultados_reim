@@ -624,7 +624,29 @@
                         </div>
                     </div>
                     {% endif %}
-           
+                <!--Buscar al animal  -->
+                {% if activity_num == '1' %}
+                <div class="row"></div>
+                    <div class="col-lg-12">
+                        <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
+                            <div class="col-lg-6">
+                                <div class="ibox ">
+                                    <div class="ibox-title">
+                                        <h5>Ejemplo</h5>
+                                        <div class="ibox-tools"></div>
+                                    </div>
+                                    <div class="ibox-content">
+                                        <div class="scroll_content">
+                                            <canvas id="malas" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
@@ -1090,7 +1112,7 @@
         ],
         datasets: [
             {
-                label: "Piezas totales",
+                label: "Cantidad de correctas",
                 backgroundColor: 'rgb(207,52,118)',
                 borderColor: "rgb(207,52,118)",
                 pointBorderColor: "#fff",
@@ -1105,10 +1127,43 @@
         ]
         };
 
+        var ctx16data = {
+            labels: [
+                {% if malas_quantity %}
+        {% for malas in malas_quantity %}
+        '{{malas.name}}',
+        {% endfor%}
+        {% endif%}
+        ],
+        datasets: [
+            {
+                label: "Cantidad de incorrectas",
+                backgroundColor: 'rgb(207,52,118)',
+                borderColor: "rgb(207,52,118)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if malas_quantity %}
+            {% for malas in malas_quantity %}
+        '{{malas.quantity}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        }
+        ]
+        };
+
+
         if($('#piezas').length){
             var ctx15 = document.getElementById("piezas").getContext("2d");
             new Chart(ctx15, {type: 'horizontalBar', data: ctx15data, options:  barOptions});
         }
+
+        if($('#malas').length){
+            var ctx16 = document.getElementById("malas").getContext("2d");
+            new Chart(ctx16, {type: 'horizontalBar', data: ctx16data, options:  barOptions});
+        }
+
+        
 
         if($('#colisions').length){
             var ctx6 = document.getElementById("colisions").getContext("2d");
