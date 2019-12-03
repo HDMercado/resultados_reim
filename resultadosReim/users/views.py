@@ -168,6 +168,10 @@ def welcome(request):
         incorrects_act1_quantity_response = []
         corrects_act2_quantity_response = []
         incorrects_act2_quantity_response = []
+        faro_exit_quantity_response = []
+        isla_exit_quantity_response = []
+        elefante_exit_quantity_response = []
+        petroleo_exit_quantity_response = []
         if reim_num=="3":
             colision_query = get_colision_co(request)
             cursor.execute(colision_query)
@@ -232,8 +236,44 @@ def welcome(request):
             print ("Incorrects act2 quantity" , jumps_quantity)
             for row in incorrects_act2_quantity:
                 incorrects_act2_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+
+            faro_exit_query = get_faro_exit(request)
+            cursor.execute(faro_exit_query)
+            queries.append({"name": 'Faro exit query', "query": faro_exit_query})
+            faro_exit_quantity = cursor.fetchall()
+            print ("Faro exit quantity" , faro_exit_quantity)
+            for row in faro_exit_quantity:
+                faro_exit_quantity_response.append({ 'id': row[0],'quantity': row[1] })
+            
+            isla_exit_query = get_isla_exit(request)
+            cursor.execute(isla_exit_query)
+            queries.append({"name": 'Isla exit query', "query": isla_exit_query})
+            isla_exit_quantity = cursor.fetchall()
+            print ("Isla exit quantity" , isla_exit_quantity)
+            for row in isla_exit_quantity:
+                isla_exit_quantity_response.append({ 'id': row[0],'quantity': row[1] })
+            
+            elefante_exit_query = get_elefante_exit(request)
+            cursor.execute(elefante_exit_query)
+            queries.append({"name": 'Elefante exit query', "query": elefante_exit_query})
+            elefante_exit_quantity = cursor.fetchall()
+            print ("Elefante exit quantity" , elefante_exit_quantity)
+            for row in elefante_exit_quantity:
+                elefante_exit_quantity_response.append({ 'id': row[0],'quantity': row[1] })
+            
+            petroleo_exit_query = get_petroleo_exit(request)
+            cursor.execute(petroleo_exit_query)
+            queries.append({"name": 'Petroleo exit query', "query": petroleo_exit_query})
+            petroleo_exit_quantity = cursor.fetchall()
+            print ("Petroleo exit quantity" , petroleo_exit_quantity)
+            for row in petroleo_exit_quantity:
+                petroleo_exit_quantity_response.append({ 'id': row[0], 'quantity': row[1] })
+
         #FIN CLEAN OCEAN
-    
+        print ("elefante",elefante_exit_quantity)
+        print ("faro",faro_exit_quantity)
+        print ("isla",isla_exit_quantity)
+        print ("petroleo",petroleo_exit_quantity)
         #Cantidad de Sesiones
         session_query = get_session_query(request)
         cursor.execute(session_query)
@@ -274,6 +314,10 @@ def welcome(request):
                 'corrects_act2_quantity':corrects_act2_quantity_response,
                 'incorrects_act2_quantity':incorrects_act2_quantity_response,
                 'move_element_quantity':move_element_quantity_response,
+                'faro_exit_quantity': faro_exit_quantity_response,
+                'elefante_exit_quantity': elefante_exit_quantity_response,
+                'petroleo_exit_quantity': petroleo_exit_quantity_response,
+                'isla_exit_quantity': isla_exit_quantity_response,
             })
     # En otro caso redireccionamos al login
     return redirect('/login')
