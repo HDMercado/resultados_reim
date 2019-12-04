@@ -335,7 +335,7 @@ def welcome(request):
                 'malas_quantity':malas_quantity_response,
                 'animales_quantity':animales_quantity_response,
                 'actividades_quantity':actividades_quantity_response,
-                'students_quantity':students_response,
+                'students':students_response,
             })
     # En otro caso redireccionamos al login
     return redirect('/login')
