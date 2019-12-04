@@ -99,6 +99,15 @@ def welcome(request):
         #REIM SELECCIONADO
         reim_num = request.GET.get('reim')
 
+        #Cantidad de animales 
+        cant_animales = get_animales(request)
+        print("Largo de gráficos")
+        print(cant_animales)
+        #actividad seleccionada
+        activity_num = request.GET.get('activity')
+        #REIM SELECCIONADO
+        reim_num = request.GET.get('reim')
+
         #PLUS SPACE
         #Creacion
         move_element_quantity_response = []
@@ -152,6 +161,7 @@ def welcome(request):
         #MUNDO ANIMAL 
         piezas_quantity_response =[]
         malas_quantity_response = []
+        animales_quantity_response = []
         
         if reim_num=="1":
             piezas_query = get_piezas(request)
@@ -169,9 +179,16 @@ def welcome(request):
             print("malas quantity", malas_quantity)
             for row in malas_quantity:
                 malas_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
-       
-       
-       
+
+            animales_query = get_animals(request)
+            cursor.execute(animales_query)
+            queries.append({"name": 'Animales query', "query": animales_query})
+            animales_quantity = cursor.fetchall()
+            print("animales quantity", animales_quantity)
+            for row in animales_quantity:
+                animales_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+
+
         #FIN MUNDO ANIMAL 
 
         #CLEAN OCEAN
@@ -289,7 +306,7 @@ def welcome(request):
                 'move_element_quantity':move_element_quantity_response,
                 'piezas_quantity':piezas_quantity_response,
                 'malas_quantity':malas_quantity_response,
-                
+                'animales_quantity':animales_quantity_response,
             })
     # En otro caso redireccionamos al login
     return redirect('/login')
