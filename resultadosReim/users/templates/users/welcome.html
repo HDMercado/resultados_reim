@@ -130,7 +130,7 @@
                                         </div>
                                     </div>
                                     <div  class="col-md-4">
-                                        <label  class="font-normal">Alumno</label>
+                                        <label class="font-normal">Alumno</label>
                                         <select onchange="this.form.submit()" id="student-filter-selector" name="student" class="form-control m-b">
                                             <option value ="0">Seleccione Alumno</option>
                                             {% if students %}
@@ -187,7 +187,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
+            <div class="row" {% if not activate_graphics_student %}style="display: none;"{% endif %}>
                 <div class="col-lg-12">
                     <div class="row">
                         <div class="col-lg-6">
@@ -273,6 +273,25 @@
                     </div>
                 </div>
             </div>
+            <div class="row" {% if not activate_graphics_student %}style="display: none;"{% endif %}>
+                <div class="col-lg-12">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="ibox ">
+                                <div class="ibox-title">
+                                    <h5>Actividades completadas vs no completadas</h5>
+                                    <div class="ibox-tools"></div>
+                                </div>
+                                <div class="ibox-content">
+                                    <div class="scroll_content">
+                                        <canvas id="CCreacion" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             {% endif %}
             <!--ALTERNATIVAS -->
             {% if activity_num == '11' %}
@@ -340,6 +359,25 @@
                     </div>
                 </div>
             </div>
+            <div class="row" {% if not activate_graphics_student %}style="display: none;"{% endif %}>
+                <div class="col-lg-12">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="ibox ">
+                                <div class="ibox-title">
+                                    <h5>Actividades completadas vs no completadas</h5>
+                                    <div class="ibox-tools"></div>
+                                </div>
+                                <div class="ibox-content">
+                                    <div class="scroll_content">
+                                        <canvas id="CCreacion" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             {% endif %}
             <!--BUSCA -->
             {% if activity_num == '12' %}
@@ -391,6 +429,25 @@
                                 </div>
                             </div>
                         </div>-->
+                    </div>
+                </div>
+            </div>
+            <div class="row" {% if not activate_graphics_student %}style="display: none;"{% endif %}>
+                <div class="col-lg-12">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="ibox ">
+                                <div class="ibox-title">
+                                    <h5>Actividades completadas vs no completadas</h5>
+                                    <div class="ibox-tools"></div>
+                                </div>
+                                <div class="ibox-content">
+                                    <div class="scroll_content">
+                                        <canvas id="CCreacion" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -448,6 +505,25 @@
                     </div>
                 </div>
             </div>
+            <div class="row" {% if not activate_graphics_student %}style="display: none;"{% endif %}>
+                <div class="col-lg-12">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="ibox ">
+                                <div class="ibox-title">
+                                    <h5>Actividades completadas vs no completadas</h5>
+                                    <div class="ibox-tools"></div>
+                                </div>
+                                <div class="ibox-content">
+                                    <div class="scroll_content">
+                                        <canvas id="CCreacion" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             {% endif %}
             <!--PUZZLE -->
             {% if activity_num == '14' %}
@@ -480,6 +556,25 @@
                                 </div>
                             </div>
                         </div>-->
+                    </div>
+                </div>
+            </div>
+            <div class="row" {% if not activate_graphics_student %}style="display: none;"{% endif %}>
+                <div class="col-lg-12">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="ibox ">
+                                <div class="ibox-title">
+                                    <h5>Actividades completadas vs no completadas</h5>
+                                    <div class="ibox-tools"></div>
+                                </div>
+                                <div class="ibox-content">
+                                    <div class="scroll_content">
+                                        <canvas id="CCreacion" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
