@@ -593,7 +593,6 @@ def get_faro_exit(request):
     date = get_date_param_alumno_respuesta_actividad(request)
     start_base = 'SELECT id_user, count(*) as Faro from alumno_respuesta_actividad WHERE' + date
     final_base = ' id_user="' + request.GET.get('student') + '" AND id_actividad="' + request.GET.get('activity') + '" AND id_elemento = "3051"'
-    print (start_base + final_base)
     return start_base + final_base
 
 def get_isla_exit(request):
@@ -611,7 +610,6 @@ def get_isla_exit(request):
     date = get_date_param_alumno_respuesta_actividad(request)
     start_base = 'SELECT id_user, count(*) as Isla from alumno_respuesta_actividad WHERE' + date
     final_base = ' id_user="' + request.GET.get('student') + '" AND id_actividad="' + request.GET.get('activity') + '" AND id_elemento = "3050"'
-    print (start_base + final_base)
     return start_base + final_base
 
 def get_elefante_exit(request):
@@ -629,7 +627,6 @@ def get_elefante_exit(request):
     date = get_date_param_alumno_respuesta_actividad(request)
     start_base = 'SELECT id_user, count(*) as Faro from alumno_respuesta_actividad WHERE' + date
     final_base = ' id_user="' + request.GET.get('student') + '" AND id_actividad="' + request.GET.get('activity') + '" AND id_elemento = "3052"'
-    print (start_base + final_base)
     return start_base + final_base
 
 def get_petroleo_exit(request):
@@ -647,5 +644,4 @@ def get_petroleo_exit(request):
     date = get_date_param_alumno_respuesta_actividad(request)
     start_base = 'SELECT id_user, count(*) as Faro from alumno_respuesta_actividad WHERE' + date
     final_base = ' id_user="' + request.GET.get('student') + '" AND id_actividad="' + request.GET.get('activity') + '" AND id_elemento = "3049"'
-    print (start_base + final_base)
     return start_base + final_base

@@ -270,10 +270,6 @@ def welcome(request):
                 petroleo_exit_quantity_response.append({ 'id': row[0], 'quantity': row[1] })
 
         #FIN CLEAN OCEAN
-        print ("elefante",elefante_exit_quantity)
-        print ("faro",faro_exit_quantity)
-        print ("isla",isla_exit_quantity)
-        print ("petroleo",petroleo_exit_quantity)
         #Cantidad de Sesiones
         session_query = get_session_query(request)
         cursor.execute(session_query)

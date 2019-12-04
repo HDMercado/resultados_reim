@@ -1209,25 +1209,33 @@
                                 {% for elefante_exit in elefante_exit_quantity %}
                                     '{{elefante_exit.quantity}}',
                                 {% endfor%}
-                            {% endif%},
+                            {% else %}
+                            0
+                            {% endif %} ,
 
                             {% if isla_exit_quantity %}
                                 {% for isla_exit in isla_exit_quantity %}
                                     '{{isla_exit.quantity}}',
                                 {% endfor%}
-                            {% endif%},         
+                            {% else %}
+                            0
+                            {% endif %},         
 
                             {% if faro_exit_quantity %}
                                 {% for faro_exit in faro_exit_quantity %}
                                     '{{faro_exit.quantity}}',
                                 {% endfor%}
-                            {% endif%}, 
+                            {% else %}
+                            0
+                            {% endif %}, 
                             
                             {% if petroleo_exit_quantity %}
                                 {% for petroleo_exit in petroleo_exit_quantity %}
                                     '{{petroleo_exit.quantity}}',
                                 {% endfor%}
-                            {% endif%}],
+                            {% else %}
+                            0
+                            {% endif %}],
                 backgroundColor: [
                     'rgba(255, 99, 132, 1)',
                     'rgba(54, 162, 235, 1)',
