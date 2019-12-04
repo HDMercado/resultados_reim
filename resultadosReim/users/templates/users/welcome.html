@@ -129,6 +129,17 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div  class="col-md-4">
+                                        <label  class="font-normal">Alumno</label>
+                                        <select onchange="this.form.submit()" id="student-filter-selector" name="student" class="form-control m-b">
+                                            <option value ="0">Seleccione Alumno</option>
+                                            {% if students %}
+                                            {% for student in students %}
+                                            <option value ={{student.id}}>{{student.name}}</option>
+                                            {% endfor %}
+                                            {% endif %}
+                                        </select>
+                                    </div>
                                     <p class="col-lg-12">
                                         <button class="btn btn-sm btn-primary m-t-n-xs float-right"><i class="fa fa-filter"></i> Filtrar</button>
                                         <a href="/" class="btn btn-sm btn-secondary m-t-n-xs float-right" style="margin-right: 5px"><i class="fa fa-trash"></i> Limpiar</a>
