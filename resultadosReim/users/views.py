@@ -73,7 +73,7 @@ def welcome(request):
 
         #Game time
         time_query = get_time_query(request)
-        print(time_query)
+        #print(time_query)
         queries.append({"name": 'Time query', "query": time_query })
         cursor.execute(time_query)
         game_time = cursor.fetchall()
@@ -92,8 +92,8 @@ def welcome(request):
         
         #Cantidad de Usuarios
         cant_usuarios = get_alumnos(request)
-        print("largo de graficos")
-        print(cant_usuarios)
+        #print("largo de graficos")
+        #print(cant_usuarios)
         #actividad seleccionada
         activity_num = request.GET.get('activity')
         #REIM SELECCIONADO
@@ -168,10 +168,10 @@ def welcome(request):
         incorrects_act1_quantity_response = []
         corrects_act2_quantity_response = []
         incorrects_act2_quantity_response = []
-        faro_exit_quantity_response = []
-        isla_exit_quantity_response = []
-        elefante_exit_quantity_response = []
-        petroleo_exit_quantity_response = []
+        exit_lab_quantity_response = []
+        touch_animals_co_quantity_response = []
+        touch_trash_co_quantity_response = []
+
         if reim_num=="3":
             colision_query = get_colision_co(request)
             cursor.execute(colision_query)
@@ -185,7 +185,6 @@ def welcome(request):
             cursor.execute(corrects_query)
             queries.append({"name": 'Corrects query', "query": corrects_query})
             corrects_quantity = cursor.fetchall()
-            print ("corrects quantity" , corrects_quantity)
             for row in corrects_quantity:
                 corrects_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
 
@@ -193,7 +192,6 @@ def welcome(request):
             cursor.execute(incorrects_query)
             queries.append({"name": 'Incorrects query', "query": incorrects_query})
             incorrects_quantity = cursor.fetchall()
-            print ("incorrects quantity" , incorrects_quantity)
             for row in incorrects_quantity:
                 incorrects_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
 
@@ -201,7 +199,6 @@ def welcome(request):
             cursor.execute(jumps_query)
             queries.append({"name": 'Jumps query', "query": jumps_query})
             jumps_quantity = cursor.fetchall()
-            print ("jumps quantity" , jumps_quantity)
             for row in jumps_quantity:
                 jumps_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
 
@@ -209,7 +206,6 @@ def welcome(request):
             cursor.execute(corrects_act1_query)
             queries.append({"name": 'Corrects act1 query', "query": corrects_act1_query})
             corrects_act1_quantity = cursor.fetchall()
-            print ("Corrects act1 quantity" , corrects_act1_quantity)
             for row in corrects_act1_quantity:
                 corrects_act1_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
 
@@ -217,7 +213,6 @@ def welcome(request):
             cursor.execute(incorrects_act1_query)
             queries.append({"name": 'Incorrects act1 query', "query": jumps_query})
             incorrects_act1_quantity = cursor.fetchall()
-            print ("Incorrects act1 quantity" , incorrects_act1_quantity)
             for row in incorrects_act1_quantity:
                 incorrects_act1_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
 
@@ -225,7 +220,6 @@ def welcome(request):
             cursor.execute(corrects_act2_query)
             queries.append({"name": 'Corrects act2 query', "query": corrects_act2_query})
             corrects_act2_quantity = cursor.fetchall()
-            print ("Corrects act2 quantity" , corrects_act2_quantity)
             for row in corrects_act2_quantity:
                 corrects_act2_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
 
@@ -233,41 +227,32 @@ def welcome(request):
             cursor.execute(incorrects_act2_query)
             queries.append({"name": 'Incorrects act2 query', "query": incorrects_act2_query})
             incorrects_act2_quantity = cursor.fetchall()
-            print ("Incorrects act2 quantity" , jumps_quantity)
             for row in incorrects_act2_quantity:
                 incorrects_act2_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+            
+            exit_lab_query = get_exit_lab(request)
+            cursor.execute(exit_lab_query)
+            queries.append({"name": 'Exit lab query', "query": exit_lab_query})
+            exit_lab_quantity = cursor.fetchall()
+            for row in exit_lab_quantity:
+                exit_lab_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
 
-            faro_exit_query = get_faro_exit(request)
-            cursor.execute(faro_exit_query)
-            queries.append({"name": 'Faro exit query', "query": faro_exit_query})
-            faro_exit_quantity = cursor.fetchall()
-            print ("Faro exit quantity" , faro_exit_quantity)
-            for row in faro_exit_quantity:
-                faro_exit_quantity_response.append({ 'id': row[0],'quantity': row[1] })
+            touch_animals_co_query = get_touch_animals_co(request)
+            cursor.execute(touch_animals_co_query)
+            queries.append({"name": 'Touch animals co query', "query": touch_animals_co_query})
+            touch_animals_co_quantity = cursor.fetchall()
+            print ("Touch animals co quantity" , touch_animals_co_quantity)
+            for row in touch_animals_co_quantity:
+                touch_animals_co_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+
+            touch_trash_co_query = get_touch_trash_co(request)
+            cursor.execute(touch_trash_co_query)
+            queries.append({"name": 'Touch trash co query', "query": touch_trash_co_query})
+            touch_trash_co_quantity = cursor.fetchall()
+            print ("Touch trash co quantity" , touch_trash_co_quantity)
+            for row in touch_trash_co_quantity:
+                touch_trash_co_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
             
-            isla_exit_query = get_isla_exit(request)
-            cursor.execute(isla_exit_query)
-            queries.append({"name": 'Isla exit query', "query": isla_exit_query})
-            isla_exit_quantity = cursor.fetchall()
-            print ("Isla exit quantity" , isla_exit_quantity)
-            for row in isla_exit_quantity:
-                isla_exit_quantity_response.append({ 'id': row[0],'quantity': row[1] })
-            
-            elefante_exit_query = get_elefante_exit(request)
-            cursor.execute(elefante_exit_query)
-            queries.append({"name": 'Elefante exit query', "query": elefante_exit_query})
-            elefante_exit_quantity = cursor.fetchall()
-            print ("Elefante exit quantity" , elefante_exit_quantity)
-            for row in elefante_exit_quantity:
-                elefante_exit_quantity_response.append({ 'id': row[0],'quantity': row[1] })
-            
-            petroleo_exit_query = get_petroleo_exit(request)
-            cursor.execute(petroleo_exit_query)
-            queries.append({"name": 'Petroleo exit query', "query": petroleo_exit_query})
-            petroleo_exit_quantity = cursor.fetchall()
-            print ("Petroleo exit quantity" , petroleo_exit_quantity)
-            for row in petroleo_exit_quantity:
-                petroleo_exit_quantity_response.append({ 'id': row[0], 'quantity': row[1] })
 
         #FIN CLEAN OCEAN
         #Cantidad de Sesiones
@@ -310,10 +295,9 @@ def welcome(request):
                 'corrects_act2_quantity':corrects_act2_quantity_response,
                 'incorrects_act2_quantity':incorrects_act2_quantity_response,
                 'move_element_quantity':move_element_quantity_response,
-                'faro_exit_quantity': faro_exit_quantity_response,
-                'elefante_exit_quantity': elefante_exit_quantity_response,
-                'petroleo_exit_quantity': petroleo_exit_quantity_response,
-                'isla_exit_quantity': isla_exit_quantity_response,
+                'exit_lab_quantity': exit_lab_quantity_response,
+                'touch_animals_co_quantity':touch_animals_co_quantity_response,
+                'touch_trash_co_quantity':touch_trash_co_quantity_response,
             })
     # En otro caso redireccionamos al login
     return redirect('/login')
