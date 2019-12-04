@@ -654,3 +654,40 @@ def get_animals(request):
     start_base = 'SELECT e.id, e.nombre, count(e.id) AS animales FROM elemento e, alumno_respuesta_actividad a, usuario u, pertenece b WHERE' + date
     final_base = ' a.id_elemento=e.id && a.id_user= u.id && b.usuario_id = a.id_user && b.colegio_id IN (SELECT colegio_id from pertenece INNER JOIN usuario ON pertenece.usuario_id = usuario.id WHERE username="' + request.user.username + '") AND b.curso_id IN (SELECT curso_id FROM pertenece WHERE usuario_id = (SELECT id FROM usuario WHERE username = "' + request.user.username + '"))' + query_params + ' AND e.id>10 AND e.id<26 GROUP BY e.id'
     return start_base + final_base
+
+def get_actividades(request):
+    cursor = get_from_db()
+    query_params = ''
+
+    if request.GET.get('reim') and request.GET.get('reim') != '0':
+        query_params += " AND a.reim_id = " + request.GET.get('reim')
+    if request.GET.get('course') and request.GET.get('course') != '0':
+        query_params += " AND b.curso_id = " + request.GET.get('course')
+    if request.GET.get('school') and request.GET.get('school') != '0':
+        query_params += " AND b.colegio_id = " + request.GET.get('school')
+
+    date = get_date_param(request)
+
+    start_base = 'SELECT o.id, o.nombre, count(o.id) AS cantidad FROM actividad o WHERE'
+    final_base = ' o.id>0 AND o.id<8 '
+    cursor.execute(start_base + final_base)
+    actividades = str(((len(cursor.fetchall())*40)+20))
+    return actividades 
+    
+def get_cant_touch(request):
+    cursor = get_from_db()
+    query_params = ''
+
+    if request.GET.get('reim') and request.GET.get('reim') != '0':
+        query_params += " AND a.id_reim = " + request.GET.get('reim')
+    if request.GET.get('course') and request.GET.get('course') != '0':
+        query_params += " AND b.curso_id = " + request.GET.get('course')
+    if request.GET.get('school') and request.GET.get('school') != '0':
+        query_params += " AND b.colegio_id = " + request.GET.get('school')
+
+    date = get_date_param(request)
+
+    start_base = 'SELECT o.id, o.nombre, count(o.id) AS actividades FROM actividad o, alumno_respuesta_actividad a, usuario u, pertenece b WHERE' + date
+    final_base = ' a.id_actividad=o.id && a.id_user= u.id && b.usuario_id = a.id_user && b.colegio_id IN (SELECT colegio_id from pertenece INNER JOIN usuario ON pertenece.usuario_id = usuario.id WHERE username="' + request.user.username + '") AND b.curso_id IN (SELECT curso_id FROM pertenece WHERE usuario_id = (SELECT id FROM usuario WHERE username = "' + request.user.username + '"))' + query_params + ' AND o.id>0 AND o.id<8 GROUP BY o.id'
+    return start_base + final_base
+    

@@ -636,81 +636,77 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
+                                <div class="col-lg-6">
+                                    <div class="ibox ">
+                                        <div class="ibox-title">
+                                            <h5>Minutos de juego</h5>
+                                            <div class="ibox-tools"></div>
+                                        </div>
+                                        <div class="ibox-content">
+                                            <div class="scroll_content">
+                                                <canvas id="stacked" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="ibox">
+                                        <div class="ibox-title">
+                                            <h5>Cantidad de touch por alumno</h5>
+                                            <div class="ibox-tools"></div>
+                                        </div>
+                                        <div class="ibox-content">
+                                            <div class="scroll_content">
+                                                <canvas id="horizontalBar" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="ibox ">
+                                        <div class="ibox-title">
+                                            <h5>Sesiones por alumno</h5>
+                                            <div class="ibox-tools"></div>
+                                        </div>
+                                        <div class="ibox-content">
+                                            <div class="scroll_content">
+                                                <canvas id="stacked2" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="ibox ">
+                                        <div class="ibox-title">
+                                            <h5>Cantidad de touch totales del curso por actividad  </h5>
+                                            <div class="ibox-tools"></div>
+                                        </div>
+                                        <div class="ibox-content">
+                                            <div class="scroll_content">
+                                                <canvas id="actividades" height={{cant_actividades}}>{% load staticfiles %}</canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     {% endif %}
                 <!--Buscar al animal  -->
                 {% if activity_num == '1' %}
-                <div class="row"></div>
-                    <div class="col-lg-12">
-                        <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
-                            <div class="col-lg-6">
-                                <div class="ibox ">
-                                    <div class="ibox-title">
-                                        <h5>Ejemplo</h5>
-                                        <div class="ibox-tools"></div>
-                                    </div>
-                                    <div class="ibox-content">
-                                        <div class="scroll_content">
-                                            <canvas id="malas" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
                 {% endif %}
 
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
-                            <div class="col-lg-6">
-                                <div class="ibox ">
-                                    <div class="ibox-title">
-                                        <h5>Minutos de juego</h5>
-                                        <div class="ibox-tools"></div>
-                                    </div>
-                                    <div class="ibox-content">
-                                        <div class="scroll_content">
-                                            <canvas id="stacked" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="ibox">
-                                    <div class="ibox-title">
-                                        <h5>Cantidad de touch por alumno</h5>
-                                        <div class="ibox-tools"></div>
-                                    </div>
-                                    <div class="ibox-content">
-                                        <div class="scroll_content">
-                                            <canvas id="horizontalBar" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
-                    <div class="col-lg-12">
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div class="ibox ">
-                                    <div class="ibox-title">
-                                        <h5>Sesiones por alumno</h5>
-                                        <div class="ibox-tools"></div>
-                                    </div>
-                                    <div class="ibox-content">
-                                        <div class="scroll_content">
-                                            <canvas id="stacked2" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
 
                 <div>
                     <strong>Copyright</strong>  &copy; 2019
@@ -1150,7 +1146,7 @@
         ],
         datasets: [
             {
-                label: "Cantidad de animales",
+                label: "Cantidad de preferencia",
                 backgroundColor: 'rgb(207,52,118)',
                 borderColor: "rgb(207,52,118)",
                 pointBorderColor: "#fff",
@@ -1192,12 +1188,41 @@
         ]
         };
 
+        var ctx18data = {
+            labels: [
+                {% if actividades_quantity %}
+        {% for actividades in actividades_quantity %}
+        '{{actividades.name}}',
+        {% endfor%}
+        {% endif%}
+        ],
+        datasets: [
+            {
+                label: "Cantidad de touch",
+                backgroundColor: 'rgb(207,52,118)',
+                borderColor: "rgb(207,52,118)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if actividades_quantity %}
+            {% for actividades in actividades_quantity %}
+        '{{actividades.quantity}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        }
+        ]
+        };
+
 
         if($('#piezas').length){
             var ctx15 = document.getElementById("piezas").getContext("2d");
             new Chart(ctx15, {type: 'horizontalBar', data: ctx15data, options:  barOptions});
         }
 
+        if($('#actividades').length){
+            var ctx18 = document.getElementById("actividades").getContext("2d");
+            new Chart(ctx18, {type: 'horizontalBar', data: ctx18data, options:  barOptions});
+        }
         if($('#animales').length){
             var ctx17 = document.getElementById("animales").getContext("2d");
             new Chart(ctx17, {type: 'horizontalBar', data: ctx17data, options:  barOptions});
@@ -1249,7 +1274,7 @@
                 datasets: 
                 [
                     {
-                        label: "Correctas totales",
+                        label: "Correctas",
                         backgroundColor: 'rgb(87,35,100)',
                         borderColor: "rgb(87,35,100)",
                         pointBorderColor: "#fff",
@@ -1263,7 +1288,7 @@
                         ]
                     },
                     {
-                        label: "Incorrectas totales",
+                        label: "Incorrectas",
                         backgroundColor: 'rgb(0,255,255)',
                         borderColor: "rgb(0,255,255)",
                         pointBorderColor: "#fff",
