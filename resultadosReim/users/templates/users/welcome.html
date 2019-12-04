@@ -161,12 +161,12 @@
                         <div class="col-lg-6">
                             <div class="ibox ">
                                 <div class="ibox-title">
-                                    <h5>Tiempo de juego total de la actividad</h5>
+                                    <h5>Elementos totales creados</h5>
                                     <div class="ibox-tools"></div>
                                 </div>
                                 <div class="ibox-content">
                                     <div class="scroll_content">
-                                        <canvas id="stacked" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                        <canvas id="CreadosCreacion" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
                                     </div>
                                 </div>
                             </div>
@@ -174,12 +174,12 @@
                         <div class="col-lg-6">
                             <div class="ibox">
                                 <div class="ibox-title">
-                                    <h5>Elementos totales creados</h5>
+                                    <h5>Elementos desplazados en el menú principal</h5>
                                     <div class="ibox-tools"></div>
                                 </div>
                                 <div class="ibox-content">
                                     <div class="scroll_content">
-                                        <canvas id="CreadosCreacion" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                        <canvas id="movePS" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
                                     </div>
                                 </div>
                             </div>
@@ -203,19 +203,19 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6">
-                            <div class="ibox ">
+                        <!--<div class="col-lg-6">
+                            <div class="ibox">
                                 <div class="ibox-title">
-                                    <h5>Elementos desplazados en el menu principal</h5>
+                                    <h5>Tiempo de juego total de la actividad</h5>
                                     <div class="ibox-tools"></div>
                                 </div>
                                 <div class="ibox-content">
                                     <div class="scroll_content">
-                                        <canvas id="movePS" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                        <canvas id="Creacion"></canvas>{% load staticfiles %}</canvas>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div>-->
                     </div>
                 </div>
             </div>
@@ -228,20 +228,7 @@
                         <div class="col-lg-6">
                             <div class="ibox ">
                                 <div class="ibox-title">
-                                    <h5>Tiempo de juego total de la actividad</h5>
-                                    <div class="ibox-tools"></div>
-                                </div>
-                                <div class="ibox-content">
-                                    <div class="scroll_content">
-                                        <canvas id="stacked" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="ibox">
-                                <div class="ibox-title">
-                                    <h5>Colisiones</h5>
+                                    <h5>Colisiones realizadas en laberinto</h5>
                                     <div class="ibox-tools"></div>
                                 </div>
                                 <div class="ibox-content">
@@ -251,14 +238,8 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
-                <div class="col-lg-12">
-                    <div class="row">
                         <div class="col-lg-6">
-                            <div class="ibox ">
+                            <div class="ibox">
                                 <div class="ibox-title">
                                     <h5>Actividades completadas vs no completadas</h5>
                                     <div class="ibox-tools"></div>
@@ -273,14 +254,11 @@
                     </div>
                 </div>
             </div>
-            {% endif %}
-            <!--ALTERNATIVAS -->
-            {% if activity_num == '11' %}
-            <div class="row">
+            <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
                 <div class="col-lg-12">
-                    <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
-                        <div class="col-lg-6">
-                            <div class="ibox ">
+                    <div class="row">
+                        <!--<div class="col-lg-6">
+                            <div class="ibox">
                                 <div class="ibox-title">
                                     <h5>Tiempo de juego total de la actividad</h5>
                                     <div class="ibox-tools"></div>
@@ -291,9 +269,18 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div>-->
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            <!--ALTERNATIVAS -->
+            {% if activity_num == '11' %}
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
                         <div class="col-lg-6">
-                            <div class="ibox">
+                            <div class="ibox ">
                                 <div class="ibox-title">
                                     <h5>Correctas vs Incorrectas</h5>
                                     <div class="ibox-tools"></div>
@@ -301,6 +288,19 @@
                                 <div class="ibox-content">
                                     <div class="scroll_content">
                                         <canvas id="CvsIAlternativas" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="ibox">
+                                <div class="ibox-title">
+                                    <h5>Saltos realizados</h5>
+                                    <div class="ibox-tools"></div>
+                                </div>
+                                <div class="ibox-content">
+                                    <div class="scroll_content">
+                                        <canvas id="jumpAlternativas" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
                                     </div>
                                 </div>
                             </div>
@@ -324,19 +324,19 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6">
-                            <div class="ibox ">
+                        <!--<div class="col-lg-6">
+                            <div class="ibox">
                                 <div class="ibox-title">
-                                    <h5>Saltos realizados</h5>
+                                    <h5>Tiempo de juego total de la actividad</h5>
                                     <div class="ibox-tools"></div>
                                 </div>
                                 <div class="ibox-content">
                                     <div class="scroll_content">
-                                        <canvas id="jumpAlternativas" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                        <canvas id="stacked" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div>-->
                     </div>
                 </div>
             </div>
@@ -349,19 +349,6 @@
                         <div class="col-lg-6">
                             <div class="ibox ">
                                 <div class="ibox-title">
-                                    <h5>Tiempo de juego total de la actividad</h5>
-                                    <div class="ibox-tools"></div>
-                                </div>
-                                <div class="ibox-content">
-                                    <div class="scroll_content">
-                                        <canvas id="stacked" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="ibox">
-                                <div class="ibox-title">
                                     <h5>Correctas vs Incorrectas</h5>
                                     <div class="ibox-tools"></div>
                                 </div>
@@ -372,14 +359,8 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
-                <div class="col-lg-12">
-                    <div class="row">
                         <div class="col-lg-6">
-                            <div class="ibox ">
+                            <div class="ibox">
                                 <div class="ibox-title">
                                     <h5>Actividades completadas vs no completadas</h5>
                                     <div class="ibox-tools"></div>
@@ -394,14 +375,11 @@
                     </div>
                 </div>
             </div>
-            {% endif %}
-            <!--CUIDA -->
-            {% if activity_num == '13' %}
-            <div class="row">
+            <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
                 <div class="col-lg-12">
-                    <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
-                        <div class="col-lg-6">
-                            <div class="ibox ">
+                    <div class="row">
+                        <!--<div class="col-lg-6">
+                            <div class="ibox">
                                 <div class="ibox-title">
                                     <h5>Tiempo de juego total de la actividad</h5>
                                     <div class="ibox-tools"></div>
@@ -412,9 +390,18 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div>-->
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            <!--CUIDA -->
+            {% if activity_num == '13' %}
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
                         <div class="col-lg-6">
-                            <div class="ibox">
+                            <div class="ibox ">
                                 <div class="ibox-title">
                                     <h5>Meteoritos totales eliminados</h5>
                                     <div class="ibox-tools"></div>
@@ -426,14 +413,8 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
-                <div class="col-lg-12">
-                    <div class="row">
                         <div class="col-lg-6">
-                            <div class="ibox ">
+                            <div class="ibox">
                                 <div class="ibox-title">
                                     <h5>Actividades completadas vs no completadas</h5>
                                     <div class="ibox-tools"></div>
@@ -448,14 +429,11 @@
                     </div>
                 </div>
             </div>
-            {% endif %}
-            <!--PUZZLE -->
-            {% if activity_num == '14' %}
-            <div class="row">
+            <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
                 <div class="col-lg-12">
-                    <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
-                        <div class="col-lg-6">
-                            <div class="ibox ">
+                    <div class="row">
+                        <!--<div class="col-lg-6">
+                            <div class="ibox">
                                 <div class="ibox-title">
                                     <h5>Tiempo de juego total de la actividad</h5>
                                     <div class="ibox-tools"></div>
@@ -466,9 +444,18 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div>-->
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            <!--PUZZLE -->
+            {% if activity_num == '14' %}
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
                         <div class="col-lg-6">
-                            <div class="ibox">
+                            <div class="ibox ">
                                 <div class="ibox-title">
                                     <h5>Actividades completadas vs no completadas</h5>
                                     <div class="ibox-tools"></div>
@@ -480,6 +467,19 @@
                                 </div>
                             </div>
                         </div>
+                        <!--<div class="col-lg-6">
+                            <div class="ibox">
+                                <div class="ibox-title">
+                                    <h5>Tiempo de juego total de la actividad</h5>
+                                    <div class="ibox-tools"></div>
+                                </div>
+                                <div class="ibox-content">
+                                    <div class="scroll_content">
+                                        <canvas id="stacked" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>-->
                     </div>
                 </div>
             </div>
@@ -722,11 +722,11 @@
             labels:
                     [
                         {% if game_time %}
-        {% for user in game_time %}
-        '{{user.name}}',
-        {% endfor%}
-        {% endif%}
-        ],
+                        {% for user in game_time %}
+                        '{{user.name}}',
+                        {% endfor%}
+                        {% endif%}
+                        ],
         datasets: [
             {
                 label: "Minutos de juego total",
@@ -1605,7 +1605,7 @@ var CbuscaData = {
         ],
         datasets: [
             {
-                label: "Saltos",
+                label: "Aciertos",
                 backgroundColor: 'rgb(243,156,18)',
                 borderColor: "rgb(214,137,16)",
                 pointBorderColor: "#fff",
@@ -1706,6 +1706,34 @@ var CpuzzleData = {
             var ctx5 = document.getElementById("Cpuzzle").getContext("2d");
             new Chart(ctx5, {type: 'horizontalBar', data: CpuzzleData, options:CpuzzleOptions});
         }
+//GRAFICOs POR ALUMNO
+var CreacionData = {
+            labels: ['graf1','graf2','graf3'],
+        datasets: [
+            {
+                backgroundColor: ['rgba(52,152,219,0.75)','rgba(255,193,7,0.75)','rgba(233,30,99,0.75)'],
+                pointBorderColor: "#fff",
+                data: [1,3,4]
+        }
+        ]
+        };
+
+        var CreacionOptions = {
+               scale: {
+                    angleLines: {
+                       display: false
+                   },
+                   ticks: {
+                       suggestedMin: 0,
+                       suggestedMax: 5
+                   }
+               }
+            };
+
+        if ($('#Creacion').length){
+            var ctx5 = document.getElementById("Creacion").getContext("2d");
+            new Chart(ctx5, {type: 'polarArea', data: CreacionData, options:CreacionOptions});
+        }        
 //FIN PLUSSPACE----------------------
         //Colisiones totales
         var ctx6data = {

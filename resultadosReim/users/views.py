@@ -108,6 +108,10 @@ def welcome(request):
                 students = cursor.fetchall()
                 for row in students:
                     students_response.append({ 'id': row[0], 'name': row[1] })
+        #filtro estudiente
+        activate_student_filter = False
+        if request.GET.get('student') and request.GET.get('student') != "0":
+            activate_student_filter = True
 
         #PLUS SPACE-------------------------------------
         #Creacion
@@ -149,6 +153,7 @@ def welcome(request):
         aceptar_puzzle_quantity_response = []
         volver_puzzle_quantity_response = []
         ingresar_puzzle_quantity_response = []
+        
         if reim_num=="2":
         #CREACION
         #Elemento desplazado
@@ -260,42 +265,42 @@ def welcome(request):
         #ALTERNATIVAS
         #saltos
             jump_alternativas_query = get_jump_alternativas_query(request)
-            queries.append({"name": 'Desplazado query', "query": jump_alternativas_query})
+            queries.append({"name": 'Saltos query', "query": jump_alternativas_query})
             cursor.execute(jump_alternativas_query)
             jump_alternativas_quantity = cursor.fetchall()
             for row in jump_alternativas_quantity:
                 jump_alternativas_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
         #correctas
             correctas_alternativas_query = get_correctas_alternativas_query(request)
-            queries.append({"name": 'Desplazado query', "query": correctas_alternativas_query})
+            queries.append({"name": 'Correctas Alternativas query', "query": correctas_alternativas_query})
             cursor.execute(correctas_alternativas_query)
             correctas_alternativas_quantity = cursor.fetchall()
             for row in correctas_alternativas_quantity:
                 correctas_alternativas_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
         #incorrectas
             incorrectas_alternativas_query = get_incorrectas_alternativas_query(request)
-            queries.append({"name": 'Desplazado query', "query": incorrectas_alternativas_query})
+            queries.append({"name": 'Incorrectas Alternativas query', "query": incorrectas_alternativas_query})
             cursor.execute(incorrectas_alternativas_query)
             incorrectas_alternativas_quantity = cursor.fetchall()
             for row in incorrectas_alternativas_quantity:
                 incorrectas_alternativas_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
         #aceptar
             aceptar_alternativas_query = get_aceptar_alternativas_query(request)
-            queries.append({"name": 'Desplazado query', "query": aceptar_alternativas_query})
+            queries.append({"name": 'Aceptar Alternativas query', "query": aceptar_alternativas_query})
             cursor.execute(aceptar_alternativas_query)
             aceptar_alternativas_quantity = cursor.fetchall()
             for row in aceptar_alternativas_quantity:
                 aceptar_alternativas_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
         #volver
             volver_alternativas_query = get_volver_alternativas_query(request)
-            queries.append({"name": 'Desplazado query', "query": volver_alternativas_query})
+            queries.append({"name": 'Volver Alternativas query', "query": volver_alternativas_query})
             cursor.execute(volver_alternativas_query)
             volver_alternativas_quantity = cursor.fetchall()
             for row in volver_alternativas_quantity:
                 volver_alternativas_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
         #ingresar
             ingresar_alternativas_query = get_ingresar_alternativas_query(request)
-            queries.append({"name": 'Desplazado query', "query": ingresar_alternativas_query})
+            queries.append({"name": 'Ingresar Alternativas query', "query": ingresar_alternativas_query})
             cursor.execute(ingresar_alternativas_query)
             ingresar_alternativas_quantity = cursor.fetchall()
             for row in ingresar_alternativas_quantity:
@@ -303,35 +308,35 @@ def welcome(request):
 #busca
         #correctas
             correctas_busca_query = get_correctas_busca_query(request)
-            queries.append({"name": 'Desplazado query', "query": correctas_busca_query})
+            queries.append({"name": 'Correctas Busca query', "query": correctas_busca_query})
             cursor.execute(correctas_busca_query)
             correctas_busca_quantity = cursor.fetchall()
             for row in correctas_busca_quantity:
                 correctas_busca_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
         #incorrectas
             incorrectas_busca_query = get_incorrectas_busca_query(request)
-            queries.append({"name": 'Desplazado query', "query": incorrectas_busca_query})
+            queries.append({"name": 'Incorrrectas Busca query', "query": incorrectas_busca_query})
             cursor.execute(incorrectas_busca_query)
             incorrectas_busca_quantity = cursor.fetchall()
             for row in incorrectas_busca_quantity:
                 incorrectas_busca_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
         #aceptar
             aceptar_busca_query = get_aceptar_busca_query(request)
-            queries.append({"name": 'Desplazado query', "query": aceptar_busca_query})
+            queries.append({"name": 'Aceptar Busca query', "query": aceptar_busca_query})
             cursor.execute(aceptar_busca_query)
             aceptar_busca_quantity = cursor.fetchall()
             for row in aceptar_busca_quantity:
                 aceptar_busca_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
         #volver
             volver_busca_query = get_volver_busca_query(request)
-            queries.append({"name": 'Desplazado query', "query": volver_busca_query})
+            queries.append({"name": 'Volver Busca query', "query": volver_busca_query})
             cursor.execute(volver_busca_query)
             volver_busca_quantity = cursor.fetchall()
             for row in volver_busca_quantity:
                 volver_busca_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
         #ingresar
             ingresar_busca_query = get_ingresar_busca_query(request)
-            queries.append({"name": 'Desplazado query', "query": ingresar_busca_query})
+            queries.append({"name": 'Ingresar Busca query', "query": ingresar_busca_query})
             cursor.execute(ingresar_busca_query)
             ingresar_busca_quantity = cursor.fetchall()
             for row in ingresar_busca_quantity:
@@ -339,28 +344,28 @@ def welcome(request):
         #cuida
         #acierto
             acierto_cuida_query = get_acierto_cuida_query(request)
-            queries.append({"name": 'Desplazado query', "query": acierto_cuida_query})
+            queries.append({"name": 'Acierto Cuida query', "query": acierto_cuida_query})
             cursor.execute(acierto_cuida_query)
             acierto_cuida_quantity = cursor.fetchall()
             for row in acierto_cuida_quantity:
                 acierto_cuida_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
         #aceptar
             aceptar_cuida_query = get_aceptar_cuida_query(request)
-            queries.append({"name": 'Desplazado query', "query": aceptar_cuida_query})
+            queries.append({"name": 'Aceptar Cuida query', "query": aceptar_cuida_query})
             cursor.execute(aceptar_cuida_query)
             aceptar_cuida_quantity = cursor.fetchall()
             for row in aceptar_cuida_quantity:
                 aceptar_cuida_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
         #volver
             volver_cuida_query = get_volver_cuida_query(request)
-            queries.append({"name": 'Desplazado query', "query": volver_cuida_query})
+            queries.append({"name": 'Volver Cuida query', "query": volver_cuida_query})
             cursor.execute(volver_cuida_query)
             volver_cuida_quantity = cursor.fetchall()
             for row in volver_cuida_quantity:
                 volver_cuida_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
         #ingresar
             ingresar_cuida_query = get_ingresar_cuida_query(request)
-            queries.append({"name": 'Desplazado query', "query": ingresar_cuida_query})
+            queries.append({"name": 'Ingresar Cuida query', "query": ingresar_cuida_query})
             cursor.execute(ingresar_cuida_query)
             ingresar_cuida_quantity = cursor.fetchall()
             for row in ingresar_cuida_quantity:
@@ -369,21 +374,21 @@ def welcome(request):
         #puzzle
         #aceptar
             aceptar_puzzle_query = get_aceptar_puzzle_query(request)
-            queries.append({"name": 'Desplazado query', "query": aceptar_puzzle_query})
+            queries.append({"name": 'Aceptar Puzzle query', "query": aceptar_puzzle_query})
             cursor.execute(aceptar_puzzle_query)
             aceptar_puzzle_quantity = cursor.fetchall()
             for row in aceptar_puzzle_quantity:
                 aceptar_puzzle_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
-        #vovler
+        #volver
             volver_puzzle_query = get_volver_puzzle_query(request)
-            queries.append({"name": 'Desplazado query', "query": volver_puzzle_query})
+            queries.append({"name": 'Volver Puzzle query', "query": volver_puzzle_query})
             cursor.execute(volver_puzzle_query)
             volver_puzzle_quantity = cursor.fetchall()
             for row in volver_puzzle_quantity:
                 volver_puzzle_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
         #ingresar
             ingresar_puzzle_query = get_ingresar_puzzle_query(request)
-            queries.append({"name": 'Desplazado query', "query": ingresar_puzzle_query})
+            queries.append({"name": 'Ingresar Puzzle query', "query": ingresar_puzzle_query})
             cursor.execute(ingresar_puzzle_query)
             ingresar_puzzle_quantity = cursor.fetchall()
             for row in ingresar_puzzle_quantity:
@@ -477,6 +482,7 @@ def welcome(request):
 
         activate_graphics = activate_course_filter and activate_school_filter and activate_reim_filter
         activate_graphics_general = activate_activity_filter and activate_course_filter and activate_school_filter and activate_reim_filter
+        activate_graphics_student = activate_course_filter and activate_school_filter and activate_reim_filter and activate_student_filter
         return render(
             request,
             "users/welcome.html",
@@ -484,6 +490,7 @@ def welcome(request):
                 # Show graphics at the init
                 'activate_graphics': activate_graphics,
                 'activate_graphics_general':activate_graphics_general,
+                'activate_graphics_student':activate_graphics_student,
                 # Other context var
                 'queries': queries,
                 'schools': schools_response,
