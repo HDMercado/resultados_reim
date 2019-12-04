@@ -164,10 +164,7 @@ def welcome(request):
         corrects_quantity_response = []
         incorrects_quantity_response = []
         jumps_quantity_response = []
-        corrects_act1_quantity_response = []
-        incorrects_act1_quantity_response = []
-        corrects_act2_quantity_response = []
-        incorrects_act2_quantity_response = []
+        analytics_co_quantity_response = []
         exit_lab_quantity_response = []
         touch_animals_co_quantity_response = []
         touch_trash_co_quantity_response = []
@@ -202,34 +199,43 @@ def welcome(request):
             for row in jumps_quantity:
                 jumps_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
 
-            corrects_act1_query = get_corrects_act1_co(request)
-            cursor.execute(corrects_act1_query)
-            queries.append({"name": 'Corrects act1 query', "query": corrects_act1_query})
-            corrects_act1_quantity = cursor.fetchall()
-            for row in corrects_act1_quantity:
-                corrects_act1_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+            # corrects_act1_query = get_corrects_act1_co(request)
+            # cursor.execute(corrects_act1_query)
+            # queries.append({"name": 'Corrects act1 query', "query": corrects_act1_query})
+            # corrects_act1_quantity = cursor.fetchall()
+            # print ("corrects_act1_quantity",corrects_act1_quantity)
+            # for row in corrects_act1_quantity:
+            #     corrects_act1_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
 
-            incorrects_act1_query = get_incorrects_act1_co(request)
-            cursor.execute(incorrects_act1_query)
-            queries.append({"name": 'Incorrects act1 query', "query": jumps_query})
-            incorrects_act1_quantity = cursor.fetchall()
-            for row in incorrects_act1_quantity:
-                incorrects_act1_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+            # incorrects_act1_query = get_incorrects_act1_co(request)
+            # cursor.execute(incorrects_act1_query)
+            # queries.append({"name": 'Incorrects act1 query', "query": jumps_query})
+            # incorrects_act1_quantity = cursor.fetchall()
+            # for row in incorrects_act1_quantity:
+            #     incorrects_act1_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
 
-            corrects_act2_query = get_corrects_act2_co(request)
-            cursor.execute(corrects_act2_query)
-            queries.append({"name": 'Corrects act2 query', "query": corrects_act2_query})
-            corrects_act2_quantity = cursor.fetchall()
-            for row in corrects_act2_quantity:
-                corrects_act2_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+            # corrects_act2_query = get_corrects_act2_co(request)
+            # cursor.execute(corrects_act2_query)
+            # queries.append({"name": 'Corrects act2 query', "query": corrects_act2_query})
+            # corrects_act2_quantity = cursor.fetchall()
+            # for row in corrects_act2_quantity:
+            #     corrects_act2_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
 
-            incorrects_act2_query = get_incorrects_act2_co(request)
-            cursor.execute(incorrects_act2_query)
-            queries.append({"name": 'Incorrects act2 query', "query": incorrects_act2_query})
-            incorrects_act2_quantity = cursor.fetchall()
-            for row in incorrects_act2_quantity:
-                incorrects_act2_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+            # incorrects_act2_query = get_incorrects_act2_co(request)
+            # cursor.execute(incorrects_act2_query)
+            # queries.append({"name": 'Incorrects act2 query', "query": incorrects_act2_query})
+            # incorrects_act2_quantity = cursor.fetchall()
+            # for row in incorrects_act2_quantity:
+            #     incorrects_act2_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
             
+            analytics_co_query = get_analytics_co(request)
+            cursor.execute(analytics_co_query)
+            queries.append({"name": 'Analytics co query', "query": analytics_co_query})
+            analytics_co_quantity = cursor.fetchall()
+            print ("analytics_co_quantity", analytics_co_quantity)
+            for row in analytics_co_quantity:
+                analytics_co_quantity_response.append({ 'id': row[0], 'name': row[1], 'correctsact1': row[2], 'incorrectsact1': row[3], 'correctsact2': row[4], 'incorrectsact2': row[5]  })
+
             exit_lab_query = get_exit_lab(request)
             cursor.execute(exit_lab_query)
             queries.append({"name": 'Exit lab query', "query": exit_lab_query})
@@ -290,10 +296,7 @@ def welcome(request):
                 'corrects_quantity':corrects_quantity_response,
                 'incorrects_quantity':incorrects_quantity_response,
                 'jumps_quantity':jumps_quantity_response,
-                'corrects_act1_quantity':corrects_act1_quantity_response,
-                'incorrects_act1_quantity':incorrects_act1_quantity_response,
-                'corrects_act2_quantity':corrects_act2_quantity_response,
-                'incorrects_act2_quantity':incorrects_act2_quantity_response,
+                'analytics_co_quantity':analytics_co_quantity_response,
                 'move_element_quantity':move_element_quantity_response,
                 'exit_lab_quantity': exit_lab_quantity_response,
                 'touch_animals_co_quantity':touch_animals_co_quantity_response,

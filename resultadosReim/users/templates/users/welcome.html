@@ -665,7 +665,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 {% endif %}
 
                 {% if student_num != '0' %}
@@ -1138,7 +1138,7 @@
             var myChart = new Chart(ctx10, {
             type: 'horizontalBar',
             data: {
-                labels: 
+                labels:
                 [
                     {% if corrects_quantity %}
                         {% for corrects in corrects_quantity %}
@@ -1153,14 +1153,14 @@
                     //     {% endfor%}
                     // {% endif%}
                 ],
-                datasets: 
+                datasets:
                 [
                     {
                         label: "Correctas totales",
                         backgroundColor: 'rgb(87,35,100)',
                         borderColor: "rgb(87,35,100)",
                         pointBorderColor: "#fff",
-                        data: 
+                        data:
                         [
                             {% if corrects_quantity %}
                                 {% for corrects in corrects_quantity %}
@@ -1174,7 +1174,7 @@
                         backgroundColor: 'rgb(0,255,255)',
                         borderColor: "rgb(0,255,255)",
                         pointBorderColor: "#fff",
-                        data: 
+                        data:
                         [
                             {% if incorrects_quantity %}
                                 {% for incorrects in incorrects_quantity %}
@@ -1205,7 +1205,7 @@
         };
 
         var ctx12data = {
-            labels: 
+            labels:
             [
                 {% if exit_lab_quantity %}
                     {% for exit_lab in exit_lab_quantity %}
@@ -1213,14 +1213,14 @@
                     {% endfor%}
                 {% endif%}
             ],
-            datasets: 
+            datasets:
             [
                 {
                 label: "Salidas obtenidas",
                 backgroundColor: 'rgb(207,52,118)',
                 borderColor: "rgb(207,52,118)",
                 pointBorderColor: "#fff",
-                data: 
+                data:
                 [
                 {% if exit_lab_quantity %}
                     {% for exit_lab in exit_lab_quantity %}
@@ -1237,124 +1237,97 @@
             new Chart(ctx12, {type: 'horizontalBar', data: ctx12data, options:barOptions});
         }
 
+        var numberWithCommas = function(x) 
+        {
+            return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        };
         if ($('#analitics').length){
             var ctx11 = document.getElementById('analitics');
             var Chart11 = new Chart(ctx11, {
             type: 'horizontalBar',
             data: {
-                labels: 
+                labels:
                 [
-                    {% if corrects_act1_quantity %}
-                        {% for corrects_act1 in corrects_act1_quantity %}
-                            '{{corrects_act1.name}}',
-                        {% endfor%}
-                    {% endif%}
-
-                    ,
-
-                    {% if incorrects_act1_quantity %}
-                        {% for incorrects_act1 in incorrects_act1_quantity %}
-                            '{{incorrects_act1.name}}',
-                        {% endfor%}
-                    {% endif%},
-
-                    {% if corrects_act2_quantity %}
-                        {% for corrects_act2 in corrects_act2_quantity %}
-                            '{{corrects_act2.name}}',
-                        {% endfor%}
-                    {% endif%}
-
-                    ,
-
-                    {% if incorrects_act2_quantity %}
-                        {% for incorrects_act2 in incorrects_act2_quantity %}
-                            '{{incorrects_act2.name}}',
+                    {% if analytics_co_quantity %}
+                        {% for analytics_co in analytics_co_quantity %}
+                            '{{analytics_co.name}}',
                         {% endfor%}
                     {% endif%}
                 ],
-                datasets: 
+                datasets:
                 [
                     {
                         label: "Correctas Actividad 1",
-                        backgroundColor: 'rgb(23,165,137)',
-                        borderColor: "rgb(23,165,137)",
+                        backgroundColor: '#46b3e6',
+                        borderColor: "#46b3e6",
                         pointBorderColor: "#fff",
-                        data: 
+                        data:
                         [
-                            {% if corrects_act1_quantity %}
-                                {% for corrects_act1 in corrects_act1_quantity %}
-                                    '{{corrects_act1.quantity}}',
+                            {% if analytics_co_quantity %}
+                                {% for analytics_co in analytics_co_quantity %}
+                                    '{{analytics_co.correctsact1}}',
                                 {% endfor%}
                             {% endif%}
                         ]
                     },
                     {
                         label: "Incorrectas Actividad 1",
-                        backgroundColor: 'rgb( 142, 68, 173 )',
-                        borderColor: "rgb( 142, 68, 173 )",
+                        backgroundColor: '#fe6845',
+                        borderColor: "#fe6845",
                         pointBorderColor: "#fff",
-                        data: 
+                        data:
                         [
-                            {% if incorrects_act1_quantity %}
-                                {% for incorrects_act1 in incorrects_act1_quantity %}
-                                    '{{incorrects_act1.quantity}}',
+                            {% if analytics_co_quantity %}
+                                {% for analytics_co in analytics_co_quantity %}
+                                    '{{analytics_co.incorrectsact1}}',
                                 {% endfor%}
-                            {% else %}
-                            0
                             {% endif%}
                         ]
                     },
                     {
                         label: "Correctas Actividad 2",
-                        backgroundColor: 'rgb(245, 176, 65)',
-                        borderColor: "rgb(245, 176, 65)",
+                        backgroundColor: '#c6cbef',
+                        borderColor: "#c6cbef",
                         pointBorderColor: "#fff",
-                        data: 
+                        data:
                         [
-                            {% if corrects_act2_quantity %}
-                                {% for corrects_act2 in corrects_act2_quantity %}
-                                    '{{corrects_act2.quantity}}',
+                            {% if analytics_co_quantity %}
+                                {% for analytics_co in analytics_co_quantity %}
+                                    '{{analytics_co.correctsact2}}',
                                 {% endfor%}
                             {% endif%}
                         ]
                     },
                     {
                         label: "Incorrectas Actividad 2",
-                        backgroundColor: 'rgb( 93, 173, 226 )',
-                        borderColor: "rgb( 93, 173, 226 )",
+                        backgroundColor: '#ffd739',
+                        borderColor: "#ffd739",
                         pointBorderColor: "#fff",
-                        data: 
+                        data:
                         [
-                            {% if incorrects_act2_quantity %}
-                                {% for incorrects_act2 in incorrects_act2_quantity %}
-                                    '{{incorrects_act2.quantity}}',
+                            {% if analytics_co_quantity %}
+                                {% for analytics_co in analytics_co_quantity %}
+                                    '{{analytics_co.incorrectsact2}}',
                                 {% endfor%}
                             {% endif%}
                         ]
                     }
                 ]
             },
-            options: {
-                scales: {
-                    xAxes:[{
-                            stacked:true,
-                            ticks: {
-                                min: 0,
-                                callback: function(value, index, values) {
-                                    if (Math.floor(value) === value) {
-                                        return value;
-                                    }
-                                }
-                            }
+                options: {
+                    scales: {
+                    xAxes: [{ 
+                        stacked: true, 
                         }],
-                yAxes: [{ stacked: true }]
+                    yAxes: [{ 
+                        stacked: true}],
+                    },
                 }
-            }
-            });
+                });
         }
 
         var ctx15data = {
-            labels: 
+            labels:
             [
                 {% if touch_animals_co_quantity %}
                     {% for touch_animals_co in touch_animals_co_quantity %}
@@ -1362,14 +1335,14 @@
                     {% endfor%}
                 {% endif%}
             ],
-            datasets: 
+            datasets:
             [
                 {
                 label: "Cantidad de animales tocados",
                 backgroundColor: 'rgb(207,52,118)',
                 borderColor: "rgb(207,52,118)",
                 pointBorderColor: "#fff",
-                data: 
+                data:
                 [
                     {% if touch_animals_co_quantity %}
                         {% for touch_animals_co in touch_animals_co_quantity %}
@@ -1387,7 +1360,7 @@
         }
 
         var ctx16data = {
-            labels: 
+            labels:
             [
                 {% if touch_trash_co_quantity %}
                     {% for touch_trash_co in touch_trash_co_quantity %}
@@ -1395,14 +1368,14 @@
                     {% endfor%}
                 {% endif%}
             ],
-            datasets: 
+            datasets:
             [
                 {
                 label: "Cantidad de basura tocada",
                 backgroundColor: 'rgb(207,52,118)',
                 borderColor: "rgb(207,52,118)",
                 pointBorderColor: "#fff",
-                data: 
+                data:
                 [
                     {% if touch_trash_co_quantity %}
                         {% for touch_trash_co in touch_trash_co_quantity %}
