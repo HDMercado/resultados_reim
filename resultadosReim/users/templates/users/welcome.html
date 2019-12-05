@@ -187,7 +187,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row" {% if not activate_graphics_student %}style="display: none;"{% endif %}>
+            <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
                 <div class="col-lg-12">
                     <div class="row">
                         <div class="col-lg-6">
@@ -1125,13 +1125,13 @@
                 borderColor: "rgb(220,118,51)",
                 pointBorderColor: "#fff",
                 data: [
-                    {% if galaxia_creacion_quantity %}
-            {% for galaxia_creacion in galaxia_creacion_quantity %}
-        '{{galaxia_creacion.quantity}}',
+                    {% if galaxy_creacion_quantity %}
+            {% for galaxy_creacion in galaxy_creacion_quantity %}
+        '{{galaxy_creacion.quantity}}',
         {% endfor%}
         {% endif%}
         ]
-        }
+        },
         ]
         };
 
@@ -1139,9 +1139,10 @@
             animation: false,
             isFixedWidth:true,
             barWidth:50,
+            responsive: true,
             scales: {
                 xAxes:[{
-                    stacked:true,
+                    stacked:false,
                     ticks: {
                         min: 0,
                         callback: function(value, index, values) {
@@ -1151,8 +1152,8 @@
                         }
                     }
                 }],
-                yAxes: [{ stacked: true }]
-            }
+                yAxes: [{ stacked: false }]
+            },
         };
 
         if ($('#CreadosCreacion').length){
@@ -2106,7 +2107,7 @@ var CreacionData = {
                 }
             }
         }
-        setFilterSelectors(['school','course','reim', 'activity', 'start', 'end'])
+        setFilterSelectors(['school','course','reim', 'activity', 'student', 'start', 'end'])
     </script>
 
     <!-- <script type="text/javascript">
