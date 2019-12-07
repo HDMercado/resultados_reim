@@ -465,7 +465,7 @@ def get_aceptar_laberinto_query(request):
     if request.GET.get('course') and request.GET.get('course') != '0':
         query_params += " AND b.curso_id = " + request.GET.get('course')
     if request.GET.get('school') and request.GET.get('school') != '0':
-        query_params += " AND b.colegio_id = " + request.GET.get('school')+' AND a.id_elemento= 2142'
+        query_params += " AND b.colegio_id = " +  request.GET.get('school')+' AND a.id_elemento= 2142'
     if request.GET.get('student') and request.GET.get('student') != '0':
         query_params += ' AND a.id_user=' + request.GET.get('student')    
     #print(query_params)
