@@ -99,49 +99,349 @@ def welcome(request):
         #REIM SELECCIONADO
         reim_num = request.GET.get('reim')
         
+        student_num = request.GET.get('student')
+        students_response = []
+        if request.GET.get('school') and request.GET.get('school') != '0':
+            if request.GET.get('course') and request.GET.get('course') != '0':
+                cursor.execute('SELECT DISTINCT u.id, concat(u.nombres ," " , u.apellido_paterno ," " , u.apellido_materno) as nombre FROM alumno_respuesta_actividad a, usuario u, pertenece b WHERE a.id_user = u.id && b.usuario_id = a.id_user && b.colegio_id IN (SELECT colegio_id from pertenece INNER JOIN usuario ON usuario.id = pertenece.usuario_id WHERE username="' + request.user.username + '")' + 'AND b.curso_id IN (SELECT curso_id FROM pertenece WHERE usuario_id = (SELECT id FROM usuario WHERE username ="' + request.user.username + '"))' + 'AND a.id_reim="' + request.GET.get('reim') + '"' + 'AND b.curso_id ="' + request.GET.get('course') + '"' + 'AND b.colegio_id ="' + request.GET.get('school') + '";')
+                students = cursor.fetchall()
+                for row in students:
+                    students_response.append({ 'id': row[0], 'name': row[1] })
+
+        #INICIO MUNDO ANIMAL 
+        piezas_quantity_response =[]
+        malas_quantity_response = []
+        animales_quantity_response = []
+        actividades_quantity_response=[]
+        
+        if reim_num=="1":
+            piezas_query = get_piezas(request)
+            cursor.execute(piezas_query)
+            queries.append({"name": 'Piezas query', "query": piezas_query})
+            piezas_quantity = cursor.fetchall()
+            print ("piezas quantity", piezas_quantity)
+            for row in piezas_quantity:
+                piezas_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+
+            malas_query = get_malas(request)
+            cursor.execute(malas_query)
+            queries.append({"name": 'Malas query', "query": malas_query})
+            malas_quantity = cursor.fetchall()
+            print("malas quantity", malas_quantity)
+            for row in malas_quantity:
+                malas_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+
+            animales_query = get_animals(request)
+            cursor.execute(animales_query)
+            queries.append({"name": 'Animales query', "query": animales_query})
+            animales_quantity = cursor.fetchall()
+            print("animales quantity", animales_quantity)
+            for row in animales_quantity:
+                animales_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+
+
+            actividades_query = get_cant_touch(request)
+            cursor.execute(actividades_query)
+            queries.append({"name": 'Actividades query', "query": actividades_query})
+            actividades_quantity = cursor.fetchall()
+            print("actividades quantity", actividades_quantity)
+            for row in actividades_quantity:
+                actividades_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+        #FIN MUNDO ANIMAL 
+
+        #INICIO PLUS SPACE
+        #PLUS SPACE-------------------------------------
+        #Creacion
         move_element_quantity_response = []
+        volver_creacion_quantity_response = []
         aceptar_creacion_quantity_response = []
         ingresar_creacion_quantity_response = []
-        volver_creacion_quantity_response = []
-
+        planet_creacion_quantity_response = []
+        planetS_creacion_quantity_response = []
+        planetR_creacion_quantity_response = []
+        star_creacion_quantity_response = []
+        superNova_creacion_quantity_response = []
+        nebulosa_creacion_quantity_response = []
+        galaxy_creacion_quantity_response = []
+        #Laberinto
+        element_colission_quantity_response = []
+        aceptar_laberinto_quantity_response = []
+        volver_laberinto_quantity_response = []
+        ingresar_laberinto_quantity_response = []
+        #alternativas
+        jump_alternativas_quantity_response = []
+        correctas_alternativas_quantity_response = []
+        incorrectas_alternativas_quantity_response = []
+        aceptar_alternativas_quantity_response = []
+        volver_alternativas_quantity_response = []
+        ingresar_alternativas_quantity_response = []
+        #busca
+        correctas_busca_quantity_response = []
+        incorrectas_busca_quantity_response = []
+        aceptar_busca_quantity_response = []
+        volver_busca_quantity_response = []
+        ingresar_busca_quantity_response = []
+        #cuida
+        acierto_cuida_quantity_response = []
+        aceptar_cuida_quantity_response = []
+        volver_cuida_quantity_response = []
+        ingresar_cuida_quantity_response = []
+        #puzzle
+        aceptar_puzzle_quantity_response = []
+        volver_puzzle_quantity_response = []
+        ingresar_puzzle_quantity_response = []
+        
         if reim_num=="2":
-
-            #Elemento desplazado
+        #CREACION
+        #Elemento desplazado
             move_element_query = get_move_element_query(request)
-            cursor.execute(move_element_query)
             queries.append({"name": 'Desplazado query', "query": move_element_query})
+            cursor.execute(move_element_query)
             move_element_quantity = cursor.fetchall()
             for row in move_element_quantity:
                 move_element_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
-            
-            #Volver creacion
+        #Volver creacion
             volver_creacion_query = get_volver_creacion_query(request)
-            cursor.execute(volver_creacion_query)
             queries.append({"name": 'volver creacion query', "query": volver_creacion_query})
+            cursor.execute(volver_creacion_query)
             volver_creacion_quantity = cursor.fetchall()
             for row in volver_creacion_quantity:
                 volver_creacion_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
-            #aceptar creacion
+        #aceptar creacion
             aceptar_creacion_query = get_aceptar_creacion_query(request)
-            cursor.execute(aceptar_creacion_query)
             queries.append({"name": 'aceptar creacion query', "query": aceptar_creacion_query})
+            cursor.execute(aceptar_creacion_query)
             aceptar_creacion_quantity = cursor.fetchall()
             for row in aceptar_creacion_quantity:
                 aceptar_creacion_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
-            
-            #Ingresar creacion
+        #Ingresar creacion
             ingresar_creacion_query = get_ingresar_creacion_query(request)
-            cursor.execute(ingresar_creacion_query)
             queries.append({"name": 'ingresar creacion query', "query": ingresar_creacion_query})
+            cursor.execute(ingresar_creacion_query)
             ingresar_creacion_quantity = cursor.fetchall()
             for row in ingresar_creacion_quantity:
                 ingresar_creacion_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
-            
-        #Clean Ocean
+        #planeta creacion
+            planet_creacion_query = get_planet_query(request)
+            queries.append({"name": 'planet creacion query', "query": planet_creacion_query})
+            cursor.execute(planet_creacion_query)
+            planet_creacion_quantity = cursor.fetchall()
+            for row in planet_creacion_quantity:
+                planet_creacion_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+        #planeta con satelite creacion
+            planetS_creacion_query = get_planet_satelite_query(request)
+            queries.append({"name": 'planetS creacion query', "query": planetS_creacion_query})
+            cursor.execute(planetS_creacion_query)
+            planetS_creacion_quantity = cursor.fetchall()
+            for row in planetS_creacion_quantity:
+                planetS_creacion_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+        #Planeta con anillo creacion
+            planetR_creacion_query = get_planet_ring_query(request)
+            queries.append({"name": 'planetR creacion query', "query": planetR_creacion_query})
+            cursor.execute(planetR_creacion_query)
+            planetR_creacion_quantity = cursor.fetchall()
+            for row in planetR_creacion_quantity:
+                planetR_creacion_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+        #Estrella creacion
+            star_creacion_query = get_star_query(request)
+            queries.append({"name": 'Star creacion query', "query":star_creacion_query})
+            cursor.execute(star_creacion_query)
+            star_creacion_quantity = cursor.fetchall()
+            for row in star_creacion_quantity:
+               star_creacion_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+        #supernova creacion
+            superNova_creacion_query = get_supernova_query(request)
+            queries.append({"name": 'superNova creacion query', "query": superNova_creacion_query})
+            cursor.execute(superNova_creacion_query)
+            superNova_creacion_quantity = cursor.fetchall()
+            for row in superNova_creacion_quantity:
+                superNova_creacion_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+        #nebulosa creacion
+            nebulosa_creacion_query = get_nebulosa_query(request)
+            queries.append({"name": 'nebulosa creacion query', "query": nebulosa_creacion_query})
+            cursor.execute(nebulosa_creacion_query)
+            nebulosa_creacion_quantity = cursor.fetchall()
+            for row in nebulosa_creacion_quantity:
+                nebulosa_creacion_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+        #galaxia creacion
+            galaxy_creacion_query = get_galaxy_query(request)
+            queries.append({"name": 'galaxy creacion query', "query": galaxy_creacion_query})
+            cursor.execute(galaxy_creacion_query)
+            galaxy_creacion_quantity = cursor.fetchall()
+            for row in galaxy_creacion_quantity:
+                galaxy_creacion_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+        #LABERINTO
+        #colisiones
+            element_colission_query = get_element_colission_query(request)
+            queries.append({"name": 'colisiones query', "query": element_colission_query})
+            cursor.execute(element_colission_query)
+            element_colission_quantity = cursor.fetchall()
+            for row in element_colission_quantity:
+                element_colission_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+        #aceptar
+            aceptar_laberinto_query = get_aceptar_laberinto_query(request)
+            queries.append({"name": 'aceptar laberinto query', "query": aceptar_laberinto_query})
+            cursor.execute(aceptar_laberinto_query)
+            aceptar_laberinto_quantity = cursor.fetchall()
+            for row in aceptar_laberinto_quantity:
+                aceptar_laberinto_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+        #volver
+            volver_laberinto_query = get_volver_laberinto_query(request)
+            queries.append({"name": 'volver laberinto query', "query": volver_laberinto_query})
+            cursor.execute(volver_laberinto_query)
+            volver_laberinto_quantity = cursor.fetchall()
+            for row in volver_laberinto_quantity:
+                volver_laberinto_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+        #ingresar
+            ingresar_laberinto_query = get_ingresar_laberinto_query(request)
+            queries.append({"name": 'ingresar laberinto query', "query": ingresar_laberinto_query})
+            cursor.execute(ingresar_laberinto_query)
+            ingresar_laberinto_quantity = cursor.fetchall()
+            for row in ingresar_laberinto_quantity:
+                ingresar_laberinto_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })       
+        #ALTERNATIVAS
+        #saltos
+            jump_alternativas_query = get_jump_alternativas_query(request)
+            queries.append({"name": 'Saltos query', "query": jump_alternativas_query})
+            cursor.execute(jump_alternativas_query)
+            jump_alternativas_quantity = cursor.fetchall()
+            for row in jump_alternativas_quantity:
+                jump_alternativas_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+        #correctas
+            correctas_alternativas_query = get_correctas_alternativas_query(request)
+            queries.append({"name": 'Correctas Alternativas query', "query": correctas_alternativas_query})
+            cursor.execute(correctas_alternativas_query)
+            correctas_alternativas_quantity = cursor.fetchall()
+            for row in correctas_alternativas_quantity:
+                correctas_alternativas_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+        #incorrectas
+            incorrectas_alternativas_query = get_incorrectas_alternativas_query(request)
+            queries.append({"name": 'Incorrectas Alternativas query', "query": incorrectas_alternativas_query})
+            cursor.execute(incorrectas_alternativas_query)
+            incorrectas_alternativas_quantity = cursor.fetchall()
+            for row in incorrectas_alternativas_quantity:
+                incorrectas_alternativas_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+        #aceptar
+            aceptar_alternativas_query = get_aceptar_alternativas_query(request)
+            queries.append({"name": 'Aceptar Alternativas query', "query": aceptar_alternativas_query})
+            cursor.execute(aceptar_alternativas_query)
+            aceptar_alternativas_quantity = cursor.fetchall()
+            for row in aceptar_alternativas_quantity:
+                aceptar_alternativas_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+        #volver
+            volver_alternativas_query = get_volver_alternativas_query(request)
+            queries.append({"name": 'Volver Alternativas query', "query": volver_alternativas_query})
+            cursor.execute(volver_alternativas_query)
+            volver_alternativas_quantity = cursor.fetchall()
+            for row in volver_alternativas_quantity:
+                volver_alternativas_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+        #ingresar
+            ingresar_alternativas_query = get_ingresar_alternativas_query(request)
+            queries.append({"name": 'Ingresar Alternativas query', "query": ingresar_alternativas_query})
+            cursor.execute(ingresar_alternativas_query)
+            ingresar_alternativas_quantity = cursor.fetchall()
+            for row in ingresar_alternativas_quantity:
+                ingresar_alternativas_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+#busca
+        #correctas
+            correctas_busca_query = get_correctas_busca_query(request)
+            queries.append({"name": 'Correctas Busca query', "query": correctas_busca_query})
+            cursor.execute(correctas_busca_query)
+            correctas_busca_quantity = cursor.fetchall()
+            for row in correctas_busca_quantity:
+                correctas_busca_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+        #incorrectas
+            incorrectas_busca_query = get_incorrectas_busca_query(request)
+            queries.append({"name": 'Incorrrectas Busca query', "query": incorrectas_busca_query})
+            cursor.execute(incorrectas_busca_query)
+            incorrectas_busca_quantity = cursor.fetchall()
+            for row in incorrectas_busca_quantity:
+                incorrectas_busca_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+        #aceptar
+            aceptar_busca_query = get_aceptar_busca_query(request)
+            queries.append({"name": 'Aceptar Busca query', "query": aceptar_busca_query})
+            cursor.execute(aceptar_busca_query)
+            aceptar_busca_quantity = cursor.fetchall()
+            for row in aceptar_busca_quantity:
+                aceptar_busca_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+        #volver
+            volver_busca_query = get_volver_busca_query(request)
+            queries.append({"name": 'Volver Busca query', "query": volver_busca_query})
+            cursor.execute(volver_busca_query)
+            volver_busca_quantity = cursor.fetchall()
+            for row in volver_busca_quantity:
+                volver_busca_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+        #ingresar
+            ingresar_busca_query = get_ingresar_busca_query(request)
+            queries.append({"name": 'Ingresar Busca query', "query": ingresar_busca_query})
+            cursor.execute(ingresar_busca_query)
+            ingresar_busca_quantity = cursor.fetchall()
+            for row in ingresar_busca_quantity:
+                ingresar_busca_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+        #cuida
+        #acierto
+            acierto_cuida_query = get_acierto_cuida_query(request)
+            queries.append({"name": 'Acierto Cuida query', "query": acierto_cuida_query})
+            cursor.execute(acierto_cuida_query)
+            acierto_cuida_quantity = cursor.fetchall()
+            for row in acierto_cuida_quantity:
+                acierto_cuida_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+        #aceptar
+            aceptar_cuida_query = get_aceptar_cuida_query(request)
+            queries.append({"name": 'Aceptar Cuida query', "query": aceptar_cuida_query})
+            cursor.execute(aceptar_cuida_query)
+            aceptar_cuida_quantity = cursor.fetchall()
+            for row in aceptar_cuida_quantity:
+                aceptar_cuida_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+        #volver
+            volver_cuida_query = get_volver_cuida_query(request)
+            queries.append({"name": 'Volver Cuida query', "query": volver_cuida_query})
+            cursor.execute(volver_cuida_query)
+            volver_cuida_quantity = cursor.fetchall()
+            for row in volver_cuida_quantity:
+                volver_cuida_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+        #ingresar
+            ingresar_cuida_query = get_ingresar_cuida_query(request)
+            queries.append({"name": 'Ingresar Cuida query', "query": ingresar_cuida_query})
+            cursor.execute(ingresar_cuida_query)
+            ingresar_cuida_quantity = cursor.fetchall()
+            for row in ingresar_cuida_quantity:
+                ingresar_cuida_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+                get_acierto_cuida_query(request)
+        #puzzle
+        #aceptar
+            aceptar_puzzle_query = get_aceptar_puzzle_query(request)
+            queries.append({"name": 'Aceptar Puzzle query', "query": aceptar_puzzle_query})
+            cursor.execute(aceptar_puzzle_query)
+            aceptar_puzzle_quantity = cursor.fetchall()
+            for row in aceptar_puzzle_quantity:
+                aceptar_puzzle_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+        #volver
+            volver_puzzle_query = get_volver_puzzle_query(request)
+            queries.append({"name": 'Volver Puzzle query', "query": volver_puzzle_query})
+            cursor.execute(volver_puzzle_query)
+            volver_puzzle_quantity = cursor.fetchall()
+            for row in volver_puzzle_quantity:
+                volver_puzzle_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+        #ingresar
+            ingresar_puzzle_query = get_ingresar_puzzle_query(request)
+            queries.append({"name": 'Ingresar Puzzle query', "query": ingresar_puzzle_query})
+            cursor.execute(ingresar_puzzle_query)
+            ingresar_puzzle_quantity = cursor.fetchall()
+            for row in ingresar_puzzle_quantity:
+                ingresar_puzzle_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+        
+        #FIN PLUS SPACE
+
+        #INICIO CLEAN OCEAN
         colision_quantity_response = []
         corrects_quantity_response = []
         incorrects_quantity_response = []
         jumps_quantity_response = []
+        analytics_co_quantity_response = []
+        exit_lab_quantity_response = []
+        touch_animals_co_quantity_response = []
+        touch_trash_co_quantity_response = []
 
         if reim_num=="3":
             colision_query = get_colision_co(request)
@@ -156,7 +456,6 @@ def welcome(request):
             cursor.execute(corrects_query)
             queries.append({"name": 'Corrects query', "query": corrects_query})
             corrects_quantity = cursor.fetchall()
-            print ("corrects quantity" , corrects_quantity)
             for row in corrects_quantity:
                 corrects_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
 
@@ -164,7 +463,6 @@ def welcome(request):
             cursor.execute(incorrects_query)
             queries.append({"name": 'Incorrects query', "query": incorrects_query})
             incorrects_quantity = cursor.fetchall()
-            print ("incorrects quantity" , incorrects_quantity)
             for row in incorrects_quantity:
                 incorrects_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
 
@@ -172,10 +470,43 @@ def welcome(request):
             cursor.execute(jumps_query)
             queries.append({"name": 'Jumps query', "query": jumps_query})
             jumps_quantity = cursor.fetchall()
-            print ("jumps quantity" , jumps_quantity)
             for row in jumps_quantity:
                 jumps_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
-    
+            
+            analytics_co_query = get_analytics_co(request)
+            cursor.execute(analytics_co_query)
+            queries.append({"name": 'Analytics co query', "query": analytics_co_query})
+            analytics_co_quantity = cursor.fetchall()
+            print ("analytics_co_quantity", analytics_co_quantity)
+            for row in analytics_co_quantity:
+                analytics_co_quantity_response.append({ 'id': row[0], 'name': row[1], 'correctsact1': row[2], 'incorrectsact1': row[3], 'correctsact2': row[4], 'incorrectsact2': row[5]  })
+
+            exit_lab_query = get_exit_lab(request)
+            cursor.execute(exit_lab_query)
+            queries.append({"name": 'Exit lab query', "query": exit_lab_query})
+            exit_lab_quantity = cursor.fetchall()
+            for row in exit_lab_quantity:
+                exit_lab_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+
+            touch_animals_co_query = get_touch_animals_co(request)
+            cursor.execute(touch_animals_co_query)
+            queries.append({"name": 'Touch animals co query', "query": touch_animals_co_query})
+            touch_animals_co_quantity = cursor.fetchall()
+            print ("Touch animals co quantity" , touch_animals_co_quantity)
+            for row in touch_animals_co_quantity:
+                touch_animals_co_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+
+            touch_trash_co_query = get_touch_trash_co(request)
+            cursor.execute(touch_trash_co_query)
+            queries.append({"name": 'Touch trash co query', "query": touch_trash_co_query})
+            touch_trash_co_quantity = cursor.fetchall()
+            print ("Touch trash co quantity" , touch_trash_co_quantity)
+            for row in touch_trash_co_quantity:
+                touch_trash_co_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+            
+
+        #FIN CLEAN OCEAN
+        
         #Cantidad de Sesiones
         session_query = get_session_query(request)
         cursor.execute(session_query)
@@ -186,6 +517,7 @@ def welcome(request):
             sesion_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
 
         activate_graphics = activate_course_filter and activate_school_filter and activate_reim_filter
+
         return render(
             request,
             "users/welcome.html",
@@ -199,19 +531,65 @@ def welcome(request):
                 'game_time': game_time_response,
                 'courses': courses_response,
                 'activities': activities_response,
+                'students': students_response,
                 'touch_quantity': touch_quantity_response,
                 'sesion_quantity': sesion_quantity_response,
                 'cant_usuarios':cant_usuarios,
                 'activity_num':activity_num,
+                'student_num':student_num,
                 'reim_num':reim_num,
-                'move_element_quantity':move_element_quantity_response,
-                'aceptar_creacion_quantity':aceptar_creacion_quantity_response,
-                'volver_creacion_quantity':volver_creacion_quantity_response,
-                'ingresar_creacion_quantity':ingresar_creacion_quantity_response,
                 'colision_quantity':colision_quantity_response,
                 'corrects_quantity':corrects_quantity_response,
                 'incorrects_quantity':incorrects_quantity_response,
                 'jumps_quantity':jumps_quantity_response,
+                'analytics_co_quantity':analytics_co_quantity_response,
+                'exit_lab_quantity': exit_lab_quantity_response,
+                'touch_animals_co_quantity':touch_animals_co_quantity_response,
+                'touch_trash_co_quantity':touch_trash_co_quantity_response,
+                'piezas_quantity':piezas_quantity_response,
+                'malas_quantity':malas_quantity_response,
+                'animales_quantity':animales_quantity_response,
+                'actividades_quantity':actividades_quantity_response,
+                #PLUSSPACE
+                #CREACION
+                'move_element_quantity':move_element_quantity_response,
+                'ingresar_creacion_quantity':ingresar_creacion_quantity_response,
+                'aceptar_creacion_quantity':aceptar_creacion_quantity_response,
+                'volver_creacion_quantity':volver_creacion_quantity_response,
+                'planet_creacion_quantity':planet_creacion_quantity_response,
+                'planetS_creacion_quantity':planetS_creacion_quantity_response,
+                'planetR_creacion_quantity':planetR_creacion_quantity_response,
+                'star_creacion_quantity':star_creacion_quantity_response,
+                'superNova_creacion_quantity':superNova_creacion_quantity_response,
+                'nebulosa_creacion_quantity':nebulosa_creacion_quantity_response,
+                'galaxy_creacion_quantity':galaxy_creacion_quantity_response,
+                #LABERINTO
+                'element_colission_quantity':element_colission_quantity_response,
+                'aceptar_laberinto_quantity':aceptar_laberinto_quantity_response,
+                'volver_laberinto_quantity':volver_laberinto_quantity_response,
+                'ingresar_laberinto_quantity':ingresar_laberinto_quantity_response,
+                #ALTERNATIVAS
+                'jump_alternativas_quantity':jump_alternativas_quantity_response,
+                'correctas_alternativas_quantity':correctas_alternativas_quantity_response,
+                'incorrectas_alternativas_quantity':incorrectas_alternativas_quantity_response,
+                'aceptar_alternativas_quantity':aceptar_alternativas_quantity_response,
+                'volver_alternativas_quantity':volver_alternativas_quantity_response,
+                'ingresar_alternativas_quantity':ingresar_alternativas_quantity_response,
+                #BUSCA
+                'correctas_busca_quantity':correctas_busca_quantity_response,
+                'incorrectas_busca_quantity':incorrectas_busca_quantity_response,
+                'aceptar_busca_quantity':aceptar_busca_quantity_response,
+                'volver_busca_quantity':volver_busca_quantity_response,
+                'ingresar_busca_quantity':ingresar_busca_quantity_response,
+                #CUIDA
+                'acierto_cuida_quantity':acierto_cuida_quantity_response,
+                'aceptar_cuida_quantity':aceptar_cuida_quantity_response,
+                'volver_cuida_quantity':volver_cuida_quantity_response,
+                'ingresar_cuida_quantity':ingresar_cuida_quantity_response, 
+                #PUZZLE
+                'aceptar_puzzle_quantity':aceptar_puzzle_quantity_response,
+                'volver_puzzle_quantity':volver_puzzle_quantity_response,
+                'ingresar_puzzle_quantity':ingresar_puzzle_quantity_response,
             })
     # En otro caso redireccionamos al login
     return redirect('/login')

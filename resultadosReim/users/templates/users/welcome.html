@@ -65,7 +65,7 @@
                                 <div class="row  border-bottom white-bg dashboard-header">
                                     <div class="col-md-3">
                                         <label  class="font-normal">Colegio</label>
-                                        <select  onchange = "this.form.submit()" id="school-filter-selector" name="school" class="form-control m-b">
+                                        <select id="school-filter-selector" name="school" class="form-control m-b">
                                             {% if schools|length == 0 or schools|length >= 1 %}
                                             <option value ="0" >Seleccione Colegio</option >
                                             {% endif %}
@@ -79,7 +79,7 @@
 
                                     <div  class="col-md-3">
                                         <label class="font-normal">Curso</label>
-                                        <select onchange = "this.form.submit()" id="course-filter-selector" name="course" class="form-control m-b">
+                                        <select id="course-filter-selector" name="course" class="form-control m-b">
                                             {% if courses|length == 0 or courses|length >= 1 %}
                                             <option value ="0" >Seleccione Curso</option>
                                             {% endif %}
@@ -92,7 +92,7 @@
                                     </div>
                                     <div class="col-md-3">
                                         <label  class="font-normal">Reim</label>
-                                        <select onchange="this.form.submit()" id="reim-filter-selector" name="reim" class="form-control m-b">
+                                        <select id="reim-filter-selector" name="reim" class="form-control m-b">
                                             <!--Para bloquear-->
                                             <!--{% if reims|length <= 1 %}disabled{% endif %}-->
                                             {% if reims|length == 0 or reims|length >= 1 %}
@@ -107,7 +107,7 @@
                                     </div>
                                     <div  class="col-md-3">
                                         <label  class="font-normal">Actividad</label>
-                                        <select onchange="this.form.submit()" id="activity-filter-selector" name="activity" class="form-control m-b">
+                                        <select id="activity-filter-selector" name="activity" class="form-control m-b">
                                             <option value ="0">Seleccione Actividad</option>
                                             {% if activities %}
                                             {% for activity in activities %}
@@ -116,7 +116,7 @@
                                             {% endif %}
                                         </select>
                                     </div>
-                                    <div  class="col-md-12">
+                                    <div  class="col-md-8">
                                         <div  class="ibox float-e-margins">
                                             <div  class="form-group" id="data_5">
                                                 <label  class="font-normal">Rango de fecha</label>
@@ -129,6 +129,17 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div  class="col-md-4">
+                                        <label  class="font-normal">Alumno</label>
+                                        <select id="student-filter-selector" name="student" class="form-control m-b">
+                                            <option value ="0">Seleccione Alumno</option>
+                                            {% if students %}
+                                            {% for student in students %}
+                                            <option value ={{student.id}}>{{student.name}}</option>
+                                            {% endfor %}
+                                            {% endif %}
+                                        </select>
+                                    </div>
                                     <p class="col-lg-12">
                                         <button class="btn btn-sm btn-primary m-t-n-xs float-right"><i class="fa fa-filter"></i> Filtrar</button>
                                         <a href="/" class="btn btn-sm btn-secondary m-t-n-xs float-right" style="margin-right: 5px"><i class="fa fa-trash"></i> Limpiar</a>
@@ -140,23 +151,23 @@
                 </div>
             </div>
         </div>
-        <!--PLUSSPACE -->
+        <!-- INICIO PLUS SPACE -->
         {% if reim_num == '2' %}
         <div class="wrapper wrapper-content">
             <!--CREACION -->
-            {% if activity_num == '9' %}
+            {% if activity_num == '9'%}
             <div class="row">
                 <div class="col-lg-12">
                     <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
                         <div class="col-lg-6">
                             <div class="ibox ">
                                 <div class="ibox-title">
-                                    <h5>Tiempo de juego total de la actividad</h5>
+                                    <h5>Elementos totales creados</h5>
                                     <div class="ibox-tools"></div>
                                 </div>
                                 <div class="ibox-content">
                                     <div class="scroll_content">
-                                        <canvas id="stacked" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                        <canvas id="CreadosCreacion" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
                                     </div>
                                 </div>
                             </div>
@@ -164,12 +175,12 @@
                         <div class="col-lg-6">
                             <div class="ibox">
                                 <div class="ibox-title">
-                                    <h5>Elementos totales creados</h5>
+                                    <h5>Elementos desplazados en el menú principal</h5>
                                     <div class="ibox-tools"></div>
                                 </div>
                                 <div class="ibox-content">
                                     <div class="scroll_content">
-                                        <canvas id="horizontalBar" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                        <canvas id="movePS" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
                                     </div>
                                 </div>
                             </div>
@@ -188,24 +199,24 @@
                                 </div>
                                 <div class="ibox-content">
                                     <div class="scroll_content">
-                                        <canvas id="horizontalCreacionVS" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                        <canvas id="CCreacion" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6">
-                            <div class="ibox ">
+                        <!--<div class="col-lg-6">
+                            <div class="ibox">
                                 <div class="ibox-title">
-                                    <h5>Elementos desplazados en el menu principal</h5>
+                                    <h5>Tiempo de juego total de la actividad</h5>
                                     <div class="ibox-tools"></div>
                                 </div>
                                 <div class="ibox-content">
                                     <div class="scroll_content">
-                                        <canvas id="horizontalMoveElement" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                        <canvas id="Creacion"></canvas>{% load staticfiles %}</canvas>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div>-->
                     </div>
                 </div>
             </div>
@@ -218,12 +229,12 @@
                         <div class="col-lg-6">
                             <div class="ibox ">
                                 <div class="ibox-title">
-                                    <h5>Tiempo de juego total de la actividad</h5>
+                                    <h5>Colisiones realizadas en laberinto</h5>
                                     <div class="ibox-tools"></div>
                                 </div>
                                 <div class="ibox-content">
                                     <div class="scroll_content">
-                                        <canvas id="stacked" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                        <canvas id="colissionPS" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
                                     </div>
                                 </div>
                             </div>
@@ -231,12 +242,12 @@
                         <div class="col-lg-6">
                             <div class="ibox">
                                 <div class="ibox-title">
-                                    <h5>Colisiones</h5>
+                                    <h5>Actividades completadas vs no completadas</h5>
                                     <div class="ibox-tools"></div>
                                 </div>
                                 <div class="ibox-content">
                                     <div class="scroll_content">
-                                        <canvas id="horizontalBar" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                        <canvas id="CLaberinto" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
                                     </div>
                                 </div>
                             </div>
@@ -247,6 +258,25 @@
             <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
                 <div class="col-lg-12">
                     <div class="row">
+                        <!--<div class="col-lg-6">
+                            <div class="ibox">
+                                <div class="ibox-title">
+                                    <h5>Tiempo de juego total de la actividad</h5>
+                                    <div class="ibox-tools"></div>
+                                </div>
+                                <div class="ibox-content">
+                                    <div class="scroll_content">
+                                        <canvas id="stacked" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>-->
+                    </div>
+                </div>
+            </div>
+            <div class="row" {% if not activate_graphics_student %}style="display: none;"{% endif %}>
+                <div class="col-lg-12">
+                    <div class="row">
                         <div class="col-lg-6">
                             <div class="ibox ">
                                 <div class="ibox-title">
@@ -255,7 +285,7 @@
                                 </div>
                                 <div class="ibox-content">
                                     <div class="scroll_content">
-                                        <canvas id="stacked2" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                        <canvas id="CCreacion" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
                                     </div>
                                 </div>
                             </div>
@@ -272,12 +302,12 @@
                         <div class="col-lg-6">
                             <div class="ibox ">
                                 <div class="ibox-title">
-                                    <h5>Tiempo de juego total de la actividad</h5>
+                                    <h5>Correctas vs Incorrectas</h5>
                                     <div class="ibox-tools"></div>
                                 </div>
                                 <div class="ibox-content">
                                     <div class="scroll_content">
-                                        <canvas id="stacked" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                        <canvas id="CvsIAlternativas" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
                                     </div>
                                 </div>
                             </div>
@@ -285,12 +315,12 @@
                         <div class="col-lg-6">
                             <div class="ibox">
                                 <div class="ibox-title">
-                                    <h5>Correctas vs Incorrectas</h5>
+                                    <h5>Saltos realizados</h5>
                                     <div class="ibox-tools"></div>
                                 </div>
                                 <div class="ibox-content">
                                     <div class="scroll_content">
-                                        <canvas id="horizontalBar" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                        <canvas id="jumpAlternativas" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
                                     </div>
                                 </div>
                             </div>
@@ -309,20 +339,39 @@
                                 </div>
                                 <div class="ibox-content">
                                     <div class="scroll_content">
-                                        <canvas id="stacked2" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                        <canvas id="CAlternativas" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6">
-                            <div class="ibox ">
+                        <!--<div class="col-lg-6">
+                            <div class="ibox">
                                 <div class="ibox-title">
-                                    <h5>Saltos realizados</h5>
+                                    <h5>Tiempo de juego total de la actividad</h5>
                                     <div class="ibox-tools"></div>
                                 </div>
                                 <div class="ibox-content">
                                     <div class="scroll_content">
-                                        <canvas id="stacked2" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                        <canvas id="stacked" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>-->
+                    </div>
+                </div>
+            </div>
+            <div class="row" {% if not activate_graphics_student %}style="display: none;"{% endif %}>
+                <div class="col-lg-12">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="ibox ">
+                                <div class="ibox-title">
+                                    <h5>Actividades completadas vs no completadas</h5>
+                                    <div class="ibox-tools"></div>
+                                </div>
+                                <div class="ibox-content">
+                                    <div class="scroll_content">
+                                        <canvas id="CCreacion" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
                                     </div>
                                 </div>
                             </div>
@@ -330,7 +379,6 @@
                     </div>
                 </div>
             </div>
-
             {% endif %}
             <!--BUSCA -->
             {% if activity_num == '12' %}
@@ -340,12 +388,12 @@
                         <div class="col-lg-6">
                             <div class="ibox ">
                                 <div class="ibox-title">
-                                    <h5>Tiempo de juego total de la actividad</h5>
+                                    <h5>Correctas vs Incorrectas</h5>
                                     <div class="ibox-tools"></div>
                                 </div>
                                 <div class="ibox-content">
                                     <div class="scroll_content">
-                                        <canvas id="stacked" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                        <canvas id="CvsIbusca" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
                                     </div>
                                 </div>
                             </div>
@@ -353,12 +401,12 @@
                         <div class="col-lg-6">
                             <div class="ibox">
                                 <div class="ibox-title">
-                                    <h5>Correctas vs Incorrectas</h5>
+                                    <h5>Actividades completadas vs no completadas</h5>
                                     <div class="ibox-tools"></div>
                                 </div>
                                 <div class="ibox-content">
                                     <div class="scroll_content">
-                                        <canvas id="horizontalBar" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                        <canvas id="Cbusca" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
                                     </div>
                                 </div>
                             </div>
@@ -369,6 +417,25 @@
             <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
                 <div class="col-lg-12">
                     <div class="row">
+                        <!--<div class="col-lg-6">
+                            <div class="ibox">
+                                <div class="ibox-title">
+                                    <h5>Tiempo de juego total de la actividad</h5>
+                                    <div class="ibox-tools"></div>
+                                </div>
+                                <div class="ibox-content">
+                                    <div class="scroll_content">
+                                        <canvas id="stacked" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>-->
+                    </div>
+                </div>
+            </div>
+            <div class="row" {% if not activate_graphics_student %}style="display: none;"{% endif %}>
+                <div class="col-lg-12">
+                    <div class="row">
                         <div class="col-lg-6">
                             <div class="ibox ">
                                 <div class="ibox-title">
@@ -377,7 +444,7 @@
                                 </div>
                                 <div class="ibox-content">
                                     <div class="scroll_content">
-                                        <canvas id="stacked2" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                        <canvas id="CCreacion" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
                                     </div>
                                 </div>
                             </div>
@@ -394,12 +461,12 @@
                         <div class="col-lg-6">
                             <div class="ibox ">
                                 <div class="ibox-title">
-                                    <h5>Tiempo de juego total de la actividad</h5>
+                                    <h5>Meteoritos totales eliminados</h5>
                                     <div class="ibox-tools"></div>
                                 </div>
                                 <div class="ibox-content">
                                     <div class="scroll_content">
-                                        <canvas id="stacked" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                        <canvas id="ACuida" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
                                     </div>
                                 </div>
                             </div>
@@ -407,12 +474,12 @@
                         <div class="col-lg-6">
                             <div class="ibox">
                                 <div class="ibox-title">
-                                    <h5>Meteoritos totales eliminados</h5>
+                                    <h5>Actividades completadas vs no completadas</h5>
                                     <div class="ibox-tools"></div>
                                 </div>
                                 <div class="ibox-content">
                                     <div class="scroll_content">
-                                        <canvas id="horizontalBar" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                        <canvas id="Ccuida" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
                                     </div>
                                 </div>
                             </div>
@@ -423,6 +490,25 @@
             <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
                 <div class="col-lg-12">
                     <div class="row">
+                        <!--<div class="col-lg-6">
+                            <div class="ibox">
+                                <div class="ibox-title">
+                                    <h5>Tiempo de juego total de la actividad</h5>
+                                    <div class="ibox-tools"></div>
+                                </div>
+                                <div class="ibox-content">
+                                    <div class="scroll_content">
+                                        <canvas id="stacked" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>-->
+                    </div>
+                </div>
+            </div>
+            <div class="row" {% if not activate_graphics_student %}style="display: none;"{% endif %}>
+                <div class="col-lg-12">
+                    <div class="row">
                         <div class="col-lg-6">
                             <div class="ibox ">
                                 <div class="ibox-title">
@@ -431,7 +517,7 @@
                                 </div>
                                 <div class="ibox-content">
                                     <div class="scroll_content">
-                                        <canvas id="stacked2" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                        <canvas id="CCreacion" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
                                     </div>
                                 </div>
                             </div>
@@ -448,6 +534,19 @@
                         <div class="col-lg-6">
                             <div class="ibox ">
                                 <div class="ibox-title">
+                                    <h5>Actividades completadas vs no completadas</h5>
+                                    <div class="ibox-tools"></div>
+                                </div>
+                                <div class="ibox-content">
+                                    <div class="scroll_content">
+                                        <canvas id="Cpuzzle" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--<div class="col-lg-6">
+                            <div class="ibox">
+                                <div class="ibox-title">
                                     <h5>Tiempo de juego total de la actividad</h5>
                                     <div class="ibox-tools"></div>
                                 </div>
@@ -457,24 +556,11 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="ibox">
-                                <div class="ibox-title">
-                                    <h5>Cantidad de touch por alumno</h5>
-                                    <div class="ibox-tools"></div>
-                                </div>
-                                <div class="ibox-content">
-                                    <div class="scroll_content">
-                                        <canvas id="horizontalBar" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        </div>-->
                     </div>
                 </div>
             </div>
-            <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
+            <div class="row" {% if not activate_graphics_student %}style="display: none;"{% endif %}>
                 <div class="col-lg-12">
                     <div class="row">
                         <div class="col-lg-6">
@@ -485,7 +571,7 @@
                                 </div>
                                 <div class="ibox-content">
                                     <div class="scroll_content">
-                                        <canvas id="stacked2" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                        <canvas id="CCreacion" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
                                     </div>
                                 </div>
                             </div>
@@ -494,51 +580,152 @@
                 </div>
             </div>
             {% endif %}
-            {% else %}
+            {% endif %}
+            <!-- Fin Plus Space -->
+
+            <!-- Clean Ocean -->
+            {% if reim_num == '3' and student_num == '0' %}
+            <div class="wrapper wrapper-content">
+                    <!-- <div class="row">
+                        <div class="col-lg-12">
+                            <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
+                                <div class="col-lg-7">
+                                    <div class="ibox ">
+                                        <div class="ibox-title">
+                                            <h5>Cantidad de correctas e incorrectas por alumno</h5>
+                                            <div class="ibox-tools"></div>
+                                        </div>
+                                        <div class="ibox-content">
+                                            <div class="scroll_content">
+                                                <canvas id="prueba" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
+                                <div class="col-lg-7">
+                                    <div class="ibox ">
+                                        <div class="ibox-title">
+                                            <h5>Analítica</h5>
+                                            <div class="ibox-tools"></div>
+                                        </div>
+                                        <div class="ibox-content">
+                                            <div class="scroll_content">
+                                                <canvas id="analitics" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <!--Lancha -->
+                    {% if activity_num == '3002' %}
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
+                                <div class="col-lg-6">
+                                    <div class="ibox ">
+                                        <div class="ibox-title">
+                                            <h5>Numero total de colisiones por alumnos en actividad lancha</h5>
+                                            <div class="ibox-tools"></div>
+                                        </div>
+                                        <div class="ibox-content">
+                                            <div class="scroll_content">
+                                                <canvas id="colisions" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                <!--Laberinto -->
+                    {% if activity_num == '3004' %}
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
+                                <div class="col-lg-6">
+                                    <div class="ibox ">
+                                        <div class="ibox-title">
+                                            <h5>Numero total de colisiones por alumnos en actividad laberinto</h5>
+                                            <div class="ibox-tools"></div>
+                                        </div>
+                                        <div class="ibox-content">
+                                            <div class="scroll_content">
+                                                <canvas id="colisions" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                <!--Tesoro -->
+                    {% if activity_num == '3005' %}
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
+                                <div class="col-lg-6">
+                                    <div class="ibox ">
+                                        <div class="ibox-title">
+                                            <h5>Numero total de saltos por alumnos en actividad tesoro</h5>
+                                            <div class="ibox-tools"></div>
+                                        </div>
+                                        <div class="ibox-content">
+                                            <div class="scroll_content">
+                                                <canvas id="jumps" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+            {% endif %}
+            {% if student_num != '0' and reim_num == '3' %}
             <div class="row">
                 <div class="col-lg-12">
                     <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
                         <div class="col-lg-6">
                             <div class="ibox ">
                                 <div class="ibox-title">
-                                    <h5>Minutos de juego</h5>
+                                    <h5>Salidas en laberinto</h5>
                                     <div class="ibox-tools"></div>
                                 </div>
                                 <div class="ibox-content">
                                     <div class="scroll_content">
-                                        <canvas id="stacked" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                        <canvas id="labExitCO"</canvas>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="ibox">
-                                <div class="ibox-title">
-                                    <h5>Cantidad de touch por alumno</h5>
-                                    <div class="ibox-tools"></div>
-                                </div>
-                                <div class="ibox-content">
-                                    <div class="scroll_content">
-                                        <canvas id="horizontalBar" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
-                <div class="col-lg-12">
-                    <div class="row">
-                        <div class="col-lg-6">
                             <div class="ibox ">
                                 <div class="ibox-title">
-                                    <h5>Sesiones por alumno</h5>
+                                    <h5>Animales tocados por alumno</h5>
                                     <div class="ibox-tools"></div>
                                 </div>
                                 <div class="ibox-content">
                                     <div class="scroll_content">
-                                        <canvas id="stacked2" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                        <canvas id="touchanimalsco"</canvas>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ibox ">
+                                <div class="ibox-title">
+                                    <h5>Basura tocada por alumno</h5>
+                                    <div class="ibox-tools"></div>
+                                </div>
+                                <div class="ibox-content">
+                                    <div class="scroll_content">
+                                        <canvas id="touchtrash"</canvas>
                                     </div>
                                 </div>
                             </div>
@@ -547,42 +734,35 @@
                 </div>
             </div>
             {% endif %}
-            <!--Clean Ocean -->
-            {% if reim_num == '3' %}
-            <div class="wrapper wrapper-content">
-                    <div class="row">
-                            <div class="col-lg-12">
-                                <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
-                                    <div class="col-lg-6">
-                                        <div class="ibox ">
-                                            <div class="ibox-title">
-                                                <h5>Numero total de correctas por alumno</h5>
-                                                <div class="ibox-tools"></div>
-                                            </div>
-                                            <div class="ibox-content">
-                                                <div class="scroll_content">
-                                                    <canvas id="corrects" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                <!--Lancha -->
-                {% if activity_num == '3002' %}
+            
+            <!-- Fin Clean Ocean -->
+
+            {% if student_num == '0' and reim_num != '0' and reim_num != '1' %}
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
                             <div class="col-lg-6">
                                 <div class="ibox ">
                                     <div class="ibox-title">
-                                        <h5>Numero total de colisiones por alumnos en actividad lancha</h5>
+                                        <h5>Minutos de juego</h5>
                                         <div class="ibox-tools"></div>
                                     </div>
                                     <div class="ibox-content">
                                         <div class="scroll_content">
-                                            <canvas id="colisions" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                            <canvas id="stacked" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="ibox">
+                                    <div class="ibox-title">
+                                        <h5>Cantidad de touch por alumno</h5>
+                                        <div class="ibox-tools"></div>
+                                    </div>
+                                    <div class="ibox-content">
+                                        <div class="scroll_content">
+                                            <canvas id="horizontalBar" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
                                         </div>
                                     </div>
                                 </div>
@@ -590,21 +770,18 @@
                         </div>
                     </div>
                 </div>
-                {% endif %}
-                <!--Laberinto -->
-                {% if activity_num == '3004' %}
-                <div class="row">
+                <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
                     <div class="col-lg-12">
-                        <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
+                        <div class="row">
                             <div class="col-lg-6">
                                 <div class="ibox ">
                                     <div class="ibox-title">
-                                        <h5>Numero total de colisiones por alumnos en actividad laberinto</h5>
+                                        <h5>Sesiones por alumno</h5>
                                         <div class="ibox-tools"></div>
                                     </div>
                                     <div class="ibox-content">
                                         <div class="scroll_content">
-                                            <canvas id="colisions" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                            <canvas id="stacked2" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
                                         </div>
                                     </div>
                                 </div>
@@ -612,53 +789,110 @@
                         </div>
                     </div>
                 </div>
-                {% endif %}
-                <!--Laberinto -->
-                {% if activity_num == '3004' %}
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
-                            <div class="col-lg-6">
-                                <div class="ibox ">
-                                    <div class="ibox-title">
-                                        <h5>Numero total de colisiones por alumnos en actividad laberinto</h5>
-                                        <div class="ibox-tools"></div>
-                                    </div>
-                                    <div class="ibox-content">
-                                        <div class="scroll_content">
-                                            <canvas id="colisions" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                {% endif %}
-                <!--Tesoro -->
-                {% if activity_num == '3005' %}
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
-                            <div class="col-lg-6">
-                                <div class="ibox ">
-                                    <div class="ibox-title">
-                                        <h5>Numero total de saltos por alumnos en actividad tesoro</h5>
-                                        <div class="ibox-tools"></div>
-                                    </div>
-                                    <div class="ibox-content">
-                                        <div class="scroll_content">
-                                            <canvas id="jumps" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                {% endif %}
+
                 {% endif %}
 
+            <!--Mundo Animal -->
+            {% if reim_num == '1' %}
+            <div class="wrapper wrapper-content">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
+                                <div class="col-lg-6">
+                                    <div class="ibox ">
+                                        <div class="ibox-title">
+                                            <h5>Cantidad de correctas e incorrectas por alumno</h5>
+                                            <div class="ibox-tools"></div>
+                                        </div>
+                                        <div class="ibox-content">
+                                            <div class="scroll_content">
+                                                <canvas id="prueba2" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="ibox">
+                                        <div class="ibox-title">
+                                            <h5>Animales y su cantidad de veces escogido</h5>
+                                            <div class="ibox-tools"></div>
+                                        </div>
+                                        <div class="ibox-content">
+                                            <div class="scroll_content">
+                                                <canvas id="animales" height={{cant_animales}}>{% load staticfiles %}</canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
+                                <div class="col-lg-6">
+                                    <div class="ibox ">
+                                        <div class="ibox-title">
+                                            <h5>Minutos de juego</h5>
+                                            <div class="ibox-tools"></div>
+                                        </div>
+                                        <div class="ibox-content">
+                                            <div class="scroll_content">
+                                                <canvas id="stacked" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="ibox">
+                                        <div class="ibox-title">
+                                            <h5>Cantidad de touch por alumno</h5>
+                                            <div class="ibox-tools"></div>
+                                        </div>
+                                        <div class="ibox-content">
+                                            <div class="scroll_content">
+                                                <canvas id="horizontalBar" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="ibox ">
+                                        <div class="ibox-title">
+                                            <h5>Sesiones por alumno</h5>
+                                            <div class="ibox-tools"></div>
+                                        </div>
+                                        <div class="ibox-content">
+                                            <div class="scroll_content">
+                                                <canvas id="stacked2" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="ibox ">
+                                        <div class="ibox-title">
+                                            <h5>Cantidad de touch totales del curso por actividad  </h5>
+                                            <div class="ibox-tools"></div>
+                                        </div>
+                                        <div class="ibox-content">
+                                            <div class="scroll_content">
+                                                <canvas id="actividades" height={{cant_actividades}}>{% load staticfiles %}</canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+                <!-- Fin Mundo animal -->
                 <div>
                     <strong>Copyright</strong>  &copy; 2019
 
@@ -784,8 +1018,10 @@
         };
 
 
-        var ctx = document.getElementById("stacked").getContext("2d");
-        new Chart(ctx, {type: 'horizontalBar', data: stackedData, options:stackedOptions});
+        if ($('#stacked').length){
+            var ctx = document.getElementById("stacked").getContext("2d");
+            new Chart(ctx, {type: 'horizontalBar', data: stackedData, options:stackedOptions});
+        }
         //TOUCH GENERAL
         var barData = {
             labels: [
@@ -832,8 +1068,10 @@
         };
 
 
-        var ctx2 = document.getElementById("horizontalBar").getContext("2d");
-        new Chart(ctx2, {type: 'horizontalBar', data: barData, options:barOptions});
+        if ($('#horizontalBar').length){
+            var ctx2 = document.getElementById("horizontalBar").getContext("2d");
+            new Chart(ctx2, {type: 'horizontalBar', data: barData, options:barOptions});
+        }
         //SESIONES TOTAL GENERAL
         var stacked2Data = {
             labels: [
@@ -884,104 +1122,30 @@
             display: true
         };
 
-        var ctx3 = document.getElementById("stacked2").getContext("2d");
-        new Chart(ctx3, {type: 'horizontalBar', data: stacked2Data, options:stacked2Options});
+        var BarstackedOptions ={
+                scales: {
+                    xAxes:[{
+                            stacked:false,
+                            ticks: {
+                                min: 0,
+                                callback: function(value, index, values) {
+                                    if (Math.floor(value) === value) {
+                                        return value;
+                                    }
+                                }
+                            }
+                        }],
+                yAxes: [{ stacked: false }]
+                }
+            };
 
-        // //ACTIVIDADES COMPLETADASVS NO COMPLETADAS CREACION PS
-        // var CreacionVSData = {
-        //     labels: [
-        //         {% if ingresar_creacion_quantity %}
-        // {% for ingresar_creacion in ingresar_creacion_quantity %}
-        // '{{ingresar_creacion.name}}',
-        // {% endfor%}
-        // {% endif%}
-        // ],
-        // datasets: [
-        //     {
-        //         label: "Cantidad de touch",
-        //         backgroundColor: 'rgba(180,100,255,100)',
-        //         borderColor: "rgba(168,75,255,100)",
-        //         pointBorderColor: "#fff",
-        //         data: [
-        //             {% if ingresar_creacion_quantity %}
-        //     {% for ingresar_creacion in ingresar_creacion_quantity %}
-        // '{{ingresar_creacion.quantity}}',
-        // {% endfor%}
-        // {% endif%}
-        // ]
-        // }
-        // ]
-        // };
+        if ($('#stacked2').length){
+            var ctx3 = document.getElementById("stacked2").getContext("2d");
+            new Chart(ctx3, {type: 'horizontalBar', data: stacked2Data, options:stacked2Options});
+        }
 
-        // var CreacionVSOptions = {
-        //     animation: false,
-        //     responsive: true,
-        //     isFixedWidth:true,
-        //     scales: {
-        //         xAxes:[{
-        //             stacked:true,
-        //             ticks: {
-        //                 min: 0,
-        //                 callback: function(value, index, values) {
-        //                     if (Math.floor(value) === value) {
-        //                         return value;
-        //                     }
-        //                 }
-        //             }
-        //         }]
-        //     }
-        // };
-        // var ctx4 = document.getElementById("horizontalCreacionVS").getContext("2d");
-        // new Chart(ctx4, {type: 'horizontalBar', data: CreacionVSData, options:CreacionVSOptions});
-        // //ELEMNTOS DESPLAZADOS - CREACION - PLSSPACE
-        // var MoveElementData = {
-        //     labels: [
-        //         {% if move_element_quantity %}
-        // {% for move_element in move_element_quantity %}
-        // '{{move_element.name}}',
-        // {% endfor%}
-        // {% endif%}
-        // ],
-        // datasets: [
-        //     {
-        //         label: "Elementos desplazados",
-        //         backgroundColor: 'rgba(180,100,255,100)',
-        //         borderColor: "rgba(168,75,255,100)",
-        //         pointBorderColor: "#fff",
-        //         data: [
-        //             {% if move_element_quantity %}
-        //     {% for move_element in move_element_quantity %}
-        // '{{move_element.quantity}}',
-        // {% endfor%}
-        // {% endif%}
-        // ]
-        // }
-        // ]
-        // };
-
-        // var MoveElementOptions = {
-        //     animation: false,
-        //     responsive: true,
-        //     isFixedWidth:true,
-        //     scales: {
-        //         xAxes:[{
-        //             stacked:true,
-        //             ticks: {
-        //                 min: 0,
-        //                 callback: function(value, index, values) {
-        //                     if (Math.floor(value) === value) {
-        //                         return value;
-        //                     }
-        //                 }
-        //             }
-        //         }]
-        //     }
-        // };
-        // var ctx5 = document.getElementById("horizontalMoveElement").getContext("2d");
-        // new Chart(ctx5, {type: 'horizontalBar', data: MoveElementData, options:MoveElementOptions});
-
-        //Colisiones totales
-        var ctx6data = {
+        //Clean Ocean
+        var ctx4data = {
             labels: [
                 {% if colision_quantity %}
         {% for colision in colision_quantity %}
@@ -992,8 +1156,8 @@
         datasets: [
             {
                 label: "Colisiones totales",
-                backgroundColor: 'rgb(81,209,246)',
-                borderColor: "rgb(81,209,246)",
+                backgroundColor: 'rgb(207,52,118)',
+                borderColor: "rgb(207,52,118)",
                 pointBorderColor: "#fff",
                 data: [
                     {% if colision_quantity %}
@@ -1005,8 +1169,13 @@
         }
         ]
         };
+        
+        if($('#colisions').length){
+            var ctx4 = document.getElementById("colisions").getContext("2d");
+            new Chart(ctx4, {type: 'horizontalBar', data: ctx4data, options:barOptions});
+        }
 
-        var ctx7data = {
+        var ctx5data = {
             labels: [
                 {% if corrects_quantity %}
         {% for corrects in corrects_quantity %}
@@ -1031,7 +1200,12 @@
         ]
         };
 
-        var ctx8data = {
+        if ($('#corrects').length){
+            var ctx5 = document.getElementById("corrects").getContext("2d");
+            new Chart(ctx5, {type: 'horizontalBar', data: ctx5data, options:barOptions});
+        }
+
+        var ctx6data = {
             labels: [
                 {% if jumps_quantity %}
         {% for jumps in jumps_quantity %}
@@ -1042,25 +1216,1013 @@
         datasets: [
             {
                 label: "Saltos totales",
-                backgroundColor: 'rgb(81,209,246)',
-                borderColor: "rgb(81,209,246)",
+                backgroundColor: 'rgb(207,52,118)',
+                borderColor: "rgb(207,52,118)",
                 pointBorderColor: "#fff",
                 data: [
                     {% if jumps_quantity %}
-            {% for jumps in jumps_quantity %}
-        '{{jumps.quantity}}',
+                        {% for jumps in jumps_quantity %}
+                            '{{jumps.quantity}}',
+                        {% endfor%}
+                    {% endif%}
+                ]
+            }
+        ]
+        };
+
+        if ($('#jumps').length){
+            var ctx6 = document.getElementById("jumps").getContext("2d");
+            new Chart(ctx6, {type: 'horizontalBar', data: ctx6data, options:barOptions});
+        }
+
+        if ($('#prueba').length){
+            var ctx7 = document.getElementById('prueba');
+            new Chart(ctx7, {
+            type: 'horizontalBar',
+            data: {
+                labels:
+                [
+                    {% if corrects_quantity %}
+                        {% for corrects in corrects_quantity %}
+                            '{{corrects.name}}',
+                        {% endfor%}
+                    {% endif%}
+                    //,
+
+                    // {% if incorrects_quantity %}
+                    //     {% for incorrects in incorrects_quantity %}
+                    //         '{{incorrects.name}}',
+                    //     {% endfor%}
+                    // {% endif%}
+                ],
+                datasets:
+                [
+                    {
+                        label: "Correctas totales",
+                        backgroundColor: 'rgb(87,35,100)',
+                        borderColor: "rgb(87,35,100)",
+                        pointBorderColor: "#fff",
+                        data:
+                        [
+                            {% if corrects_quantity %}
+                                {% for corrects in corrects_quantity %}
+                                    '{{corrects.quantity}}',
+                                {% endfor%}
+                            {% endif%}
+                        ]
+                    },
+                    {
+                        label: "Incorrectas totales",
+                        backgroundColor: 'rgb(0,255,255)',
+                        borderColor: "rgb(0,255,255)",
+                        pointBorderColor: "#fff",
+                        data:
+                        [
+                            {% if incorrects_quantity %}
+                                {% for incorrects in incorrects_quantity %}
+                                    '{{incorrects.quantity}}',
+                                {% endfor%}
+                            {% endif%}
+                        ]
+                    }
+                ]
+            },
+            options: {
+                scales: {
+                    xAxes:[{
+                            stacked:false,
+                            ticks: {
+                                min: 0,
+                                callback: function(value, index, values) {
+                                    if (Math.floor(value) === value) {
+                                        return value;
+                                    }
+                                }
+                            }
+                        }],
+                yAxes: [{ stacked: false }]
+                }
+            }
+            });
+        };
+
+        var ctx8data = {
+            labels:
+            [
+                {% if exit_lab_quantity %}
+                    {% for exit_lab in exit_lab_quantity %}
+                        '{{exit_lab.name}}',
+                    {% endfor%}
+                {% endif%}
+            ],
+            datasets:
+            [
+                {
+                label: "Salidas obtenidas",
+                backgroundColor: 'rgb(207,52,118)',
+                borderColor: "rgb(207,52,118)",
+                pointBorderColor: "#fff",
+                data:
+                [
+                {% if exit_lab_quantity %}
+                    {% for exit_lab in exit_lab_quantity %}
+                        '{{exit_lab.quantity}}',
+                    {% endfor%}
+                {% endif%}
+                ]
+                }
+            ]
+            };
+
+        if ($('#labExitCO').length){
+            var ctx8 = document.getElementById('labExitCO');
+            new Chart(ctx8, {type: 'horizontalBar', data: ctx8data, options:barOptions});
+        }
+
+        if ($('#analitics').length){
+            var ctx9 = document.getElementById('analitics');
+            new Chart(ctx9, {
+            type: 'horizontalBar',
+            data: {
+                labels:
+                [
+                    {% if analytics_co_quantity %}
+                        {% for analytics_co in analytics_co_quantity %}
+                            '{{analytics_co.name}}',
+                        {% endfor%}
+                    {% endif%}
+                ],
+                datasets:
+                [
+                    {
+                        label: "Correctas Actividad 1",
+                        backgroundColor: '#46b3e6',
+                        borderColor: "#46b3e6",
+                        pointBorderColor: "#fff",
+                        data:
+                        [
+                            {% if analytics_co_quantity %}
+                                {% for analytics_co in analytics_co_quantity %}
+                                    '{{analytics_co.correctsact1}}',
+                                {% endfor%}
+                            {% endif%}
+                        ]
+                    },
+                    {
+                        label: "Incorrectas Actividad 1",
+                        backgroundColor: '#fe6845',
+                        borderColor: "#fe6845",
+                        pointBorderColor: "#fff",
+                        data:
+                        [
+                            {% if analytics_co_quantity %}
+                                {% for analytics_co in analytics_co_quantity %}
+                                    '{{analytics_co.incorrectsact1}}',
+                                {% endfor%}
+                            {% endif%}
+                        ]
+                    },
+                    {
+                        label: "Correctas Actividad 2",
+                        backgroundColor: '#c6cbef',
+                        borderColor: "#c6cbef",
+                        pointBorderColor: "#fff",
+                        data:
+                        [
+                            {% if analytics_co_quantity %}
+                                {% for analytics_co in analytics_co_quantity %}
+                                    '{{analytics_co.correctsact2}}',
+                                {% endfor%}
+                            {% endif%}
+                        ]
+                    },
+                    {
+                        label: "Incorrectas Actividad 2",
+                        backgroundColor: '#ffd739',
+                        borderColor: "#ffd739",
+                        pointBorderColor: "#fff",
+                        data:
+                        [
+                            {% if analytics_co_quantity %}
+                                {% for analytics_co in analytics_co_quantity %}
+                                    '{{analytics_co.incorrectsact2}}',
+                                {% endfor%}
+                            {% endif%}
+                        ]
+                    }
+                ]
+            },
+                options: {
+                    scales: {
+                    xAxes: [{ 
+                        stacked: true, 
+                        }],
+                    yAxes: [{ 
+                        stacked: true}],
+                    },
+                }
+                });
+        }
+
+        var ctx10data = {
+            labels:
+            [
+                {% if touch_animals_co_quantity %}
+                    {% for touch_animals_co in touch_animals_co_quantity %}
+                        '{{touch_animals_co.name}}',
+                    {% endfor%}
+                {% endif%}
+            ],
+            datasets:
+            [
+                {
+                label: "Cantidad de animales tocados",
+                backgroundColor: 'rgb(207,52,118)',
+                borderColor: "rgb(207,52,118)",
+                pointBorderColor: "#fff",
+                data:
+                [
+                    {% if touch_animals_co_quantity %}
+                        {% for touch_animals_co in touch_animals_co_quantity %}
+                            '{{touch_animals_co.quantity}}',
+                        {% endfor%}
+                    {% endif%}
+                ]
+                }
+            ]
+            };
+
+        if ($('#touchanimalsco').length){
+            var ctx10 = document.getElementById("touchanimalsco");
+            new Chart(ctx10, {type: 'horizontalBar', data: ctx10data, options:barOptions});
+        }
+    
+        var ctx11data = {
+            labels:
+            [
+                {% if touch_trash_co_quantity %}
+                    {% for touch_trash_co in touch_trash_co_quantity %}
+                        '{{touch_trash_co.name}}',
+                    {% endfor%}
+                {% endif%}
+            ],
+            datasets:
+            [
+                {
+                    label: "Cantidad de basura tocada",
+                    backgroundColor: 'rgb(207,52,118)',
+                    borderColor: "rgb(207,52,118)",
+                    pointBorderColor: "#fff",
+                    data:
+                    [
+                        {% if touch_trash_co_quantity %}
+                            {% for touch_trash_co in touch_trash_co_quantity %}
+                                '{{touch_trash_co.quantity}}',
+                            {% endfor%}
+                        {% endif%}
+                    ]
+                }
+            ]
+            };
+
+        if ($('#touchtrash').length){
+            var ctx11 = document.getElementById("touchtrash");
+            new Chart(ctx11, {type: 'horizontalBar', data: ctx11data, options:barOptions});
+        }
+
+    //Fin Clean Ocean
+
+    //Inicio Mundo Animal
+    var ctx12data = {
+            labels: [
+                {% if piezas_quantity %}
+        {% for piezas in piezas_quantity %}
+        '{{piezas.name}}',
+        {% endfor%}
+        {% endif%}
+        ],
+        datasets: [
+            {
+                label: "Cantidad de correctas",
+                backgroundColor: 'rgb(17,246,133)',
+                borderColor: "rgb(17,246,133)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if piezas_quantity %}
+            {% for piezas in piezas_quantity %}
+        '{{piezas.quantity}}',
         {% endfor%}
         {% endif%}
         ]
         }
         ]
         };
-        // var ctx6 = document.getElementById("colisions").getContext("2d");
-        // new Chart(ctx6, {type: 'horizontalBar', data: ctx6data, options:barOptions});
-        // var ctx7 = document.getElementById("corrects").getContext("2d");
-        // new Chart(ctx7, {type: 'horizontalBar', data: ctx7data, options:barOptions});
-        var ctx8 = document.getElementById("jumps").getContext("2d");
-        new Chart(ctx8, {type: 'horizontalBar', data: ctx8data, options:barOptions});
+
+        if($('#piezas').length){
+            var ctx12 = document.getElementById("piezas").getContext("2d");
+            new Chart(ctx12, {type: 'horizontalBar', data: ctx12data, options:  barOptions});
+        }
+
+        var ctx13data = {
+            labels: [
+                {% if malas_quantity %}
+        {% for malas in malas_quantity %}
+        '{{malas.name}}',
+        {% endfor%}
+        {% endif%}
+        ],
+        datasets: [
+            {
+                label: "Cantidad de incorrectas",
+                backgroundColor: 'rgb(207,52,118)',
+                borderColor: "rgb(207,52,118)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if malas_quantity %}
+            {% for malas in malas_quantity %}
+        '{{malas.quantity}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        }
+        ]
+        };
+
+        if($('#malas').length){
+            var ctx13 = document.getElementById("malas").getContext("2d");
+            new Chart(ctx13, {type: 'horizontalBar', data: ctx13data, options:  barOptions});
+        }
+
+        var ctx14data = {
+            labels: [
+                {% if animales_quantity %}
+        {% for animales in animales_quantity %}
+        '{{animales.name}}',
+        {% endfor%}
+        {% endif%}
+        ],
+        datasets: [
+            {
+                label: "Cantidad de preferencia",
+                backgroundColor: 'rgb(112,198,245)',
+                borderColor: "rgb(112,198,245)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if animales_quantity %}
+            {% for animales in animales_quantity %}
+        '{{animales.quantity}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        }
+        ]
+        };
+
+        if($('#animales').length){
+            var ctx14 = document.getElementById("animales").getContext("2d");
+            new Chart(ctx14, {type: 'horizontalBar', data: ctx14data, options:  barOptions});
+        }
+
+        var ctx15data = {
+            labels: [
+                {% if actividades_quantity %}
+        {% for actividades in actividades_quantity %}
+        '{{actividades.name}}',
+        {% endfor%}
+        {% endif%}
+        ],
+        datasets: [
+            {
+                label: "Cantidad de touch",
+                backgroundColor: 'rgb(207,52,118)',
+                borderColor: "rgb(207,52,118)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if actividades_quantity %}
+            {% for actividades in actividades_quantity %}
+        '{{actividades.quantity}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        }
+        ]
+        };
+
+        if($('#actividades').length){
+            var ctx15 = document.getElementById("actividades").getContext("2d");
+            new Chart(ctx15, {type: 'horizontalBar', data: ctx15data, options:  barOptions});
+        }
+
+        //Fin Mundo Animal
+
+        // Inicio Plus Space
+        var CCreacionData = {
+            labels: [
+                {% if ingresar_creacion_quantity %}
+        {% for ingresar_creacion in ingresar_creacion_quantity %}
+        '{{ingresar_creacion.name}}',
+        {% endfor%}
+        {% endif%}
+        ],
+        datasets: [
+            {
+                label: "Actividades completadas",
+                backgroundColor: 'rgb(52,152,219)',
+                borderColor: "rgb(41,128,185)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if aceptar_creacion_quantity %}
+            {% for aceptar_creacion in aceptar_creacion_quantity %}
+        '{{aceptar_creacion.quantity}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        },
+        {
+                label: "Actividades incompletas",
+                backgroundColor: 'rgb(231,76,60)',
+                borderColor: "rgb(192,57,43)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if volver_creacion_quantity %}
+            {% for volver_creacion in volver_creacion_quantity %}
+        '{{volver_creacion.quantity}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        }
+        ]
+        };
+
+        if ($('#CCreacion').length){
+            var ctx16 = document.getElementById("CCreacion").getContext("2d");
+            new Chart(ctx16, {type: 'horizontalBar', data: CCreacionData, options:barOptions});
+        }
+        //ELEMENTOS TOTALES CREADOS
+        var CreadosCreacionData = {
+            labels: [
+                {% if ingresar_creacion_quantity %}
+        {% for ingresar_creacion in ingresar_creacion_quantity %}
+        '{{ingresar_creacion.name}}',
+        {% endfor%}
+        {% endif%}
+        ],
+        datasets: [
+            {
+                label: "Planetas",
+                backgroundColor: 'rgb(236,112,99)',
+                borderColor: "rgb(205,97,85)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if planet_creacion_quantity %}
+            {% for planet_creacion in planet_creacion_quantity %}
+        '{{planet_creacion.quantity}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        },
+        {
+                label: "Planetas con satelite",
+                backgroundColor: 'rgb(175,122,197)',
+                borderColor: "rgb(165,105,189)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if planetS_creacion_quantity %}
+            {% for planetS_creacion in planetS_creacion_quantity %}
+        '{{planetS_creacion.quantity}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        },
+        {
+                label: "Planetas con anillo",
+                backgroundColor: 'rgb(93,173,226)',
+                borderColor: "rgb(84,153,199)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if planetR_creacion_quantity %}
+            {% for planetR_creacion in planetR_creacion_quantity %}
+        '{{planetR_creacion.quantity}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        },
+        {
+                label: "Estrellas",
+                backgroundColor: 'rgb(72,201,176)',
+                borderColor: "rgb(69,179,157)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if star_creacion_quantity %}
+            {% for star_creacion in star_creacion_quantity %}
+        '{{star_creacion.quantity}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        },
+        {
+                label: "Supernovas",
+                backgroundColor: 'rgb(88,214,141)',
+                borderColor: "rgb(82,190,128)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if superNova_creacion_quantity %}
+            {% for superNova_creacion in superNova_creacion_quantity %}
+        '{{superNova_creacion.quantity}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        },
+        {
+                label: "Nebulosas",
+                backgroundColor: 'rgb(244,208,63)',
+                borderColor: "rgb(245,176,65)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if nebulosa_creacion_quantity %}
+            {% for nebulosa_creacion in nebulosa_creacion_quantity %}
+        '{{nebulosa_creacion.quantity}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        },
+        {
+                label: "Galaxias",
+                backgroundColor: 'rgb(235,152,78)',
+                borderColor: "rgb(220,118,51)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if galaxy_creacion_quantity %}
+            {% for galaxy_creacion in galaxy_creacion_quantity %}
+        '{{galaxy_creacion.quantity}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        },
+        ]
+        };
+
+        if ($('#CreadosCreacion').length){
+            var ctx17 = document.getElementById("CreadosCreacion").getContext("2d");
+            new Chart(ctx17, {type: 'horizontalBar', data: CreadosCreacionData, options:barOptions});
+        }
+        //ELEMENTOS DESPLAZADOS - CREACION - PLSSPACE
+        var MoveElementData = {
+            labels: [
+                {% if move_element_quantity %}
+        {% for move_element in move_element_quantity %}
+        '{{move_element.name}}',
+        {% endfor%}
+        {% endif%}
+        ],
+        datasets: [
+            {
+                label: "Elementos desplazados",
+                backgroundColor: 'rgb(245,176,65)',
+                borderColor: "rgb(230,126,34)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if move_element_quantity %}
+            {% for move_element in move_element_quantity %}
+        '{{move_element.quantity}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        }
+        ]
+        };
+
+        if ($('#movePS').length){
+            var ctx18 = document.getElementById("movePS").getContext("2d");
+            new Chart(ctx18, {type: 'horizontalBar', data: MoveElementData, options:barOptions});
+        }
+        //LABERINTO
+        //COLISIONES
+        var ElementColissionData = {
+            labels: [
+                {% if element_colission_quantity %}
+        {% for element_colission in element_colission_quantity %}
+        '{{element_colission.name}}',
+        {% endfor%}
+        {% endif%}
+        ],
+        datasets: [
+            {
+                label: "Colisiones",
+                backgroundColor: 'rgb(72,201,176)',
+                borderColor: "rgb(69,179,157)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if element_colission_quantity %}
+            {% for element_colission in element_colission_quantity %}
+        '{{element_colission.quantity}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        }
+        ]
+        };
+
+        if ($('#colissionPS').length){
+            var ctx19 = document.getElementById("colissionPS").getContext("2d");
+            new Chart(ctx19, {type: 'horizontalBar', data: ElementColissionData, options:barOptions});
+        }
+        //actividades completadas LABERINTO PS
+        var CLaberintoData = {
+            labels: [
+                {% if ingresar_laberinto_quantity %}
+        {% for ingresar_laberinto in ingresar_laberinto_quantity %}
+        '{{ingresar_laberinto.name}}',
+        {% endfor%}
+        {% endif%}
+        ],
+        datasets: [
+            {
+                label: "Actividades completadas",
+                backgroundColor: 'rgb(52,152,219)',
+                borderColor: "rgb(41,128,185)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if aceptar_laberinto_quantity %}
+            {% for aceptar_laberinto in aceptar_laberinto_quantity %}
+        '{{aceptar_laberinto.quantity}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        },
+        {
+                label: "Actividades incompletas",
+                backgroundColor: 'rgb(231,76,60)',
+                borderColor: "rgb(192,57,43)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if volver_laberinto_quantity %}
+            {% for volver_laberinto in volver_laberinto_quantity %}
+        '{{volver_laberinto.quantity}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        }
+        ]
+        };
+
+        if ($('#CLaberinto').length){
+            var ctx20 = document.getElementById("CLaberinto").getContext("2d");
+            new Chart(ctx20, {type: 'horizontalBar', data: CLaberintoData, options: barOptions});
+        }
+        //ALTERNATIVAS
+        //completas incompletas alternativas PS
+        var CAlternativasData = {
+            labels: [
+                {% if ingresar_alternativas_quantity %}
+        {% for ingresar_alternativas in ingresar_alternativas_quantity %}
+        '{{ingresar_alternativas.name}}',
+        {% endfor%}
+        {% endif%}
+        ],
+        datasets: [
+            {
+                label: "Completas",
+                backgroundColor: 'rgb(52,152,219)',
+                borderColor: "rgb(41,128,185)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if aceptar_alternativas_quantity %}
+            {% for aceptar_alternativas in aceptar_alternativas_quantity %}
+        '{{aceptar_alternativas.quantity}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        },
+        {
+                label: "Incompletas",
+                backgroundColor: 'rgb(231,76,60)',
+                borderColor: "rgb(192,57,43)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if volver_alternativas_quantity %}
+            {% for volver_alternativas in volver_alternativas_quantity %}
+        '{{volver_alternativas.quantity}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        }
+        ]
+        };
+
+        if ($('#CAlternativas').length){
+            var ctx21 = document.getElementById("CAlternativas").getContext("2d");
+            new Chart(ctx21, {type: 'horizontalBar', data: CAlternativasData, options: BarstackedOptions});
+        }
+
+        //correctas vs incorrectas alternativas PS
+        var CvsIAlternativasData = {
+            labels: [
+                {% if ingresar_alternativas_quantity %}
+        {% for ingresar_alternativas in ingresar_alternativas_quantity %}
+        '{{ingresar_alternativas.name}}',
+        {% endfor%}
+        {% endif%}
+        ],
+        datasets: [
+            {
+                label: "Correctas",
+                backgroundColor: 'rgb(52,152,219)',
+                borderColor: "rgb(41,128,185)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if correctas_alternativas_quantity %}
+            {% for correctas_alternativas in correctas_alternativas_quantity %}
+        '{{correctas_alternativas.quantity}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        },
+        {
+                label: "Incorrectas",
+                backgroundColor: 'rgb(231,76,60)',
+                borderColor: "rgb(192,57,43)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if incorrectas_alternativas_quantity %}
+            {% for incorrectas_alternativas in incorrectas_alternativas_quantity %}
+        '{{incorrectas_alternativas.quantity}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        }
+        ]
+        };
+
+        if ($('#CvsIAlternativas').length){
+            var ctx22 = document.getElementById("CvsIAlternativas").getContext("2d");
+            new Chart(ctx22, {type: 'horizontalBar', data: CvsIAlternativasData, options: BarstackedOptions});
+        }
+//SALTOS - PLSSPACE
+        var jumpAlternativasData = {
+            labels: [
+                {% if jump_alternativas_quantity %}
+        {% for jump_alternativas in jump_alternativas_quantity %}
+        '{{jump_alternativas.name}}',
+        {% endfor%}
+        {% endif%}
+        ],
+        datasets: [
+            {
+                label: "Saltos",
+                backgroundColor: 'rgb(243,156,18)',
+                borderColor: "rgb(214,137,16)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if jump_alternativas_quantity %}
+            {% for jump_alternativas in jump_alternativas_quantity %}
+        '{{jump_alternativas.quantity}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        }
+        ]
+        };
+
+        if ($('#jumpAlternativas').length){
+            var ctx22 = document.getElementById("jumpAlternativas").getContext("2d");
+            new Chart(ctx22, {type: 'horizontalBar', data: jumpAlternativasData, options:barOptions});
+        }
+//completas incompletas cuida PS
+        var CcuidaData = {
+            labels: [
+                {% if ingresar_cuida_quantity %}
+        {% for ingresar_cuida in ingresar_cuida_quantity %}
+        '{{ingresar_cuida.name}}',
+        {% endfor%}
+        {% endif%}
+        ],
+        datasets: [
+            {
+                label: "Completas",
+                backgroundColor: 'rgb(52,152,219)',
+                borderColor: "rgb(41,128,185)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if aceptar_cuida_quantity %}
+            {% for aceptar_cuida in aceptar_cuida_quantity %}
+        '{{aceptar_cuida.quantity}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        },
+        {
+                label: "Incompletas",
+                backgroundColor: 'rgb(231,76,60)',
+                borderColor: "rgb(192,57,43)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if volver_cuida_quantity %}
+            {% for volver_cuida in volver_cuida_quantity %}
+        '{{volver_cuida.quantity}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        }
+        ]
+        };
+
+        if ($('#Ccuida').length){
+            var ctx23 = document.getElementById("Ccuida").getContext("2d");
+            new Chart(ctx23, {type: 'horizontalBar', data: CcuidaData, options: barOptions});
+        }
+    //BUSCA
+    //correctas vs incorrectas busca PS
+    var CvsIbuscaData = {
+            labels: [
+                {% if ingresar_busca_quantity %}
+        {% for ingresar_busca in ingresar_busca_quantity %}
+        '{{ingresar_busca.name}}',
+        {% endfor%}
+        {% endif%}
+        ],
+        datasets: [
+            {
+                label: "Correctas",
+                backgroundColor: 'rgb(52,152,219)',
+                borderColor: "rgb(41,128,185)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if correctas_busca_quantity %}
+            {% for correctas_busca in correctas_busca_quantity %}
+        '{{correctas_busca.quantity}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        },
+        {
+                label: "Incorrectas",
+                backgroundColor: 'rgb(231,76,60)',
+                borderColor: "rgb(192,57,43)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if incorrectas_busca_quantity %}
+            {% for incorrectas_busca in incorrectas_busca_quantity %}
+        '{{incorrectas_busca.quantity}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        }
+        ]
+        };
+
+        if ($('#CvsIbusca').length){
+            var ctx24 = document.getElementById("CvsIbusca").getContext("2d");
+            new Chart(ctx24, {type: 'horizontalBar', data: CvsIbuscaData, options: barOptions});
+        }
+    //actividades completadas busca PS
+    var CbuscaData = {
+            labels: [
+                {% if ingresar_busca_quantity %}
+        {% for ingresar_busca in ingresar_busca_quantity %}
+        '{{ingresar_busca.name}}',
+        {% endfor%}
+        {% endif%}
+        ],
+        datasets: [
+            {
+                label: "Actividades completadas",
+                backgroundColor: 'rgb(52,152,219)',
+                borderColor: "rgb(41,128,185)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if aceptar_busca_quantity %}
+            {% for aceptar_busca in aceptar_busca_quantity %}
+        '{{aceptar_busca.quantity}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        },
+        {
+                label: "Actividades incompletas",
+                backgroundColor: 'rgb(231,76,60)',
+                borderColor: "rgb(192,57,43)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if volver_busca_quantity %}
+            {% for volver_busca in volver_busca_quantity %}
+        '{{volver_busca.quantity}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        }
+        ]
+        };
+
+        if ($('#Cbusca').length){
+            var ctx25 = document.getElementById("Cbusca").getContext("2d");
+            new Chart(ctx25, {type: 'horizontalBar', data: CbuscaData, options: barOptions});
+        }
+        //CUIDA
+        //ACIERTOS
+        var ACuidaData = {
+            labels: [
+                {% if acierto_cuida_quantity %}
+        {% for acierto_cuida in acierto_cuida_quantity %}
+        '{{acierto_cuida.name}}',
+        {% endfor%}
+        {% endif%}
+        ],
+        datasets: [
+            {
+                label: "Aciertos",
+                backgroundColor: 'rgb(243,156,18)',
+                borderColor: "rgb(214,137,16)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if acierto_cuida_quantity %}
+            {% for acierto_cuida in acierto_cuida_quantity %}
+        '{{acierto_cuida.quantity}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        }
+        ]
+        };
+
+
+        if ($('#ACuida').length){
+            var ctx26 = document.getElementById("ACuida").getContext("2d");
+            new Chart(ctx26, {type: 'horizontalBar', data: ACuidaData, options: barOptions});
+        }
+    //completas incompletas cuida PS
+    var CpuzzleData = {
+            labels: [
+                {% if ingresar_puzzle_quantity %}
+        {% for ingresar_puzzle in ingresar_puzzle_quantity %}
+        '{{ingresar_puzzle.name}}',
+        {% endfor%}
+        {% endif%}
+        ],
+        datasets: [
+            {
+                label: "Completas",
+                backgroundColor: 'rgb(52,152,219)',
+                borderColor: "rgb(41,128,185)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if aceptar_puzzle_quantity %}
+            {% for aceptar_puzzle in aceptar_puzzle_quantity %}
+        '{{aceptar_puzzle.quantity}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        },
+        {
+                label: "Incompletas",
+                backgroundColor: 'rgb(231,76,60)',
+                borderColor: "rgb(192,57,43)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if volver_puzzle_quantity %}
+            {% for volver_puzzle in volver_puzzle_quantity %}
+        '{{volver_puzzle.quantity}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        }
+        ]
+        };
+        if ($('#Cpuzzle').length){
+            var ctx27 = document.getElementById("Cpuzzle").getContext("2d");
+            new Chart(ctx27, {type: 'horizontalBar', data: CpuzzleData, options: barOptions});
+        }
+//GRAFICOs POR ALUMNO
+var CreacionData = {
+            labels: ['graf1','graf2','graf3'],
+        datasets: [
+            {
+                backgroundColor: ['rgba(52,152,219,0.75)','rgba(255,193,7,0.75)','rgba(233,30,99,0.75)'],
+                pointBorderColor: "#fff",
+                data: [1,3,4]
+        }
+        ]
+        };
+
+        var CreacionOptions = {
+               scale: {
+                    angleLines: {
+                       display: false
+                   },
+                   ticks: {
+                       suggestedMin: 0,
+                       suggestedMax: 5
+                   }
+               }
+            };
+
+        if ($('#Creacion').length){
+            var ctx28 = document.getElementById("Creacion").getContext("2d");
+            new Chart(ctx28, {type: 'polarArea', data: CreacionData, options:CreacionOptions});
+        }        
+//FIN PLUSSPACE----------------------
+
+
 
     </script>
 
@@ -1077,7 +2239,7 @@
                 }
             }
         }
-        setFilterSelectors(['school','course','reim', 'activity', 'start', 'end'])
+        setFilterSelectors(['school','course','reim', 'activity', 'start', 'end', 'student'])
     </script>
 
     <!-- <script type="text/javascript">
@@ -1092,7 +2254,7 @@
 
             // Add slimscroll to element
             $('.scroll_content').slimscroll({
-                height: '250px'
+                height: '400px'
             })
 
         });
