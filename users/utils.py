@@ -396,7 +396,7 @@ def get_cant_touch(request):
     if request.GET.get('school') and request.GET.get('school') != '0':
         query_params += " AND b.colegio_id = " + request.GET.get('school')
 
-    date = get_date_param(request)
+    date = get_date_param_alumno_respuesta_actividad(request)
 
     start_base = 'SELECT o.id, o.nombre, count(o.id) AS actividades FROM actividad o, alumno_respuesta_actividad a, usuario u, pertenece b WHERE' + date
     final_base = ' a.id_actividad=o.id && a.id_user= u.id && b.usuario_id = a.id_user && b.colegio_id IN (SELECT colegio_id from pertenece INNER JOIN usuario ON pertenece.usuario_id = usuario.id WHERE username="' + request.user.username + '") AND b.curso_id IN (SELECT curso_id FROM pertenece WHERE usuario_id = (SELECT id FROM usuario WHERE username = "' + request.user.username + '"))' + query_params + ' AND o.id>0 AND o.id<8 GROUP BY o.id'

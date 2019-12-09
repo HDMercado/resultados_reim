@@ -96,6 +96,9 @@ def welcome(request):
         print(cant_usuarios)
         #actividad seleccionada
         activity_num = request.GET.get('activity')
+        activate_activity_filter = True
+        if request.GET.get('activity') and request.GET.get('activity') != "0":
+            activate_activity_filter = False
         #REIM SELECCIONADO
         reim_num = request.GET.get('reim')
         
@@ -148,7 +151,10 @@ def welcome(request):
             for row in actividades_quantity:
                 actividades_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
         #FIN MUNDO ANIMAL 
-
+        #filtro estudiente
+        activate_student_filter = False
+        if request.GET.get('student') and request.GET.get('student') != "0":
+            activate_student_filter = True
         #INICIO PLUS SPACE
         #PLUS SPACE-------------------------------------
         #Creacion
@@ -517,13 +523,17 @@ def welcome(request):
             sesion_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
 
         activate_graphics = activate_course_filter and activate_school_filter and activate_reim_filter
-
+        activate_graphics_general = activate_activity_filter and activate_course_filter and activate_school_filter and activate_reim_filter
+        activate_graphics_student = activate_course_filter and activate_school_filter and activate_reim_filter and activate_student_filter
+       
         return render(
             request,
             "users/welcome.html",
             {
                 # Show graphics at the init
                 'activate_graphics': activate_graphics,
+                'activate_graphics_general':activate_graphics_general,
+                'activate_graphics_student':activate_graphics_student,
                 # Other context var
                 'queries': queries,
                 'schools': schools_response,
