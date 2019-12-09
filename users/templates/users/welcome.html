@@ -79,7 +79,7 @@
 
                                     <div  class="col-md-3">
                                         <label class="font-normal">Curso</label>
-                                        <select id="course-filter-selector" name="course" class="form-control m-b">
+                                        <select onchange="this.form.submit()" id="course-filter-selector" name="course" class="form-control m-b">
                                             {% if courses|length == 0 or courses|length >= 1 %}
                                             <option value ="0" >Seleccione Curso</option>
                                             {% endif %}
@@ -92,7 +92,7 @@
                                     </div>
                                     <div class="col-md-3">
                                         <label  class="font-normal">Reim</label>
-                                        <select id="reim-filter-selector" name="reim" class="form-control m-b">
+                                        <select onchange="this.form.submit()" id="reim-filter-selector" name="reim" class="form-control m-b">
                                             <!--Para bloquear-->
                                             <!--{% if reims|length <= 1 %}disabled{% endif %}-->
                                             {% if reims|length == 0 or reims|length >= 1 %}
@@ -2225,7 +2225,76 @@ var CreacionData = {
         }        
 //FIN PLUSSPACE----------------------
 
-
+            if ($('#prueba2').length){
+                        var ctx29 = document.getElementById('prueba2');
+                        var myChart = new Chart(ctx29, {
+                        type: 'horizontalBar',
+                        data: {
+                            labels: 
+                            [
+                                {% if piezas_quantity %}
+                                    {% for piezas in piezas_quantity %}
+                                        '{{piezas.name}}',
+                                    {% endfor%}
+                                {% endif%}
+                                
+                                //,
+                                // {% if incorrects_quantity %}
+                                //     {% for incorrects in incorrects_quantity %}
+                                //         '{{incorrects.name}}',
+                                //     {% endfor%}
+                                // {% endif%}
+                            ],
+                            datasets: 
+                            [
+                                {
+                                    label: "Correctas",
+                                    backgroundColor: 'rgb(17,246,133)',
+                                    borderColor: "rgb(17,246,133)",
+                                    pointBorderColor: "#fff",
+                                    data: 
+                                    [
+                                        {% if piezas_quantity %}
+                                            {% for piezas in piezas_quantity %}
+                                                '{{piezas.quantity}}',
+                                            {% endfor%}
+                                        {% endif%}
+                                    ]
+                                },
+                                {
+                                    label: "Incorrectas",
+                                    backgroundColor: 'rgb(255,122,122)',
+                                    borderColor: "rgb(255,122,122)",
+                                    pointBorderColor: "#fff",
+                                    data: 
+                                    [
+                                        {% if malas_quantity %}
+                                            {% for malas in malas_quantity %}
+                                                '{{malas.quantity}}',
+                                            {% endfor%}
+                                        {% endif%}
+                                    ]
+                                }
+                            ]
+                        },
+                        options: {
+                            scales: {
+                                xAxes:[{
+                                        stacked:false,
+                                        ticks: {
+                                            min: 0,
+                                            callback: function(value, index, values) {
+                                                if (Math.floor(value) === value) {
+                                                    return value;
+                                                }
+                                            }
+                                        }
+                                    }],
+                            yAxes: [{ stacked: false }]
+                            }
+                        }
+                        });
+                    }
 
     </script>
 
