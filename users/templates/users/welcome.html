@@ -1054,7 +1054,7 @@
             isFixedWidth:true,
             scales: {
                 xAxes:[{
-                    stacked:true,
+                    stacked:false,
                     ticks: {
                         min: 0,
                         callback: function(value, index, values) {
@@ -1063,6 +1063,9 @@
                             }
                         }
                     }
+                }],
+                yAxes:[{
+                    stacked:false
                 }]
             }
         };
