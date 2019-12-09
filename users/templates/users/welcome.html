@@ -737,7 +737,7 @@
             
             <!-- Fin Clean Ocean -->
 
-            {% if student_num == '0' and reim_num != '0' and reim_num != '1' %}
+            {% if student_num == '0' and reim_num != '0' and reim_num != '1' and activity_num == '0' %}
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
@@ -978,8 +978,8 @@
         datasets: [
             {
                 label: "Minutos de juego total",
-                backgroundColor: 'rgba(255,203,124,100)',
-                borderColor: "rgba(255,187,69,100)",
+                backgroundColor: 'rgb(46,204,113)',
+                borderColor: "rgb(39,174,96)",
                 pointBorderColor: "#fff",
                 data: [
                     {% if game_time %}
@@ -1034,8 +1034,8 @@
         datasets: [
             {
                 label: "Cantidad de touch",
-                backgroundColor: 'rgba(180,100,255,100)',
-                borderColor: "rgba(168,75,255,100)",
+                backgroundColor: 'rgb(92,107,192)',
+                borderColor: "rgb(63,81,181)",
                 pointBorderColor: "#fff",
                 data: [
                     {% if touch_quantity %}
@@ -1087,8 +1087,8 @@
         datasets: [
             {
                 label: "Sesiones totales",
-                backgroundColor: 'rgba(82,255,120,100)',
-                borderColor: "rgba(46,255,108,100)",
+                backgroundColor: 'rgb(255,152,0)',
+                borderColor: "rgb(251,104,0)",
                 pointBorderColor: "#fff",
                 data: [
                     {% if sesion_quantity %}
