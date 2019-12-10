@@ -812,6 +812,8 @@
                         </div>                               
                     </div>
                 </div>
+                {% endif %}
+                {% if reim_num == '1' and student_num == '0' and activity_num != '2' and activity_num != '5' %}
                 <div class="col-lg-6">
                     <div class="ibox ">
                         <div class="ibox-title">
@@ -824,7 +826,9 @@
                             </div>
                         </div>
                     </div>
-                </div>    
+                </div>  
+                {% endif %}  
+                {% if reim_num == '1' and student_num == '0' %}     
             </div>            
             <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
                 <div class="col-lg-12">
@@ -953,7 +957,7 @@
                                     </div>
                                     <div class="ibox-content">
                                         <div class="scroll_content">
-                                            <canvas id="analitics1" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                            <canvas id="analitics1" height={{cantidad_usuarios}}>{% load staticfiles %}</canvas>
                                         </div>
                                     </div>
                                 </div>
