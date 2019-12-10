@@ -882,7 +882,7 @@ def get_correctas_alternativas_query(request):
     if request.GET.get('course') and request.GET.get('course') != '0':
         query_params += " AND b.curso_id = " + request.GET.get('course')
     if request.GET.get('school') and request.GET.get('school') != '0':
-        query_params += " AND b.colegio_id = " + request.GET.get('school')+' AND a.id_actividad = 11 AND a.id_elemento=2037 AND a.id_elemento=2038 AND a.id_elemento=2039 AND a.id_elemento=2040 AND a.correcta = 1'
+        query_params += " AND b.colegio_id = " + request.GET.get('school')+' AND a.id_actividad = 11 AND (a.id_elemento=2037 OR a.id_elemento=2038 OR a.id_elemento=2039 OR a.id_elemento=2040) AND a.correcta = 1'
     if request.GET.get('student') and request.GET.get('student') != '0':
         query_params += ' AND a.id_user=' + request.GET.get('student')    
     #print(query_params)
@@ -908,7 +908,7 @@ def get_incorrectas_alternativas_query(request):
     if request.GET.get('course') and request.GET.get('course') != '0':
         query_params += " AND b.curso_id = " + request.GET.get('course')
     if request.GET.get('school') and request.GET.get('school') != '0':
-        query_params += " AND b.colegio_id = " + request.GET.get('school')+' AND a.id_actividad = 11 AND a.id_elemento=2037 AND a.id_elemento=2038 AND a.id_elemento=2039 AND a.id_elemento=2040 AND a.correcta = 0'
+        query_params += " AND b.colegio_id = " + request.GET.get('school')+' AND a.id_actividad = 11 AND (a.id_elemento=2037 OR a.id_elemento=2038 OR a.id_elemento=2039 OR a.id_elemento=2040) AND a.correcta = 0'
     if request.GET.get('student') and request.GET.get('student') != '0':
         query_params += ' AND a.id_user=' + request.GET.get('student')    
     #print(query_params)
