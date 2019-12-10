@@ -793,7 +793,71 @@
                 {% endif %}
 
             <!--Mundo Animal -->
-            {% if reim_num == '1' %}
+            {% if reim_num == '1' and student_num == '0' %}           
+            <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
+                <div class="col-lg-6">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="ibox ">
+                                <div class="ibox-title">
+                                    <h5>Preferencia de Actividades por alumno</h5>
+                                    <div class="ibox-tools"></div>
+                                </div>
+                                <div class="ibox-content">
+                                    <div class="scroll_content">
+                                        <canvas id="analitics1" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                               
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="ibox ">
+                        <div class="ibox-title">
+                            <h5>Cantidad de correctas e incorrectas por alumno</h5>
+                            <div class="ibox-tools"></div>
+                        </div>
+                        <div class="ibox-content">
+                            <div class="scroll_content">
+                                <canvas id="prueba2" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>    
+            </div>            
+            <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
+                <div class="col-lg-12">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="ibox ">
+                                <div class="ibox-title">
+                                    <h5>Animales y su cantidad de veces escogido</h5>
+                                    <div class="ibox-tools"></div>
+                                </div>
+                                <div class="ibox-content">
+                                    <div class="scroll_content">
+                                        <canvas id="animales" height={{cant_animales}}>{% load staticfiles %}</canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                               
+                        <div class="col-lg-6">
+                            <div class="ibox ">
+                                <div class="ibox-title">
+                                    <h5> Minutos Total de juego por alumno</h5>
+                                    <div class="ibox-tools"></div>
+                                </div>
+                                <div class="ibox-content">
+                                    <div class="scroll_content">
+                                        <canvas id="stacked" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="wrapper wrapper-content">
                     <div class="row">
                         <div class="col-lg-12">
@@ -801,52 +865,7 @@
                                 <div class="col-lg-6">
                                     <div class="ibox ">
                                         <div class="ibox-title">
-                                            <h5>Cantidad de correctas e incorrectas por alumno</h5>
-                                            <div class="ibox-tools"></div>
-                                        </div>
-                                        <div class="ibox-content">
-                                            <div class="scroll_content">
-                                                <canvas id="prueba2" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="ibox">
-                                        <div class="ibox-title">
-                                            <h5>Animales y su cantidad de veces escogido</h5>
-                                            <div class="ibox-tools"></div>
-                                        </div>
-                                        <div class="ibox-content">
-                                            <div class="scroll_content">
-                                                <canvas id="animales" height={{cant_animales}}>{% load staticfiles %}</canvas>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
-                                <div class="col-lg-6">
-                                    <div class="ibox ">
-                                        <div class="ibox-title">
-                                            <h5>Minutos de juego</h5>
-                                            <div class="ibox-tools"></div>
-                                        </div>
-                                        <div class="ibox-content">
-                                            <div class="scroll_content">
-                                                <canvas id="stacked" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="ibox">
-                                        <div class="ibox-title">
-                                            <h5>Cantidad de touch por alumno</h5>
+                                            <h5>Cantidad de registros por alumno</h5>
                                             <div class="ibox-tools"></div>
                                         </div>
                                         <div class="ibox-content">
@@ -856,12 +875,8 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
-                        <div class="col-lg-12">
-                            <div class="row">
+                    {% endif %}
+                    {% if student_num == '0' and activity_num == '0' and reim_num == '1' %}
                                 <div class="col-lg-6">
                                     <div class="ibox ">
                                         <div class="ibox-title">
@@ -874,11 +889,17 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> 
+                            </div> 
+                        </div>
+                    </div>       
+                    <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
+                        <div class="col-lg-12">
+                            <div class="row">
                                 <div class="col-lg-6">
                                     <div class="ibox ">
                                         <div class="ibox-title">
-                                            <h5>Cantidad de touch totales del curso por actividad  </h5>
+                                            <h5>Cantidad de touch totales del curso por actividad</h5>
                                             <div class="ibox-tools"></div>
                                         </div>
                                         <div class="ibox-content">
@@ -887,10 +908,59 @@
                                             </div>
                                         </div>
                                     </div>
+                                </div>                               
+                                <div class="col-lg-6">
+                                    <div class="ibox ">
+                                        <div class="ibox-title">
+                                            <h5> Tiempo total por actividad</h5>
+                                            <div class="ibox-tools"></div>
+                                        </div>
+                                        <div class="ibox-content">
+                                            <div class="scroll_content">
+                                                <canvas id="tiempoact" height={{cant_actividades}}>{% load staticfiles %}</canvas>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                {% endif %}
+
+                {% if student_num != '0' and activity_num != '0' and reim_num == '1' %}
+ 
+                <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="ibox ">
+                                    <div class="ibox-title">
+                                        <h5>Cantidad de interacciones por alumno</h5>
+                                        <div class="ibox-tools"></div>
+                                    </div>
+                                    <div class="ibox-content">
+                                        <div class="scroll_content">
+                                            <canvas id="interaccion" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> 
+                            <div class="col-lg-6">
+                                <div class="ibox ">
+                                    <div class="ibox-title">
+                                        <h5>Preferencia de actividad por alumno</h5>
+                                        <div class="ibox-tools"></div>
+                                    </div>
+                                    <div class="ibox-content">
+                                        <div class="scroll_content">
+                                            <canvas id="analitics1" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>                                                           
+                        </div>
+                    </div>
+                </div>
                 {% endif %}
                 <!-- Fin Mundo animal -->
                 <div>
@@ -1427,6 +1497,92 @@
                 });
         }
 
+
+        if ($('#analitics1').length){
+            var ctx52 = document.getElementById('analitics1');
+            new Chart(ctx52, {
+            type: 'horizontalBar',
+            data: {
+                labels:
+                [
+                    {% if analytics1_co_quantity %}
+                        {% for analytics1_co in analytics1_co_quantity %}
+                            '{{analytics1_co.name}}',
+                        {% endfor%}
+                    {% endif%}
+                ],
+                datasets:
+                [
+                    {
+                        label: "preferencia Actividad 1",
+                        backgroundColor: '#a72461',
+                        borderColor: "#a72461",
+                        pointBorderColor: "#fff",
+                        data:
+                        [
+                            {% if analytics1_co_quantity %}
+                                {% for analytics1_co in analytics1_co_quantity %}
+                                    '{{analytics1_co.act1}}',
+                                {% endfor%}
+                            {% endif%}
+                        ]
+                    },
+                    {
+                        label: "preferencia Actividad 2",
+                        backgroundColor: '#dc5353',
+                        borderColor: "#dc5353",
+                        pointBorderColor: "#fff",
+                        data:
+                        [
+                            {% if analytics1_co_quantity %}
+                                {% for analytics1_co in analytics1_co_quantity %}
+                                    '{{analytics1_co.act2}}',
+                                {% endfor%}
+                            {% endif%}
+                        ]
+                    },
+                    {
+                        label: "preferencia Actividad 3",
+                        backgroundColor: '#ff935c',
+                        borderColor: "#ff935c",
+                        pointBorderColor: "#fff",
+                        data:
+                        [
+                            {% if analytics1_co_quantity %}
+                                {% for analytics1_co in analytics1_co_quantity %}
+                                    '{{analytics1_co.act3}}',
+                                {% endfor%}
+                            {% endif%}
+                        ]
+                    },
+                    {
+                        label: "preferencia Actividad 4",
+                        backgroundColor: '#f9e090',
+                        borderColor: "#f9e090",
+                        pointBorderColor: "#fff",
+                        data:
+                        [
+                            {% if analytics1_co_quantity %}
+                                {% for analytics1_co in analytics1_co_quantity %}
+                                    '{{analytics1_co.act4}}',
+                                {% endfor%}
+                            {% endif%}
+                        ]
+                    }
+                ]
+            },
+                options: {
+                    scales: {
+                    xAxes: [{ 
+                        stacked: false, 
+                        }],
+                    yAxes: [{ 
+                        stacked: false}],
+                    },
+                }
+                });
+        }
+
         var ctx10data = {
             labels:
             [
@@ -1496,6 +1652,71 @@
     //Fin Clean Ocean
 
     //Inicio Mundo Animal
+
+    var ctx50data = {
+            labels: [
+                {% if interaccion_quantity %}
+        {% for interaccion in interaccion_quantity %}
+        '{{interaccion.name}}',
+        {% endfor%}
+        {% endif%}
+        ],
+        datasets: [
+            {
+                label: "Cantidad de interacciones",
+                backgroundColor: 'rgb(17,246,133)',
+                borderColor: "rgb(17,246,133)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if interaccion_quantity %}
+            {% for interaccion in interaccion_quantity %}
+        '{{interaccion.quantity}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        }
+        
+        ]
+
+        };
+
+        if($('#interaccion').length){
+            var ctx50 = document.getElementById("interaccion").getContext("2d");
+            new Chart(ctx50, {type: 'horizontalBar', data: ctx50data, options: scale = false   });
+        }
+
+        var ctx51data = {
+            labels: [
+                {% if tiempoact_quantity %}
+        {% for tiempoact in tiempoact_quantity %}
+        '{{tiempoact.name}}',
+        {% endfor%}
+        {% endif%}
+        ],
+        datasets: [
+            {
+                label: "Tiempo",
+                backgroundColor: 'rgb(17,246,133)',
+                borderColor: "rgb(17,246,133)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if tiempoact_quantity %}
+            {% for tiempoact in tiempoact_quantity %}
+        '{{tiempoact.quantity}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        }
+        ]
+        };
+
+        if($('#tiempoact').length){
+            var ctx51 = document.getElementById("tiempoact").getContext("2d");
+            new Chart(ctx51, {type: 'horizontalBar', data: ctx51data, options:  barOptions});
+        }
+
+
+
     var ctx12data = {
             labels: [
                 {% if piezas_quantity %}
