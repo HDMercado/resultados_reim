@@ -793,8 +793,7 @@
                 {% endif %}
 
             <!--Mundo Animal -->
-            {% if reim_num == '1' and student_num == '0' %}
-
+            {% if reim_num == '1' and student_num == '0' %}           
             <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
                 <div class="col-lg-6">
                     <div class="row">
@@ -813,6 +812,19 @@
                         </div>                               
                     </div>
                 </div>
+                <div class="col-lg-6">
+                    <div class="ibox ">
+                        <div class="ibox-title">
+                            <h5>Cantidad de correctas e incorrectas por alumno</h5>
+                            <div class="ibox-tools"></div>
+                        </div>
+                        <div class="ibox-content">
+                            <div class="scroll_content">
+                                <canvas id="prueba2" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>    
             </div>            
             <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
                 <div class="col-lg-12">
@@ -820,12 +832,12 @@
                         <div class="col-lg-6">
                             <div class="ibox ">
                                 <div class="ibox-title">
-                                    <h5>Cantidad de correctas e incorrectas por alumno</h5>
+                                    <h5>Animales y su cantidad de veces escogido</h5>
                                     <div class="ibox-tools"></div>
                                 </div>
                                 <div class="ibox-content">
                                     <div class="scroll_content">
-                                        <canvas id="prueba2" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                        <canvas id="animales" height={{cant_animales}}>{% load staticfiles %}</canvas>
                                     </div>
                                 </div>
                             </div>
@@ -833,12 +845,12 @@
                         <div class="col-lg-6">
                             <div class="ibox ">
                                 <div class="ibox-title">
-                                    <h5>Animales y su cantidad de veces escogido </h5>
+                                    <h5> Minutos Total de juego por alumno</h5>
                                     <div class="ibox-tools"></div>
                                 </div>
                                 <div class="ibox-content">
                                     <div class="scroll_content">
-                                        <canvas id="animales" height={{cant_animales}}>{% load staticfiles %}</canvas>
+                                        <canvas id="stacked" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
                                     </div>
                                 </div>
                             </div>
@@ -853,19 +865,6 @@
                                 <div class="col-lg-6">
                                     <div class="ibox ">
                                         <div class="ibox-title">
-                                            <h5>Minutos Total de juego por alumno</h5>
-                                            <div class="ibox-tools"></div>
-                                        </div>
-                                        <div class="ibox-content">
-                                            <div class="scroll_content">
-                                                <canvas id="stacked" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="ibox">
-                                        <div class="ibox-title">
                                             <h5>Cantidad de registros por alumno</h5>
                                             <div class="ibox-tools"></div>
                                         </div>
@@ -876,14 +875,8 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
                     {% endif %}
                     {% if student_num == '0' and activity_num == '0' and reim_num == '1' %}
-                    <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
-                        <div class="col-lg-12">
-                            <div class="row">
                                 <div class="col-lg-6">
                                     <div class="ibox ">
                                         <div class="ibox-title">
@@ -896,11 +889,17 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>                               
+                                </div> 
+                            </div> 
+                        </div>
+                    </div>       
+                    <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
+                        <div class="col-lg-12">
+                            <div class="row">
                                 <div class="col-lg-6">
                                     <div class="ibox ">
                                         <div class="ibox-title">
-                                            <h5>Cantidad de touch totales del curso por actividad  </h5>
+                                            <h5>Cantidad de touch totales del curso por actividad</h5>
                                             <div class="ibox-tools"></div>
                                         </div>
                                         <div class="ibox-content">
@@ -909,17 +908,11 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
-                        <div class="col-lg-12">
-                            <div class="row">
+                                </div>                               
                                 <div class="col-lg-6">
                                     <div class="ibox ">
                                         <div class="ibox-title">
-                                            <h5>Tiempo total por actividad</h5>
+                                            <h5> Tiempo total por actividad</h5>
                                             <div class="ibox-tools"></div>
                                         </div>
                                         <div class="ibox-content">
@@ -928,7 +921,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>                               
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -951,11 +944,24 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>                               
+                            </div> 
+                            <div class="col-lg-6">
+                                <div class="ibox ">
+                                    <div class="ibox-title">
+                                        <h5>Preferencia de actividad por alumno</h5>
+                                        <div class="ibox-tools"></div>
+                                    </div>
+                                    <div class="ibox-content">
+                                        <div class="scroll_content">
+                                            <canvas id="analitics1" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>                                                           
                         </div>
                     </div>
                 </div>
-                {% endif %} -->
+                {% endif %}
                 <!-- Fin Mundo animal -->
                 <div>
                     <strong>Copyright</strong>  &copy; 2019
@@ -1509,8 +1515,8 @@
                 [
                     {
                         label: "preferencia Actividad 1",
-                        backgroundColor: '#46b3e6',
-                        borderColor: "#46b3e6",
+                        backgroundColor: '#a72461',
+                        borderColor: "#a72461",
                         pointBorderColor: "#fff",
                         data:
                         [
@@ -1523,8 +1529,8 @@
                     },
                     {
                         label: "preferencia Actividad 2",
-                        backgroundColor: '#fe6845',
-                        borderColor: "#fe6845",
+                        backgroundColor: '#dc5353',
+                        borderColor: "#dc5353",
                         pointBorderColor: "#fff",
                         data:
                         [
@@ -1537,8 +1543,8 @@
                     },
                     {
                         label: "preferencia Actividad 3",
-                        backgroundColor: '#c6cbef',
-                        borderColor: "#c6cbef",
+                        backgroundColor: '#ff935c',
+                        borderColor: "#ff935c",
                         pointBorderColor: "#fff",
                         data:
                         [
@@ -1551,8 +1557,8 @@
                     },
                     {
                         label: "preferencia Actividad 4",
-                        backgroundColor: '#ffd739',
-                        borderColor: "#ffd739",
+                        backgroundColor: '#f9e090',
+                        borderColor: "#f9e090",
                         pointBorderColor: "#fff",
                         data:
                         [
@@ -1669,12 +1675,14 @@
         {% endif%}
         ]
         }
+        
         ]
+
         };
 
         if($('#interaccion').length){
             var ctx50 = document.getElementById("interaccion").getContext("2d");
-            new Chart(ctx50, {type: 'horizontalBar', data: ctx50data, options:  barOptions});
+            new Chart(ctx50, {type: 'horizontalBar', data: ctx50data, options: scale = false   });
         }
 
         var ctx51data = {
