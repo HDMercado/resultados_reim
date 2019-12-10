@@ -116,6 +116,8 @@ def welcome(request):
         malas_quantity_response = []
         animales_quantity_response = []
         actividades_quantity_response=[]
+        interaccion_quantity_response=[]
+        tiempoact_quantity_response=[]
         
         if reim_num=="1":
             piezas_query = get_piezas(request)
@@ -143,6 +145,22 @@ def welcome(request):
                 animales_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
 
 
+            interaccion_query = get_interaccion(request)
+            cursor.execute(interaccion_query)
+            queries.append({"name": 'Interaccion query', "query": interaccion_query})
+            interaccion_quantity = cursor.fetchall()
+            print("interacccion quantity", interaccion_quantity)
+            for row in interaccion_quantity:
+                interaccion_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+
+            tiempoact_query = get_tiempoact(request)
+            cursor.execute(tiempoact_query)
+            queries.append({"name": 'Tiempoact query', "query": tiempoact_query})
+            tiempoact_quantity = cursor.fetchall()
+            print("tiempoact quantity", tiempoact_quantity)
+            for row in tiempoact_quantity:
+                tiempoact_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+
             actividades_query = get_cant_touch(request)
             cursor.execute(actividades_query)
             queries.append({"name": 'Actividades query', "query": actividades_query})
@@ -155,6 +173,8 @@ def welcome(request):
         activate_student_filter = False
         if request.GET.get('student') and request.GET.get('student') != "0":
             activate_student_filter = True
+
+
         #INICIO PLUS SPACE
         #PLUS SPACE-------------------------------------
         #Creacion
@@ -560,6 +580,9 @@ def welcome(request):
                 'malas_quantity':malas_quantity_response,
                 'animales_quantity':animales_quantity_response,
                 'actividades_quantity':actividades_quantity_response,
+                'interaccion_quantity':interaccion_quantity_response,
+                'tiempoact_quantity':tiempoact_quantity_response,
+                                
                 #PLUSSPACE
                 #CREACION
                 'move_element_quantity':move_element_quantity_response,
