@@ -206,7 +206,7 @@ def welcome(request):
         if reim_num=="2":
         #General
             time_PS_query = get_time_PS_query(request)
-            queries.append({"name": 'Desplazado query', "query": time_PS_query})
+            queries.append({"name": 'Tiempo Actividad query', "query": time_PS_query})
             cursor.execute(time_PS_query)
             time_PS_quantity = cursor.fetchall()
             for row in time_PS_quantity:
