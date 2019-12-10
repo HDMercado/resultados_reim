@@ -119,6 +119,9 @@ def welcome(request):
         interaccion_quantity_response=[]
         tiempoact_quantity_response=[]
         analytics1_co_quantity_response=[]
+        total_correctas = 0
+        count1=0
+        promedio_correctas=0
 
 
 
@@ -139,6 +142,9 @@ def welcome(request):
             print ("piezas quantity", piezas_quantity)
             for row in piezas_quantity:
                 piezas_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+                total_correctas += row[2]
+                count1 = count1+1
+            promedio_correctas = total_correctas / count1
 
             malas_query = get_malas(request)
             cursor.execute(malas_query)
@@ -595,7 +601,9 @@ def welcome(request):
                 'actividades_quantity':actividades_quantity_response,
                 'interaccion_quantity':interaccion_quantity_response,
                 'tiempoact_quantity':tiempoact_quantity_response,
-                                
+                'promedio_correctas':int(promedio_correctas),
+
+                              
                 #PLUSSPACE
                 #CREACION
                 'move_element_quantity':move_element_quantity_response,
