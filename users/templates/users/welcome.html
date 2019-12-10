@@ -2473,12 +2473,36 @@ var originalLineDraw = Chart.controllers.horizontalBar.prototype.draw;
               ctx.save();
               ctx.beginPath();
               ctx.moveTo(x1, y1);
+              ctx.strokeStyle = 'green';
+              ctx.lineTo(x2, y2);
+              ctx.stroke();
+  
+              ctx.restore();
+            
+          }
+          var index = chart.config.options.lineAtIndex1;
+          if (index) {
+  
+              var xaxis = chart.scales['x-axis-0'];
+              var yaxis = chart.scales['y-axis-0'];
+  
+              var x1 = xaxis.getPixelForValue(index);                       
+              var y1 = yaxis.top;                                                   
+  
+              var x2 = xaxis.getPixelForValue(index);                       
+              var y2 = yaxis.bottom;                                        
+  
+              ctx.save();
+              ctx.beginPath();
+              ctx.moveTo(x1, y1);
               ctx.strokeStyle = 'red';
               ctx.lineTo(x2, y2);
               ctx.stroke();
   
               ctx.restore();
+            
           }
+          
       }
   });
 
@@ -2537,7 +2561,8 @@ var originalLineDraw = Chart.controllers.horizontalBar.prototype.draw;
                         },
                         options: {
                                     //Set the index of the value where you want to draw the line
-                                    lineAtIndex: '{{promedio_correctas}}',
+                                    lineAtIndex: '{{promedio_correctas}}',  
+                                    lineAtIndex1: '{{promedio_incorrectas}}',                                                                      
                                     scales: {
                                             xAxes:[{
                                             stacked:false,

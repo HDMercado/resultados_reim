@@ -122,7 +122,10 @@ def welcome(request):
         total_correctas = 0
         count1=0
         promedio_correctas=0
-
+        
+        total_incorrectas = 0
+        count2=0
+        promedio_incorrectas=0
 
 
         if reim_num=="1":
@@ -153,6 +156,9 @@ def welcome(request):
             print("malas quantity", malas_quantity)
             for row in malas_quantity:
                 malas_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+                total_incorrectas += row[2]
+                count2 = count2+1
+            promedio_incorrectas = total_incorrectas / count2
 
             animales_query = get_animals(request)
             cursor.execute(animales_query)
@@ -602,6 +608,7 @@ def welcome(request):
                 'interaccion_quantity':interaccion_quantity_response,
                 'tiempoact_quantity':tiempoact_quantity_response,
                 'promedio_correctas':int(promedio_correctas),
+                'promedio_incorrectas':int(promedio_incorrectas),
 
                               
                 #PLUSSPACE
