@@ -118,8 +118,20 @@ def welcome(request):
         actividades_quantity_response=[]
         interaccion_quantity_response=[]
         tiempoact_quantity_response=[]
-        
+        analytics1_co_quantity_response=[]
+
+
+
         if reim_num=="1":
+
+            analytics1_co_query = get_analytics1_co(request)
+            cursor.execute(analytics1_co_query)
+            queries.append({"name": 'Analytics1 co query', "query": analytics1_co_query})
+            analytics1_co_quantity = cursor.fetchall()
+            print ("analytics1_co_quantity", analytics1_co_quantity)
+            for row in analytics1_co_quantity:
+                analytics1_co_quantity_response.append({ 'id': row[0], 'name': row[1], 'act1': row[2], 'act2': row[3], 'act3': row[4], 'act4': row[5]  })
+           
             piezas_query = get_piezas(request)
             cursor.execute(piezas_query)
             queries.append({"name": 'Piezas query', "query": piezas_query})
@@ -573,6 +585,7 @@ def welcome(request):
                 'incorrects_quantity':incorrects_quantity_response,
                 'jumps_quantity':jumps_quantity_response,
                 'analytics_co_quantity':analytics_co_quantity_response,
+                'analytics1_co_quantity':analytics1_co_quantity_response,
                 'exit_lab_quantity': exit_lab_quantity_response,
                 'touch_animals_co_quantity':touch_animals_co_quantity_response,
                 'touch_trash_co_quantity':touch_trash_co_quantity_response,

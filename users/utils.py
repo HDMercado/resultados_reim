@@ -436,9 +436,28 @@ def get_tiempoact(request):
         
     date = get_date_param_alumno_respuesta_actividad(request)
 
-    start_base = 'SELECT a.actividad_id, b.nombre ,sum(timediff(final, inicio)) as tiempo FROM tiempoxactividad a, actividad b, pertenece e where' + date
+    start_base = 'SELECT a.actividad_id, b.nombre ,sum(timediff(final, inicio)) as tiempo FROM tiempoxactividad a, actividad b, pertenece e where'
     final_base = ' e.colegio_id IN (SELECT colegio_id from pertenece INNER JOIN usuario ON pertenece.usuario_id = usuario.id WHERE username="' + request.user.username + '") AND e.curso_id IN (SELECT curso_id FROM pertenece WHERE usuario_id = (SELECT id FROM usuario WHERE username = "' + request.user.username + '"))' + query_params + ' AND a.actividad_id = b.id group by actividad_id;'
     return start_base + final_base
+
+def get_analytics1_co(request):
+    cursor = get_from_db()
+    query_params = ''
+
+    if request.GET.get('reim') and request.GET.get('reim') != '0':
+        query_params += " AND a.id_reim = " + request.GET.get('reim')
+    if request.GET.get('course') and request.GET.get('course') != '0':
+        query_params += " AND b.curso_id = " + request.GET.get('course')
+    if request.GET.get('school') and request.GET.get('school') != '0':
+        query_params += " AND b.colegio_id = " + request.GET.get('school')
+     
+    date = get_date_param_alumno_respuesta_actividad(request)
+
+    start_base = 'SELECT u.id, concat(u.nombres ," ", u.apellido_paterno ," ", u.apellido_materno) as nombre, count(if(a.id_elemento=7,1,NULL)) Actividad1, count(if(a.id_elemento=8,1,NULL)) Actividad2, count(if(a.id_elemento=9,1,NULL)) Actividad3, count(if(a.id_elemento=10,1,NULL)) Actvidad4, b.colegio_id, b.curso_id FROM alumno_respuesta_actividad a, usuario u, pertenece b where'
+    final_base = ' a.id_user= u.id && b.usuario_id = a.id_user && b.colegio_id IN (SELECT colegio_id from pertenece INNER JOIN usuario ON pertenece.usuario_id = usuario.id WHERE username="' + request.user.username + '") AND b.curso_id IN (SELECT curso_id FROM pertenece WHERE usuario_id = (SELECT id FROM usuario WHERE username = "' + request.user.username + '"))' + query_params + ' GROUP BY u.id'
+    return start_base + final_base
+
+
 
 #FIN QUERYS MUNDO ANIMAL 
 
