@@ -1770,35 +1770,96 @@
             new Chart(ctx17, {type: 'horizontalBar', data: CreadosCreacionData, options:barOptions});
         }
         //ELEMENTOS DESPLAZADOS - CREACION - PLSSPACE
-        var MoveElementData = {
-            labels: [
-                {% if move_element_quantity %}
-        {% for move_element in move_element_quantity %}
-        '{{move_element.name}}',
-        {% endfor%}
-        {% endif%}
-        ],
-        datasets: [
-            {
-                label: "Elementos desplazados",
-                backgroundColor: 'rgb(245,176,65)',
-                borderColor: "rgb(230,126,34)",
-                pointBorderColor: "#fff",
-                data: [
-                    {% if move_element_quantity %}
-            {% for move_element in move_element_quantity %}
-        '{{move_element.quantity}}',
-        {% endfor%}
-        {% endif%}
-        ]
-        }
-        ]
-        };
+        //GRAFICO CON PROMEDIO/////////////////////////////////////////////77
+        //prueba
+        var originalLineDraw = Chart.controllers.horizontalBar.prototype.draw;
+        Chart.helpers.extend(Chart.controllers.horizontalBar.prototype, {
+  
+        draw: function () {
+          originalLineDraw.apply(this, arguments);
+  
+          var chart = this.chart;
+          var ctx = chart.chart.ctx;
+  
+          var index = chart.config.options.lineAtIndex;
+          if (index) {
+  
+              var xaxis = chart.scales['x-axis-0'];
+              var yaxis = chart.scales['y-axis-0'];
+  
+              var x1 = xaxis.getPixelForValue(index);                       
+              var y1 = yaxis.top;                                                   
+  
+              var x2 = xaxis.getPixelForValue(index);                       
+              var y2 = yaxis.bottom;                                        
+  
+              ctx.save();
+              ctx.beginPath();
+              ctx.moveTo(x1, y1);
+              ctx.strokeStyle = 'red';
+              ctx.lineTo(x2, y2);
+              ctx.stroke();
+  
+              ctx.restore();
+          }
+      }
+  });
 
-        if ($('#movePS').length){
-            var ctx18 = document.getElementById("movePS").getContext("2d");
-            new Chart(ctx18, {type: 'horizontalBar', data: MoveElementData, options:barOptions});
-        }
+    //Set up the chart data
+    var data = {
+      labels: [
+                {% if move_element_quantity %}
+                {% for move_element in move_element_quantity %}
+                '{{move_element.name}}',
+                {% endfor%}
+                {% endif%}
+            ],
+      datasets: [
+          {
+            label: "Elementos desplazados",
+                backgroundColor: 'rgb(72,201,176)',
+                borderColor: "rgb(69,179,157)",
+                pointBorderColor: "#fff",
+              borderWidth: 2.5,
+              data: [
+                    {% if move_element_quantity %}
+                    {% for move_element in move_element_quantity %}
+                    '{{move_element.quantity}}',
+                    {% endfor%}
+                    {% endif%}],
+          }
+      ]
+  };
+  //Load Chart
+  if ($('#movePS').length){
+  var ctx = $("#movePS");
+  }
+  var myBarChart = new Chart(ctx, {
+      type: 'horizontalBar',
+      data: data,
+
+      options: {
+          //Set the index of the value where you want to draw the line
+          lineAtIndex: '{{promedio_move_element}}',
+          scales: {
+                xAxes:[{
+                    stacked:false,
+                    ticks: {
+                        min: 0,
+                        callback: function(value, index, values) {
+                            if (Math.floor(value) === value) {
+                                return value;
+                            }
+                        }
+                    }
+                }]
+            },
+          legend: {
+            display: true
+          }
+      }
+  });
+///////////////////////////////////////////////////////////////////
         //LABERINTO
         //COLISIONES
         var ElementColissionData = {

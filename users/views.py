@@ -196,6 +196,10 @@ def welcome(request):
         aceptar_puzzle_quantity_response = []
         volver_puzzle_quantity_response = []
         ingresar_puzzle_quantity_response = []
+        #prueba
+        total_move_element = 0
+        count=0
+        promedio_move_element=0
         
         if reim_num=="2":
         #CREACION
@@ -206,6 +210,10 @@ def welcome(request):
             move_element_quantity = cursor.fetchall()
             for row in move_element_quantity:
                 move_element_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+            #prueba
+                total_move_element += row[2]
+                count = count+1
+            promedio_move_element = total_move_element / count
         #Volver creacion
             volver_creacion_query = get_volver_creacion_query(request)
             queries.append({"name": 'volver creacion query', "query": volver_creacion_query})
@@ -600,6 +608,8 @@ def welcome(request):
                 'aceptar_puzzle_quantity':aceptar_puzzle_quantity_response,
                 'volver_puzzle_quantity':volver_puzzle_quantity_response,
                 'ingresar_puzzle_quantity':ingresar_puzzle_quantity_response,
+                #prueba
+                'promedio_move_element':int(promedio_move_element),
             })
     # En otro caso redireccionamos al login
     return redirect('/login')
