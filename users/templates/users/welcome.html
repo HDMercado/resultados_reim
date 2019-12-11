@@ -828,7 +828,7 @@
                     </div>
                 </div>  
                 {% endif %}  
-                {% if reim_num == '1' and student_num == '0' %}     
+                {% if reim_num == '1' and student_num == '0' and activity_num != '0' %}     
             </div>            
             <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
                 <div class="col-lg-12">
@@ -960,9 +960,21 @@
                                             <canvas id="analitics1" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
                                         </div>
                                     </div>
-                                </div>
-                            </div>                                                           
+                                </div>                                                          
                         </div>
+                        <div class="col-lg-6">
+                            <div class="ibox ">
+                                <div class="ibox-title">
+                                    <h5>Tiempo por actividad </h5>
+                                    <div class="ibox-tools"></div>
+                                </div>
+                                <div class="ibox-content">
+                                    <div class="scroll_content">
+                                        <canvas id="tiempoact" height={{cant_actividades}}>{% load staticfiles %}</canvas>
+                                    </div>
+                                </div>
+                            </div>                                                          
+                    </div>
                     </div>
                 </div>
                 {% endif %}

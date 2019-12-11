@@ -120,11 +120,11 @@ def welcome(request):
         tiempoact_quantity_response=[]
         analytics1_co_quantity_response=[]
         total_correctas = 0
-        count1=0
+        count1=1
         promedio_correctas=0
         
         total_incorrectas = 0
-        count2=0
+        count2=1
         promedio_incorrectas=0
 
 
