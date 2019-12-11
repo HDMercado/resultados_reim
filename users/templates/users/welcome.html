@@ -679,12 +679,12 @@
                                     <div class="col-lg-6">
                                         <div class="ibox ">
                                             <div class="ibox-title">
-                                                <h5>Total de animales tocados por curso en pantalla progreso</h5>
+                                                <h5>Botones tocados por curso en pantalla progreso</h5>
                                                 <div class="ibox-tools"></div>
                                             </div>
                                             <div class="ibox-content">
                                                 <div class="scroll_content">
-                                                    <canvas id="touchallanimalsco" height=240>{% load staticfiles %}</canvas>
+                                                    <canvas id="touchbuttonsco" height=240>{% load staticfiles %}</canvas>
                                                 </div>
                                             </div>
                                         </div>
@@ -698,25 +698,6 @@
                                             <div class="ibox-content">
                                                 <div class="scroll_content">
                                                     <canvas id="touchalltrashco" height=240 >{% load staticfiles %}</canvas>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>            
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
-                                    <div class="col-lg-6">
-                                        <div class="ibox ">
-                                            <div class="ibox-title">
-                                                <h5>Botones tocados por curso en pantalla progreso</h5>
-                                                <div class="ibox-tools"></div>
-                                            </div>
-                                            <div class="ibox-content">
-                                                <div class="scroll_content">
-                                                    <canvas id="touchbuttonsco" height=240>{% load staticfiles %}</canvas>
                                                 </div>
                                             </div>
                                         </div>
@@ -813,6 +794,25 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
+                                    <div class="col-lg-6">
+                                        <div class="ibox ">
+                                            <div class="ibox-title">
+                                                <h5>Tiempo total en actividad lancha por alumno</h5>
+                                                <div class="ibox-tools"></div>
+                                            </div>
+                                            <div class="ibox-content">
+                                                <div class="scroll_content">
+                                                    <canvas id="totaltimeco" height=240>{% load staticfiles %}</canvas>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>            
+                        </div>
                     {% endif %}
                 <!-- Suma -->
                     {% if activity_num == '3003' and student_num == '0' %}
@@ -822,12 +822,12 @@
                                     <div class="col-lg-6">
                                         <div class="ibox ">
                                             <div class="ibox-title">
-                                                <h5>Total de animales tocados en actividad suma</h5>
+                                                <h5>Tiempo total en actividad suma por alumno</h5>
                                                 <div class="ibox-tools"></div>
                                             </div>
                                             <div class="ibox-content">
                                                 <div class="scroll_content">
-                                                    <canvas id="touchallanimalsco" height=240>{% load staticfiles %}</canvas>
+                                                    <canvas id="totaltimeco" height=240>{% load staticfiles %}</canvas>
                                                 </div>
                                             </div>
                                         </div>
@@ -934,6 +934,25 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
+                                    <div class="col-lg-6">
+                                        <div class="ibox ">
+                                            <div class="ibox-title">
+                                                <h5>Tiempo total en actividad laberinto por alumno</h5>
+                                                <div class="ibox-tools"></div>
+                                            </div>
+                                            <div class="ibox-content">
+                                                <div class="scroll_content">
+                                                    <canvas id="totaltimeco" height=240>{% load staticfiles %}</canvas>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>            
+                        </div>
                     {% endif %}
                 <!--Tesoro -->
                     {% if activity_num == '3005' and student_num == '0' %}
@@ -966,6 +985,12 @@
                                             </div>
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
                                     <div class="col-lg-6">
                                         <div class="ibox ">
                                             <div class="ibox-title">
@@ -981,6 +1006,25 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
+                                    <div class="col-lg-6">
+                                        <div class="ibox ">
+                                            <div class="ibox-title">
+                                                <h5>Tiempo total en actividad tesoro por alumno</h5>
+                                                <div class="ibox-tools"></div>
+                                            </div>
+                                            <div class="ibox-content">
+                                                <div class="scroll_content">
+                                                    <canvas id="totaltimeco" height=240>{% load staticfiles %}</canvas>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>            
                         </div>
                     {% endif %}
 
@@ -1030,6 +1074,19 @@
                                         <div class="ibox-content">
                                             <div class="scroll_content">
                                                 <canvas id="touchbuttonsco" height=240>{% load staticfiles %}</canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="ibox ">
+                                        <div class="ibox-title">
+                                            <h5>Tiempo total en actividad arrastrar y soltar por alumno</h5>
+                                            <div class="ibox-tools"></div>
+                                        </div>
+                                        <div class="ibox-content">
+                                            <div class="scroll_content">
+                                                <canvas id="totaltimeco" height=240>{% load staticfiles %}</canvas>
                                             </div>
                                         </div>
                                     </div>
@@ -1089,6 +1146,19 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-lg-6">
+                                <div class="ibox ">
+                                    <div class="ibox-title">
+                                        <h5>Tiempo total en actividad destreza por alumno</h5>
+                                        <div class="ibox-tools"></div>
+                                    </div>
+                                    <div class="ibox-content">
+                                        <div class="scroll_content">
+                                            <canvas id="totaltimeco" height=240>{% load staticfiles %}</canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1115,12 +1185,12 @@
                         <div class="col-lg-6">
                             <div class="ibox ">
                                 <div class="ibox-title">
-                                    <h5>Total de animales tocados</h5>
+                                    <h5>Correctas e incorrectas por actividad</h5>
                                     <div class="ibox-tools"></div>
                                 </div>
                                 <div class="ibox-content">
                                     <div class="scroll_content">
-                                        <canvas id="touchanimalsco" height=240>{% load staticfiles %}</canvas>
+                                        <canvas id="correctsactall" height=240>{% load staticfiles %}</canvas>
                                     </div>
                                 </div>
                             </div>
@@ -1140,19 +1210,6 @@
                                 <div class="ibox-content">
                                     <div class="scroll_content">
                                         <canvas id="touchtrash" height=240>{% load staticfiles %}</canvas>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="ibox ">
-                                <div class="ibox-title">
-                                    <h5>Correctas e incorrectas por actividad</h5>
-                                    <div class="ibox-tools"></div>
-                                </div>
-                                <div class="ibox-content">
-                                    <div class="scroll_content">
-                                        <canvas id="correctsactall" height=240>{% load staticfiles %}</canvas>
                                     </div>
                                 </div>
                             </div>
@@ -1672,18 +1729,11 @@
             data: {
                 labels:
                 [
-                    {% if corrects_quantity %}
-                        {% for corrects in corrects_quantity %}
-                            '{{corrects.name}}',
+                    {% if corrects_incorrects_quantity %}
+                        {% for corrects_incorrects in corrects_incorrects_quantity %}
+                            '{{corrects_incorrects.name}}',
                         {% endfor%}
                     {% endif%}
-                    //,
-
-                    // {% if incorrects_quantity %}
-                    //     {% for incorrects in incorrects_quantity %}
-                    //         '{{incorrects.name}}',
-                    //     {% endfor%}
-                    // {% endif%}
                 ],
                 datasets:
                 [
@@ -1694,9 +1744,9 @@
                         pointBorderColor: "#fff",
                         data:
                         [
-                            {% if corrects_quantity %}
-                                {% for corrects in corrects_quantity %}
-                                    '{{corrects.quantity}}',
+                            {% if corrects_incorrects_quantity %}
+                                {% for corrects_incorrects in corrects_incorrects_quantity %}
+                                    '{{corrects_incorrects.corrects}}',
                                 {% endfor%}
                             {% endif%}
                         ]
@@ -1708,9 +1758,9 @@
                         pointBorderColor: "#fff",
                         data:
                         [
-                            {% if incorrects_quantity %}
-                                {% for incorrects in incorrects_quantity %}
-                                    '{{incorrects.quantity}}',
+                            {% if corrects_incorrects_quantity %}
+                                {% for corrects_incorrects in corrects_incorrects_quantity %}
+                                    '{{corrects_incorrects.incorrects}}',
                                 {% endfor%}
                             {% endif%}
                         ]
@@ -2989,6 +3039,39 @@ var CreacionData = {
         if ($('#correctsactall').length){
             var ctx37 = document.getElementById("correctsactall");
             new Chart(ctx37, {type: 'horizontalBar', data: ctx37data, options:barOptions});
+        }
+
+        var ctx38data = {
+            labels:
+            [
+                {% if time_act_co_quantity %}
+                    {% for time_act_co in time_act_co_quantity %}
+                        '{{time_act_co.name}}',
+                    {% endfor%}
+                {% endif%}
+            ],
+            datasets:
+            [
+                {
+                label: "Minutos de juego",
+                backgroundColor: '#00c0c4',
+                borderColor: "#00c0c4",
+                pointBorderColor: "#fff",
+                data:
+                [
+                    {% if time_act_co_quantity %}
+                        {% for time_act_co in time_act_co_quantity %}
+                            '{{time_act_co.quantity}}',
+                        {% endfor%}
+                    {% endif%}
+                ]
+                },
+            ]
+            };
+
+        if ($('#totaltimeco').length){
+            var ctx38 = document.getElementById("totaltimeco");
+            new Chart(ctx38, {type: 'horizontalBar', data: ctx38data, options:barOptions});
         }
 
     </script>

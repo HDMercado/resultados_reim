@@ -455,6 +455,8 @@ def welcome(request):
         buttons_co_quantity_response = []
         trash_clean_co_quantity_response = []
         corrects_student_co_quantity_response = []
+        time_act_co_quantity_response = []
+        corrects_incorrects_quantity_response = []
 
         if reim_num=="3":
             colision_query = get_colision_co(request)
@@ -478,6 +480,13 @@ def welcome(request):
             incorrects_quantity = cursor.fetchall()
             for row in incorrects_quantity:
                 incorrects_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+
+            corrects_incorrects_query = get_corrects_incorrects_co(request)
+            cursor.execute(corrects_incorrects_query)
+            queries.append({"name": 'Correctas e incorrectas query', "query": corrects_incorrects_query})
+            corrects_incorrects_quantity = cursor.fetchall()
+            for row in corrects_incorrects_quantity:
+                corrects_incorrects_quantity_response.append({ 'id': row[0], 'name': row[1], 'corrects': row[2], 'incorrects': row[3] })
 
             jumps_query = get_jumps_co(request)
             cursor.execute(jumps_query)
@@ -582,6 +591,14 @@ def welcome(request):
             for row in corrects_student_co_quantity:
                 corrects_student_co_quantity_response.append({ 'id': row[0], 'name': row[1], 'correct': row[2], 'incorrect': row[3] })
 
+            time_act_co_query = get_time_act_co(request)
+            cursor.execute(time_act_co_query)
+            queries.append({"name": 'Time act CO query', "query": time_act_co_query})
+            time_act_co_quantity = cursor.fetchall()
+            print ("Time act CO quantity" , time_act_co_quantity)
+            for row in time_act_co_quantity:
+                time_act_co_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+
         #FIN CLEAN OCEAN
         
         #Cantidad de Sesiones
@@ -623,6 +640,7 @@ def welcome(request):
                 'colision_quantity':colision_quantity_response,
                 'corrects_quantity':corrects_quantity_response,
                 'incorrects_quantity':incorrects_quantity_response,
+                'corrects_incorrects_quantity':corrects_incorrects_quantity_response,
                 'jumps_quantity':jumps_quantity_response,
                 'analytics_co_quantity':analytics_co_quantity_response,
                 'exit_lab_quantity': exit_lab_quantity_response,
@@ -636,6 +654,7 @@ def welcome(request):
                 'buttons_co_quantity':buttons_co_quantity_response,
                 'trash_clean_co_quantity':trash_clean_co_quantity_response,
                 'corrects_student_co_quantity':corrects_student_co_quantity_response,
+                'time_act_co_quantity':time_act_co_quantity_response,
                 #MUNDO ANIMAL
                 'piezas_quantity':piezas_quantity_response,
                 'malas_quantity':malas_quantity_response,
