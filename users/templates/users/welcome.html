@@ -793,14 +793,14 @@
                 {% endif %}
 
             <!--Mundo Animal -->
-            {% if reim_num == '1' and student_num == '0' %}           
-            <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
-                <div class="col-lg-6">
-                    <div class="row">
-                        <div class="col-lg-12">
+            {% if reim_num == '1' and student_num == '0' %}      
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
+                        <div class="col-lg-6">
                             <div class="ibox ">
                                 <div class="ibox-title">
-                                    <h5>Preferencia de Actividades por alumno</h5>
+                                    <h5>Preferencia de actividades por alumno</h5>
                                     <div class="ibox-tools"></div>
                                 </div>
                                 <div class="ibox-content">
@@ -809,47 +809,32 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>                               
-                    </div>
-                </div>
-                {% endif %}
-                {% if reim_num == '1' and student_num == '0' and activity_num != '2' and activity_num != '5' %}
-                <div class="col-lg-6">
-                    <div class="ibox ">
-                        <div class="ibox-title">
-                            <h5>Cantidad de correctas e incorrectas por alumno</h5>
-                            <div class="ibox-tools"></div>
                         </div>
-                        <div class="ibox-content">
-                            <div class="scroll_content">
-                                <canvas id="prueba2" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
-                            </div>
-                        </div>
-                    </div>
-                </div>  
-                {% endif %}  
-                {% if reim_num == '1' and student_num == '0' and activity_num != '0' %}     
-            </div>            
-            <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
-                <div class="col-lg-12">
-                    <div class="row">
                         <div class="col-lg-6">
-                            <div class="ibox ">
+                            <div class="ibox">
                                 <div class="ibox-title">
-                                    <h5>Animales y su cantidad de veces escogido</h5>
+                                    <h5>Cantidad de correctas e incorrectas</h5>
                                     <div class="ibox-tools"></div>
                                 </div>
                                 <div class="ibox-content">
                                     <div class="scroll_content">
-                                        <canvas id="animales" height={{cant_animales}}>{% load staticfiles %}</canvas>
+                                        <canvas id="prueba2" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
                                     </div>
                                 </div>
                             </div>
-                        </div>                               
+                        </div>
+                    </div>
+                </div>
+            </div>            
+            {% endif %}  
+            {% if reim_num == '1' and student_num == '0' and activity_num == '0' %}            
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
                         <div class="col-lg-6">
                             <div class="ibox ">
                                 <div class="ibox-title">
-                                    <h5> Minutos Total de juego por alumno</h5>
+                                    <h5>Tiempo total de juego</h5>
                                     <div class="ibox-tools"></div>
                                 </div>
                                 <div class="ibox-content">
@@ -859,113 +844,112 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-            <div class="wrapper wrapper-content">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
-                                <div class="col-lg-6">
-                                    <div class="ibox ">
-                                        <div class="ibox-title">
-                                            <h5>Cantidad de registros por alumno</h5>
-                                            <div class="ibox-tools"></div>
-                                        </div>
-                                        <div class="ibox-content">
-                                            <div class="scroll_content">
-                                                <canvas id="horizontalBar" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
-                                            </div>
-                                        </div>
-                                    </div>
+                        <div class="col-lg-6">
+                            <div class="ibox">
+                                <div class="ibox-title">
+                                    <h5>Cantidad de sesiones</h5>
+                                    <div class="ibox-tools"></div>
                                 </div>
-                    {% endif %}
-                    {% if student_num == '0' and activity_num == '0' and reim_num == '1' %}
-                                <div class="col-lg-6">
-                                    <div class="ibox ">
-                                        <div class="ibox-title">
-                                            <h5>Sesiones por alumno</h5>
-                                            <div class="ibox-tools"></div>
-                                        </div>
-                                        <div class="ibox-content">
-                                            <div class="scroll_content">
-                                                <canvas id="stacked2" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> 
-                            </div> 
-                        </div>
-                    </div>       
-                    <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
-                        <div class="col-lg-12">
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="ibox ">
-                                        <div class="ibox-title">
-                                            <h5>Cantidad de touch totales del curso por actividad</h5>
-                                            <div class="ibox-tools"></div>
-                                        </div>
-                                        <div class="ibox-content">
-                                            <div class="scroll_content">
-                                                <canvas id="actividades" height={{cant_actividades}}>{% load staticfiles %}</canvas>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>                               
-                                <div class="col-lg-6">
-                                    <div class="ibox ">
-                                        <div class="ibox-title">
-                                            <h5> Tiempo total por actividad</h5>
-                                            <div class="ibox-tools"></div>
-                                        </div>
-                                        <div class="ibox-content">
-                                            <div class="scroll_content">
-                                                <canvas id="tiempoact" height={{cant_actividades}}>{% load staticfiles %}</canvas>
-                                            </div>
-                                        </div>
+                                <div class="ibox-content">
+                                    <div class="scroll_content">
+                                        <canvas id="stacked2" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                {% endif %}
-
-                {% if student_num != '0' and activity_num != '0' and reim_num == '1' %}
- 
-                <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
-                    <div class="col-lg-12">
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div class="ibox ">
-                                    <div class="ibox-title">
-                                        <h5>Cantidad de interacciones por alumno</h5>
-                                        <div class="ibox-tools"></div>
-                                    </div>
-                                    <div class="ibox-content">
-                                        <div class="scroll_content">
-                                            <canvas id="interaccion">{% load staticfiles %}</canvas>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> 
-                            <div class="col-lg-6">
-                                <div class="ibox ">
-                                    <div class="ibox-title">
-                                        <h5>Preferencia de actividad por alumno</h5>
-                                        <div class="ibox-tools"></div>
-                                    </div>
-                                    <div class="ibox-content">
-                                        <div class="scroll_content">
-                                            <canvas id="analitics1" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
-                                        </div>
-                                    </div>
-                                </div>                                                          
-                        </div>
+                </div>
+            </div>
+            {% endif %}  
+            {% if reim_num == '1' and student_num == '0' and activity_num != '0' %}
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
                         <div class="col-lg-6">
                             <div class="ibox ">
                                 <div class="ibox-title">
-                                    <h5>Tiempo por actividad </h5>
+                                    <h5>Animales y su cantidad de preferencia</h5>
+                                    <div class="ibox-tools"></div>
+                                </div>
+                                <div class="ibox-content">
+                                    <div class="scroll_content">
+                                        <canvas id="animales" height={{cant_animales}}>{% load staticfiles %}</canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="ibox">
+                                <div class="ibox-title">
+                                    <h5>Cantidad de registro por alumno</h5>
+                                    <div class="ibox-tools"></div>
+                                </div>
+                                <div class="ibox-content">
+                                    <div class="scroll_content">
+                                        <canvas id="horizontalBar" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}  
+            {% if reim_num == '1' and student_num != '0' and activity_num != '0' %}
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
+                        <div class="col-lg-6">
+                            <div class="ibox ">
+                                <div class="ibox-title">
+                                    <h5>Cantidad de interacciones</h5>
+                                    <div class="ibox-tools"></div>
+                                </div>
+                                <div class="ibox-content">
+                                    <div class="scroll_content">
+                                        <canvas id="interaccion" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="ibox">
+                                <div class="ibox-title">
+                                    <h5>Cantidad de registro por alumno</h5>
+                                    <div class="ibox-tools"></div>
+                                </div>
+                                <div class="ibox-content">
+                                    <div class="scroll_content">
+                                        <canvas id="horizontalBar" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}              
+            {% if student_num == '0' and activity_num == '0' and reim_num == '1' %}
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
+                        <div class="col-lg-6">
+                            <div class="ibox ">
+                                <div class="ibox-title">
+                                    <h5>Cantidad de touch totales del curso por actividad</h5>
+                                    <div class="ibox-tools"></div>
+                                </div>
+                                <div class="ibox-content">
+                                    <div class="scroll_content">
+                                        <canvas id="actividades" height={{cant_actividades}}>{% load staticfiles %}</canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="ibox">
+                                <div class="ibox-title">
+                                    <h5>Tiempo por actividad</h5>
                                     <div class="ibox-tools"></div>
                                 </div>
                                 <div class="ibox-content">
@@ -973,11 +957,13 @@
                                         <canvas id="tiempoact" height={{cant_actividades}}>{% load staticfiles %}</canvas>
                                     </div>
                                 </div>
-                            </div>                                                          
-                    </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                {% endif %}
+            </div>
+            {% endif %} 
+
                 <!-- Fin Mundo animal -->
                 <div>
                     <strong>Copyright</strong>  &copy; 2019
