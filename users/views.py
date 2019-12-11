@@ -464,6 +464,16 @@ def welcome(request):
         exit_lab_quantity_response = []
         touch_animals_co_quantity_response = []
         touch_trash_co_quantity_response = []
+        actividades_co_quantity_response = []
+        colision_trash_quantity_response = []
+        touch_all_animals_quantity_response = []
+        exits_lab_co_quantity_response = []
+        touch_all_trash_quantity_response = []
+        buttons_co_quantity_response = []
+        trash_clean_co_quantity_response = []
+        corrects_student_co_quantity_response = []
+        time_act_co_quantity_response = []
+        corrects_incorrects_quantity_response = []
 
         if reim_num=="3":
             colision_query = get_colision_co(request)
@@ -487,6 +497,13 @@ def welcome(request):
             incorrects_quantity = cursor.fetchall()
             for row in incorrects_quantity:
                 incorrects_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+
+            corrects_incorrects_query = get_corrects_incorrects_co(request)
+            cursor.execute(corrects_incorrects_query)
+            queries.append({"name": 'Correctas e incorrectas query', "query": corrects_incorrects_query})
+            corrects_incorrects_quantity = cursor.fetchall()
+            for row in corrects_incorrects_quantity:
+                corrects_incorrects_quantity_response.append({ 'id': row[0], 'name': row[1], 'corrects': row[2], 'incorrects': row[3] })
 
             jumps_query = get_jumps_co(request)
             cursor.execute(jumps_query)
@@ -525,7 +542,79 @@ def welcome(request):
             print ("Touch trash co quantity" , touch_trash_co_quantity)
             for row in touch_trash_co_quantity:
                 touch_trash_co_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+
+            actividades_co_query = get_cant_touch_act_co(request)
+            cursor.execute(actividades_co_query)
+            queries.append({"name": 'Actividades CO query', "query": actividades_co_query})
+            actividades_co_quantity = cursor.fetchall()
+            print("actividades CO quantity", actividades_co_quantity)
+            for row in actividades_co_quantity:
+                actividades_co_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+
+            colision_trash_query = get_colision_trash(request)
+            cursor.execute(colision_trash_query)
+            queries.append({"name": 'Colision trash query', "query": colision_trash_query})
+            colision_trash_quantity = cursor.fetchall()
+            print("Colision trash quantity", colision_trash_quantity)
+            for row in colision_trash_quantity:
+                colision_trash_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+
+            touch_all_animals_query = get_touch_all_animals(request)
+            cursor.execute(touch_all_animals_query)
+            queries.append({"name": 'Touch all animals query', "query": touch_all_animals_query})
+            touch_all_animals_quantity = cursor.fetchall()
+            print ("Touch all animals quantity" , touch_all_animals_quantity)
+            for row in touch_all_animals_quantity:
+                touch_all_animals_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+
+            exits_lab_co_query = get_exits_lab_co(request)
+            cursor.execute(exits_lab_co_query)
+            queries.append({"name": 'Exits lab co query', "query": exits_lab_co_query})
+            exits_lab_co_quantity = cursor.fetchall()
+            print ("Exits lab co quantity" , exits_lab_co_quantity)
+            for row in exits_lab_co_quantity:
+                exits_lab_co_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+
+            touch_all_trash_query = get_touch_all_trash(request)
+            cursor.execute(touch_all_trash_query)
+            queries.append({"name": 'Touch all trash query', "query": touch_all_trash_query})
+            touch_all_trash_quantity = cursor.fetchall()
+            print ("Touch all trash quantity" , touch_all_trash_quantity)
+            for row in touch_all_trash_quantity:
+                touch_all_trash_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
             
+            buttons_co_query = get_buttons_co(request)
+            cursor.execute(buttons_co_query)
+            queries.append({"name": 'Buttons CO query', "query": buttons_co_query})
+            buttons_co_quantity = cursor.fetchall()
+            print ("Buttons CO quantity" , buttons_co_quantity)
+            for row in buttons_co_quantity:
+                buttons_co_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+
+            trash_clean_co_query = get_trash_clean_co(request)
+            cursor.execute(trash_clean_co_query)
+            queries.append({"name": 'Trash clean CO query', "query": trash_clean_co_query})
+            trash_clean_co_quantity = cursor.fetchall()
+            print ("Trash clean CO quantity" , trash_clean_co_quantity)
+            for row in trash_clean_co_quantity:
+                trash_clean_co_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+
+            #correctas e incorrectas para c/ alumno x actividad
+            corrects_student_co_query = get_corrects_student_co(request)
+            cursor.execute(corrects_student_co_query)
+            queries.append({"name": 'Corrects students CO query', "query": corrects_student_co_query})
+            corrects_student_co_quantity = cursor.fetchall()
+            print ("Corrects students CO quantity" , corrects_student_co_quantity)
+            for row in corrects_student_co_quantity:
+                corrects_student_co_quantity_response.append({ 'id': row[0], 'name': row[1], 'correct': row[2], 'incorrect': row[3] })
+
+            time_act_co_query = get_time_act_co(request)
+            cursor.execute(time_act_co_query)
+            queries.append({"name": 'Time act CO query', "query": time_act_co_query})
+            time_act_co_quantity = cursor.fetchall()
+            print ("Time act CO quantity" , time_act_co_quantity)
+            for row in time_act_co_quantity:
+                time_act_co_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
 
         #FIN CLEAN OCEAN
         
@@ -564,14 +653,26 @@ def welcome(request):
                 'activity_num':activity_num,
                 'student_num':student_num,
                 'reim_num':reim_num,
+                #CLEAN OCEAN
                 'colision_quantity':colision_quantity_response,
                 'corrects_quantity':corrects_quantity_response,
                 'incorrects_quantity':incorrects_quantity_response,
+                'corrects_incorrects_quantity':corrects_incorrects_quantity_response,
                 'jumps_quantity':jumps_quantity_response,
                 'analytics_co_quantity':analytics_co_quantity_response,
                 'exit_lab_quantity': exit_lab_quantity_response,
                 'touch_animals_co_quantity':touch_animals_co_quantity_response,
                 'touch_trash_co_quantity':touch_trash_co_quantity_response,
+                'actividades_co_quantity':actividades_co_quantity_response,
+                'colision_trash_quantity' :colision_trash_quantity_response,
+                'touch_all_animals_quantity':touch_all_animals_quantity_response,
+                'exits_lab_co_quantity':exits_lab_co_quantity_response,
+                'touch_all_trash_quantity':touch_all_trash_quantity_response,
+                'buttons_co_quantity':buttons_co_quantity_response,
+                'trash_clean_co_quantity':trash_clean_co_quantity_response,
+                'corrects_student_co_quantity':corrects_student_co_quantity_response,
+                'time_act_co_quantity':time_act_co_quantity_response,
+                #MUNDO ANIMAL
                 'piezas_quantity':piezas_quantity_response,
                 'malas_quantity':malas_quantity_response,
                 'animales_quantity':animales_quantity_response,
