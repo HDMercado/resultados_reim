@@ -157,6 +157,8 @@ def welcome(request):
             activate_student_filter = True
         #INICIO PLUS SPACE
         #PLUS SPACE-------------------------------------
+        #General
+        time_PS_quantity_response = []
         #Creacion
         move_element_quantity_response = []
         volver_creacion_quantity_response = []
@@ -196,8 +198,19 @@ def welcome(request):
         aceptar_puzzle_quantity_response = []
         volver_puzzle_quantity_response = []
         ingresar_puzzle_quantity_response = []
+        #prueba
+        total_move_element = 0
+        count=0
+        promedio_move_element=0
         
         if reim_num=="2":
+        #General
+            time_PS_query = get_time_PS_query(request)
+            queries.append({"name": 'Tiempo Actividad query', "query": time_PS_query})
+            cursor.execute(time_PS_query)
+            time_PS_quantity = cursor.fetchall()
+            for row in time_PS_quantity:
+                time_PS_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
         #CREACION
         #Elemento desplazado
             move_element_query = get_move_element_query(request)
@@ -206,6 +219,10 @@ def welcome(request):
             move_element_quantity = cursor.fetchall()
             for row in move_element_quantity:
                 move_element_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+            #prueba
+                total_move_element += row[2]
+                count = count+1
+            promedio_move_element = total_move_element / count
         #Volver creacion
             volver_creacion_query = get_volver_creacion_query(request)
             queries.append({"name": 'volver creacion query', "query": volver_creacion_query})
@@ -413,7 +430,6 @@ def welcome(request):
             ingresar_cuida_quantity = cursor.fetchall()
             for row in ingresar_cuida_quantity:
                 ingresar_cuida_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
-                get_acierto_cuida_query(request)
         #puzzle
         #aceptar
             aceptar_puzzle_query = get_aceptar_puzzle_query(request)
@@ -600,6 +616,9 @@ def welcome(request):
                 'aceptar_puzzle_quantity':aceptar_puzzle_quantity_response,
                 'volver_puzzle_quantity':volver_puzzle_quantity_response,
                 'ingresar_puzzle_quantity':ingresar_puzzle_quantity_response,
+                #prueba
+                'promedio_move_element':int(promedio_move_element),
+                'time_PS_quantity':time_PS_quantity_response,
             })
     # En otro caso redireccionamos al login
     return redirect('/login')

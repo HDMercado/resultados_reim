@@ -405,8 +405,63 @@ def get_cant_touch(request):
 #FIN QUERYS MUNDO ANIMAL 
 
 #INICIO QUERYS PLUS SPACE
+def get_time_PS_query(request):
+
+    query_params = ''
+    date = ''
+
+    if request.GET.get('reim') and request.GET.get('reim') != '0':
+        query_params += " AND a.reim_id = " + request.GET.get('reim')
+    if request.GET.get('course') and request.GET.get('course') != '0':
+        query_params += " AND c.id = " + request.GET.get('course')
+    if request.GET.get('school') and request.GET.get('school') != '0':
+        query_params += " AND co.id = " + request.GET.get('school')
+    if request.GET.get('activity') and request.GET.get('activity') != '0':
+        query_params += ' AND a.actividad_id = ' + request.GET.get('activity')
+    if request.GET.get('student') and request.GET.get('student') != '0':
+        query_params += ' AND a.id_user = ' + request.GET.get('student')
+
+    print(query_params)
+
+    if request.GET.get('start') and (request.GET.get('start') != 'dd/mm/aaaa') and request.GET.get('end') and (request.GET.get('end') != 'dd/mm/aaaa'):
+        start = str(datetime.strptime(request.GET.get('start'), '%d/%m/%Y').date())
+        end = str(datetime.strptime(request.GET.get('end'), '%d/%m/%Y').date())
+        start += " 00:00:00.000000"
+        end += " 23:59:59.000000"
+        date = ' (a.datetime_touch >= TIMESTAMP("'+ start + '") && a.datetime_touch <= TIMESTAMP("' + end  + '")) &&'
+
+    start_base = "SELECT u.id, concat(nombres ,' ', apellido_paterno , ' ',apellido_materno) as nombre_alumno, IF (ROUND((SUM(TIMESTAMPDIFF(SECOND, a.inicio, a.final))))/60<1, 1,ROUND(SUM(TIMESTAMPDIFF(SECOND, a.inicio, a.final))/60)) as total_min, co.nombre as Colegio, concat(n.nombre, c.nombre) as Curso FROM tiempoxactividad a, usuario u, pertenece p , nivel n , curso c, colegio co WHERE " + date
+    final_base = ' n.id=p.nivel_id and p.curso_id = c.id and a.usuario_id = u.id and p.usuario_id=u.id and co.id = p.colegio_id AND p.colegio_id IN (SELECT colegio_id FROM pertenece INNER JOIN usuario ON usuario.id = pertenece.usuario_id WHERE username="MARY") AND p.curso_id IN (SELECT curso_id FROM pertenece WHERE usuario_id = (SELECT id FROM usuario WHERE username = "' + request.user.username + '"))' + query_params + ' GROUP BY u.id'
+
+    return start_base + final_base
+
 def get_move_element_query(request):
     
+    query_params = ''
+    date = ''
+
+    if request.GET.get('reim') and request.GET.get('reim') != '0':
+        query_params = ' AND a.id_reim=' + request.GET.get('reim')
+    if request.GET.get('course') and request.GET.get('course') != '0':
+        query_params += " AND b.curso_id = " + request.GET.get('course')
+    if request.GET.get('school') and request.GET.get('school') != '0':
+        query_params += " AND b.colegio_id = " + request.GET.get('school') + ' AND (a.id_elemento= 2133 OR a.id_elemento= 2134 OR a.id_elemento= 2135 OR a.id_elemento= 2136 OR a.id_elemento= 2137 OR a.id_elemento= 2138 OR a.id_elemento= 2139)'
+    if request.GET.get('student') and request.GET.get('student') != '0':
+        query_params += ' AND a.id_user=' + request.GET.get('student')
+    print(query_params)
+
+    if request.GET.get('start') and (request.GET.get('start') != 'dd/mm/aaaa') and request.GET.get('end') and (request.GET.get('end') != 'dd/mm/aaaa'):
+        start = str(datetime.strptime(request.GET.get('start'), '%d/%m/%Y').date())
+        end = str(datetime.strptime(request.GET.get('end'), '%d/%m/%Y').date())
+        start += " 00:00:00.000000"
+        end += " 23:59:59.000000"
+        date = ' (a.datetime_touch >= TIMESTAMP("'+ start + '") && a.datetime_touch <= TIMESTAMP("' + end  + '")) &&'
+
+    start_base = 'SELECT u.id, concat(u.nombres ," " , u.apellido_paterno ," " , u.apellido_materno) as nombre, count(a.id_user) AS CantidadTouch, b.colegio_id, b.curso_id FROM alumno_respuesta_actividad a, usuario u, pertenece b WHERE' + date
+    final_base = ' a.id_user = u.id && b.usuario_id = a.id_user && b.colegio_id IN (SELECT colegio_id from pertenece INNER JOIN usuario ON usuario.id = pertenece.usuario_id WHERE username="' + request.user.username + '") AND b.curso_id IN (SELECT curso_id FROM pertenece WHERE usuario_id = (SELECT id FROM usuario WHERE username = "' + request.user.username + '"))' + query_params + ' GROUP BY id_user'
+
+    return start_base + final_base
+
     query_params = ''
     date = ''
 
@@ -882,7 +937,7 @@ def get_correctas_alternativas_query(request):
     if request.GET.get('course') and request.GET.get('course') != '0':
         query_params += " AND b.curso_id = " + request.GET.get('course')
     if request.GET.get('school') and request.GET.get('school') != '0':
-        query_params += " AND b.colegio_id = " + request.GET.get('school')+' AND a.id_actividad = 11 AND a.id_elemento=2037 AND a.id_elemento=2038 AND a.id_elemento=2039 AND a.id_elemento=2040 AND a.correcta = 1'
+        query_params += " AND b.colegio_id = " + request.GET.get('school')+' AND a.id_actividad = 11 AND (a.id_elemento=2037 OR a.id_elemento=2038 OR a.id_elemento=2039 OR a.id_elemento=2040) AND a.correcta = 1'
     if request.GET.get('student') and request.GET.get('student') != '0':
         query_params += ' AND a.id_user=' + request.GET.get('student')    
     #print(query_params)
@@ -908,7 +963,7 @@ def get_incorrectas_alternativas_query(request):
     if request.GET.get('course') and request.GET.get('course') != '0':
         query_params += " AND b.curso_id = " + request.GET.get('course')
     if request.GET.get('school') and request.GET.get('school') != '0':
-        query_params += " AND b.colegio_id = " + request.GET.get('school')+' AND a.id_actividad = 11 AND a.id_elemento=2037 AND a.id_elemento=2038 AND a.id_elemento=2039 AND a.id_elemento=2040 AND a.correcta = 0'
+        query_params += " AND b.colegio_id = " + request.GET.get('school')+' AND a.id_actividad = 11 AND (a.id_elemento=2037 OR a.id_elemento=2038 OR a.id_elemento=2039 OR a.id_elemento=2040) AND a.correcta = 0'
     if request.GET.get('student') and request.GET.get('student') != '0':
         query_params += ' AND a.id_user=' + request.GET.get('student')    
     #print(query_params)
@@ -1328,4 +1383,4 @@ def get_ingresar_puzzle_query(request):
 
     return start_base + final_base
     
-#FIN QUERY PLUS SPACE
+#FIN QUERY PLUS SPACE------------------------
