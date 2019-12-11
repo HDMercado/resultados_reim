@@ -944,7 +944,7 @@
                                     </div>
                                     <div class="ibox-content">
                                         <div class="scroll_content">
-                                            <canvas id="interaccion" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                            <canvas id="interaccion">{% load staticfiles %}</canvas>
                                         </div>
                                     </div>
                                 </div>
@@ -957,7 +957,7 @@
                                     </div>
                                     <div class="ibox-content">
                                         <div class="scroll_content">
-                                            <canvas id="analitics1" height={{cantidad_usuarios}}>{% load staticfiles %}</canvas>
+                                            <canvas id="analitics1" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
                                         </div>
                                     </div>
                                 </div>
@@ -1686,7 +1686,7 @@
 
         if($('#interaccion').length){
             var ctx50 = document.getElementById("interaccion").getContext("2d");
-            new Chart(ctx50, {type: 'horizontalBar', data: ctx50data, options: scale = false   });
+            new Chart(ctx50, {type: 'horizontalBar', data: ctx50data  });
         }
 
         var ctx51data = {
