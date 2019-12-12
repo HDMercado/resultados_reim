@@ -249,7 +249,7 @@ def welcome(request):
         
         if reim_num=="2":
         #General
-            time_PS_query = get_time_PS_query(request)
+            time_PS_query = get_time_act_co(request)
             queries.append({"name": 'Tiempo Actividad query', "query": time_PS_query})
             cursor.execute(time_PS_query)
             time_PS_quantity = cursor.fetchall()
