@@ -116,8 +116,28 @@ def welcome(request):
         malas_quantity_response = []
         animales_quantity_response = []
         actividades_quantity_response=[]
+        interaccion_quantity_response=[]
+        tiempoact_quantity_response=[]
+        analytics1_co_quantity_response=[]
+        total_correctas = 0
+        count1=1
+        promedio_correctas=0
         
+        total_incorrectas = 0
+        count2=1
+        promedio_incorrectas=0
+
+
         if reim_num=="1":
+
+            analytics1_co_query = get_analytics1_co(request)
+            cursor.execute(analytics1_co_query)
+            queries.append({"name": 'Analytics1 co query', "query": analytics1_co_query})
+            analytics1_co_quantity = cursor.fetchall()
+            print ("analytics1_co_quantity", analytics1_co_quantity)
+            for row in analytics1_co_quantity:
+                analytics1_co_quantity_response.append({ 'id': row[0], 'name': row[1], 'act1': row[2], 'act2': row[3], 'act3': row[4], 'act4': row[5]  })
+           
             piezas_query = get_piezas(request)
             cursor.execute(piezas_query)
             queries.append({"name": 'Piezas query', "query": piezas_query})
@@ -125,6 +145,9 @@ def welcome(request):
             print ("piezas quantity", piezas_quantity)
             for row in piezas_quantity:
                 piezas_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+                total_correctas += row[2]
+                count1 = count1+1
+            promedio_correctas = total_correctas / count1
 
             malas_query = get_malas(request)
             cursor.execute(malas_query)
@@ -133,6 +156,9 @@ def welcome(request):
             print("malas quantity", malas_quantity)
             for row in malas_quantity:
                 malas_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+                total_incorrectas += row[2]
+                count2 = count2+1
+            promedio_incorrectas = total_incorrectas / count2
 
             animales_query = get_animals(request)
             cursor.execute(animales_query)
@@ -143,6 +169,22 @@ def welcome(request):
                 animales_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
 
 
+            interaccion_query = get_interaccion(request)
+            cursor.execute(interaccion_query)
+            queries.append({"name": 'Interaccion query', "query": interaccion_query})
+            interaccion_quantity = cursor.fetchall()
+            print("interacccion quantity", interaccion_quantity)
+            for row in interaccion_quantity:
+                interaccion_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+
+            tiempoact_query = get_tiempoact(request)
+            cursor.execute(tiempoact_query)
+            queries.append({"name": 'Tiempoact query', "query": tiempoact_query})
+            tiempoact_quantity = cursor.fetchall()
+            print("tiempoact quantity", tiempoact_quantity)
+            for row in tiempoact_quantity:
+                tiempoact_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+
             actividades_query = get_cant_touch(request)
             cursor.execute(actividades_query)
             queries.append({"name": 'Actividades query', "query": actividades_query})
@@ -151,6 +193,7 @@ def welcome(request):
             for row in actividades_quantity:
                 actividades_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
         #FIN MUNDO ANIMAL 
+
         #filtro estudiente
         activate_student_filter = False
         if request.GET.get('student') and request.GET.get('student') != "0":
@@ -159,6 +202,7 @@ def welcome(request):
         #PLUS SPACE-------------------------------------
         #General
         time_PS_quantity_response = []
+        actividad_incompleta2_quantity_response = []
         #Creacion
         move_element_quantity_response = []
         volver_creacion_quantity_response = []
@@ -211,6 +255,14 @@ def welcome(request):
             time_PS_quantity = cursor.fetchall()
             for row in time_PS_quantity:
                 time_PS_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+        #inactividad2
+            actividad_incompleta2_query = get_actividad_incompleta2_query(request)
+            queries.append({"name": 'Tiempo Actividad query', "query": actividad_incompleta2_query})
+            cursor.execute(actividad_incompleta2_query)
+            actividad_incompleta2_quantity = cursor.fetchall()
+            for row in actividad_incompleta2_quantity:
+                actividad_incompleta2_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+       
         #CREACION
         #Elemento desplazado
             move_element_query = get_move_element_query(request)
@@ -219,10 +271,7 @@ def welcome(request):
             move_element_quantity = cursor.fetchall()
             for row in move_element_quantity:
                 move_element_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
-            #prueba
-                total_move_element += row[2]
-                count = count+1
-            promedio_move_element = total_move_element / count
+
         #Volver creacion
             volver_creacion_query = get_volver_creacion_query(request)
             queries.append({"name": 'volver creacion query', "query": volver_creacion_query})
@@ -677,6 +726,11 @@ def welcome(request):
                 'malas_quantity':malas_quantity_response,
                 'animales_quantity':animales_quantity_response,
                 'actividades_quantity':actividades_quantity_response,
+                'interaccion_quantity':interaccion_quantity_response,
+                'tiempoact_quantity':tiempoact_quantity_response,
+                'promedio_correctas':int(promedio_correctas),
+                'promedio_incorrectas':int(promedio_incorrectas),
+                'analytics1_co_quantity':analytics1_co_quantity_response,
                 #PLUSSPACE
                 #CREACION
                 'move_element_quantity':move_element_quantity_response,
@@ -720,6 +774,7 @@ def welcome(request):
                 #prueba
                 'promedio_move_element':int(promedio_move_element),
                 'time_PS_quantity':time_PS_quantity_response,
+                'actividad_incompleta2_quantity':actividad_incompleta2_quantity_response,
             })
     # En otro caso redireccionamos al login
     return redirect('/login')
