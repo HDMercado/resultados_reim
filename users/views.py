@@ -119,6 +119,7 @@ def welcome(request):
         interaccion_quantity_response=[]
         tiempoact_quantity_response=[]
         analytics1_co_quantity_response=[]
+        tiempo_total_quantity_response=[]
         total_correctas = 0
         count1=1
         promedio_correctas=0
@@ -192,6 +193,15 @@ def welcome(request):
             print("actividades quantity", actividades_quantity)
             for row in actividades_quantity:
                 actividades_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+
+            tiempo_total_query = get_tiempo_total_act(request)
+            cursor.execute(tiempo_total_query)
+            queries.append({"name": 'Tiempo total por act query', "query": tiempo_total_query})
+            tiempo_total_quantity = cursor.fetchall()
+            print("tiempo total por act quantity", tiempo_total_quantity)
+            for row in tiempo_total_quantity:
+                tiempo_total_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+
         #FIN MUNDO ANIMAL 
 
         #filtro estudiente
@@ -517,6 +527,7 @@ def welcome(request):
                 'promedio_correctas':int(promedio_correctas),
                 'promedio_incorrectas':int(promedio_incorrectas),
                 'analytics1_co_quantity':analytics1_co_quantity_response,
+                'tiempo_total_quantity':tiempo_total_quantity_response,
                 #PLUSSPACE
                 #CREACION
                 'move_element_quantity':move_element_quantity_response,
