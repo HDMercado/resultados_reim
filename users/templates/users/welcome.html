@@ -271,6 +271,20 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-lg-6">
+                            <div class="ibox ">
+                                <div class="ibox-title">
+                                    <h5>Posicionamiento de Sistema solar Laberinto</h5>
+                                    <div class="ibox-tools"></div>
+                                </div>
+                                <div class="ibox-content">
+                                    <div class="scroll_content">
+                                        <canvas id="ALaberinto" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -2600,6 +2614,127 @@
             new Chart(ctx20, {type: 'horizontalBar', data: CLaberintoData, options: barOptions});
         }
         //ALTERNATIVAS
+        //actividades completadas LABERINTO PS
+        var ALaberintoData = {
+            labels: [
+                {% if ingresar_laberinto_quantity %}
+        {% for ingresar_laberinto in ingresar_laberinto_quantity %}
+        '{{ingresar_laberinto.name}}',
+        {% endfor%}
+        {% endif%}
+        ],
+        datasets: [
+            {
+                label: "Mercurio",
+                backgroundColor: 'rgb(236,64,122)',
+                borderColor: "rgb(233,30,99)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if mercurio_quantity %}
+            {% for mercurio in mercurio_quantity %}
+        '{{mercurio.quantity}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        },
+        {
+                label: "Venus",
+                backgroundColor: 'rgb(171,71,188)',
+                borderColor: "rgb(156,39,176)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if venus_quantity %}
+            {% for venus in venus_quantity %}
+        '{{venus.quantity}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        },
+        {
+                label: "Tierra",
+                backgroundColor: 'rgb(92,107,192)',
+                borderColor: "rgb(63,81,181)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if tierra_quantity %}
+            {% for tierra in tierra_quantity %}
+        '{{tierra.quantity}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        },
+        {
+                label: "Marte",
+                backgroundColor: 'rgb(41,182,246)',
+                borderColor: "rgb(3,169,244)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if marte_quantity %}
+            {% for marte in marte_quantity %}
+        '{{marte.quantity}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        },
+        {
+                label: "Jupiter",
+                backgroundColor: 'rgb(255,138,101)',
+                borderColor: "rgb(255,112,67)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if jupiter_quantity %}
+            {% for jupiter in jupiter_quantity %}
+        '{{jupiter.quantity}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        },
+        {
+                label: "Saturno",
+                backgroundColor: 'rgb(38,166,154)',
+                borderColor: "rgb(0,150,136)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if saturno_quantity %}
+            {% for saturno in saturno_quantity %}
+        '{{saturno.quantity}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        },
+        {
+                label: "Urano",
+                backgroundColor: 'rgb(156,204,101)',
+                borderColor: "rgb(139,195,74)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if urano_quantity %}
+            {% for urano in urano_quantity %}
+        '{{urano.quantity}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        },
+        {
+                label: "Neptuno",
+                backgroundColor: 'rgb(255,202,40)',
+                borderColor: "rgb(255,193,7)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if neptuno_quantity %}
+            {% for neptuno in neptuno_quantity %}
+        '{{neptuno.quantity}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        }
+        ]
+        };
+        if ($('#ALaberinto').length){
+            var ctx20 = document.getElementById("ALaberinto").getContext("2d");
+            new Chart(ctx20, {type: 'horizontalBar', data: ALaberintoData, options: barOptions});
+        }
+
         //completas incompletas alternativas PS
         var CAlternativasData = {
             labels: [

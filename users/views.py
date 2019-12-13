@@ -220,6 +220,14 @@ def welcome(request):
         aceptar_laberinto_quantity_response = []
         volver_laberinto_quantity_response = []
         ingresar_laberinto_quantity_response = []
+        mercurio_quantity_response=[]
+        venus_quantity_response=[]
+        tierra_quantity_response=[]
+        marte_quantity_response=[]
+        jupiter_quantity_response=[]
+        saturno_quantity_response=[]
+        urano_quantity_response=[]
+        neptuno_quantity_response=[]
         #alternativas
         jump_alternativas_quantity_response = []
         correctas_alternativas_quantity_response = []
@@ -343,6 +351,62 @@ def welcome(request):
             for row in galaxy_creacion_quantity:
                 galaxy_creacion_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
         #LABERINTO
+        #mercurio
+            mercurio_query = get_mercurio_query(request)
+            queries.append({"name": 'mercurio query', "query": mercurio_query})
+            cursor.execute(mercurio_query)
+            mercurio_quantity = cursor.fetchall()
+            for row in mercurio_quantity:
+                mercurio_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+        #venus
+            venus_query = get_venus_query(request)
+            queries.append({"name": 'venus query', "query": venus_query})
+            cursor.execute(venus_query)
+            venus_quantity = cursor.fetchall()
+            for row in venus_quantity:
+                venus_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+        #tierra
+            tierra_query = get_tierra_query(request)
+            queries.append({"name": 'tierra query', "query": tierra_query})
+            cursor.execute(tierra_query)
+            tierra_quantity = cursor.fetchall()
+            for row in tierra_quantity:
+                tierra_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+        #marte
+            marte_query = get_marte_query(request)
+            queries.append({"name": 'marte query', "query": marte_query})
+            cursor.execute(marte_query)
+            marte_quantity = cursor.fetchall()
+            for row in marte_quantity:
+                marte_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+        #jupiter
+            jupiter_query = get_jupiter_query(request)
+            queries.append({"name": 'jupiter query', "query": jupiter_query})
+            cursor.execute(jupiter_query)
+            jupiter_quantity = cursor.fetchall()
+            for row in jupiter_quantity:
+                jupiter_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+        #saturno
+            saturno_query = get_saturno_query(request)
+            queries.append({"name": 'saturno query', "query": saturno_query})
+            cursor.execute(saturno_query)
+            saturno_quantity = cursor.fetchall()
+            for row in saturno_quantity:
+                saturno_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+        #urano
+            urano_query = get_urano_query(request)
+            queries.append({"name": 'urano query', "query": urano_query})
+            cursor.execute(urano_query)
+            urano_quantity = cursor.fetchall()
+            for row in urano_quantity:
+                urano_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+        #neptuno
+            neptuno_query = get_neptuno_query(request)
+            queries.append({"name": 'neptuno query', "query": neptuno_query})
+            cursor.execute(neptuno_query)
+            neptuno_quantity = cursor.fetchall()
+            for row in neptuno_quantity:
+                neptuno_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
         #colisiones
             element_colission_query = get_element_colission_query(request)
             queries.append({"name": 'colisiones query', "query": element_colission_query})
@@ -414,7 +478,7 @@ def welcome(request):
             ingresar_alternativas_quantity = cursor.fetchall()
             for row in ingresar_alternativas_quantity:
                 ingresar_alternativas_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
-#busca
+    #busca
         #correctas
             correctas_busca_query = get_correctas_busca_query(request)
             queries.append({"name": 'Correctas Busca query', "query": correctas_busca_query})
@@ -745,6 +809,14 @@ def welcome(request):
                 'nebulosa_creacion_quantity':nebulosa_creacion_quantity_response,
                 'galaxy_creacion_quantity':galaxy_creacion_quantity_response,
                 #LABERINTO
+                'mercurio_quantity':mercurio_quantity_response,
+                'venus_quantity':venus_quantity_response,
+                'tierra_quantity':tierra_quantity_response,
+                'marte_quantity':marte_quantity_response,
+                'jupiter_quantity':jupiter_quantity_response,
+                'saturno_quantity':saturno_quantity_response,
+                'urano_quantity':urano_quantity_response,
+                'neptuno_quantity':neptuno_quantity_response,
                 'element_colission_quantity':element_colission_quantity_response,
                 'aceptar_laberinto_quantity':aceptar_laberinto_quantity_response,
                 'volver_laberinto_quantity':volver_laberinto_quantity_response,
