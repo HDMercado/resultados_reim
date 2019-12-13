@@ -278,7 +278,7 @@ def welcome(request):
             cursor.execute(completa_incompleta_PS_query)
             completa_incompleta_PS_quantity = cursor.fetchall()
             for row in completa_incompleta_PS_quantity:
-                completa_incompleta_PS_quantity_response.append({ 'id': row[0], 'name': row[1], 'completa': row[2], 'incompleta': row[3], 'inactiva': row[4] })
+                completa_incompleta_PS_quantity_response.append({ 'id': row[0], 'name': row[1], 'incompleta': row[2], 'completa': row[3], 'inactiva': row[4] })
        #cuida
         #acierto
             acierto_cuida_query = get_acierto_cuida_query(request)
