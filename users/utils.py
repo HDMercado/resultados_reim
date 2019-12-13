@@ -669,7 +669,51 @@ def get_analytics1_co(request):
 #FIN QUERYS MUNDO ANIMAL 
 
 #INICIO QUERYS PLUS SPACE
+def get_completa_incompleta_PS(request):
 
+    query_params = ''
+
+    if request.GET.get('reim') and request.GET.get('reim') != '0':
+        query_params += " AND a.reim_id = " + request.GET.get('reim')
+    if request.GET.get('course') and request.GET.get('course') != '0':
+        query_params += " AND b.curso_id = " + request.GET.get('course')
+    if request.GET.get('school') and request.GET.get('school') != '0':
+        query_params += " AND b.colegio_id = " + request.GET.get('school')
+    if request.GET.get('activity') and request.GET.get('activity') != '0':
+        query_params += " AND a.actividad_id = " + request.GET.get('activity')
+
+
+    date = get_date_param_alumno_respuesta_actividad(request)
+    start_base = ' SELECT u.id, concat(u.nombres ," ", u.apellido_paterno ," ", u.apellido_materno) as nombre, count(if(a.causa=1,1,NULL)) completas, count(if(a.causa=0,1,NULL)) incompletas, count(if(a.causa=2,1,NULL)) inactividad  FROM tiempoxactividad a, usuario u, pertenece b WHERE ' + date
+    final_base = ' a.usuario_id= u.id && b.usuario_id = a.usuario_id' + query_params + ' GROUP BY u.id'
+    return start_base + final_base
+
+def get_actividad_incompleta2_query(request):
+    
+    query_params = ''
+    date = ''
+
+    if request.GET.get('reim') and request.GET.get('reim') != '0':
+        query_params = ' AND a.reim_id=' + request.GET.get('reim')
+    if request.GET.get('course') and request.GET.get('course') != '0':
+        query_params += " AND b.curso_id = " + request.GET.get('course')
+    if request.GET.get('school') and request.GET.get('school') != '0':
+        query_params += ' AND b.colegio_id = ' + request.GET.get('school')
+    if request.GET.get('student') and request.GET.get('student') != '0':
+        query_params += ' AND a.usuario_id=' + request.GET.get('student') 
+    #print(query_params)
+
+    if request.GET.get('start') and (request.GET.get('start') != 'dd/mm/aaaa') and request.GET.get('end') and (request.GET.get('end') != 'dd/mm/aaaa'):
+        start = str(datetime.strptime(request.GET.get('start'), '%d/%m/%Y').date())
+        end = str(datetime.strptime(request.GET.get('end'), '%d/%m/%Y').date())
+        start += " 00:00:00.000000"
+        end += " 23:59:59.000000"
+        date = ' (a.inicio >= TIMESTAMP("'+ start + '") && a.final <= TIMESTAMP("' + end  + '")) &&'
+
+    start_base = 'SELECT u.id, concat(u.nombres ," " , u.apellido_paterno ," " , u.apellido_materno) as nombre, count(a.usuario_id) AS CantidadTouch, b.colegio_id, b.curso_id FROM tiempoxactividad a, usuario u, pertenece b WHERE ' + date
+    final_base = ' a.usuario_id = u.id && b.usuario_id = a.usuario_id && b.colegio_id IN (SELECT colegio_id from pertenece INNER JOIN usuario ON usuario.id = pertenece.usuario_id WHERE username= "' + request.user.username + '") AND b.curso_id IN (SELECT curso_id FROM pertenece WHERE usuario_id = (SELECT id FROM usuario WHERE username = "' + request.user.username + '"))' + query_params + ' AND a.causa=2 GROUP BY a.usuario_id'
+
+    return start_base + final_base
 def get_actividad_incompleta2_query(request):
     
     query_params = ''

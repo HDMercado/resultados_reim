@@ -203,6 +203,7 @@ def welcome(request):
         #General
         time_PS_quantity_response = []
         actividad_incompleta2_quantity_response = []
+        correctas_PS_quantity_response = []
         #Creacion
         move_element_quantity_response = []
         volver_creacion_quantity_response = []
@@ -250,6 +251,7 @@ def welcome(request):
         aceptar_puzzle_quantity_response = []
         volver_puzzle_quantity_response = []
         ingresar_puzzle_quantity_response = []
+        completa_incompleta_PS_quantity_response = []
         #prueba
         total_move_element = 0
         count=0
@@ -480,40 +482,40 @@ def welcome(request):
                 ingresar_alternativas_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
     #busca
         #correctas
-            correctas_busca_query = get_correctas_busca_query(request)
-            queries.append({"name": 'Correctas Busca query', "query": correctas_busca_query})
-            cursor.execute(correctas_busca_query)
-            correctas_busca_quantity = cursor.fetchall()
-            for row in correctas_busca_quantity:
-                correctas_busca_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+            correctas_PS_query = get_corrects_incorrects_co(request)
+            queries.append({"name": 'Correctas PS query', "query": correctas_PS_query})
+            cursor.execute(correctas_PS_query)
+            correctas_PS_quantity = cursor.fetchall()
+            for row in correctas_PS_quantity:
+                correctas_PS_quantity_response.append({ 'id': row[0], 'name': row[1], 'correct': row[2], 'incorrect': row[3] })
         #incorrectas
-            incorrectas_busca_query = get_incorrectas_busca_query(request)
-            queries.append({"name": 'Incorrrectas Busca query', "query": incorrectas_busca_query})
-            cursor.execute(incorrectas_busca_query)
-            incorrectas_busca_quantity = cursor.fetchall()
-            for row in incorrectas_busca_quantity:
-                incorrectas_busca_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+        #    incorrectas_busca_query = get_incorrectas_busca_query(request)
+        #    queries.append({"name": 'Incorrrectas Busca query', "query": incorrectas_busca_query})
+        #    cursor.execute(incorrectas_busca_query)
+        #    incorrectas_busca_quantity = cursor.fetchall()
+        #    for row in incorrectas_busca_quantity:
+        #        incorrectas_busca_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
         #aceptar
-            aceptar_busca_query = get_aceptar_busca_query(request)
-            queries.append({"name": 'Aceptar Busca query', "query": aceptar_busca_query})
-            cursor.execute(aceptar_busca_query)
-            aceptar_busca_quantity = cursor.fetchall()
-            for row in aceptar_busca_quantity:
-                aceptar_busca_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+            completa_incompleta_PS_query = get_completa_incompleta_PS(request)
+            queries.append({"name": 'Aceptar Busca query', "query": completa_incompleta_PS_query})
+            cursor.execute(completa_incompleta_PS_query)
+            completa_incompleta_PS_quantity = cursor.fetchall()
+            for row in completa_incompleta_PS_quantity:
+                completa_incompleta_PS_quantity_response.append({ 'id': row[0], 'name': row[1], 'completa': row[2], 'incompleta': row[3], 'inactiva': row[4] })
         #volver
-            volver_busca_query = get_volver_busca_query(request)
-            queries.append({"name": 'Volver Busca query', "query": volver_busca_query})
-            cursor.execute(volver_busca_query)
-            volver_busca_quantity = cursor.fetchall()
-            for row in volver_busca_quantity:
-                volver_busca_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+        #    volver_busca_query = get_volver_busca_query(request)
+        #    queries.append({"name": 'Volver Busca query', "query": volver_busca_query})
+        #    cursor.execute(volver_busca_query)
+        #    volver_busca_quantity = cursor.fetchall()
+        #    for row in volver_busca_quantity:
+        #        volver_busca_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
         #ingresar
-            ingresar_busca_query = get_ingresar_busca_query(request)
-            queries.append({"name": 'Ingresar Busca query', "query": ingresar_busca_query})
-            cursor.execute(ingresar_busca_query)
-            ingresar_busca_quantity = cursor.fetchall()
-            for row in ingresar_busca_quantity:
-                ingresar_busca_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+        #    ingresar_busca_query = get_ingresar_busca_query(request)
+        #    queries.append({"name": 'Ingresar Busca query', "query": ingresar_busca_query})
+        #    cursor.execute(ingresar_busca_query)
+        #    ingresar_busca_quantity = cursor.fetchall()
+        #    for row in ingresar_busca_quantity:
+        #        ingresar_busca_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
         #cuida
         #acierto
             acierto_cuida_query = get_acierto_cuida_query(request)
@@ -844,9 +846,12 @@ def welcome(request):
                 'volver_puzzle_quantity':volver_puzzle_quantity_response,
                 'ingresar_puzzle_quantity':ingresar_puzzle_quantity_response,
                 #prueba
+                'completa_incompleta_PS_quantity':completa_incompleta_PS_quantity_response,
+                'correctas_PS_quantity':correctas_PS_quantity_response,
                 'promedio_move_element':int(promedio_move_element),
                 'time_PS_quantity':time_PS_quantity_response,
                 'actividad_incompleta2_quantity':actividad_incompleta2_quantity_response,
+                
             })
     # En otro caso redireccionamos al login
     return redirect('/login')

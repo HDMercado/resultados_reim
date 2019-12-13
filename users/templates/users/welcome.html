@@ -194,12 +194,12 @@
                         <div class="col-lg-6">
                             <div class="ibox ">
                                 <div class="ibox-title">
-                                    <h5>Actividades completadas vs incompletas en la actividad Creación</h5>
+                                    <h5>Actividades completadas vs incompletas en actividad Creación</h5>
                                     <div class="ibox-tools"></div>
                                 </div>
                                 <div class="ibox-content">
                                     <div class="scroll_content">
-                                        <canvas id="CCreacion" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                        <canvas id="CInInPS" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
                                     </div>
                                 </div>
                             </div>
@@ -247,7 +247,7 @@
                                 </div>
                                 <div class="ibox-content">
                                     <div class="scroll_content">
-                                        <canvas id="CLaberinto" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                        <canvas id="CInInPS" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
                                     </div>
                                 </div>
                             </div>
@@ -321,7 +321,7 @@
                                 </div>
                                 <div class="ibox-content">
                                     <div class="scroll_content">
-                                        <canvas id="CvsIAlternativas" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                        <canvas id="CvsI_PS" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
                                     </div>
                                 </div>
                             </div>
@@ -353,7 +353,7 @@
                                 </div>
                                 <div class="ibox-content">
                                     <div class="scroll_content">
-                                        <canvas id="CAlternativas" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                        <canvas id="CInInPS" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
                                     </div>
                                 </div>
                             </div>
@@ -407,7 +407,7 @@
                                 </div>
                                 <div class="ibox-content">
                                     <div class="scroll_content">
-                                        <canvas id="CvsIbusca" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                        <canvas id="CvsI_PS" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
                                     </div>
                                 </div>
                             </div>
@@ -420,7 +420,7 @@
                                 </div>
                                 <div class="ibox-content">
                                     <div class="scroll_content">
-                                        <canvas id="Cbusca" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                        <canvas id="CInInPS" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
                                     </div>
                                 </div>
                             </div>
@@ -488,12 +488,12 @@
                         <div class="col-lg-6">
                             <div class="ibox">
                                 <div class="ibox-title">
-                                    <h5>Actividades completadas vs incompletas en la actividad Cuida el Planeta</h5>
+                                    <h5>Actividades completadas vs incompletas en actividad Cuida el Planeta</h5>
                                     <div class="ibox-tools"></div>
                                 </div>
                                 <div class="ibox-content">
                                     <div class="scroll_content">
-                                        <canvas id="Ccuida" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                        <canvas id="CInInPS" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
                                     </div>
                                 </div>
                             </div>
@@ -548,12 +548,12 @@
                         <div class="col-lg-6">
                             <div class="ibox ">
                                 <div class="ibox-title">
-                                    <h5>Actividades completadas vs incompletas en la actividad Puzzle</h5>
+                                    <h5>Actividades completadas vs incompletas en actividad Puzzle</h5>
                                     <div class="ibox-tools"></div>
                                 </div>
                                 <div class="ibox-content">
                                     <div class="scroll_content">
-                                        <canvas id="Cpuzzle" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                        <canvas id="CInInPS" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
                                     </div>
                                 </div>
                             </div>
@@ -2735,12 +2735,12 @@
             new Chart(ctx20, {type: 'horizontalBar', data: ALaberintoData, options: barOptions});
         }
 
-        //completas incompletas alternativas PS
-        var CAlternativasData = {
+        //completas incompletas PS-----------------------------------------------
+        var CInInPSData = {
             labels: [
-                {% if ingresar_alternativas_quantity %}
-        {% for ingresar_alternativas in ingresar_alternativas_quantity %}
-        '{{ingresar_alternativas.name}}',
+                {% if completa_incompleta_PS_quantity %}
+        {% for completa_incompleta_PS in completa_incompleta_PS_quantity %}
+        '{{completa_incompleta_PS.name}}',
         {% endfor%}
         {% endif%}
         ],
@@ -2751,9 +2751,9 @@
                 borderColor: "rgb(72,201,176)",
                 pointBorderColor: "#fff",
                 data: [
-                    {% if aceptar_alternativas_quantity %}
-            {% for aceptar_alternativas in aceptar_alternativas_quantity %}
-        '{{aceptar_alternativas.quantity}}',
+                    {% if completa_incompleta_PS_quantity %}
+            {% for completa_incompleta_PS in completa_incompleta_PS_quantity %}
+        '{{completa_incompleta_PS.completa}}',
         {% endfor%}
         {% endif%}
         ]
@@ -2764,9 +2764,9 @@
                 borderColor: "rgb(255,112,67)",
                 pointBorderColor: "#fff",
                 data: [
-                    {% if volver_alternativas_quantity %}
-            {% for volver_alternativas in volver_alternativas_quantity %}
-        '{{volver_alternativas.quantity}}',
+                    {% if completa_incompleta_PS_quantity %}
+            {% for completa_incompleta_PS in completa_incompleta_PS_quantity %}
+        '{{completa_incompleta_PS.incompleta}}',
         {% endfor%}
         {% endif%}
         ]
@@ -2777,9 +2777,9 @@
                 borderColor: "rgb(244,208,63)",
                 pointBorderColor: "#fff",
                 data: [
-                    {% if actividad_incompleta2_quantity %}
-            {% for actividad_incompleta2 in actividad_incompleta2_quantity %}
-        '{{actividad_incompleta2.quantity}}',
+                    {% if completa_incompleta_PS_quantity %}
+            {% for completa_incompleta_PS in completa_incompleta_PS_quantity %}
+        '{{completa_incompleta_PS.inactiva}}',
         {% endfor%}
         {% endif%}
         ]
@@ -2787,17 +2787,17 @@
         ]
         };
 
-        if ($('#CAlternativas').length){
-            var ctx21 = document.getElementById("CAlternativas").getContext("2d");
-            new Chart(ctx21, {type: 'horizontalBar', data: CAlternativasData, options: BarstackedOptions});
+        if ($('#CInInPS').length){
+            var ctx21 = document.getElementById("CInInPS").getContext("2d");
+            new Chart(ctx21, {type: 'horizontalBar', data: CInInPSData, options: BarstackedOptions});
         }
 
-        //correctas vs incorrectas alternativas PS
-        var CvsIAlternativasData = {
+        //correctas vs incorrectas PS--------------------------------------
+        var CvsIPSData = {
             labels: [
-                {% if ingresar_alternativas_quantity %}
-        {% for ingresar_alternativas in ingresar_alternativas_quantity %}
-        '{{ingresar_alternativas.name}}',
+                {% if correctas_PS_quantity %}
+        {% for correctas_PS in correctas_PS_quantity %}
+        '{{correctas_PS.name}}',
         {% endfor%}
         {% endif%}
         ],
@@ -2808,9 +2808,9 @@
                 borderColor: "rgb(41,128,185)",
                 pointBorderColor: "#fff",
                 data: [
-                    {% if correctas_alternativas_quantity %}
-            {% for correctas_alternativas in correctas_alternativas_quantity %}
-        '{{correctas_alternativas.quantity}}',
+                    {% if correctas_PS_quantity %}
+            {% for correctas_PS in correctas_PS_quantity %}
+        '{{correctas_PS.correct}}',
         {% endfor%}
         {% endif%}
         ]
@@ -2821,9 +2821,9 @@
                 borderColor: "rgb(192,57,43)",
                 pointBorderColor: "#fff",
                 data: [
-                    {% if incorrectas_alternativas_quantity %}
-            {% for incorrectas_alternativas in incorrectas_alternativas_quantity %}
-        '{{incorrectas_alternativas.quantity}}',
+                    {% if correctas_PS_quantity %}
+            {% for correctas_PS in correctas_PS_quantity %}
+        '{{correctas_PS.incorrect}}',
         {% endfor%}
         {% endif%}
         ]
@@ -2831,9 +2831,9 @@
         ]
         };
 
-        if ($('#CvsIAlternativas').length){
-            var ctx22 = document.getElementById("CvsIAlternativas").getContext("2d");
-            new Chart(ctx22, {type: 'horizontalBar', data: CvsIAlternativasData, options: BarstackedOptions});
+        if ($('#CvsI_PS').length){
+            var ctx22 = document.getElementById("CvsI_PS").getContext("2d");
+            new Chart(ctx22, {type: 'horizontalBar', data: CvsIPSData, options: BarstackedOptions});
         }
 //SALTOS - PLSSPACE
         var jumpAlternativasData = {
