@@ -2391,9 +2391,9 @@
         //ELEMENTOS TOTALES CREADOS
         var CreadosCreacionData = {
             labels: [
-                {% if ingresar_creacion_quantity %}
-        {% for ingresar_creacion in ingresar_creacion_quantity %}
-        '{{ingresar_creacion.name}}',
+                {% if elementos_PS_quantity %}
+        {% for elementos_PS in elementos_PS_quantity %}
+        '{{elementos_PS.name}}',
         {% endfor%}
         {% endif%}
         ],
@@ -2404,9 +2404,9 @@
                 borderColor: "rgb(205,97,85)",
                 pointBorderColor: "#fff",
                 data: [
-                    {% if planet_creacion_quantity %}
-            {% for planet_creacion in planet_creacion_quantity %}
-        '{{planet_creacion.quantity}}',
+                    {% if elementos_PS_quantity %}
+            {% for elementos_PS in elementos_PS_quantity %}
+        '{{elementos_PS.planeta}}',
         {% endfor%}
         {% endif%}
         ]
@@ -2417,9 +2417,9 @@
                 borderColor: "rgb(165,105,189)",
                 pointBorderColor: "#fff",
                 data: [
-                    {% if planetS_creacion_quantity %}
-            {% for planetS_creacion in planetS_creacion_quantity %}
-        '{{planetS_creacion.quantity}}',
+                    {% if elementos_PS_quantity %}
+            {% for elementos_PS in elementos_PS_quantity %}
+        '{{elementos_PS.planetaCS}}',
         {% endfor%}
         {% endif%}
         ]
@@ -2430,9 +2430,9 @@
                 borderColor: "rgb(84,153,199)",
                 pointBorderColor: "#fff",
                 data: [
-                    {% if planetR_creacion_quantity %}
-            {% for planetR_creacion in planetR_creacion_quantity %}
-        '{{planetR_creacion.quantity}}',
+                    {% if elementos_PS_quantity %}
+            {% for elementos_PS in elementos_PS_quantity %}
+        '{{elementos_PS.planetaCA}}',
         {% endfor%}
         {% endif%}
         ]
@@ -2443,9 +2443,9 @@
                 borderColor: "rgb(69,179,157)",
                 pointBorderColor: "#fff",
                 data: [
-                    {% if star_creacion_quantity %}
-            {% for star_creacion in star_creacion_quantity %}
-        '{{star_creacion.quantity}}',
+                    {% if elementos_PS_quantity %}
+            {% for elementos_PS in elementos_PS_quantity %}
+        '{{elementos_PS.estrella}}',
         {% endfor%}
         {% endif%}
         ]
@@ -2456,9 +2456,9 @@
                 borderColor: "rgb(82,190,128)",
                 pointBorderColor: "#fff",
                 data: [
-                    {% if superNova_creacion_quantity %}
-            {% for superNova_creacion in superNova_creacion_quantity %}
-        '{{superNova_creacion.quantity}}',
+                    {% if elementos_PS_quantity %}
+            {% for elementos_PS in elementos_PS_quantity %}
+        '{{elementos_PS.supernova}}',
         {% endfor%}
         {% endif%}
         ]
@@ -2469,9 +2469,9 @@
                 borderColor: "rgb(245,176,65)",
                 pointBorderColor: "#fff",
                 data: [
-                    {% if nebulosa_creacion_quantity %}
-            {% for nebulosa_creacion in nebulosa_creacion_quantity %}
-        '{{nebulosa_creacion.quantity}}',
+                    {% if elementos_PS_quantity %}
+            {% for elementos_PS in elementos_PS_quantity %}
+        '{{elementos_PS.nebulosa}}',
         {% endfor%}
         {% endif%}
         ]
@@ -2482,9 +2482,9 @@
                 borderColor: "rgb(220,118,51)",
                 pointBorderColor: "#fff",
                 data: [
-                    {% if galaxy_creacion_quantity %}
-            {% for galaxy_creacion in galaxy_creacion_quantity %}
-        '{{galaxy_creacion.quantity}}',
+                    {% if elementos_PS_quantity %}
+            {% for elementos_PS in elementos_PS_quantity %}
+        '{{elementos_PS.galaxia}}',
         {% endfor%}
         {% endif%}
         ]
@@ -2617,9 +2617,9 @@
         //actividades completadas LABERINTO PS
         var ALaberintoData = {
             labels: [
-                {% if ingresar_laberinto_quantity %}
-        {% for ingresar_laberinto in ingresar_laberinto_quantity %}
-        '{{ingresar_laberinto.name}}',
+                {% if posicionamiento_PS_quantity %}
+        {% for posicionamiento_PS in posicionamiento_PS_quantity %}
+        '{{posicionamiento_PS.name}}',
         {% endfor%}
         {% endif%}
         ],
@@ -2630,9 +2630,9 @@
                 borderColor: "rgb(233,30,99)",
                 pointBorderColor: "#fff",
                 data: [
-                    {% if mercurio_quantity %}
-            {% for mercurio in mercurio_quantity %}
-        '{{mercurio.quantity}}',
+                    {% if posicionamiento_PS_quantity %}
+            {% for posicionamiento_PS in posicionamiento_PS_quantity %}
+        '{{posicionamiento_PS.mercurio}}',
         {% endfor%}
         {% endif%}
         ]
@@ -2643,9 +2643,9 @@
                 borderColor: "rgb(156,39,176)",
                 pointBorderColor: "#fff",
                 data: [
-                    {% if venus_quantity %}
-            {% for venus in venus_quantity %}
-        '{{venus.quantity}}',
+                    {% if posicionamiento_PS_quantity %}
+            {% for posicionamiento_PS in posicionamiento_PS_quantity %}
+        '{{posicionamiento_PS.venus}}',
         {% endfor%}
         {% endif%}
         ]
@@ -2656,9 +2656,9 @@
                 borderColor: "rgb(63,81,181)",
                 pointBorderColor: "#fff",
                 data: [
-                    {% if tierra_quantity %}
-            {% for tierra in tierra_quantity %}
-        '{{tierra.quantity}}',
+                    {% if posicionamiento_PS_quantity %}
+            {% for posicionamiento_PS in posicionamiento_PS_quantity %}
+        '{{posicionamiento_PS.tierra}}',
         {% endfor%}
         {% endif%}
         ]
@@ -2669,9 +2669,9 @@
                 borderColor: "rgb(3,169,244)",
                 pointBorderColor: "#fff",
                 data: [
-                    {% if marte_quantity %}
-            {% for marte in marte_quantity %}
-        '{{marte.quantity}}',
+                    {% if posicionamiento_PS_quantity %}
+            {% for posicionamiento_PS in posicionamiento_PS_quantity %}
+        '{{posicionamiento_PS.marte}}',
         {% endfor%}
         {% endif%}
         ]
@@ -2682,9 +2682,9 @@
                 borderColor: "rgb(255,112,67)",
                 pointBorderColor: "#fff",
                 data: [
-                    {% if jupiter_quantity %}
-            {% for jupiter in jupiter_quantity %}
-        '{{jupiter.quantity}}',
+                    {% if posicionamiento_PS_quantity %}
+            {% for posicionamiento_PS in posicionamiento_PS_quantity %}
+        '{{posicionamiento_PS.jupiter}}',
         {% endfor%}
         {% endif%}
         ]
@@ -2695,9 +2695,9 @@
                 borderColor: "rgb(0,150,136)",
                 pointBorderColor: "#fff",
                 data: [
-                    {% if saturno_quantity %}
-            {% for saturno in saturno_quantity %}
-        '{{saturno.quantity}}',
+                    {% if posicionamiento_PS_quantity %}
+            {% for posicionamiento_PS in posicionamiento_PS_quantity %}
+        '{{posicionamiento_PS.saturno}}',
         {% endfor%}
         {% endif%}
         ]
@@ -2708,9 +2708,9 @@
                 borderColor: "rgb(139,195,74)",
                 pointBorderColor: "#fff",
                 data: [
-                    {% if urano_quantity %}
-            {% for urano in urano_quantity %}
-        '{{urano.quantity}}',
+                    {% if posicionamiento_PS_quantity %}
+            {% for posicionamiento_PS in posicionamiento_PS_quantity %}
+        '{{posicionamiento_PS.urano}}',
         {% endfor%}
         {% endif%}
         ]
@@ -2721,9 +2721,9 @@
                 borderColor: "rgb(255,193,7)",
                 pointBorderColor: "#fff",
                 data: [
-                    {% if neptuno_quantity %}
-            {% for neptuno in neptuno_quantity %}
-        '{{neptuno.quantity}}',
+                    {% if posicionamiento_PS_quantity %}
+            {% for posicionamiento_PS in posicionamiento_PS_quantity %}
+        '{{posicionamiento_PS.neptuno}}',
         {% endfor%}
         {% endif%}
         ]
