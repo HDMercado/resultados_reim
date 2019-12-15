@@ -212,21 +212,24 @@ def welcome(request):
         #PLUS SPACE-------------------------------------
         #General
         time_PS_quantity_response = []
-        actividad_incompleta2_quantity_response = []
         correctas_PS_quantity_response = []
-        #Creacion
         move_element_quantity_response = []
         elementos_PS_quantity_response = []
-        #Laberinto
         element_colission_quantity_response = []
         posicionamiento_PS_quantity_response = []
-        #alternativas
         jump_alternativas_quantity_response = []
-        #busca
-        #cuida
         acierto_cuida_quantity_response = []
-        #puzzle
         completa_incompleta_PS_quantity_response = []
+        time_PS_graf = 0
+        actividad_incompleta2_graf = 0
+        correctas_PS_graf = 0
+        move_element_graf = 0
+        elementos_PS_graf = 0
+        element_colission_graf = 0
+        posicionamiento_PS_graf = 0
+        jump_alternativas_graf = 0
+        acierto_cuida_graf = 0
+        completa_incompleta_PS_graf = 0
         
         if reim_num=="2":
         #General
@@ -297,7 +300,16 @@ def welcome(request):
             acierto_cuida_quantity = cursor.fetchall()
             for row in acierto_cuida_quantity:
                 acierto_cuida_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
-        #puzzle
+        #otros
+        time_PS_graf = len(time_PS_quantity_response) * 50
+        correctas_PS_graf = len(correctas_PS_quantity_response) * 50
+        move_element_graf = len(move_element_quantity_response) * 50
+        elementos_PS_graf = len(elementos_PS_quantity_response) * 50
+        element_colission_graf = len(element_colission_quantity_response) * 50
+        posicionamiento_PS_graf = len(posicionamiento_PS_quantity_response) * 50
+        jump_alternativas_graf = len(jump_alternativas_quantity_response) * 50
+        acierto_cuida_graf = len(acierto_cuida_quantity_response) * 50
+        completa_incompleta_PS_graf = len(completa_incompleta_PS_quantity_response) * 50
         #FIN PLUS SPACE
 
         #INICIO CLEAN OCEAN
@@ -560,7 +572,16 @@ def welcome(request):
                 'completa_incompleta_PS_quantity':completa_incompleta_PS_quantity_response,
                 'correctas_PS_quantity':correctas_PS_quantity_response,
                 'time_PS_quantity':time_PS_quantity_response,
-                'actividad_incompleta2_quantity':actividad_incompleta2_quantity_response,
+                #tamaño de graficos
+                'time_PS_graf':time_PS_graf,
+                'correctas_PS_graf':correctas_PS_graf,
+                'move_element_graf':move_element_graf,
+                'elementos_PS_graf':elementos_PS_graf,
+                'element_colission_graf':element_colission_graf,
+                'posicionamiento_PS_graf':posicionamiento_PS_graf,
+                'jump_alternativas_graf':jump_alternativas_graf,
+                'acierto_cuida_graf':acierto_cuida_graf,
+                'completa_incompleta_PS_graf':completa_incompleta_PS_graf
                 
             })
     # En otro caso redireccionamos al login
