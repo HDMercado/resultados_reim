@@ -556,19 +556,12 @@ def welcome(request):
                 'analytics1_co_quantity':analytics1_co_quantity_response,
                 'tiempo_total_quantity':tiempo_total_quantity_response,
                 #PLUSSPACE
-                #CREACION
                 'move_element_quantity':move_element_quantity_response,
                 'elementos_PS_quantity':elementos_PS_quantity_response,
-                #LABERINTO
                 'posicionamiento_PS_quantity':posicionamiento_PS_quantity_response,
                 'element_colission_quantity':element_colission_quantity_response,
-                #ALTERNATIVAS
                 'jump_alternativas_quantity':jump_alternativas_quantity_response,
-                #BUSCA
-                #CUIDA
                 'acierto_cuida_quantity':acierto_cuida_quantity_response,
-                #PUZZLE
-                #prueba
                 'completa_incompleta_PS_quantity':completa_incompleta_PS_quantity_response,
                 'correctas_PS_quantity':correctas_PS_quantity_response,
                 'time_PS_quantity':time_PS_quantity_response,
