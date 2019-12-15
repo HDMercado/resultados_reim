@@ -608,13 +608,11 @@
                                     <div class="col-lg-6">
                                         <div class="ibox">
                                             <div class="ibox-title">
-                                                <!-- <h5>Correctas de actividad destreza y actividad suma</h5><span class="  glyphicon glyphicon-info-sign" title="Mediante este gráfico se puede apreciar la preferencia de las actividades que contempla el REIM por cada alumno de un curso específicamente. De esta manera se observa que habilidades se fueron potenciando según la actividad de preferencia."></span> -->
-                                                <h5>Correctas de actividad destreza y actividad suma</h5>
-                                                <div class="ibox-tools"></div>
+                                                <h5>Correctas de actividad destreza y actividad suma</h5><span class="glyphicon glyphicon-info-sign" title="Gráfico que muestra la comparación de resultados entre dos habilidades: habilidades motrices y habilidades matemáticas."></span>
                                             </div>
                                             <div class="ibox-content">
                                                 <div class="scroll_content">
-                                                    <canvas id="analitics" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                                    <canvas id="analitics" height={{analytics_co_quantity}}>{% load staticfiles %}</canvas>
                                                 </div>
                                             </div>
                                         </div>
@@ -622,12 +620,12 @@
                                     <div class="col-lg-6">
                                         <div class="ibox ">
                                             <div class="ibox-title">
-                                                <h5>Cantidad de touch totales del curso por actividad  </h5>
+                                                <h5>Cantidad de interacciones totales del curso por actividad</h5><span class="glyphicon glyphicon-info-sign" title="Gráfico que muestra la cantidad de interacciones realizadas por curso en las actividades del REIM 'Clean Ocean'."></span>
                                                 <div class="ibox-tools"></div>
                                             </div>
                                             <div class="ibox-content">
                                                 <div class="scroll_content">
-                                                    <canvas id="actividadesco" height=240>{% load staticfiles %}</canvas>
+                                                    <canvas id="actividadesco" height={{actividades_co_quantity}}>{% load staticfiles %}</canvas>
                                                 </div>
                                             </div>
                                         </div>
@@ -641,12 +639,12 @@
                                     <div class="col-lg-6">
                                         <div class="ibox ">
                                             <div class="ibox-title">
-                                                <h5>Minutos de juego</h5>
+                                                <h5>Minutos de juego</h5><span class="glyphicon glyphicon-info-sign" title="Gráfico que muestra el tiempo de juego por alumno en el REIM 'Clean Ocean'."></span>
                                                 <div class="ibox-tools"></div>
                                             </div>
                                             <div class="ibox-content">
                                                 <div class="scroll_content">
-                                                    <canvas id="stacked" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                                    <canvas id="stacked" height={{touch_quantity}}>{% load staticfiles %}</canvas>
                                                 </div>
                                             </div>
                                         </div>
@@ -654,7 +652,7 @@
                                     <div class="col-lg-6">
                                         <div class="ibox">
                                             <div class="ibox-title">
-                                                <h5>Cantidad de touch por alumno</h5>
+                                                <h5>Cantidad de interacciones por alumno</h5><span class="glyphicon glyphicon-info-sign" title="Gráfico que muestra la cantidad de interacción por alumno en todo el REIM 'Clean Ocean'."></span>
                                                 <div class="ibox-tools"></div>
                                             </div>
                                             <div class="ibox-content">
@@ -676,12 +674,12 @@
                                     <div class="col-lg-6">
                                         <div class="ibox ">
                                             <div class="ibox-title">
-                                                <h5>Sesiones por alumno</h5>
+                                                <h5>Sesiones por alumno</h5><span class="glyphicon glyphicon-info-sign" title="Gráfico que muestra la cantidad de inicios de sesión por alumno en el REIM 'Clean Ocean'."></span>
                                                 <div class="ibox-tools"></div>
                                             </div>
                                             <div class="ibox-content">
                                                 <div class="scroll_content">
-                                                    <canvas id="stacked2" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                                    <canvas id="stacked2" height={{sesion_quantity}}>{% load staticfiles %}</canvas>
                                                 </div>
                                             </div>
                                         </div>
@@ -698,12 +696,12 @@
                                     <div class="col-lg-6">
                                         <div class="ibox ">
                                             <div class="ibox-title">
-                                                <h5>Botones tocados por curso en pantalla progreso</h5>
+                                                <h5>Botones tocados por curso en pantalla progreso</h5><span class="glyphicon glyphicon-info-sign" title="Grafico que muestra los botones tocados por todo el curso en la pantalla de progreso."></span>
                                                 <div class="ibox-tools"></div>
                                             </div>
                                             <div class="ibox-content">
                                                 <div class="scroll_content">
-                                                    <canvas id="touchbuttonsco" height=240>{% load staticfiles %}</canvas>
+                                                    <canvas id="touchbuttonsco" height={{buttons_co_quantity}}>{% load staticfiles %}</canvas>
                                                 </div>
                                             </div>
                                         </div>
@@ -711,7 +709,7 @@
                                     <div class="col-lg-6">
                                         <div class="ibox ">
                                             <div class="ibox-title">
-                                                <h5>Total de basura tocada por curso en pantalla progreso</h5>
+                                                <h5>Total de basura tocada por curso en pantalla progreso</h5><span class="glyphicon glyphicon-info-sign" title="Gráfico que muestra el total de basura tocada por curso en la pantalla progreso."></span>
                                                 <div class="ibox-tools"></div>
                                             </div>
                                             <div class="ibox-content">
@@ -733,12 +731,11 @@
                                     <div class="col-lg-6">
                                         <div class="ibox ">
                                             <div class="ibox-title">
-                                                <h5>Botones tocados por curso en menu principal</h5>
-                                                <div class="ibox-tools"></div>
+                                                <h5>Botones tocados por curso en menu principal</h5><span class="glyphicon glyphicon-info-sign" title="Grafico que muestra los botones tocados por todo el curso en el menú principal."></span>                                                <div class="ibox-tools"></div>
                                             </div>
                                             <div class="ibox-content">
                                                 <div class="scroll_content">
-                                                    <canvas id="touchbuttonsco" height=240>{% load staticfiles %}</canvas>
+                                                    <canvas id="touchbuttonsco" height={{buttons_co_quantity}}>{% load staticfiles %}</canvas>
                                                 </div>
                                             </div>
                                         </div>
@@ -755,7 +752,7 @@
                                     <div class="col-lg-6">
                                         <div class="ibox ">
                                             <div class="ibox-title">
-                                                <h5>Numero total de colisiones por alumnos en actividad lancha</h5>
+                                                <h5>Numero total de colisiones por alumnos en actividad lancha</h5><span class="glyphicon glyphicon-info-sign" title="Gráfico que muestra la cantidad de colisiones realizadas por alumno en la actividad lancha."></span>
                                                 <div class="ibox-tools"></div>
                                             </div>
                                             <div class="ibox-content">
@@ -768,7 +765,7 @@
                                     <div class="col-lg-6">
                                         <div class="ibox ">
                                             <div class="ibox-title">
-                                                <h5>Correctas por alumno en actividad lancha</h5>
+                                                <h5>Correctas por alumno en actividad lancha</h5><span class="glyphicon glyphicon-info-sign" title="Gráfico que muestra la cantidad de veces que el alumno concluyó de manera correcta o incorrecta la actividad lancha."></span>
                                                 <div class="ibox-tools"></div>
                                             </div>
                                             <div class="ibox-content">
@@ -787,7 +784,7 @@
                                     <div class="col-lg-6">
                                         <div class="ibox ">
                                             <div class="ibox-title">
-                                                <h5>Cantidad total de colisiones por tipo de basura</h5>
+                                                <h5>Cantidad total de colisiones por tipo de basura</h5><span class="glyphicon glyphicon-info-sign" title="Gráfico que muestra las colisiones de todo curso el por cada tipo de basura."></span>
                                                 <div class="ibox-tools"></div>
                                             </div>
                                             <div class="ibox-content">
@@ -800,12 +797,12 @@
                                     <div class="col-lg-6">
                                         <div class="ibox ">
                                             <div class="ibox-title">
-                                                <h5>Botones tocados por curso en actividad lancha</h5>
+                                                <h5>Botones tocados por curso en actividad lancha</h5><span class="glyphicon glyphicon-info-sign" title="Grafico que muestra los botones tocados por todo el curso en actividad lancha."></span>
                                                 <div class="ibox-tools"></div>
                                             </div>
                                             <div class="ibox-content">
                                                 <div class="scroll_content">
-                                                    <canvas id="touchbuttonsco" height=240>{% load staticfiles %}</canvas>
+                                                    <canvas id="touchbuttonsco" height={{buttons_co_quantity}}>{% load staticfiles %}</canvas>
                                                 </div>
                                             </div>
                                         </div>
@@ -819,7 +816,7 @@
                                     <div class="col-lg-6">
                                         <div class="ibox ">
                                             <div class="ibox-title">
-                                                <h5>Tiempo total en actividad lancha por alumno</h5>
+                                                <h5>Tiempo total en actividad lancha por alumno</h5><span class="glyphicon glyphicon-info-sign" title="Gráfico que muestra el tiempo de juego por alumno de la actividad lancha."></span>
                                                 <div class="ibox-tools"></div>
                                             </div>
                                             <div class="ibox-content">
@@ -841,7 +838,7 @@
                                     <div class="col-lg-6">
                                         <div class="ibox ">
                                             <div class="ibox-title">
-                                                <h5>Tiempo total en actividad suma por alumno</h5>
+                                                <h5>Tiempo total en actividad suma por alumno</h5><span class="glyphicon glyphicon-info-sign" title="Gráfico que muestra el tiempo de juego por alumno de la actividad suma."></span>
                                                 <div class="ibox-tools"></div>
                                             </div>
                                             <div class="ibox-content">
@@ -854,7 +851,7 @@
                                     <div class="col-lg-6">
                                         <div class="ibox ">
                                             <div class="ibox-title">
-                                                <h5>Correctas e incorrectas por alumno en actividad suma</h5>
+                                                <h5>Correctas e incorrectas por alumno en actividad suma</h5><span class="glyphicon glyphicon-info-sign" title="Gráfico que muestra la cantidad de veces que el alumno concluyó de manera correcta o incorrecta la actividad suma."></span>
                                                 <div class="ibox-tools"></div>
                                             </div>
                                             <div class="ibox-content">
@@ -873,12 +870,12 @@
                                     <div class="col-lg-6">
                                         <div class="ibox ">
                                             <div class="ibox-title">
-                                                <h5>Botones tocados por curso en actividad suma</h5>
+                                                <h5>Botones tocados por curso en actividad suma</h5><span class="glyphicon glyphicon-info-sign" title="Grafico que muestra los botones tocados por todo el curso en actividad suma."></span>
                                                 <div class="ibox-tools"></div>
                                             </div>
                                             <div class="ibox-content">
                                                 <div class="scroll_content">
-                                                    <canvas id="touchbuttonsco" height=240>{% load staticfiles %}</canvas>
+                                                    <canvas id="touchbuttonsco" height={{buttons_co_quantity}}>{% load staticfiles %}</canvas>
                                                 </div>
                                             </div>
                                         </div>
@@ -895,7 +892,7 @@
                                     <div class="col-lg-6">
                                         <div class="ibox ">
                                             <div class="ibox-title">
-                                                <h5>Numero total de colisiones por alumnos en actividad laberinto</h5>
+                                                <h5>Numero total de colisiones por alumnos en actividad laberinto</h5><span class="glyphicon glyphicon-info-sign" title="Gráfico que muestra la cantidad de colisiones realizadas por alumno en la actividad laberinto."></span>
                                                 <div class="ibox-tools"></div>
                                             </div>
                                             <div class="ibox-content">
@@ -908,7 +905,7 @@
                                     <div class="col-lg-6">
                                         <div class="ibox ">
                                             <div class="ibox-title">
-                                                <h5>Correctas e incorrectas en actividad laberinto</h5>
+                                                <h5>Correctas e incorrectas en actividad laberinto</h5><span class="glyphicon glyphicon-info-sign" title="Gráfico que muestra la cantidad de veces que el alumno concluyó de manera correcta o incorrecta la actividad laberinto."></span>
                                                 <div class="ibox-tools"></div>
                                             </div>
                                             <div class="ibox-content">
@@ -927,7 +924,7 @@
                                     <div class="col-lg-6">
                                         <div class="ibox ">
                                             <div class="ibox-title">
-                                                <h5>Tendencia a salidas actividad laberinto</h5>
+                                                <h5>Tendencia a salidas actividad laberinto</h5><span class="glyphicon glyphicon-info-sign" title="Gráfico que muestra la tendencia del curso a las salidas del laberinto."></span>
                                                 <div class="ibox-tools"></div>
                                             </div>
                                             <div class="ibox-content">
@@ -940,12 +937,12 @@
                                     <div class="col-lg-6">
                                         <div class="ibox ">
                                             <div class="ibox-title">
-                                                <h5>Botones tocados por curso en actividad laberinto</h5>
+                                                <h5>Botones tocados por curso en actividad laberinto</h5><span class="glyphicon glyphicon-info-sign" title="Grafico que muestra los botones tocados por todo el curso en actividad laberinto."></span>
                                                 <div class="ibox-tools"></div>
                                             </div>
                                             <div class="ibox-content">
                                                 <div class="scroll_content">
-                                                    <canvas id="touchbuttonsco" height=240>{% load staticfiles %}</canvas>
+                                                    <canvas id="touchbuttonsco" height={{buttons_co_quantity}}>{% load staticfiles %}</canvas>
                                                 </div>
                                             </div>
                                         </div>
@@ -959,7 +956,7 @@
                                     <div class="col-lg-6">
                                         <div class="ibox ">
                                             <div class="ibox-title">
-                                                <h5>Tiempo total en actividad laberinto por alumno</h5>
+                                                <h5>Tiempo total en actividad laberinto por alumno</h5><span class="glyphicon glyphicon-info-sign" title="Gráfico que muestra el tiempo de juego por alumno de la actividad laberinto."></span>
                                                 <div class="ibox-tools"></div>
                                             </div>
                                             <div class="ibox-content">
@@ -981,7 +978,7 @@
                                     <div class="col-lg-6">
                                         <div class="ibox ">
                                             <div class="ibox-title">
-                                                <h5>Numero total de saltos por alumnos en actividad tesoro</h5>
+                                                <h5>Numero total de saltos por alumnos en actividad tesoro</h5><span class="glyphicon glyphicon-info-sign" title="Gráfico que muestra el número de saltos realizados por alumno en la actividad tesoro."></span>
                                                 <div class="ibox-tools"></div>
                                             </div>
                                             <div class="ibox-content">
@@ -994,7 +991,7 @@
                                     <div class="col-lg-6">
                                         <div class="ibox ">
                                             <div class="ibox-title">
-                                                <h5>Cantidad de correctas por alumno en actividad tesoro</h5>
+                                                <h5>Cantidad de correctas por alumno en actividad tesoro</h5><span class="glyphicon glyphicon-info-sign" title="Gráfico que muestra la cantidad de veces que el alumno concluyó de manera correcta la actividad tesoro."></span>
                                                 <div class="ibox-tools"></div>
                                             </div>
                                             <div class="ibox-content">
@@ -1013,12 +1010,12 @@
                                     <div class="col-lg-6">
                                         <div class="ibox ">
                                             <div class="ibox-title">
-                                                <h5>Botones tocados por curso en actividad tesoro</h5>
+                                                <h5>Botones tocados por curso en actividad tesoro</h5><span class="glyphicon glyphicon-info-sign" title="Grafico que muestra los botones tocados por todo el curso en actividad tesoro."></span>
                                                 <div class="ibox-tools"></div>
                                             </div>
                                             <div class="ibox-content">
                                                 <div class="scroll_content">
-                                                    <canvas id="touchbuttonsco" height=240>{% load staticfiles %}</canvas>
+                                                    <canvas id="touchbuttonsco" height={{buttons_co_quantity}}>{% load staticfiles %}</canvas>
                                                 </div>
                                             </div>
                                         </div>
@@ -1032,7 +1029,7 @@
                                     <div class="col-lg-6">
                                         <div class="ibox ">
                                             <div class="ibox-title">
-                                                <h5>Tiempo total en actividad tesoro por alumno</h5>
+                                                <h5>Tiempo total en actividad tesoro por alumno</h5><span class="glyphicon glyphicon-info-sign" title="Gráfico que muestra el tiempo de juego por alumno de la actividad tesoro."></span>
                                                 <div class="ibox-tools"></div>
                                             </div>
                                             <div class="ibox-content">
@@ -1055,7 +1052,7 @@
                                 <div class="col-lg-6">
                                     <div class="ibox ">
                                         <div class="ibox-title">
-                                            <h5>Numero total de colisiones por alumnos en actividad arrastrar y soltar</h5>
+                                            <h5>Numero total de colisiones por alumnos en actividad arrastrar y soltar</h5><span class="glyphicon glyphicon-info-sign" title="Gráfico que muestra la cantidad de colisiones realizadas al tiburón por alumno en la actividad arrastrar y soltar."></span>
                                             <div class="ibox-tools"></div>
                                         </div>
                                         <div class="ibox-content">
@@ -1068,7 +1065,7 @@
                                 <div class="col-lg-6">
                                     <div class="ibox ">
                                         <div class="ibox-title">
-                                            <h5>Correctas por alumno en actividad arrastrar y soltar</h5>
+                                            <h5>Correctas e incorrectas por alumno en actividad arrastrar y soltar</h5><span class="glyphicon glyphicon-info-sign" title="Gráfico que muestra la cantidad de veces que el alumno concluyó de manera correcta o incorrecta la actividad arrastrar y soltar."></span>
                                             <div class="ibox-tools"></div>
                                         </div>
                                         <div class="ibox-content">
@@ -1087,12 +1084,12 @@
                                 <div class="col-lg-6">
                                     <div class="ibox ">
                                         <div class="ibox-title">
-                                            <h5>Botones tocados por curso en actividad arrastrar y soltar</h5>
+                                            <h5>Botones tocados por curso en actividad arrastrar y soltar</h5><span class="glyphicon glyphicon-info-sign" title="Grafico que muestra los botones tocados por todo el curso en actividad arrastrar y soltar."></span>
                                             <div class="ibox-tools"></div>
                                         </div>
                                         <div class="ibox-content">
                                             <div class="scroll_content">
-                                                <canvas id="touchbuttonsco" height=240>{% load staticfiles %}</canvas>
+                                                <canvas id="touchbuttonsco" height={{buttons_co_quantity}}>{% load staticfiles %}</canvas>
                                             </div>
                                         </div>
                                     </div>
@@ -1100,7 +1097,7 @@
                                 <div class="col-lg-6">
                                     <div class="ibox ">
                                         <div class="ibox-title">
-                                            <h5>Tiempo total en actividad arrastrar y soltar por alumno</h5>
+                                            <h5>Tiempo total en actividad arrastrar y soltar por alumno</h5><span class="glyphicon glyphicon-info-sign" title="Gráfico que muestra el tiempo de juego por alumno de la actividad arrastrar y soltar."></span>
                                             <div class="ibox-tools"></div>
                                         </div>
                                         <div class="ibox-content">
@@ -1123,7 +1120,7 @@
                             <div class="col-lg-6">
                                 <div class="ibox ">
                                     <div class="ibox-title">
-                                        <h5>Numero total de basura recogida por alumnos en actividad destreza</h5>
+                                        <h5>Número total de basura recogida por alumnos en actividad destreza</h5><span class="glyphicon glyphicon-info-sign" title="Gráfico que muestra el número total de bolsas de basura recogidas por alumno en la actividad destreza."></span>
                                         <div class="ibox-tools"></div>
                                     </div>
                                     <div class="ibox-content">
@@ -1136,7 +1133,7 @@
                             <div class="col-lg-6">
                                 <div class="ibox ">
                                     <div class="ibox-title">
-                                        <h5>Correctas e incorrectas por alumno en actividad destreza</h5>
+                                        <h5>Correctas e incorrectas por alumno en actividad destreza</h5><span class="glyphicon glyphicon-info-sign" title="Gráfico que muestra la cantidad de veces que el alumno concluyó de manera correcta o incorrecta la actividad destreza."></span>
                                         <div class="ibox-tools"></div>
                                     </div>
                                     <div class="ibox-content">
@@ -1155,12 +1152,12 @@
                             <div class="col-lg-6">
                                 <div class="ibox ">
                                     <div class="ibox-title">
-                                        <h5>Botones tocados por curso en actividad destreza</h5>
+                                        <h5>Botones tocados por curso en actividad destreza</h5><span class="glyphicon glyphicon-info-sign" title="Grafico que muestra los botones tocados por todo el curso en actividad destreza."></span>
                                         <div class="ibox-tools"></div>
                                     </div>
                                     <div class="ibox-content">
                                         <div class="scroll_content">
-                                            <canvas id="touchbuttonsco" height=240>{% load staticfiles %}</canvas>
+                                            <canvas id="touchbuttonsco" height={{buttons_co_quantity}}>{% load staticfiles %}</canvas>
                                         </div>
                                     </div>
                                 </div>
@@ -1168,7 +1165,7 @@
                             <div class="col-lg-6">
                                 <div class="ibox ">
                                     <div class="ibox-title">
-                                        <h5>Tiempo total en actividad destreza por alumno</h5>
+                                        <h5>Tiempo total en actividad destreza por alumno</h5><span class="glyphicon glyphicon-info-sign" title="Gráfico que muestra el tiempo de juego por alumno de la actividad destreza."></span>
                                         <div class="ibox-tools"></div>
                                     </div>
                                     <div class="ibox-content">
@@ -1191,7 +1188,7 @@
                         <div class="col-lg-6">
                             <div class="ibox ">
                                 <div class="ibox-title">
-                                    <h5>Salidas escogidas en actividad laberinto</h5>
+                                    <h5>Salidas escogidas en actividad laberinto</h5><span class="glyphicon glyphicon-info-sign" title="Gráfico que muestra las salidas escogidas en el laberinto por el alumno seleccionado."></span>
                                     <div class="ibox-tools"></div>
                                 </div>
                                 <div class="ibox-content">
@@ -1204,7 +1201,7 @@
                         <div class="col-lg-6">
                             <div class="ibox ">
                                 <div class="ibox-title">
-                                    <h5>Correctas e incorrectas por actividad</h5>
+                                    <h5>Correctas e incorrectas por actividad</h5><span class="glyphicon glyphicon-info-sign" title="Gráfico que muestra la cantidad de veces que el alumno seleccionado concluyó de manera correcta e incorrecta las diversas actividades."></span>
                                     <div class="ibox-tools"></div>
                                 </div>
                                 <div class="ibox-content">
@@ -1223,7 +1220,7 @@
                         <div class="col-lg-6">
                             <div class="ibox ">
                                 <div class="ibox-title">
-                                    <h5>Total de basura tocada</h5>
+                                    <h5>Total de basura tocada</h5><span class="glyphicon glyphicon-info-sign" title="Gráfico que muestra la basura tocada por el alumno seleccionado a lo largo de todo el juego."></span>
                                     <div class="ibox-tools"></div>
                                 </div>
                                 <div class="ibox-content">
@@ -1986,38 +1983,38 @@
                 });
         }
 
-        var ctx10data = {
-            labels:
-            [
-                {% if touch_animals_co_quantity %}
-                    {% for touch_animals_co in touch_animals_co_quantity %}
-                        '{{touch_animals_co.name}}',
-                    {% endfor%}
-                {% endif%}
-            ],
-            datasets:
-            [
-                {
-                label: "Cantidad de animales tocados",
-                backgroundColor: '#a388ff',
-                borderColor: "#a388ff",
-                pointBorderColor: "#fff",
-                data:
-                [
-                    {% if touch_animals_co_quantity %}
-                        {% for touch_animals_co in touch_animals_co_quantity %}
-                            '{{touch_animals_co.quantity}}',
-                        {% endfor%}
-                    {% endif%}
-                ]
-                }
-            ]
-            };
+        // var ctx10data = {
+        //     labels:
+        //     [
+        //         {% if touch_animals_co_quantity %}
+        //             {% for touch_animals_co in touch_animals_co_quantity %}
+        //                 '{{touch_animals_co.name}}',
+        //             {% endfor%}
+        //         {% endif%}
+        //     ],
+        //     datasets:
+        //     [
+        //         {
+        //         label: "Cantidad de animales tocados",
+        //         backgroundColor: '#a388ff',
+        //         borderColor: "#a388ff",
+        //         pointBorderColor: "#fff",
+        //         data:
+        //         [
+        //             {% if touch_animals_co_quantity %}
+        //                 {% for touch_animals_co in touch_animals_co_quantity %}
+        //                     '{{touch_animals_co.quantity}}',
+        //                 {% endfor%}
+        //             {% endif%}
+        //         ]
+        //         }
+        //     ]
+        //     };
 
-        if ($('#touchanimalsco').length){
-            var ctx10 = document.getElementById("touchanimalsco");
-            new Chart(ctx10, {type: 'horizontalBar', data: ctx10data, options:barOptions});
-        }
+        // if ($('#touchanimalsco').length){
+        //     var ctx10 = document.getElementById("touchanimalsco");
+        //     new Chart(ctx10, {type: 'horizontalBar', data: ctx10data, options:barOptions});
+        // }
     
         var ctx11data = {
             labels:
@@ -3414,38 +3411,38 @@ var originalLineDraw = Chart.controllers.horizontalBar.prototype.draw;
             new Chart(ctx31, {type: 'horizontalBar', data: ctx31data, options:  trashOptions});
         }
 
-        var ctx32data = {
-            labels:
-            [
-                {% if touch_all_animals_quantity %}
-                    {% for touch_all_animals in touch_all_animals_quantity %}
-                        '{{touch_all_animals.name}}',
-                    {% endfor%}
-                {% endif%}
-            ],
-            datasets:
-            [
-                {
-                label: "Cantidad de animales tocados",
-                backgroundColor: '#f8766d',
-                borderColor: "#f8766d",
-                pointBorderColor: "#fff",
-                data:
-                [
-                    {% if touch_all_animals_quantity %}
-                        {% for touch_all_animals in touch_all_animals_quantity %}
-                            '{{touch_all_animals.quantity}}',
-                        {% endfor%}
-                    {% endif%}
-                ]
-                }
-            ]
-            };
+        // var ctx32data = {
+        //     labels:
+        //     [
+        //         {% if touch_all_animals_quantity %}
+        //             {% for touch_all_animals in touch_all_animals_quantity %}
+        //                 '{{touch_all_animals.name}}',
+        //             {% endfor%}
+        //         {% endif%}
+        //     ],
+        //     datasets:
+        //     [
+        //         {
+        //         label: "Cantidad de animales tocados",
+        //         backgroundColor: '#f8766d',
+        //         borderColor: "#f8766d",
+        //         pointBorderColor: "#fff",
+        //         data:
+        //         [
+        //             {% if touch_all_animals_quantity %}
+        //                 {% for touch_all_animals in touch_all_animals_quantity %}
+        //                     '{{touch_all_animals.quantity}}',
+        //                 {% endfor%}
+        //             {% endif%}
+        //         ]
+        //         }
+        //     ]
+        //     };
 
-        if ($('#touchallanimalsco').length){
-            var ctx32 = document.getElementById("touchallanimalsco");
-            new Chart(ctx32, {type: 'horizontalBar', data: ctx32data, options:barOptions});
-        }
+        // if ($('#touchallanimalsco').length){
+        //     var ctx32 = document.getElementById("touchallanimalsco");
+        //     new Chart(ctx32, {type: 'horizontalBar', data: ctx32data, options:barOptions});
+        // }
 
         var ctx33data = {
             labels:
@@ -3684,7 +3681,6 @@ var originalLineDraw = Chart.controllers.horizontalBar.prototype.draw;
         </script> -->
 
     <script>
-
         $(document).ready(function () {
 
             // Add slimscroll to element
