@@ -335,13 +335,15 @@ def welcome(request):
         time_act_co_quantity_response = []
         corrects_incorrects_quantity_response = []
         #Promedios
-        countCO = 1
+        countCO = 0
         promedio_saltos = 0
         total_jumps = 0
         total_corrects_co = 0
         total_incorrects_co = 0
+        total_colisions = 0
         promedio_correctas_co = 0
         promedio_incorrectas_co = 0
+        promedio_colisions = 0
 
         #Size Graphs
         colision_quantity_graph = 0
@@ -370,6 +372,12 @@ def welcome(request):
                 #print ("colision quantity" , colision_quantity)
                 for row in colision_quantity:
                     colision_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+                    total_colisions += row[2]
+                    countCO = countCO+1
+                if (countCO!=0):
+                    promedio_colisions = total_colisions / countCO
+                else:
+                    promedio_colisions = total_colisions / 1
                 colision_quantity_graph = len(colision_quantity)*40+20
 
 
@@ -381,7 +389,6 @@ def welcome(request):
                 corrects_quantity = cursor.fetchall()
                 for row in corrects_quantity:
                     corrects_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
-                    
                 corrects_quantity_graph = len(corrects_quantity)*40+20
 
                 jumps_query = get_jumps_co(request)
@@ -392,15 +399,11 @@ def welcome(request):
                     jumps_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
                     total_jumps += row[2]
                     countCO = countCO+1
-                promedio_saltos = total_jumps / countCO
+                if (countCO!=0):
+                    promedio_saltos = total_jumps / countCO
+                else:
+                    promedio_saltos = total_jumps / 1
                 jumps_quantity_graph = len(jumps_quantity)*40+20
-
-            # incorrects_query = get_incorrects_co(request)
-            # cursor.execute(incorrects_query)
-            # queries.append({"name": 'Incorrects query', "query": incorrects_query})
-            # incorrects_quantity = cursor.fetchall()
-            # for row in incorrects_quantity:
-            #     incorrects_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
 
             if activity_num=="3002" or activity_num=="3003" or activity_num=="3004" or activity_num=="3006" or activity_num=="3007":
                 #3002 3003 3004 3006 3007
@@ -413,8 +416,12 @@ def welcome(request):
                     total_corrects_co += row[2]
                     total_incorrects_co += row[3]
                     countCO = countCO+1
-                promedio_correctas_co = total_corrects_co / countCO
-                promedio_incorrectas_co = total_incorrects_co / countCO
+                if (countCO!=0):
+                    promedio_correctas_co = total_corrects_co / countCO
+                    promedio_incorrectas_co = total_incorrects_co / countCO
+                else:
+                    promedio_correctas_co = total_corrects_co / 1
+                    promedio_incorrectas_co = total_incorrects_co / 1
                 corrects_incorrects_quantity_graph = len(corrects_incorrects_quantity)*40+20
 
             
@@ -626,9 +633,10 @@ def welcome(request):
                 'trash_clean_co_quantity_graph':trash_clean_co_quantity_graph,
                 'time_act_co_quantity_graph':time_act_co_quantity_graph,
                 #promedios
-                'promedio_correctas_co':int(promedio_correctas_co),
-                'promedio_incorrectas_co':int(promedio_incorrectas_co),
-                'promedio_saltos':int(promedio_saltos),
+                'promedio_correctas_co':round(promedio_correctas_co),
+                'promedio_incorrectas_co':round(promedio_incorrectas_co),
+                'promedio_saltos':round(promedio_saltos),
+                'promedio_colisions':round(promedio_colisions),
                 #MUNDO ANIMAL
                 'piezas_quantity':piezas_quantity_response,
                 'malas_quantity':malas_quantity_response,
