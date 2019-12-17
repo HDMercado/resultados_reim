@@ -341,6 +341,8 @@ def welcome(request):
         total_jumps = 0
         total_corrects_co = 0
         total_incorrects_co = 0
+        promedio_correctas_co = 0
+        promedio_incorrectas_co = 0
 
         #Size Graphs
         colision_quantity_graph = 0
