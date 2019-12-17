@@ -361,6 +361,7 @@ def welcome(request):
         buttons_co_quantity_graph = 0
         trash_clean_co_quantity_graph = 0
         time_act_co_quantity_graph = 0
+        # def redondear(int n):
 
         if reim_num=="3":
             if activity_num=="3004" or activity_num=="3002" or activity_num=="3006":
@@ -633,10 +634,10 @@ def welcome(request):
                 'trash_clean_co_quantity_graph':trash_clean_co_quantity_graph,
                 'time_act_co_quantity_graph':time_act_co_quantity_graph,
                 #promedios
-                'promedio_correctas_co':round(promedio_correctas_co),
-                'promedio_incorrectas_co':round(promedio_incorrectas_co),
-                'promedio_saltos':round(promedio_saltos),
-                'promedio_colisions':round(promedio_colisions),
+                'promedio_correctas_co':int(promedio_correctas_co-0.5)+1,
+                'promedio_incorrectas_co':int(promedio_incorrectas_co-0.5)+1,
+                'promedio_saltos':int(promedio_saltos-0.5)+1,
+                'promedio_colisions':int(promedio_colisions-0.5)+1,
                 #MUNDO ANIMAL
                 'piezas_quantity':piezas_quantity_response,
                 'malas_quantity':malas_quantity_response,
