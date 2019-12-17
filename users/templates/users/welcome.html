@@ -163,7 +163,7 @@
                         <div class="col-lg-6">
                             <div class="ibox ">
                                 <div class="ibox-title">
-                                    <h5>Elementos totales creados en actividad Creación</h5><span class="  glyphicon glyphicon-info-sign" title="Mediante este gráfico se puede apreciar la preferencia de elementos que el alumno tiene al realizsar la actividad creación. De esta manera se observa la tendencia que tiene el alumno al realizar la actividad."></span>
+                                    <h5>Elementos totales creados en actividad Creación</h5>
                                     <div class="ibox-tools"></div>
                                 </div>
                                 <div class="ibox-content">
@@ -176,7 +176,7 @@
                         <div class="col-lg-6">
                             <div class="ibox">
                                 <div class="ibox-title">
-                                    <h5>Tiempo de juego total de la actividad Creación</h5><span class="  glyphicon glyphicon-info-sign" title="Mediante este gráfico se puede apreciar cantidad de tiempo (en minutos) en que los alumnos han permanecido en la actividad Creación."></span>
+                                    <h5>Tiempo de juego total de la actividad Creación</h5>
                                     <div class="ibox-tools"></div>
                                 </div>
                                 <div class="ibox-content">
@@ -195,7 +195,7 @@
                         <div class="col-lg-6">
                             <div class="ibox ">
                                 <div class="ibox-title">
-                                    <h5>Actividades completadas vs incompletas en actividad Creación</h5><span class="  glyphicon glyphicon-info-sign" title="Mediante este gráfico se puede apreciar las veces que los alumnos completaron una actividad y no la completaron debido a que no desidieron continuar o por inactividad."></span>
+                                    <h5>Actividades completadas vs incompletas en actividad Creación</h5>
                                     <div class="ibox-tools"></div>
                                 </div>
                                 <div class="ibox-content">
@@ -205,6 +205,19 @@
                                 </div>
                             </div>
                         </div>
+                        <!--<div class="col-lg-6">
+                            <div class="ibox">
+                                <div class="ibox-title">
+                                    <h5>Tiempo de juego total de la actividad</h5>
+                                    <div class="ibox-tools"></div>
+                                </div>
+                                <div class="ibox-content">
+                                    <div class="scroll_content">
+                                        <canvas id="tiempoActividad"></canvas>{% load staticfiles %}</canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>-->
                     </div>
                 </div>
             </div>
@@ -217,7 +230,7 @@
                         <div class="col-lg-6">
                             <div class="ibox ">
                                 <div class="ibox-title">
-                                    <h5>Colisiones realizadas en actividad Laberinto</h5><span class="  glyphicon glyphicon-info-sign" title="Mediante este gráfico se puede apreciar la cantidad de coliciones que a realizado los alumnos al realizar la actividad Laberinto. De esta manera se observa habilidades kinestésica (motricidad fina) que tiene los alumnos al intentar posicionar los planetas en su lugar correspondiente."></span>
+                                    <h5>Colisiones realizadas en actividad Laberinto</h5>
                                     <div class="ibox-tools"></div>
                                 </div>
                                 <div class="ibox-content">
@@ -230,7 +243,7 @@
                         <div class="col-lg-6">
                             <div class="ibox">
                                 <div class="ibox-title">
-                                    <h5>Actividades completadas vs incompletas en actividad Laberinto</h5><span class="  glyphicon glyphicon-info-sign" title="Mediante este gráfico se puede apreciar las veces que los alumnos completaron una actividad y no la completaron debido a que no desidieron continuar o por inactividad."></span>
+                                    <h5>Actividades completadas vs incompletas en actividad Laberinto</h5>
                                     <div class="ibox-tools"></div>
                                 </div>
                                 <div class="ibox-content">
@@ -249,7 +262,7 @@
                         <div class="col-lg-6">
                             <div class="ibox">
                                 <div class="ibox-title">
-                                    <h5>Tiempo de juego total de la actividad Laberinto</h5><span class="  glyphicon glyphicon-info-sign" title="Mediante este gráfico se puede apreciar cantidad de tiempo (en minutos) en que los alumnos han permanecido en la actividad Laberinto."></span>
+                                    <h5>Tiempo de juego total de la actividad Laberinto</h5>
                                     <div class="ibox-tools"></div>
                                 </div>
                                 <div class="ibox-content">
@@ -262,7 +275,7 @@
                         <div class="col-lg-6">
                             <div class="ibox ">
                                 <div class="ibox-title">
-                                    <h5>Posicionamiento de Sistema solar Laberinto</h5><span class="  glyphicon glyphicon-info-sign" title="Mediante este gráfico se puede apreciar la cantidad de veces que los alumnos ha podido ingresar de forma correcta cada planeta en el laberinto. De esta manera se observa el conocimiento que tiene los alumnos sobre las posiciones de los planetas en el sistema solar."></span>
+                                    <h5>Posicionamiento de Sistema solar Laberinto</h5>
                                     <div class="ibox-tools"></div>
                                 </div>
                                 <div class="ibox-content">
@@ -304,12 +317,12 @@
                         <div class="col-lg-6">
                             <div class="ibox ">
                                 <div class="ibox-title">
-                                    <h5>Correctas vs Incorrectas en actividad Alternativas</h5><span class="  glyphicon glyphicon-info-sign" title="Mediante este gráfico se puede apreciar la cantidad de veces que los alumnos ha respondido de manera correcta y de manera incorrecta en la actividad Alternativas. De esta manera se observa el conocimiento que tiene los alumnos sobre el sistema solar y el Universo."></span>
+                                    <h5>Correctas vs Incorrectas en actividad Alternativas</h5>
                                     <div class="ibox-tools"></div>
                                 </div>
                                 <div class="ibox-content">
                                     <div class="scroll_content">
-                                        <canvas id="CvsI_PS" height={{correctas_PS_graf}}>{% load staticfiles %}</canvas>
+                                        <canvas id="CvsI_PS" height={{correctas_PS_quantity}}>{% load staticfiles %}</canvas>
                                     </div>
                                 </div>
                             </div>
@@ -317,7 +330,7 @@
                         <div class="col-lg-6">
                             <div class="ibox">
                                 <div class="ibox-title">
-                                    <h5>Saltos realizados en actividad Alternativas</h5><span class="  glyphicon glyphicon-info-sign" title="Mediante este gráfico se puede apreciar la cantidad de saltos realizados. De esta manera se observar el desarrollo de la habilidad kinestésica (motricidad gruesa) de los alumnos."></span>
+                                    <h5>Saltos realizados en actividad Alternativas</h5>
                                     <div class="ibox-tools"></div>
                                 </div>
                                 <div class="ibox-content">
@@ -336,7 +349,7 @@
                         <div class="col-lg-6">
                             <div class="ibox ">
                                 <div class="ibox-title">
-                                    <h5>Actividades completadas vs incompletas en actividad Alternativas</h5><span class="  glyphicon glyphicon-info-sign" title="Mediante este gráfico se puede apreciar las veces que los alumnos completaron una actividad y no la completaron debido a que no desidieron continuar o por inactividad."></span>
+                                    <h5>Actividades completadas vs incompletas en actividad Alternativas</h5>
                                     <div class="ibox-tools"></div>
                                 </div>
                                 <div class="ibox-content">
@@ -349,7 +362,7 @@
                         <div class="col-lg-6">
                             <div class="ibox">
                                 <div class="ibox-title">
-                                    <h5>Tiempo de juego total de la actividad Alternativas</h5><span class="  glyphicon glyphicon-info-sign" title="Mediante este gráfico se puede apreciar cantidad de tiempo (en minutos) en que los alumnos han permanecido en la actividad Alternativas."></span>
+                                    <h5>Tiempo de juego total de la actividad Alternativas</h5>
                                     <div class="ibox-tools"></div>
                                 </div>
                                 <div class="ibox-content">
@@ -390,7 +403,7 @@
                         <div class="col-lg-6">
                             <div class="ibox ">
                                 <div class="ibox-title">
-                                    <h5>Correctas vs Incorrectas en actividad Busca</h5><span class="  glyphicon glyphicon-info-sign" title="Mediante este gráfico se puede apreciar la cantidad de veces que los alumnos ha respondido de manera correcta y de manera incorrecta en la actividad Busca. De esta manera se observa el conocimiento para identificar los elementos del universo."></span>
+                                    <h5>Correctas vs Incorrectas en actividad Busca</h5>
                                     <div class="ibox-tools"></div>
                                 </div>
                                 <div class="ibox-content">
@@ -403,7 +416,7 @@
                         <div class="col-lg-6">
                             <div class="ibox">
                                 <div class="ibox-title">
-                                    <h5>Actividades completadas vs incompletas en actividad Busca</h5><span class="  glyphicon glyphicon-info-sign" title="Mediante este gráfico se puede apreciar las veces que los alumnos completaron una actividad y no la completaron debido a que no desidieron continuar o por inactividad."></span>
+                                    <h5>Actividades completadas vs incompletas en actividad Busca</h5>
                                     <div class="ibox-tools"></div>
                                 </div>
                                 <div class="ibox-content">
@@ -422,7 +435,7 @@
                         <div class="col-lg-6">
                             <div class="ibox">
                                 <div class="ibox-title">
-                                    <h5>Tiempo de juego total de la actividad Busca</h5><span class="  glyphicon glyphicon-info-sign" title="Mediante este gráfico se puede apreciar cantidad de tiempo (en minutos) en que los alumnos han permanecido en la actividad Busca."></span>
+                                    <h5>Tiempo de juego total de la actividad Busca</h5>
                                     <div class="ibox-tools"></div>
                                 </div>
                                 <div class="ibox-content">
@@ -468,7 +481,7 @@
                                 </div>
                                 <div class="ibox-content">
                                     <div class="scroll_content">
-                                        <canvas id="ACuida" height={{acierto_cuida_graf}}>{% load staticfiles %}</canvas><span class="  glyphicon glyphicon-info-sign" title="Mediante este gráfico se puede apreciar la cantidad total de meteoritos que eliminaron en la actividad Cuida el Planeta. De esta manera se observa el desarrollo de la habilida kinestésica (motrocidad fina) de los alumnos."></span>
+                                        <canvas id="ACuida" height={{acierto_cuida_graf}}>{% load staticfiles %}</canvas>
                                     </div>
                                 </div>
                             </div>
@@ -476,7 +489,7 @@
                         <div class="col-lg-6">
                             <div class="ibox">
                                 <div class="ibox-title">
-                                    <h5>Actividades completadas vs incompletas en actividad Cuida el Planeta</h5><span class="  glyphicon glyphicon-info-sign" title="Mediante este gráfico se puede apreciar las veces que los alumnos completaron una actividad y no la completaron debido a que no desidieron continuar o por inactividad."></span>
+                                    <h5>Actividades completadas vs incompletas en actividad Cuida el Planeta</h5>
                                     <div class="ibox-tools"></div>
                                 </div>
                                 <div class="ibox-content">
@@ -495,7 +508,7 @@
                         <div class="col-lg-6">
                             <div class="ibox">
                                 <div class="ibox-title">
-                                    <h5>Tiempo de juego total de la actividad Cuida</h5><span class="  glyphicon glyphicon-info-sign" title="Mediante este gráfico se puede apreciar cantidad de tiempo (en minutos) en que los alumnos han permanecido en la actividad Cuida."></span>
+                                    <h5>Tiempo de juego total de la actividad Cuida</h5>
                                     <div class="ibox-tools"></div>
                                 </div>
                                 <div class="ibox-content">
@@ -536,7 +549,7 @@
                         <div class="col-lg-6">
                             <div class="ibox ">
                                 <div class="ibox-title">
-                                    <h5>Actividades completadas vs incompletas en actividad Puzzle</h5><span class="  glyphicon glyphicon-info-sign" title="Mediante este gráfico se puede apreciar las veces que los alumnos completaron una actividad y no la completaron debido a que no desidieron continuar o por inactividad."></span>
+                                    <h5>Actividades completadas vs incompletas en actividad Puzzle</h5>
                                     <div class="ibox-tools"></div>
                                 </div>
                                 <div class="ibox-content">
@@ -549,7 +562,7 @@
                         <div class="col-lg-6">
                             <div class="ibox">
                                 <div class="ibox-title">
-                                    <h5>Tiempo de juego total de la actividad Puzzle</h5><span class="  glyphicon glyphicon-info-sign" title="Mediante este gráfico se puede apreciar cantidad de tiempo (en minutos) en que los alumnos han permanecido en la actividad Puzzle."></span>
+                                    <h5>Tiempo de juego total de la actividad Puzzle</h5>
                                     <div class="ibox-tools"></div>
                                 </div>
                                 <div class="ibox-content">
