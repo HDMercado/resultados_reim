@@ -288,7 +288,7 @@ def welcome(request):
                 correctas_PS_quantity_response.append({ 'id': row[0], 'name': row[1], 'correct': row[2], 'incorrect': row[3] })
        #COMPLETAS INCOMPLETAS
             completa_incompleta_PS_query = get_completa_incompleta_PS(request)
-            queries.append({"name": 'Aceptar Busca query', "query": completa_incompleta_PS_query})
+            queries.append({"name": 'Completas incompletas query', "query": completa_incompleta_PS_query})
             cursor.execute(completa_incompleta_PS_query)
             completa_incompleta_PS_quantity = cursor.fetchall()
             for row in completa_incompleta_PS_quantity:
