@@ -1556,6 +1556,130 @@
     </script>
 
     <script>
+
+        var originalLineDraw = Chart.controllers.horizontalBar.prototype.draw;
+        Chart.helpers.extend(Chart.controllers.horizontalBar.prototype, {
+  
+        draw: function () {
+          originalLineDraw.apply(this, arguments);
+  
+          var chart = this.chart;
+          var ctx = chart.chart.ctx;
+  
+          var index = chart.config.options.lineAtIndex;
+          if (index) {
+  
+              var xaxis = chart.scales['x-axis-0'];
+              var yaxis = chart.scales['y-axis-0'];
+  
+              var x1 = xaxis.getPixelForValue(index);                       
+              var y1 = yaxis.top;                                                   
+  
+              var x2 = xaxis.getPixelForValue(index);                       
+              var y2 = yaxis.bottom;                                        
+  
+              ctx.save();
+              ctx.beginPath();
+              ctx.moveTo(x1, y1);
+              ctx.strokeStyle = 'green';
+              ctx.lineTo(x2, y2);
+              ctx.stroke();
+  
+              ctx.restore();
+            
+          }
+          var index = chart.config.options.lineAtIndex1;
+          if (index) {
+  
+              var xaxis = chart.scales['x-axis-0'];
+              var yaxis = chart.scales['y-axis-0'];
+  
+              var x1 = xaxis.getPixelForValue(index);                       
+              var y1 = yaxis.top;                                                   
+  
+              var x2 = xaxis.getPixelForValue(index);                       
+              var y2 = yaxis.bottom;                                        
+  
+              ctx.save();
+              ctx.beginPath();
+              ctx.moveTo(x1, y1);
+              ctx.strokeStyle = 'red';
+              ctx.lineTo(x2, y2);
+              ctx.stroke();
+  
+              ctx.restore();
+            
+          }
+          var index3 = chart.config.options.promedioSaltos;
+          if (index3) {
+  
+              var xaxis = chart.scales['x-axis-0'];
+              var yaxis = chart.scales['y-axis-0'];
+  
+              var x1 = xaxis.getPixelForValue(index3);                       
+              var y1 = yaxis.top;                                                   
+  
+              var x2 = xaxis.getPixelForValue(index3);                       
+              var y2 = yaxis.bottom;                                        
+  
+              ctx.save();
+              ctx.beginPath();
+              ctx.moveTo(x1, y1);
+              ctx.strokeStyle = 'rgb(207,52,118)';
+              ctx.lineTo(x2, y2);
+              ctx.stroke();
+  
+              ctx.restore();
+            
+          }
+
+          var index4 = chart.config.options.promedioCorrectasCO;
+          if (index4) {
+  
+              var xaxis = chart.scales['x-axis-0'];
+              var yaxis = chart.scales['y-axis-0'];
+  
+              var x1 = xaxis.getPixelForValue(index4);                       
+              var y1 = yaxis.top;                                                   
+  
+              var x2 = xaxis.getPixelForValue(index4);                       
+              var y2 = yaxis.bottom;                                        
+  
+              ctx.save();
+              ctx.beginPath();
+              ctx.moveTo(x1, y1);
+              ctx.strokeStyle = 'rgb(87,35,100)';
+              ctx.lineTo(x2, y2);
+              ctx.stroke();
+  
+              ctx.restore();
+            
+          }
+          var index5 = chart.config.options.promedioIncorrectasCO;
+          if (index5) {
+  
+              var xaxis = chart.scales['x-axis-0'];
+              var yaxis = chart.scales['y-axis-0'];
+  
+              var x1 = xaxis.getPixelForValue(index5);                       
+              var y1 = yaxis.top;                                                   
+  
+              var x2 = xaxis.getPixelForValue(index5);                       
+              var y2 = yaxis.bottom;                                        
+  
+              ctx.save();
+              ctx.beginPath();
+              ctx.moveTo(x1, y1);
+              ctx.strokeStyle = 'rgb(0,255,255)';
+              ctx.lineTo(x2, y2);
+              ctx.stroke();
+  
+              ctx.restore();
+            
+          }
+          
+      }
+  });
         //TIEMPO DE JUEGO GENERAL
         var stackedData = {
             labels:
@@ -1824,9 +1948,32 @@
         ]
         };
 
+        var jumpsOptions = {
+            promedioSaltos: '{{promedio_saltos}}', 
+            animation: false,
+            responsive: true,
+            isFixedWidth:true,
+            scales: {
+                xAxes:[{
+                    stacked:false,
+                    ticks: {
+                        min: 0,
+                        callback: function(value, index, values) {
+                            if (Math.floor(value) === value) {
+                                return value;
+                            }
+                        }
+                    }
+                }],
+                yAxes:[{
+                    stacked:false
+                }]
+            }
+        };
+
         if ($('#jumps').length){
             var ctx6 = document.getElementById("jumps").getContext("2d");
-            new Chart(ctx6, {type: 'horizontalBar', data: ctx6data, options:barOptions});
+            new Chart(ctx6, {type: 'horizontalBar', data: ctx6data, options:jumpsOptions});
         }
 
         if ($('#prueba').length){
@@ -1875,6 +2022,8 @@
                 ]
             },
             options: {
+                promedioCorrectasCO: '{{promedio_correctas_co}}',
+                promedioIncorrectasCO: '{{promedio_incorrectas_co}}',
                 scales: {
                     xAxes:[{
                             stacked:false,
@@ -3192,63 +3341,6 @@ var CreacionData = {
         }        
 //FIN PLUSSPACE----------------------
 
-var originalLineDraw = Chart.controllers.horizontalBar.prototype.draw;
-        Chart.helpers.extend(Chart.controllers.horizontalBar.prototype, {
-  
-        draw: function () {
-          originalLineDraw.apply(this, arguments);
-  
-          var chart = this.chart;
-          var ctx = chart.chart.ctx;
-  
-          var index = chart.config.options.lineAtIndex;
-          if (index) {
-  
-              var xaxis = chart.scales['x-axis-0'];
-              var yaxis = chart.scales['y-axis-0'];
-  
-              var x1 = xaxis.getPixelForValue(index);                       
-              var y1 = yaxis.top;                                                   
-  
-              var x2 = xaxis.getPixelForValue(index);                       
-              var y2 = yaxis.bottom;                                        
-  
-              ctx.save();
-              ctx.beginPath();
-              ctx.moveTo(x1, y1);
-              ctx.strokeStyle = 'green';
-              ctx.lineTo(x2, y2);
-              ctx.stroke();
-  
-              ctx.restore();
-            
-          }
-          var index = chart.config.options.lineAtIndex1;
-          if (index) {
-  
-              var xaxis = chart.scales['x-axis-0'];
-              var yaxis = chart.scales['y-axis-0'];
-  
-              var x1 = xaxis.getPixelForValue(index);                       
-              var y1 = yaxis.top;                                                   
-  
-              var x2 = xaxis.getPixelForValue(index);                       
-              var y2 = yaxis.bottom;                                        
-  
-              ctx.save();
-              ctx.beginPath();
-              ctx.moveTo(x1, y1);
-              ctx.strokeStyle = 'red';
-              ctx.lineTo(x2, y2);
-              ctx.stroke();
-  
-              ctx.restore();
-            
-          }
-          
-      }
-  });
-
     //Set up the chart data
     if ($('#prueba2').length){
         var ctx29 = document.getElementById('prueba2');
@@ -3656,10 +3748,6 @@ var originalLineDraw = Chart.controllers.horizontalBar.prototype.draw;
             var ctx38 = document.getElementById("totaltimeco");
             new Chart(ctx38, {type: 'horizontalBar', data: ctx38data, options:barOptions});
         }
-    </script>
-
-    <script>
-
     </script>
 
     <script>

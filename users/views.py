@@ -335,6 +335,12 @@ def welcome(request):
         corrects_student_co_quantity_response = []
         time_act_co_quantity_response = []
         corrects_incorrects_quantity_response = []
+        #Promedios
+        countCO = 1
+        promedio_saltos = 0
+        total_jumps = 0
+        total_corrects_co = 0
+        total_incorrects_co = 0
 
         #Size Graphs
         colision_quantity_graph = 0
@@ -374,6 +380,7 @@ def welcome(request):
                 corrects_quantity = cursor.fetchall()
                 for row in corrects_quantity:
                     corrects_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+                    
                 corrects_quantity_graph = len(corrects_quantity)*40+20
 
                 jumps_query = get_jumps_co(request)
@@ -382,6 +389,9 @@ def welcome(request):
                 jumps_quantity = cursor.fetchall()
                 for row in jumps_quantity:
                     jumps_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+                    total_jumps += row[2]
+                    countCO = countCO+1
+                promedio_saltos = total_jumps / countCO
                 jumps_quantity_graph = len(jumps_quantity)*40+20
 
             # incorrects_query = get_incorrects_co(request)
@@ -399,6 +409,11 @@ def welcome(request):
                 corrects_incorrects_quantity = cursor.fetchall()
                 for row in corrects_incorrects_quantity:
                     corrects_incorrects_quantity_response.append({ 'id': row[0], 'name': row[1], 'corrects': row[2], 'incorrects': row[3] })
+                    total_corrects_co += row[2]
+                    total_incorrects_co += row[3]
+                    countCO = countCO+1
+                promedio_correctas_co = total_corrects_co / countCO
+                promedio_incorrectas_co = total_incorrects_co / countCO
                 corrects_incorrects_quantity_graph = len(corrects_incorrects_quantity)*40+20
 
             
@@ -410,7 +425,7 @@ def welcome(request):
                 analytics_co_quantity = cursor.fetchall()
                 #print ("analytics_co_quantity", analytics_co_quantity)
                 for row in analytics_co_quantity:
-                    analytics_co_quantity_response.append({ 'id': row[0], 'name': row[1], 'correctsact1': row[2], 'incorrectsact1': row[3], 'correctsact2': row[4], 'incorrectsact2': row[5]  })
+                    analytics_co_quantity_response.append({ 'id': row[0], 'name': row[1], 'correctsact1': row[2], 'correctsact2': row[3] })
                 analytics_co_quantity_graph = len(analytics_co_quantity)*40+20
 
                 actividades_co_query = get_cant_touch_act_co(request)
@@ -609,6 +624,10 @@ def welcome(request):
                 'buttons_co_quantity_graph':buttons_co_quantity_graph,
                 'trash_clean_co_quantity_graph':trash_clean_co_quantity_graph,
                 'time_act_co_quantity_graph':time_act_co_quantity_graph,
+                #promedios
+                'promedio_correctas_co':int(promedio_correctas_co),
+                'promedio_incorrectas_co':int(promedio_incorrectas_co),
+                'promedio_saltos':int(promedio_saltos),
                 #MUNDO ANIMAL
                 'piezas_quantity':piezas_quantity_response,
                 'malas_quantity':malas_quantity_response,

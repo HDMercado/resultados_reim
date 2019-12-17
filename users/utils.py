@@ -245,7 +245,7 @@ def get_analytics_co(request):
         query_params += " AND b.colegio_id = " + request.GET.get('school')
 
     date = get_date_param_alumno_respuesta_actividad(request)
-    start_base = 'SELECT u.id, concat(u.nombres ," ", u.apellido_paterno ," ", u.apellido_materno) as nombre, count(if(a.id_actividad=3007 and correcta=1,1,NULL)) CorrectaAct1, count(if(a.id_actividad=3007 and correcta=0,1,NULL)) IncorrectaAct1, count(if(a.id_actividad=3003 and correcta=1,1,NULL)) CorrectaAct2, count(if(a.id_actividad=3003 and correcta=0,1,NULL)) IncorrectaAct1, b.colegio_id, b.curso_id FROM alumno_respuesta_actividad a, usuario u, pertenece b WHERE' + date
+    start_base = 'SELECT u.id, concat(u.nombres ," ", u.apellido_paterno ," ", u.apellido_materno) as nombre, count(if((a.id_actividad=3007 and correcta=1) or (a.id_actividad=3004 and correcta=1) or (a.id_actividad=3002 and correcta=1),1,NULL)) CorrectaAct1, count(if((a.id_actividad=3003 and correcta=1) or (a.id_actividad=3005 and correcta=1) ,1,NULL)) CorrectaAct2 FROM alumno_respuesta_actividad a, usuario u, pertenece b WHERE' + date
     final_base = ' a.id_user= u.id && b.usuario_id = a.id_user' + query_params + ' GROUP BY u.id'
     return start_base + final_base
 
