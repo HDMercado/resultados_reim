@@ -702,7 +702,7 @@ def get_completa_incompleta_PS(request):
 
 
     date = get_date_param_tiempoxactividad(request)
-    start_base = ' SELECT u.id, concat(u.nombres ," ", u.apellido_paterno ," ", u.apellido_materno) as nombre, count(if(a.causa=1,1,NULL)) completas, count(if(a.causa=0,1,NULL)) incompletas, count(if(a.causa=2,1,NULL)) inactividad  FROM tiempoxactividad a, usuario u, pertenece b WHERE ' + date
+    start_base = ' SELECT u.id, concat(u.nombres ," ", u.apellido_paterno ," ", u.apellido_materno) as nombre, count(if(a.causa=2,1,NULL)) completas, count(if(a.causa=1,1,NULL)) incompletas, count(if(a.causa=0,1,NULL)) inactividad  FROM tiempoxactividad a, usuario u, pertenece b WHERE ' + date
     final_base = ' a.usuario_id= u.id && b.usuario_id = a.usuario_id' + query_params + ' GROUP BY u.id'
     return start_base + final_base
 def get_elementos_PS(request):
