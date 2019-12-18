@@ -305,7 +305,7 @@ def welcome(request):
         time_PS_graf = len(time_PS_quantity_response) * 50
         correctas_PS_graf = len(correctas_PS_quantity_response) * 50
         move_element_graf = len(move_element_quantity_response) * 50
-        elementos_PS_graf = len(elementos_PS_quantity_response) * 50
+        elementos_PS_graf = len(elementos_PS_quantity_response) * 100
         element_colission_graf = len(element_colission_quantity_response) * 50
         posicionamiento_PS_graf = len(posicionamiento_PS_quantity_response) * 100
         jump_alternativas_graf = len(jump_alternativas_quantity_response) * 50
