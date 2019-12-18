@@ -222,6 +222,7 @@ def welcome(request):
         jump_alternativas_quantity_response = []
         acierto_cuida_quantity_response = []
         completa_incompleta_PS_quantity_response = []
+        tiempoXact_quantity_response = []
         time_PS_graf = 0
         correctas_PS_graf = 0
         move_element_graf = 0
@@ -240,6 +241,15 @@ def welcome(request):
             time_PS_quantity = cursor.fetchall()
             for row in time_PS_quantity:
                 time_PS_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+        #tiempo por actividad general
+            tiempoXact_query = get_tiempoact(request)
+            cursor.execute(tiempoXact_query)
+            queries.append({"name": 'TiempoXact query', "query": tiempoXact_query})
+            tiempoXact_quantity = cursor.fetchall()
+            print("tiempoXact quantity", tiempoXact_quantity)
+            for row in tiempoXact_quantity:
+                tiempoXact_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+
         #CREACION
         #Elemento desplazado
             move_element_query = get_move_element_query(request)
@@ -668,7 +678,8 @@ def welcome(request):
                 'posicionamiento_PS_graf':posicionamiento_PS_graf,
                 'jump_alternativas_graf':jump_alternativas_graf,
                 'acierto_cuida_graf':acierto_cuida_graf,
-                'completa_incompleta_PS_graf':completa_incompleta_PS_graf
+                'completa_incompleta_PS_graf':completa_incompleta_PS_graf,
+                'tiempoXact_quantity':tiempoXact_quantity_response,
                 
             })
     # En otro caso redireccionamos al login
