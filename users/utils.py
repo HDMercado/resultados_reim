@@ -504,6 +504,8 @@ def get_time_act_co(request):
         query_params += " AND b.colegio_id = " + request.GET.get('school')
     if request.GET.get('activity') and request.GET.get('activity') != '0':
         query_params += " AND a.actividad_id = " + request.GET.get('activity')
+    if request.GET.get('student') and request.GET.get('student') != '0':
+        query_params += " AND a.usuario_id = " + request.GET.get('student')
 
     date = get_date_param_tiempoxactividad(request)
 
@@ -699,7 +701,8 @@ def get_completa_incompleta_PS(request):
         query_params += " AND b.colegio_id = " + request.GET.get('school')
     if request.GET.get('activity') and request.GET.get('activity') != '0':
         query_params += " AND a.actividad_id = " + request.GET.get('activity')
-
+    if request.GET.get('student') and request.GET.get('student') != '0':
+        query_params += ' AND a.usuario_id=' + request.GET.get('student')
 
     date = get_date_param_tiempoxactividad(request)
     start_base = ' SELECT u.id, concat(u.nombres ," ", u.apellido_paterno ," ", u.apellido_materno) as nombre, count(if(a.causa=2,1,NULL)) completas, count(if(a.causa=1,1,NULL)) incompletas, count(if(a.causa=0,1,NULL)) inactividad  FROM tiempoxactividad a, usuario u, pertenece b WHERE ' + date
@@ -717,6 +720,9 @@ def get_elementos_PS(request):
         query_params += " AND b.colegio_id = " + request.GET.get('school')
     if request.GET.get('activity') and request.GET.get('activity') != '0':
         query_params += " AND a.id_actividad = " + request.GET.get('activity')
+    if request.GET.get('student') and request.GET.get('student') != '0':
+        query_params += ' AND a.id_user=' + request.GET.get('student') 
+    
 
     date = get_date_param_alumno_respuesta_actividad(request)
     start_base = ' SELECT u.id, concat(u.nombres ," ", u.apellido_paterno ," ", u.apellido_materno) as nombre, count(if(a.id_elemento=2018,1,NULL)) planeta, count(if(a.id_elemento=2019,1,NULL)) planetaCS, count(if(a.id_elemento=2020,1,NULL)) planetaCA , count(if(a.id_elemento=2021,1,NULL)) estrella, count(if(a.id_elemento=2022,1,NULL)) supernova, count(if(a.id_elemento=2023,1,NULL)) nebulosa, count(if(a.id_elemento=2024,1,NULL)) galaxia FROM alumno_respuesta_actividad a, usuario u, pertenece b WHERE ' + date
@@ -764,6 +770,8 @@ def get_posicionamiento_PS(request):
         query_params += " AND b.colegio_id = " + request.GET.get('school')
     if request.GET.get('activity') and request.GET.get('activity') != '0':
         query_params += " AND a.id_actividad = " + request.GET.get('activity')
+    if request.GET.get('student') and request.GET.get('student') != '0':
+        query_params += ' AND a.id_user=' + request.GET.get('student') 
 
     date = get_date_param_alumno_respuesta_actividad(request)
     start_base = ' SELECT u.id, concat(u.nombres ," ", u.apellido_paterno ," ", u.apellido_materno) as nombre, count(if(a.id_elemento=2099,1,NULL)) tierra, count(if(a.id_elemento=2100,1,NULL)) neptuno, count(if(a.id_elemento=2101,1,NULL)) jupiter , count(if(a.id_elemento=2102,1,NULL)) saturno, count(if(a.id_elemento=2103,1,NULL)) urano, count(if(a.id_elemento=2104,1,NULL)) venus, count(if(a.id_elemento=2105,1,NULL)) mercurio, count(if(a.id_elemento=2106,1,NULL)) marte FROM alumno_respuesta_actividad a, usuario u, pertenece b WHERE ' + date
@@ -797,86 +805,7 @@ def get_element_colission_query(request):
     final_base = ' a.id_user = u.id && b.usuario_id = a.id_user && b.colegio_id IN (SELECT colegio_id from pertenece INNER JOIN usuario ON usuario.id = pertenece.usuario_id WHERE username="' + request.user.username + '") AND b.curso_id IN (SELECT curso_id FROM pertenece WHERE usuario_id = (SELECT id FROM usuario WHERE username = "' + request.user.username + '"))' + query_params + ' GROUP BY u.apellido_paterno'
 
     return start_base + final_base
-def get_aceptar_laberinto_query(request):
-    
-    query_params = ''
-    date = ''
 
-    if request.GET.get('reim') and request.GET.get('reim') != '0':
-        query_params = ' AND a.id_reim=' + request.GET.get('reim')
-    if request.GET.get('course') and request.GET.get('course') != '0':
-        query_params += " AND b.curso_id = " + request.GET.get('course')
-    if request.GET.get('school') and request.GET.get('school') != '0':
-        query_params += " AND b.colegio_id = " +  request.GET.get('school')+' AND a.id_elemento= 2142'
-    if request.GET.get('student') and request.GET.get('student') != '0':
-        query_params += ' AND a.id_user=' + request.GET.get('student')    
-    #print(query_params)
-
-    if request.GET.get('start') and (request.GET.get('start') != 'dd/mm/aaaa') and request.GET.get('end') and (request.GET.get('end') != 'dd/mm/aaaa'):
-        start = str(datetime.strptime(request.GET.get('start'), '%d/%m/%Y').date())
-        end = str(datetime.strptime(request.GET.get('end'), '%d/%m/%Y').date())
-        start += " 00:00:00.000000"
-        end += " 23:59:59.000000"
-        date = ' (a.datetime_touch >= TIMESTAMP("'+ start + '") && a.datetime_touch <= TIMESTAMP("' + end  + '")) &&'
-
-    start_base = 'SELECT u.id, concat(u.nombres ," " , u.apellido_paterno ," " , u.apellido_materno) as nombre, count(a.id_user) AS CantidadTouch, b.colegio_id, b.curso_id FROM alumno_respuesta_actividad a, usuario u, pertenece b WHERE' + date
-    final_base = ' a.id_user = u.id && b.usuario_id = a.id_user && b.colegio_id IN (SELECT colegio_id from pertenece INNER JOIN usuario ON usuario.id = pertenece.usuario_id WHERE username="' + request.user.username + '") AND b.curso_id IN (SELECT curso_id FROM pertenece WHERE usuario_id = (SELECT id FROM usuario WHERE username = "' + request.user.username + '"))' + query_params + ' GROUP BY u.apellido_paterno'
-
-    return start_base + final_base
-
-def get_volver_laberinto_query(request):
-    
-    query_params = ''
-    date = ''
-
-    if request.GET.get('reim') and request.GET.get('reim') != '0':
-        query_params = ' AND a.id_reim=' + request.GET.get('reim')
-    if request.GET.get('course') and request.GET.get('course') != '0':
-        query_params += " AND b.curso_id = " + request.GET.get('course')
-    if request.GET.get('school') and request.GET.get('school') != '0':
-        query_params += " AND b.colegio_id = " + request.GET.get('school')+' AND a.id_elemento= 2001'
-    if request.GET.get('student') and request.GET.get('student') != '0':
-        query_params += ' AND a.id_user=' + request.GET.get('student')    
-    #print(query_params)
-
-    if request.GET.get('start') and (request.GET.get('start') != 'dd/mm/aaaa') and request.GET.get('end') and (request.GET.get('end') != 'dd/mm/aaaa'):
-        start = str(datetime.strptime(request.GET.get('start'), '%d/%m/%Y').date())
-        end = str(datetime.strptime(request.GET.get('end'), '%d/%m/%Y').date())
-        start += " 00:00:00.000000"
-        end += " 23:59:59.000000"
-        date = ' (a.datetime_touch >= TIMESTAMP("'+ start + '") && a.datetime_touch <= TIMESTAMP("' + end  + '")) &&'
-
-    start_base = 'SELECT u.id, concat(u.nombres ," " , u.apellido_paterno ," " , u.apellido_materno) as nombre, count(a.id_user) AS CantidadTouch, b.colegio_id, b.curso_id FROM alumno_respuesta_actividad a, usuario u, pertenece b WHERE' + date
-    final_base = ' a.id_user = u.id && b.usuario_id = a.id_user && b.colegio_id IN (SELECT colegio_id from pertenece INNER JOIN usuario ON usuario.id = pertenece.usuario_id WHERE username="' + request.user.username + '") AND b.curso_id IN (SELECT curso_id FROM pertenece WHERE usuario_id = (SELECT id FROM usuario WHERE username = "' + request.user.username + '"))' + query_params + ' GROUP BY u.apellido_paterno'
-
-    return start_base + final_base
-
-def get_ingresar_laberinto_query(request):
-    
-    query_params = ''
-    date = ''
-
-    if request.GET.get('reim') and request.GET.get('reim') != '0':
-        query_params = ' AND a.id_reim=' + request.GET.get('reim')
-    if request.GET.get('course') and request.GET.get('course') != '0':
-        query_params += " AND b.curso_id = " + request.GET.get('course')
-    if request.GET.get('school') and request.GET.get('school') != '0':
-        query_params += ' AND b.colegio_id = ' + request.GET.get('school') + ' AND a.id_elemento= 2033'
-    if request.GET.get('student') and request.GET.get('student') != '0':
-        query_params += ' AND a.id_user=' + request.GET.get('student')
-    #print(query_params)
-
-    if request.GET.get('start') and (request.GET.get('start') != 'dd/mm/aaaa') and request.GET.get('end') and (request.GET.get('end') != 'dd/mm/aaaa'):
-        start = str(datetime.strptime(request.GET.get('start'), '%d/%m/%Y').date())
-        end = str(datetime.strptime(request.GET.get('end'), '%d/%m/%Y').date())
-        start += " 00:00:00.000000"
-        end += " 23:59:59.000000"
-        date = ' (a.datetime_touch >= TIMESTAMP("'+ start + '") && a.datetime_touch <= TIMESTAMP("' + end  + '")) &&'
-
-    start_base = 'SELECT u.id, concat(u.nombres ," " , u.apellido_paterno ," " , u.apellido_materno) as nombre, count(a.id_user) AS CantidadTouch, b.colegio_id, b.curso_id FROM alumno_respuesta_actividad a, usuario u, pertenece b WHERE' + date
-    final_base = ' a.id_user = u.id && b.usuario_id = a.id_user && b.colegio_id IN (SELECT colegio_id from pertenece INNER JOIN usuario ON usuario.id = pertenece.usuario_id WHERE username="' + request.user.username + '") AND b.curso_id IN (SELECT curso_id FROM pertenece WHERE usuario_id = (SELECT id FROM usuario WHERE username = "' + request.user.username + '"))' + query_params + ' GROUP BY u.apellido_paterno'
-
-    return start_base + final_base
 #ALTERNATIVAS
 def get_jump_alternativas_query(request):
     
@@ -904,273 +833,6 @@ def get_jump_alternativas_query(request):
     final_base = ' a.id_user = u.id && b.usuario_id = a.id_user && b.colegio_id IN (SELECT colegio_id from pertenece INNER JOIN usuario ON usuario.id = pertenece.usuario_id WHERE username="' + request.user.username + '") AND b.curso_id IN (SELECT curso_id FROM pertenece WHERE usuario_id = (SELECT id FROM usuario WHERE username = "' + request.user.username + '"))' + query_params + ' GROUP BY u.apellido_paterno'
 
     return start_base + final_base
-def get_correctas_alternativas_query(request):
-    
-    query_params = ''
-    date = ''
-
-    if request.GET.get('reim') and request.GET.get('reim') != '0':
-        query_params = ' AND a.id_reim=' + request.GET.get('reim')
-    if request.GET.get('course') and request.GET.get('course') != '0':
-        query_params += " AND b.curso_id = " + request.GET.get('course')
-    if request.GET.get('school') and request.GET.get('school') != '0':
-        query_params += " AND b.colegio_id = " + request.GET.get('school')+' AND a.id_actividad = 11 AND (a.id_elemento=2037 OR a.id_elemento=2038 OR a.id_elemento=2039 OR a.id_elemento=2040) AND a.correcta = 1'
-    if request.GET.get('student') and request.GET.get('student') != '0':
-        query_params += ' AND a.id_user=' + request.GET.get('student')    
-    #print(query_params)
-
-    if request.GET.get('start') and (request.GET.get('start') != 'dd/mm/aaaa') and request.GET.get('end') and (request.GET.get('end') != 'dd/mm/aaaa'):
-        start = str(datetime.strptime(request.GET.get('start'), '%d/%m/%Y').date())
-        end = str(datetime.strptime(request.GET.get('end'), '%d/%m/%Y').date())
-        start += " 00:00:00.000000"
-        end += " 23:59:59.000000"
-        date = ' (a.datetime_touch >= TIMESTAMP("'+ start + '") && a.datetime_touch <= TIMESTAMP("' + end  + '")) &&'
-
-    start_base = 'SELECT u.id, concat(u.nombres ," " , u.apellido_paterno ," " , u.apellido_materno) as nombre, count(a.id_user) AS CantidadTouch, b.colegio_id, b.curso_id FROM alumno_respuesta_actividad a, usuario u, pertenece b WHERE' + date
-    final_base = ' a.id_user = u.id && b.usuario_id = a.id_user && b.colegio_id IN (SELECT colegio_id from pertenece INNER JOIN usuario ON usuario.id = pertenece.usuario_id WHERE username="' + request.user.username + '") AND b.curso_id IN (SELECT curso_id FROM pertenece WHERE usuario_id = (SELECT id FROM usuario WHERE username = "' + request.user.username + '"))' + query_params + ' GROUP BY u.apellido_paterno'
-
-    return start_base + final_base
-def get_incorrectas_alternativas_query(request):
-    
-    query_params = ''
-    date = ''
-
-    if request.GET.get('reim') and request.GET.get('reim') != '0':
-        query_params = ' AND a.id_reim=' + request.GET.get('reim')
-    if request.GET.get('course') and request.GET.get('course') != '0':
-        query_params += " AND b.curso_id = " + request.GET.get('course')
-    if request.GET.get('school') and request.GET.get('school') != '0':
-        query_params += " AND b.colegio_id = " + request.GET.get('school')+' AND a.id_actividad = 11 AND (a.id_elemento=2037 OR a.id_elemento=2038 OR a.id_elemento=2039 OR a.id_elemento=2040) AND a.correcta = 0'
-    if request.GET.get('student') and request.GET.get('student') != '0':
-        query_params += ' AND a.id_user=' + request.GET.get('student')    
-    #print(query_params)
-
-    if request.GET.get('start') and (request.GET.get('start') != 'dd/mm/aaaa') and request.GET.get('end') and (request.GET.get('end') != 'dd/mm/aaaa'):
-        start = str(datetime.strptime(request.GET.get('start'), '%d/%m/%Y').date())
-        end = str(datetime.strptime(request.GET.get('end'), '%d/%m/%Y').date())
-        start += " 00:00:00.000000"
-        end += " 23:59:59.000000"
-        date = ' (a.datetime_touch >= TIMESTAMP("'+ start + '") && a.datetime_touch <= TIMESTAMP("' + end  + '")) &&'
-
-    start_base = 'SELECT u.id, concat(u.nombres ," " , u.apellido_paterno ," " , u.apellido_materno) as nombre, count(a.id_user) AS CantidadTouch, b.colegio_id, b.curso_id FROM alumno_respuesta_actividad a, usuario u, pertenece b WHERE' + date
-    final_base = ' a.id_user = u.id && b.usuario_id = a.id_user && b.colegio_id IN (SELECT colegio_id from pertenece INNER JOIN usuario ON usuario.id = pertenece.usuario_id WHERE username="' + request.user.username + '") AND b.curso_id IN (SELECT curso_id FROM pertenece WHERE usuario_id = (SELECT id FROM usuario WHERE username = "' + request.user.username + '"))' + query_params + ' GROUP BY u.apellido_paterno'
-
-    return start_base + final_base
-
-def get_aceptar_alternativas_query(request):
-    
-    query_params = ''
-    date = ''
-
-    if request.GET.get('reim') and request.GET.get('reim') != '0':
-        query_params = ' AND a.id_reim=' + request.GET.get('reim')
-    if request.GET.get('course') and request.GET.get('course') != '0':
-        query_params += " AND b.curso_id = " + request.GET.get('course')
-    if request.GET.get('school') and request.GET.get('school') != '0':
-        query_params += " AND b.colegio_id = " + request.GET.get('school')+' AND a.id_elemento= 2131'
-    if request.GET.get('student') and request.GET.get('student') != '0':
-        query_params += ' AND a.id_user=' + request.GET.get('student')    
-    #print(query_params)
-
-    if request.GET.get('start') and (request.GET.get('start') != 'dd/mm/aaaa') and request.GET.get('end') and (request.GET.get('end') != 'dd/mm/aaaa'):
-        start = str(datetime.strptime(request.GET.get('start'), '%d/%m/%Y').date())
-        end = str(datetime.strptime(request.GET.get('end'), '%d/%m/%Y').date())
-        start += " 00:00:00.000000"
-        end += " 23:59:59.000000"
-        date = ' (a.datetime_touch >= TIMESTAMP("'+ start + '") && a.datetime_touch <= TIMESTAMP("' + end  + '")) &&'
-
-    start_base = 'SELECT u.id, concat(u.nombres ," " , u.apellido_paterno ," " , u.apellido_materno) as nombre, count(a.id_user) AS CantidadTouch, b.colegio_id, b.curso_id FROM alumno_respuesta_actividad a, usuario u, pertenece b WHERE' + date
-    final_base = ' a.id_user = u.id && b.usuario_id = a.id_user && b.colegio_id IN (SELECT colegio_id from pertenece INNER JOIN usuario ON usuario.id = pertenece.usuario_id WHERE username="' + request.user.username + '") AND b.curso_id IN (SELECT curso_id FROM pertenece WHERE usuario_id = (SELECT id FROM usuario WHERE username = "' + request.user.username + '"))' + query_params + ' GROUP BY u.apellido_paterno'
-
-    return start_base + final_base
-
-def get_volver_alternativas_query(request):
-    
-    query_params = ''
-    date = ''
-
-    if request.GET.get('reim') and request.GET.get('reim') != '0':
-        query_params = ' AND a.id_reim=' + request.GET.get('reim')
-    if request.GET.get('course') and request.GET.get('course') != '0':
-        query_params += " AND b.curso_id = " + request.GET.get('course')
-    if request.GET.get('school') and request.GET.get('school') != '0':
-        query_params += " AND b.colegio_id = " + request.GET.get('school')+' AND a.id_elemento= 2035'
-    if request.GET.get('student') and request.GET.get('student') != '0':
-        query_params += ' AND a.id_user=' + request.GET.get('student')    
-    #print(query_params)
-
-    if request.GET.get('start') and (request.GET.get('start') != 'dd/mm/aaaa') and request.GET.get('end') and (request.GET.get('end') != 'dd/mm/aaaa'):
-        start = str(datetime.strptime(request.GET.get('start'), '%d/%m/%Y').date())
-        end = str(datetime.strptime(request.GET.get('end'), '%d/%m/%Y').date())
-        start += " 00:00:00.000000"
-        end += " 23:59:59.000000"
-        date = ' (a.datetime_touch >= TIMESTAMP("'+ start + '") && a.datetime_touch <= TIMESTAMP("' + end  + '")) &&'
-
-    start_base = 'SELECT u.id, concat(u.nombres ," " , u.apellido_paterno ," " , u.apellido_materno) as nombre, count(a.id_user) AS CantidadTouch, b.colegio_id, b.curso_id FROM alumno_respuesta_actividad a, usuario u, pertenece b WHERE' + date
-    final_base = ' a.id_user = u.id && b.usuario_id = a.id_user && b.colegio_id IN (SELECT colegio_id from pertenece INNER JOIN usuario ON usuario.id = pertenece.usuario_id WHERE username="' + request.user.username + '") AND b.curso_id IN (SELECT curso_id FROM pertenece WHERE usuario_id = (SELECT id FROM usuario WHERE username = "' + request.user.username + '"))' + query_params + ' GROUP BY u.apellido_paterno'
-
-    return start_base + final_base
-
-def get_ingresar_alternativas_query(request):
-    
-    query_params = ''
-    date = ''
-
-    if request.GET.get('reim') and request.GET.get('reim') != '0':
-        query_params = ' AND a.id_reim=' + request.GET.get('reim')
-    if request.GET.get('course') and request.GET.get('course') != '0':
-        query_params += " AND b.curso_id = " + request.GET.get('course')
-    if request.GET.get('school') and request.GET.get('school') != '0':
-        query_params += ' AND b.colegio_id = ' + request.GET.get('school') + ' AND a.id_elemento= 2029'
-    if request.GET.get('student') and request.GET.get('student') != '0':
-        query_params += ' AND a.id_user=' + request.GET.get('student')    
-    #print(query_params)
-
-    if request.GET.get('start') and (request.GET.get('start') != 'dd/mm/aaaa') and request.GET.get('end') and (request.GET.get('end') != 'dd/mm/aaaa'):
-        start = str(datetime.strptime(request.GET.get('start'), '%d/%m/%Y').date())
-        end = str(datetime.strptime(request.GET.get('end'), '%d/%m/%Y').date())
-        start += " 00:00:00.000000"
-        end += " 23:59:59.000000"
-        date = ' (a.datetime_touch >= TIMESTAMP("'+ start + '") && a.datetime_touch <= TIMESTAMP("' + end  + '")) &&'
-
-    start_base = 'SELECT u.id, concat(u.nombres ," " , u.apellido_paterno ," " , u.apellido_materno) as nombre, count(a.id_user) AS CantidadTouch, b.colegio_id, b.curso_id FROM alumno_respuesta_actividad a, usuario u, pertenece b WHERE' + date
-    final_base = ' a.id_user = u.id && b.usuario_id = a.id_user && b.colegio_id IN (SELECT colegio_id from pertenece INNER JOIN usuario ON usuario.id = pertenece.usuario_id WHERE username="' + request.user.username + '") AND b.curso_id IN (SELECT curso_id FROM pertenece WHERE usuario_id = (SELECT id FROM usuario WHERE username = "' + request.user.username + '"))' + query_params + ' GROUP BY u.apellido_paterno'
-
-    return start_base + final_base
-#BUSCA
-def get_correctas_busca_query(request):
-    
-    query_params = ''
-    date = ''
-
-    if request.GET.get('reim') and request.GET.get('reim') != '0':
-        query_params = ' AND a.id_reim=' + request.GET.get('reim')
-    if request.GET.get('course') and request.GET.get('course') != '0':
-        query_params += " AND b.curso_id = " + request.GET.get('course')
-    if request.GET.get('school') and request.GET.get('school') != '0':
-        query_params += " AND b.colegio_id = " + request.GET.get('school')+' AND a.id_actividad=12 AND a.correcta=1'
-    if request.GET.get('student') and request.GET.get('student') != '0':
-        query_params += ' AND a.id_user=' + request.GET.get('student')    
-    #print(query_params)
-
-    if request.GET.get('start') and (request.GET.get('start') != 'dd/mm/aaaa') and request.GET.get('end') and (request.GET.get('end') != 'dd/mm/aaaa'):
-        start = str(datetime.strptime(request.GET.get('start'), '%d/%m/%Y').date())
-        end = str(datetime.strptime(request.GET.get('end'), '%d/%m/%Y').date())
-        start += " 00:00:00.000000"
-        end += " 23:59:59.000000"
-        date = ' (a.datetime_touch >= TIMESTAMP("'+ start + '") && a.datetime_touch <= TIMESTAMP("' + end  + '")) &&'
-
-    start_base = 'SELECT u.id, concat(u.nombres ," " , u.apellido_paterno ," " , u.apellido_materno) as nombre, count(a.id_user) AS CantidadTouch, b.colegio_id, b.curso_id FROM alumno_respuesta_actividad a, usuario u, pertenece b WHERE' + date
-    final_base = ' a.id_user = u.id && b.usuario_id = a.id_user && b.colegio_id IN (SELECT colegio_id from pertenece INNER JOIN usuario ON usuario.id = pertenece.usuario_id WHERE username="' + request.user.username + '") AND b.curso_id IN (SELECT curso_id FROM pertenece WHERE usuario_id = (SELECT id FROM usuario WHERE username = "' + request.user.username + '"))' + query_params + ' GROUP BY u.apellido_paterno'
-
-    return start_base + final_base
-def get_incorrectas_busca_query(request):
-    
-    query_params = ''
-    date = ''
-
-    if request.GET.get('reim') and request.GET.get('reim') != '0':
-        query_params = ' AND a.id_reim=' + request.GET.get('reim')
-    if request.GET.get('course') and request.GET.get('course') != '0':
-        query_params += " AND b.curso_id = " + request.GET.get('course')
-    if request.GET.get('school') and request.GET.get('school') != '0':
-        query_params += " AND b.colegio_id = " + request.GET.get('school')+' AND a.id_actividad=12 AND a.correcta=0'
-    if request.GET.get('student') and request.GET.get('student') != '0':
-        query_params += ' AND a.id_user=' + request.GET.get('student')    
-    #print(query_params)
-
-    if request.GET.get('start') and (request.GET.get('start') != 'dd/mm/aaaa') and request.GET.get('end') and (request.GET.get('end') != 'dd/mm/aaaa'):
-        start = str(datetime.strptime(request.GET.get('start'), '%d/%m/%Y').date())
-        end = str(datetime.strptime(request.GET.get('end'), '%d/%m/%Y').date())
-        start += " 00:00:00.000000"
-        end += " 23:59:59.000000"
-        date = ' (a.datetime_touch >= TIMESTAMP("'+ start + '") && a.datetime_touch <= TIMESTAMP("' + end  + '")) &&'
-
-    start_base = 'SELECT u.id, concat(u.nombres ," " , u.apellido_paterno ," " , u.apellido_materno) as nombre, count(a.id_user) AS CantidadTouch, b.colegio_id, b.curso_id FROM alumno_respuesta_actividad a, usuario u, pertenece b WHERE' + date
-    final_base = ' a.id_user = u.id && b.usuario_id = a.id_user && b.colegio_id IN (SELECT colegio_id from pertenece INNER JOIN usuario ON usuario.id = pertenece.usuario_id WHERE username="' + request.user.username + '") AND b.curso_id IN (SELECT curso_id FROM pertenece WHERE usuario_id = (SELECT id FROM usuario WHERE username = "' + request.user.username + '"))' + query_params + ' GROUP BY u.apellido_paterno'
-
-    return start_base + final_base
-
-def get_aceptar_busca_query(request):
-    
-    query_params = ''
-    date = ''
-
-    if request.GET.get('reim') and request.GET.get('reim') != '0':
-        query_params = ' AND a.id_reim=' + request.GET.get('reim')
-    if request.GET.get('course') and request.GET.get('course') != '0':
-        query_params += " AND b.curso_id = " + request.GET.get('course')
-    if request.GET.get('school') and request.GET.get('school') != '0':
-        query_params += " AND b.colegio_id = " + request.GET.get('school')+' AND a.id_elemento= 2140'
-    if request.GET.get('student') and request.GET.get('student') != '0':
-        query_params += ' AND a.id_user=' + request.GET.get('student')    
-    #print(query_params)
-
-    if request.GET.get('start') and (request.GET.get('start') != 'dd/mm/aaaa') and request.GET.get('end') and (request.GET.get('end') != 'dd/mm/aaaa'):
-        start = str(datetime.strptime(request.GET.get('start'), '%d/%m/%Y').date())
-        end = str(datetime.strptime(request.GET.get('end'), '%d/%m/%Y').date())
-        start += " 00:00:00.000000"
-        end += " 23:59:59.000000"
-        date = ' (a.datetime_touch >= TIMESTAMP("'+ start + '") && a.datetime_touch <= TIMESTAMP("' + end  + '")) &&'
-
-    start_base = 'SELECT u.id, concat(u.nombres ," " , u.apellido_paterno ," " , u.apellido_materno) as nombre, count(a.id_user) AS CantidadTouch, b.colegio_id, b.curso_id FROM alumno_respuesta_actividad a, usuario u, pertenece b WHERE' + date
-    final_base = ' a.id_user = u.id && b.usuario_id = a.id_user && b.colegio_id IN (SELECT colegio_id from pertenece INNER JOIN usuario ON usuario.id = pertenece.usuario_id WHERE username="' + request.user.username + '") AND b.curso_id IN (SELECT curso_id FROM pertenece WHERE usuario_id = (SELECT id FROM usuario WHERE username = "' + request.user.username + '"))' + query_params + ' GROUP BY u.apellido_paterno'
-
-    return start_base + final_base
-
-def get_volver_busca_query(request):
-    
-    query_params = ''
-    date = ''
-
-    if request.GET.get('reim') and request.GET.get('reim') != '0':
-        query_params = ' AND a.id_reim=' + request.GET.get('reim')
-    if request.GET.get('course') and request.GET.get('course') != '0':
-        query_params += " AND b.curso_id = " + request.GET.get('course')
-    if request.GET.get('school') and request.GET.get('school') != '0':
-        query_params += " AND b.colegio_id = " + request.GET.get('school')+' AND a.id_elemento= 2054'
-    if request.GET.get('student') and request.GET.get('student') != '0':
-        query_params += ' AND a.id_user=' + request.GET.get('student')    
-    #print(query_params)
-
-    if request.GET.get('start') and (request.GET.get('start') != 'dd/mm/aaaa') and request.GET.get('end') and (request.GET.get('end') != 'dd/mm/aaaa'):
-        start = str(datetime.strptime(request.GET.get('start'), '%d/%m/%Y').date())
-        end = str(datetime.strptime(request.GET.get('end'), '%d/%m/%Y').date())
-        start += " 00:00:00.000000"
-        end += " 23:59:59.000000"
-        date = ' (a.datetime_touch >= TIMESTAMP("'+ start + '") && a.datetime_touch <= TIMESTAMP("' + end  + '")) &&'
-
-    start_base = 'SELECT u.id, concat(u.nombres ," " , u.apellido_paterno ," " , u.apellido_materno) as nombre, count(a.id_user) AS CantidadTouch, b.colegio_id, b.curso_id FROM alumno_respuesta_actividad a, usuario u, pertenece b WHERE' + date
-    final_base = ' a.id_user = u.id && b.usuario_id = a.id_user && b.colegio_id IN (SELECT colegio_id from pertenece INNER JOIN usuario ON usuario.id = pertenece.usuario_id WHERE username="' + request.user.username + '") AND b.curso_id IN (SELECT curso_id FROM pertenece WHERE usuario_id = (SELECT id FROM usuario WHERE username = "' + request.user.username + '"))' + query_params + ' GROUP BY u.apellido_paterno'
-
-    return start_base + final_base
-
-def get_ingresar_busca_query(request):
-    
-    query_params = ''
-    date = ''
-
-    if request.GET.get('reim') and request.GET.get('reim') != '0':
-        query_params = ' AND a.id_reim=' + request.GET.get('reim')
-    if request.GET.get('course') and request.GET.get('course') != '0':
-        query_params += " AND b.curso_id = " + request.GET.get('course')
-    if request.GET.get('school') and request.GET.get('school') != '0':
-        query_params += ' AND b.colegio_id = ' + request.GET.get('school') + ' AND a.id_elemento= 2030'
-    if request.GET.get('student') and request.GET.get('student') != '0':
-        query_params += ' AND a.id_user=' + request.GET.get('student')    
-    #print(query_params)
-
-    if request.GET.get('start') and (request.GET.get('start') != 'dd/mm/aaaa') and request.GET.get('end') and (request.GET.get('end') != 'dd/mm/aaaa'):
-        start = str(datetime.strptime(request.GET.get('start'), '%d/%m/%Y').date())
-        end = str(datetime.strptime(request.GET.get('end'), '%d/%m/%Y').date())
-        start += " 00:00:00.000000"
-        end += " 23:59:59.000000"
-        date = ' (a.datetime_touch >= TIMESTAMP("'+ start + '") && a.datetime_touch <= TIMESTAMP("' + end  + '")) &&'
-
-    start_base = 'SELECT u.id, concat(u.nombres ," " , u.apellido_paterno ," " , u.apellido_materno) as nombre, count(a.id_user) AS CantidadTouch, b.colegio_id, b.curso_id FROM alumno_respuesta_actividad a, usuario u, pertenece b WHERE' + date
-    final_base = ' a.id_user = u.id && b.usuario_id = a.id_user && b.colegio_id IN (SELECT colegio_id from pertenece INNER JOIN usuario ON usuario.id = pertenece.usuario_id WHERE username="' + request.user.username + '") AND b.curso_id IN (SELECT curso_id FROM pertenece WHERE usuario_id = (SELECT id FROM usuario WHERE username = "' + request.user.username + '"))' + query_params + ' GROUP BY u.apellido_paterno'
-
-    return start_base + final_base
 #CUIDA
 def get_acierto_cuida_query(request):
     
@@ -1183,167 +845,6 @@ def get_acierto_cuida_query(request):
         query_params += " AND b.curso_id = " + request.GET.get('course')
     if request.GET.get('school') and request.GET.get('school') != '0':
         query_params += " AND b.colegio_id = " + request.GET.get('school')+' AND a.id_elemento= 2120'
-    if request.GET.get('student') and request.GET.get('student') != '0':
-        query_params += ' AND a.id_user=' + request.GET.get('student')    
-    #print(query_params)
-
-    if request.GET.get('start') and (request.GET.get('start') != 'dd/mm/aaaa') and request.GET.get('end') and (request.GET.get('end') != 'dd/mm/aaaa'):
-        start = str(datetime.strptime(request.GET.get('start'), '%d/%m/%Y').date())
-        end = str(datetime.strptime(request.GET.get('end'), '%d/%m/%Y').date())
-        start += " 00:00:00.000000"
-        end += " 23:59:59.000000"
-        date = ' (a.datetime_touch >= TIMESTAMP("'+ start + '") && a.datetime_touch <= TIMESTAMP("' + end  + '")) &&'
-
-    start_base = 'SELECT u.id, concat(u.nombres ," " , u.apellido_paterno ," " , u.apellido_materno) as nombre, count(a.id_user) AS CantidadTouch, b.colegio_id, b.curso_id FROM alumno_respuesta_actividad a, usuario u, pertenece b WHERE' + date
-    final_base = ' a.id_user = u.id && b.usuario_id = a.id_user && b.colegio_id IN (SELECT colegio_id from pertenece INNER JOIN usuario ON usuario.id = pertenece.usuario_id WHERE username="' + request.user.username + '") AND b.curso_id IN (SELECT curso_id FROM pertenece WHERE usuario_id = (SELECT id FROM usuario WHERE username = "' + request.user.username + '"))' + query_params + ' GROUP BY u.apellido_paterno'
-
-    return start_base + final_base
-def get_aceptar_cuida_query(request):
-    
-    query_params = ''
-    date = ''
-
-    if request.GET.get('reim') and request.GET.get('reim') != '0':
-        query_params = ' AND a.id_reim=' + request.GET.get('reim')
-    if request.GET.get('course') and request.GET.get('course') != '0':
-        query_params += " AND b.curso_id = " + request.GET.get('course')
-    if request.GET.get('school') and request.GET.get('school') != '0':
-        query_params += " AND b.colegio_id = " + request.GET.get('school')+' AND a.id_elemento= 2141'
-    if request.GET.get('student') and request.GET.get('student') != '0':
-        query_params += ' AND a.id_user=' + request.GET.get('student')    
-    #print(query_params)
-
-    if request.GET.get('start') and (request.GET.get('start') != 'dd/mm/aaaa') and request.GET.get('end') and (request.GET.get('end') != 'dd/mm/aaaa'):
-        start = str(datetime.strptime(request.GET.get('start'), '%d/%m/%Y').date())
-        end = str(datetime.strptime(request.GET.get('end'), '%d/%m/%Y').date())
-        start += " 00:00:00.000000"
-        end += " 23:59:59.000000"
-        date = ' (a.datetime_touch >= TIMESTAMP("'+ start + '") && a.datetime_touch <= TIMESTAMP("' + end  + '")) &&'
-
-    start_base = 'SELECT u.id, concat(u.nombres ," " , u.apellido_paterno ," " , u.apellido_materno) as nombre, count(a.id_user) AS CantidadTouch, b.colegio_id, b.curso_id FROM alumno_respuesta_actividad a, usuario u, pertenece b WHERE' + date
-    final_base = ' a.id_user = u.id && b.usuario_id = a.id_user && b.colegio_id IN (SELECT colegio_id from pertenece INNER JOIN usuario ON usuario.id = pertenece.usuario_id WHERE username="' + request.user.username + '") AND b.curso_id IN (SELECT curso_id FROM pertenece WHERE usuario_id = (SELECT id FROM usuario WHERE username = "' + request.user.username + '"))' + query_params + ' GROUP BY u.apellido_paterno'
-
-    return start_base + final_base
-
-def get_volver_cuida_query(request):
-    
-    query_params = ''
-    date = ''
-
-    if request.GET.get('reim') and request.GET.get('reim') != '0':
-        query_params = ' AND a.id_reim=' + request.GET.get('reim')
-    if request.GET.get('course') and request.GET.get('course') != '0':
-        query_params += " AND b.curso_id = " + request.GET.get('course')
-    if request.GET.get('school') and request.GET.get('school') != '0':
-        query_params += " AND b.colegio_id = " + request.GET.get('school')+' AND a.id_elemento= 2108'
-    if request.GET.get('student') and request.GET.get('student') != '0':
-        query_params += ' AND a.id_user=' + request.GET.get('student')    
-    #print(query_params)
-
-    if request.GET.get('start') and (request.GET.get('start') != 'dd/mm/aaaa') and request.GET.get('end') and (request.GET.get('end') != 'dd/mm/aaaa'):
-        start = str(datetime.strptime(request.GET.get('start'), '%d/%m/%Y').date())
-        end = str(datetime.strptime(request.GET.get('end'), '%d/%m/%Y').date())
-        start += " 00:00:00.000000"
-        end += " 23:59:59.000000"
-        date = ' (a.datetime_touch >= TIMESTAMP("'+ start + '") && a.datetime_touch <= TIMESTAMP("' + end  + '")) &&'
-
-    start_base = 'SELECT u.id, concat(u.nombres ," " , u.apellido_paterno ," " , u.apellido_materno) as nombre, count(a.id_user) AS CantidadTouch, b.colegio_id, b.curso_id FROM alumno_respuesta_actividad a, usuario u, pertenece b WHERE' + date
-    final_base = ' a.id_user = u.id && b.usuario_id = a.id_user && b.colegio_id IN (SELECT colegio_id from pertenece INNER JOIN usuario ON usuario.id = pertenece.usuario_id WHERE username="' + request.user.username + '") AND b.curso_id IN (SELECT curso_id FROM pertenece WHERE usuario_id = (SELECT id FROM usuario WHERE username = "' + request.user.username + '"))' + query_params + ' GROUP BY u.apellido_paterno'
-
-    return start_base + final_base
-
-def get_ingresar_cuida_query(request):
-    
-    query_params = ''
-    date = ''
-
-    if request.GET.get('reim') and request.GET.get('reim') != '0':
-        query_params = ' AND a.id_reim=' + request.GET.get('reim')
-    if request.GET.get('course') and request.GET.get('course') != '0':
-        query_params += " AND b.curso_id = " + request.GET.get('course')
-    if request.GET.get('school') and request.GET.get('school') != '0':
-        query_params += ' AND b.colegio_id = ' + request.GET.get('school') + ' AND a.id_elemento= 2032'
-    if request.GET.get('student') and request.GET.get('student') != '0':
-        query_params += ' AND a.id_user=' + request.GET.get('student')    
-    #print(query_params)
-
-    if request.GET.get('start') and (request.GET.get('start') != 'dd/mm/aaaa') and request.GET.get('end') and (request.GET.get('end') != 'dd/mm/aaaa'):
-        start = str(datetime.strptime(request.GET.get('start'), '%d/%m/%Y').date())
-        end = str(datetime.strptime(request.GET.get('end'), '%d/%m/%Y').date())
-        start += " 00:00:00.000000"
-        end += " 23:59:59.000000"
-        date = ' (a.datetime_touch >= TIMESTAMP("'+ start + '") && a.datetime_touch <= TIMESTAMP("' + end  + '")) &&'
-
-    start_base = 'SELECT u.id, concat(u.nombres ," " , u.apellido_paterno ," " , u.apellido_materno) as nombre, count(a.id_user) AS CantidadTouch, b.colegio_id, b.curso_id FROM alumno_respuesta_actividad a, usuario u, pertenece b WHERE' + date
-    final_base = ' a.id_user = u.id && b.usuario_id = a.id_user && b.colegio_id IN (SELECT colegio_id from pertenece INNER JOIN usuario ON usuario.id = pertenece.usuario_id WHERE username="' + request.user.username + '") AND b.curso_id IN (SELECT curso_id FROM pertenece WHERE usuario_id = (SELECT id FROM usuario WHERE username = "' + request.user.username + '"))' + query_params + ' GROUP BY u.apellido_paterno'
-
-    return start_base + final_base
-#PUZZLE
-def get_aceptar_puzzle_query(request):
-    
-    query_params = ''
-    date = ''
-
-    if request.GET.get('reim') and request.GET.get('reim') != '0':
-        query_params = ' AND a.id_reim=' + request.GET.get('reim')
-    if request.GET.get('course') and request.GET.get('course') != '0':
-        query_params += " AND b.curso_id = " + request.GET.get('course')
-    if request.GET.get('school') and request.GET.get('school') != '0':
-        query_params += " AND b.colegio_id = " + request.GET.get('school')+' AND a.id_elemento= 2078'
-    if request.GET.get('student') and request.GET.get('student') != '0':
-        query_params += ' AND a.id_user=' + request.GET.get('student')    
-    #print(query_params)
-
-    if request.GET.get('start') and (request.GET.get('start') != 'dd/mm/aaaa') and request.GET.get('end') and (request.GET.get('end') != 'dd/mm/aaaa'):
-        start = str(datetime.strptime(request.GET.get('start'), '%d/%m/%Y').date())
-        end = str(datetime.strptime(request.GET.get('end'), '%d/%m/%Y').date())
-        start += " 00:00:00.000000"
-        end += " 23:59:59.000000"
-        date = ' (a.datetime_touch >= TIMESTAMP("'+ start + '") && a.datetime_touch <= TIMESTAMP("' + end  + '")) &&'
-
-    start_base = 'SELECT u.id, concat(u.nombres ," " , u.apellido_paterno ," " , u.apellido_materno) as nombre, count(a.id_user) AS CantidadTouch, b.colegio_id, b.curso_id FROM alumno_respuesta_actividad a, usuario u, pertenece b WHERE' + date
-    final_base = ' a.id_user = u.id && b.usuario_id = a.id_user && b.colegio_id IN (SELECT colegio_id from pertenece INNER JOIN usuario ON usuario.id = pertenece.usuario_id WHERE username="' + request.user.username + '") AND b.curso_id IN (SELECT curso_id FROM pertenece WHERE usuario_id = (SELECT id FROM usuario WHERE username = "' + request.user.username + '"))' + query_params + ' GROUP BY u.apellido_paterno'
-
-    return start_base + final_base
-
-def get_volver_puzzle_query(request):
-    
-    query_params = ''
-    date = ''
-
-    if request.GET.get('reim') and request.GET.get('reim') != '0':
-        query_params = ' AND a.id_reim=' + request.GET.get('reim')
-    if request.GET.get('course') and request.GET.get('course') != '0':
-        query_params += " AND b.curso_id = " + request.GET.get('course')
-    if request.GET.get('school') and request.GET.get('school') != '0':
-        query_params += " AND b.colegio_id = " + request.GET.get('school')+' AND a.id_elemento= 2123'
-    if request.GET.get('student') and request.GET.get('student') != '0':
-        query_params += ' AND a.id_user=' + request.GET.get('student')    
-    #print(query_params)
-
-    if request.GET.get('start') and (request.GET.get('start') != 'dd/mm/aaaa') and request.GET.get('end') and (request.GET.get('end') != 'dd/mm/aaaa'):
-        start = str(datetime.strptime(request.GET.get('start'), '%d/%m/%Y').date())
-        end = str(datetime.strptime(request.GET.get('end'), '%d/%m/%Y').date())
-        start += " 00:00:00.000000"
-        end += " 23:59:59.000000"
-        date = ' (a.datetime_touch >= TIMESTAMP("'+ start + '") && a.datetime_touch <= TIMESTAMP("' + end  + '")) &&'
-
-    start_base = 'SELECT u.id, concat(u.nombres ," " , u.apellido_paterno ," " , u.apellido_materno) as nombre, count(a.id_user) AS CantidadTouch, b.colegio_id, b.curso_id FROM alumno_respuesta_actividad a, usuario u, pertenece b WHERE' + date
-    final_base = ' a.id_user = u.id && b.usuario_id = a.id_user && b.colegio_id IN (SELECT colegio_id from pertenece INNER JOIN usuario ON usuario.id = pertenece.usuario_id WHERE username="' + request.user.username + '") AND b.curso_id IN (SELECT curso_id FROM pertenece WHERE usuario_id = (SELECT id FROM usuario WHERE username = "' + request.user.username + '"))' + query_params + ' GROUP BY u.apellido_paterno'
-
-    return start_base + final_base
-
-def get_ingresar_puzzle_query(request):
-    
-    query_params = ''
-    date = ''
-
-    if request.GET.get('reim') and request.GET.get('reim') != '0':
-        query_params = ' AND a.id_reim=' + request.GET.get('reim')
-    if request.GET.get('course') and request.GET.get('course') != '0':
-        query_params += " AND b.curso_id = " + request.GET.get('course')
-    if request.GET.get('school') and request.GET.get('school') != '0':
-        query_params += ' AND b.colegio_id = ' + request.GET.get('school') + ' AND a.id_elemento= 2031'
     if request.GET.get('student') and request.GET.get('student') != '0':
         query_params += ' AND a.id_user=' + request.GET.get('student')    
     #print(query_params)
