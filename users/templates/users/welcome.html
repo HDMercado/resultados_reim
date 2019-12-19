@@ -1478,7 +1478,7 @@
                                 </div>
                                 <div class="ibox-content">
                                     <div class="scroll_content">
-                                        <canvas id="actividades" height=250>{% load staticfiles %}</canvas>
+                                        <canvas id="Creacion2">{% load staticfiles %}</canvas>
                                     </div>
                                 </div>
                             </div>
@@ -1491,7 +1491,7 @@
                                 </div>
                                 <div class="ibox-content">
                                     <div class="scroll_content">
-                                        <canvas id="tiempoact" height=250>{% load staticfiles %}</canvas>
+                                        <canvas id="Creacion1">{% load staticfiles %}</canvas>
                                     </div>
                                 </div>
                             </div>
@@ -2519,6 +2519,87 @@
             new Chart(ctx15, {type: 'horizontalBar', data: ctx15data, options:  barOptions});
         }
 
+
+        var Creacion1Data = {
+            labels: [
+                    {% if tiempoact_quantity %}
+                    {% for tiempoact in tiempoact_quantity %}
+                    '{{tiempoact.name}}',
+                    {% endfor%}
+                    {% endif%}
+                    
+],
+        datasets: [
+            {
+                backgroundColor: ['rgba(52,152,219,0.75)','rgba(255,193,7,0.75)','rgba(233,30,99,0.75)','rgba(255,87,34,0.75)','rgba(103,58,183,0.75)','rgba(46,204,113,0.75)'],
+                pointBorderColor: "#fff",
+                data: [{% if tiempoact_quantity %}
+                    {% for tiempoact in tiempoact_quantity %}
+                    '{{tiempoact.quantity}}',
+                    {% endfor%}
+                    {% endif%}
+]
+        }
+        ]
+        };
+
+        var Creacion1Options = {
+               scale: {
+                    angleLines: {
+                       display: false
+                   },
+                   ticks: {
+                       suggestedMin: 0,
+                       suggestedMax: 5
+                   }
+               }
+            };
+
+        if ($('#Creacion1').length){
+            var ctx60 = document.getElementById("Creacion1").getContext("2d");
+            new Chart(ctx60, {type: 'pie', data: Creacion1Data, options:Creacion1Options});
+        } 
+        
+        var Creacion2Data = {
+            labels: [
+                    {% if actividades_quantity %}
+                    {% for actividades in actividades_quantity %}
+                    '{{actividades.name}}',
+                    {% endfor%}
+                    {% endif%}
+                    
+],
+        datasets: [
+            {
+                backgroundColor: ['rgba(52,152,219,0.75)','rgba(255,193,7,0.75)','rgba(233,30,99,0.75)','rgba(255,87,34,0.75)','rgba(103,58,183,0.75)','rgba(46,204,113,0.75)'],
+                pointBorderColor: "#fff",
+                data: [{% if actividades_quantity %}
+                    {% for actividades in actividades_quantity %}
+                    '{{actividades.quantity}}',
+                    {% endfor%}
+                    {% endif%}
+]
+        }
+        ]
+        };
+
+        var Creacion2Options = {
+               scale: {
+                    angleLines: {
+                       display: false
+                   },
+                   ticks: {
+                       suggestedMin: 0,
+                       suggestedMax: 5
+                   }
+               }
+            };
+
+        if ($('#Creacion2').length){
+            var ctx90 = document.getElementById("Creacion2").getContext("2d");
+            new Chart(ctx90, {type: 'pie', data: Creacion2Data, options:Creacion2Options});
+        } 
+
         //Fin Mundo Animal
 
         // Inicio Plus Space
@@ -3369,6 +3450,7 @@ var CreacionData = {
             var ctx28 = document.getElementById("Creacion").getContext("2d");
             new Chart(ctx28, {type: 'pie', data: CreacionData, options:CreacionOptions});
         } 
+
     //minuto de actividades
         
 //FIN PLUSSPACE----------------------
