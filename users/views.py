@@ -312,15 +312,15 @@ def welcome(request):
             for row in acierto_cuida_quantity:
                 acierto_cuida_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
         #otros
-        time_PS_graf = len(time_PS_quantity_response) * 50 +50
-        correctas_PS_graf = len(correctas_PS_quantity_response) * 50 + 50
-        move_element_graf = len(move_element_quantity_response) * 50 + 50
-        elementos_PS_graf = len(elementos_PS_quantity_response) * 100 + 100
-        element_colission_graf = len(element_colission_quantity_response) * 50 + 50
-        posicionamiento_PS_graf = len(posicionamiento_PS_quantity_response) * 100 + 100
-        jump_alternativas_graf = len(jump_alternativas_quantity_response) * 50 + 50
-        acierto_cuida_graf = len(acierto_cuida_quantity_response) * 50 + 50
-        completa_incompleta_PS_graf = len(completa_incompleta_PS_quantity_response) * 50 + 50
+        time_PS_graf = len(time_PS_quantity_response) * 40+20
+        correctas_PS_graf = len(correctas_PS_quantity_response) * 40+20
+        move_element_graf = len(move_element_quantity_response) * 40+20
+        elementos_PS_graf = len(elementos_PS_quantity_response) * 40+100
+        element_colission_graf = len(element_colission_quantity_response) * 40+20
+        posicionamiento_PS_graf = len(posicionamiento_PS_quantity_response) * 40+100
+        jump_alternativas_graf = len(jump_alternativas_quantity_response) * 40+20
+        acierto_cuida_graf = len(acierto_cuida_quantity_response) * 40+20
+        completa_incompleta_PS_graf = len(completa_incompleta_PS_quantity_response) * 40+20
         #FIN PLUS SPACE
 
         #INICIO CLEAN OCEAN

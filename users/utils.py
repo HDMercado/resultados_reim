@@ -57,6 +57,8 @@ def get_time_query(request):
         query_params += " AND c.id = " + request.GET.get('course')
     if request.GET.get('school') and request.GET.get('school') != '0':
         query_params += " AND co.id = " + request.GET.get('school')
+    if request.GET.get('student') and request.GET.get('student') != '0':
+        query_params += " AND a.usuario_id = " + request.GET.get('student')
 
     date = get_date_param(request)
 
@@ -75,6 +77,8 @@ def get_session_query(request):
         query_params += " AND b.curso_id = " + request.GET.get('course')
     if request.GET.get('school') and request.GET.get('school') != '0':
         query_params += " AND b.colegio_id = " + request.GET.get('school')
+    if request.GET.get('student') and request.GET.get('student') != '0':
+        query_params += " AND a.usuario_id = " + request.GET.get('student')
 
     date = get_date_param(request)
 
@@ -96,6 +100,8 @@ def get_touch_query(request):
         query_params += " AND b.colegio_id = " + request.GET.get('school')
     if request.GET.get('activity') and request.GET.get('activity') != '0':
         query_params += ' AND a.id_actividad=' + request.GET.get('activity')
+    if request.GET.get('student') and request.GET.get('student') != '0':
+        query_params += " AND a.id_user = " + request.GET.get('student')
     print(query_params)
 
     if request.GET.get('start') and (request.GET.get('start') != 'dd/mm/aaaa') and request.GET.get('end') and (request.GET.get('end') != 'dd/mm/aaaa'):
