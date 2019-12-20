@@ -1309,15 +1309,15 @@
 
                 {% endif %}
 
-            <!--Mundo Animal -->
-            {% if reim_num == '1' and student_num == '0' %}      
+            <!--MUNDO ANIMAL-->
+            {% if reim_num == '1' and student_num == '0' and activity_num == '0' %}      
             <div class="row">
                 <div class="col-lg-12">
                     <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
                         <div class="col-lg-6">
                             <div class="ibox ">
                                 <div class="ibox-title">
-                                    <h5>Preferencia de actividades por alumno</h5> <span class="  glyphicon glyphicon-info-sign" title="Mediante este gráfico se puede apreciar la preferencia de las actividades que contempla el REIM por cada alumno de un curso específicamente. De esta manera se observa que habilidades se fueron potenciando según la actividad de preferencia."></span>
+                                    <h5>Preferencia de actividades por alumno</h5> <span class="  glyphicon glyphicon-info-sign" title="Gráfico referente a la cantidad de veces que un alumno escogió una actividad, de esta manera se puede apreciar la preferencia de cada alumno del curso."></span>
                                     <div class="ibox-tools"></div>
                                 </div>
                                 <div class="ibox-content">
@@ -1330,7 +1330,7 @@
                         <div class="col-lg-6">
                             <div class="ibox">
                                 <div class="ibox-title">
-                                    <h5>Cantidad de correctas e incorrectas</h5> <span class="  glyphicon glyphicon-info-sign" title="En este gráfico se representan las correctas e incorrectas de cada alumno, para así poder tener una idea como juega cada uno de ellos y mediante el filtro de fecha dar seguimiento de mejoras en las actividades."></span>
+                                    <h5>Analitica basada en el promedio de Correctas e Incorrectas por alumno</h5> <span class="  glyphicon glyphicon-info-sign" title="Gráfico referente a la cantidad de correctas e incorrectas obtenidas por cada alumno en las distintas actividades contempladas en el REIM Mundo Animal, adicionalmente se muestra el promedio de cada ITEM, para así distinguir si el alumno esta por debajo o sobre el promedio."></span>
                                     <div class="ibox-tools"></div>
                                 </div>
                                 <div class="ibox-content">
@@ -1342,50 +1342,14 @@
                         </div>
                     </div>
                 </div>
-            </div>            
-            {% endif %}  
-            {% if reim_num == '1' and student_num == '0' and activity_num == '0' %}            
+            </div>    
             <div class="row">
                 <div class="col-lg-12">
                     <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
                         <div class="col-lg-6">
                             <div class="ibox ">
                                 <div class="ibox-title">
-                                    <h5>Tiempo total de juego</h5> <span class="glyphicon glyphicon-info-sign" title="Mediante este gráfico se puede observar los minutos totales de juegos por alumnos de un curso determinado, información relevante a la hora de comparar comportamientos durante el juego."></span>
-                                    <div class="ibox-tools"></div>
-                                </div>
-                                <div class="ibox-content">
-                                    <div class="scroll_content">
-                                        <canvas id="stacked" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="ibox">
-                                <div class="ibox-title">
-                                    <h5>Cantidad de sesiones</h5> <span class="glyphicon glyphicon-info-sign" title="Mediante este gráfico se visualiza la cantidad de sesiones ingresadas por los alumnos de un curso determinado."></span>
-                                    <div class="ibox-tools"></div>
-                                </div>
-                                <div class="ibox-content">
-                                    <div class="scroll_content">
-                                        <canvas id="stacked2" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {% endif %}  
-            {% if reim_num == '1' and student_num == '0' and activity_num != '0' %}
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
-                        <div class="col-lg-6">
-                            <div class="ibox ">
-                                <div class="ibox-title">
-                                    <h5>Animales y su cantidad de preferencia</h5> <span class="glyphicon glyphicon-info-sign" title="Mediante este gráfico se puede observar la preferencia de los alumnos por cada animal abarcado en el REIM, obteniendo información para reforzar contenidos durante las clases."></span>
+                                    <h5>Preferencia según Animales</h5> <span class="glyphicon glyphicon-info-sign" title="Gráfico referente a la cantidad de veces que fue escogido un animal en el total de las actividades contempladas en el REIM Mundo Animal, obteniendo al animal más o menos escogido del curso."></span>
                                     <div class="ibox-tools"></div>
                                 </div>
                                 <div class="ibox-content">
@@ -1398,7 +1362,58 @@
                         <div class="col-lg-6">
                             <div class="ibox">
                                 <div class="ibox-title">
-                                    <h5>Cantidad de registro por alumno</h5> <span class="glyphicon glyphicon-info-sign" title="Mediante este gráfico se visualiza la cantidad de registros que obtuvieron los alumnos de un curso específicamente, dando así una referencia de cuanta interacción tuvieron los alumnos en el REIM"></span>
+                                    <h5>Intrucciones Auditivas</h5> <span class="glyphicon glyphicon-info-sign" title="Gráfico que permite identificar la cantidad de veces que los alumnos optaron por escuchar los audios instructivos que contempla el REIM Mundo Animal."></span>
+                                    <div class="ibox-tools"></div>
+                                </div>
+                                <div class="ibox-content">
+                                    <div class="scroll_content">
+                                        <canvas id="audios" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
+                        <div class="col-lg-6">
+                            <div class="ibox ">
+                                <div class="ibox-title">
+                                    <h5>Tiempo total de juego por alumno (Minutos)</h5> <span class="glyphicon glyphicon-info-sign" title="Gráfico referente a la cantidad de minutos totales de juego que obtuvo cada alumno. "></span>
+                                    <div class="ibox-tools"></div>
+                                </div>
+                                <div class="ibox-content">
+                                    <div class="scroll_content">
+                                        <canvas id="stacked" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="ibox">
+                                <div class="ibox-title">
+                                    <h5>Sesiones por alumno</h5> <span class="glyphicon glyphicon-info-sign" title="Gráfico referente a la cantidad de sesiones que obtuvo cada alumno, es decir, cada vez que reinició el juego."></span>
+                                    <div class="ibox-tools"></div>
+                                </div>
+                                <div class="ibox-content">
+                                    <div class="scroll_content">
+                                        <canvas id="stacked2" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
+                        <div class="col-lg-6">
+                            <div class="ibox ">
+                                <div class="ibox-title">
+                                    <h5>Cantidad de registros por alumno</h5> <span class="glyphicon glyphicon-info-sign" title="Gráfico referente a la cantidad de registros o instancias obtenidas durante la totalidad de uso del REIM Mundo Animal por alumno"></span>
                                     <div class="ibox-tools"></div>
                                 </div>
                                 <div class="ibox-content">
@@ -1408,85 +1423,10 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
-                        <div class="col-lg-6">
-                            <div class="ibox ">
-                                <div class="ibox-title">
-                                    <h5>Tiempo total en actividad por alumno</h5>
-                                    <div class="ibox-tools"></div>
-                                </div>
-                                <div class="ibox-content">
-                                    <div class="scroll_content">
-                                        <canvas id="TiempoalumnoMA" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {% endif %}  
-            {% if reim_num == '1' and student_num != '0' and activity_num != '0' %}
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
-                        <div class="col-lg-6">
-                            <div class="ibox ">
-                                <div class="ibox-title">
-                                    <h5>Cantidad de interacciones</h5> <span class="glyphicon glyphicon-info-sign" title="Mediante este gráfico se puede visualizar la cantidad de interacción que tuvo un alumno específico con respecto a los demás, de esta manera observar el nivel de habilidad social que potenció el alumno."></span>
-                                    <div class="ibox-tools"></div>
-                                </div>
-                                <div class="ibox-content">
-                                    <div class="scroll_content">
-                                        <!-- GRAFICOS DINAMICOS POR ALUMNO -->
-                                        <canvas id="interaccion" height={{interaccion_quantity}}>{% load staticfiles %}</canvas>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                         <div class="col-lg-6">
                             <div class="ibox">
                                 <div class="ibox-title">
-                                    <h5>Cantidad de registro por alumno</h5>  <span class="  glyphicon glyphicon-info-sign" title="Mediante este gráfico se visualiza la cantidad de registros que obtuvieron los alumnos de un curso específicamente, dando así una referencia de cuanta interacción tuvieron los alumnos con el REIM"></span>
-                                    <div class="ibox-tools"></div>
-                                </div>
-                                <div class="ibox-content">
-                                    <div class="scroll_content">
-                                        <canvas id="horizontalBar" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {% endif %}              
-            {% if student_num == '0' and activity_num == '0' and reim_num == '1' %}
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
-                        <div class="col-lg-6">
-                            <div class="ibox ">
-                                <div class="ibox-title">
-                                    <h5>Cantidad de registros totales del curso por actividad</h5>  <span class="glyphicon glyphicon-info-sign" title="Mediante este gráfico se observa la cantidad total de registros que obtuvieron el total de alumnos de un curso para las actividades abordadas en el REIM."></span>
-                                    <div class="ibox-tools"></div>
-                                </div>
-                                <div class="ibox-content">
-                                    <div class="scroll_content">
-                                        <canvas id="Creacion2">{% load staticfiles %}</canvas>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="ibox">
-                                <div class="ibox-title">
-                                    <h5>Tiempo por actividad</h5>  <span class="glyphicon glyphicon-info-sign" title="El siguiente gráfico muestra la cantidad de minutos abordados en las distintas actividades abordadas en el REIM."></span>
+                                    <h5>Tiempo total por actividades (Minutos)</h5> <span class="glyphicon glyphicon-info-sign" title="Gráfico referente a la cantidad de minutos totales de cada una de las actividades contempladas en el REIM Mundo Animal por el total de los alumnos de un curso."></span>
                                     <div class="ibox-tools"></div>
                                 </div>
                                 <div class="ibox-content">
@@ -1499,7 +1439,159 @@
                     </div>
                 </div>
             </div>
-            {% endif %} 
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
+                        <div class="col-lg-6">
+                            <div class="ibox ">
+                                <div class="ibox-title">
+                                    <h5>Total de registros por actividad </h5> <span class="glyphicon glyphicon-info-sign" title="Gráfico referente a la cantidad de registros o instancias obtenidas por cada actividad del total de los alumnos de un curso."></span>
+                                    <div class="ibox-tools"></div>
+                                </div>
+                                <div class="ibox-content">
+                                    <div class="scroll_content">
+                                        <canvas id="Creacion2">{% load staticfiles %}</canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+            {% endif %}  
+            {% if reim_num == '1' and student_num == '0' and activity_num != '0' %}   
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
+                        <div class="col-lg-6">
+                            <div class="ibox ">
+                                <div class="ibox-title">
+                                    <h5>Analitica basada en el promedio de Correctas e Incorrectas por alumno</h5> <span class="  glyphicon glyphicon-info-sign" title="Gráfico referente a la cantidad de correctas e incorrectas obtenidas por cada alumno en las distintas actividades contempladas en el REIM Mundo Animal, adicionalmente se muestra el promedio de cada ITEM, para así distinguir si el alumno esta por debajo o sobre el promedio."></span>
+                                    <div class="ibox-tools"></div>
+                                </div>
+                                <div class="ibox-content">
+                                    <div class="scroll_content">
+                                        <canvas id="prueba2" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="ibox">
+                                <div class="ibox-title">
+                                    <h5>Preferencia según Animales</h5> <span class="glyphicon glyphicon-info-sign" title="Gráfico referente a la cantidad de veces que fue escogido un animal en el total de las actividades contempladas en el REIM Mundo Animal, obteniendo al animal más o menos escogido del curso."></span>
+                                    <div class="ibox-tools"></div>
+                                </div>
+                                <div class="ibox-content">
+                                    <div class="scroll_content">
+                                        <canvas id="animales" height=450>{% load staticfiles %}</canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
+                        <div class="col-lg-6">
+                            <div class="ibox ">
+                                <div class="ibox-title">
+                                    <h5>Cantidad de registros por alumno</h5> <span class="glyphicon glyphicon-info-sign" title="Gráfico referente a la cantidad de registros o instancias obtenidas durante la totalidad de uso del REIM Mundo Animal por alumno"></span>
+                                    <div class="ibox-tools"></div>
+                                </div>
+                                <div class="ibox-content">
+                                    <div class="scroll_content">
+                                        <canvas id="horizontalBar" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="ibox">
+                                <div class="ibox-title">
+                                    <h5>Tiempo total por actividades (Minutos)</h5> <span class="glyphicon glyphicon-info-sign" title="Gráfico referente a la cantidad de minutos totales de cada una de las actividades contempladas en el REIM Mundo Animal por el total de los alumnos de un curso."></span>
+                                    <div class="ibox-tools"></div>
+                                </div>
+                                <div class="ibox-content">
+                                    <div class="scroll_content">
+                                        <canvas id="Creacion1">{% load staticfiles %}</canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
+                    <div class="col-lg-6">
+                        <div class="ibox ">
+                            <div class="ibox-title">
+                                <h5>Intrucciones Auditivas</h5> <span class="glyphicon glyphicon-info-sign" title="Gráfico que permite identificar la cantidad de veces que los alumnos optaron por escuchar los audios instructivos que contempla el REIM Mundo Animal."></span>
+                                <div class="ibox-tools"></div>
+                            </div>
+                            <div class="ibox-content">
+                                <div class="scroll_content">
+                                    <canvas id="audios" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="ibox">
+                            <div class="ibox-title">
+                                <h5>Tiempo total de la actividad por alumno</h5> <span class="glyphicon glyphicon-info-sign" title="Gráfico que permite identificar cuanto tiempo en minutos estuvo cada alumno en una actividad respectiva."></span>
+                                <div class="ibox-tools"></div>
+                            </div>
+                            <div class="ibox-content">
+                                <div class="scroll_content">
+                                    <canvas id="TiempoalumnoMA" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}  
+        {% if reim_num == '1' and student_num != '0' and activity_num != '0' %}  
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
+                    <div class="col-lg-6">
+                        <div class="ibox ">
+                            <div class="ibox-title">
+                                <h5>Nivel de Interacción en el curso</h5> <span class="  glyphicon glyphicon-info-sign" title="Gráfico que permite identificar cuantas veces un alumno interactúo con sus compañeros de curso, esto se realiza mediante la cantidad de veces que le tocó un animal específico, siendo que cada animal correspondía a un alumno."></span>
+                                <div class="ibox-tools"></div>
+                            </div>
+                            <div class="ibox-content">
+                                <div class="scroll_content">
+                                    <canvas id="interaccion" >{% load staticfiles %}</canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="ibox">
+                            <div class="ibox-title">
+                                <h5>Cantidad de registros por alumno</h5> <span class="glyphicon glyphicon-info-sign" title="Gráfico referente a la cantidad de registros o instancias obtenidas durante la totalidad de uso del REIM Mundo Animal por alumno"></span>
+                                <div class="ibox-tools"></div>
+                            </div>
+                            <div class="ibox-content">
+                                <div class="scroll_content">
+                                    <canvas id="horizontalBar" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}  
+
             <!-- Fin Mundo animal -->
                 <div>
                     <strong>Copyright</strong>  &copy; 2019
@@ -2218,6 +2310,37 @@
     //Fin Clean Ocean
 
     //Inicio Mundo Animal
+    var ctx95data = {
+            labels: [
+                {% if audios_quantity %}
+        {% for audios in audios_quantity %}
+        '{{audios.name}}',
+        {% endfor%}
+        {% endif%}
+        ],
+        datasets: [
+            {
+                label: "Cantidad de instrucciones",
+                backgroundColor: '#f6f078',
+                borderColor: "#f6f078",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if audios_quantity %}
+            {% for audios in audios_quantity %}
+        '{{audios.quantity}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        }
+        
+        ]
+
+        };
+
+        if($('#audios').length){
+            var ctx95 = document.getElementById("audios").getContext("2d");
+            new Chart(ctx95, {type: 'horizontalBar', data: ctx95data  });
+        }
 
     var ctx50data = {
             labels: [
