@@ -1354,7 +1354,7 @@
                                 </div>
                                 <div class="ibox-content">
                                     <div class="scroll_content">
-                                        <canvas id="animales" height=450>{% load staticfiles %}</canvas>
+                                        <canvas id="animales" height={{animales_quantity_graph}}>{% load staticfiles %}</canvas>
                                     </div>
                                 </div>
                             </div>
@@ -1485,7 +1485,7 @@
                                 </div>
                                 <div class="ibox-content">
                                     <div class="scroll_content">
-                                        <canvas id="animales" height=450>{% load staticfiles %}</canvas>
+                                        <canvas id="animales" height={{animales_quantity_graph}}>{% load staticfiles %}</canvas>
                                     </div>
                                 </div>
                             </div>
@@ -1568,7 +1568,7 @@
                             </div>
                             <div class="ibox-content">
                                 <div class="scroll_content">
-                                    <canvas id="interaccion" >{% load staticfiles %}</canvas>
+                                    <canvas id="interaccion" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
                                 </div>
                             </div>
                         </div>
@@ -1581,7 +1581,26 @@
                             </div>
                             <div class="ibox-content">
                                 <div class="scroll_content">
-                                    <canvas id="horizontalBar" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
+                                    <canvas id="horizontalBar" height=200>{% load staticfiles %}</canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
+                    <div class="col-lg-6">
+                        <div class="ibox ">
+                            <div class="ibox-title">
+                                <h5>Preferencia según Animales</h5> <span class="glyphicon glyphicon-info-sign" title="Gráfico referente a la cantidad de veces que fue escogido un animal en el total de las actividades contempladas en el REIM Mundo Animal, obteniendo al animal más o menos escogido del curso."></span>
+                                <div class="ibox-tools"></div>
+                            </div>
+                            <div class="ibox-content">
+                                <div class="scroll_content">
+                                    <canvas id="animales" height={{animales_quantity_graph}}>{% load staticfiles %}</canvas>
                                 </div>
                             </div>
                         </div>

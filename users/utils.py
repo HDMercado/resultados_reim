@@ -573,6 +573,8 @@ def get_animals(request):
         query_params += " AND b.colegio_id = " + request.GET.get('school')
     if request.GET.get('activity') and request.GET.get('activity') != '0':
         query_params += " AND a.id_actividad = " + request.GET.get('activity')
+    if request.GET.get('student') and request.GET.get('student') != '0':
+        query_params += " AND u.id = " + request.GET.get('student')
 
 
     date = get_date_param_alumno_respuesta_actividad(request)

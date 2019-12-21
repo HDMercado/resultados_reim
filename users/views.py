@@ -126,7 +126,7 @@ def welcome(request):
         total_correctas = 0
         count1=1
         promedio_correctas=0
-        
+        animales_quantity_graph=0
         total_incorrectas = 0
         count2=1
         promedio_incorrectas=0
@@ -668,6 +668,7 @@ def welcome(request):
                 'analytics1_co_quantity':analytics1_co_quantity_response,
                 'tiempo_total_quantity':tiempo_total_quantity_response,
                 'audios_quantity':audios_quantity_response,
+                'animales_quantity_graph':animales_quantity_graph,
                 
                 #PLUSSPACE
                 'move_element_quantity':move_element_quantity_response,
