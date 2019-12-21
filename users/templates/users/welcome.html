@@ -1629,38 +1629,6 @@
                     <div class="col-lg-6">
                         <div class="ibox ">
                             <div class="ibox-title">
-                                <h5>Preferencia de actividades por alumno</h5> <span class="  glyphicon glyphicon-info-sign" title="Gráfico referente a la cantidad de veces que un alumno escogió una actividad, de esta manera se puede apreciar la preferencia de cada alumno del curso."></span>
-                                <div class="ibox-tools"></div>
-                            </div>
-                            <div class="ibox-content">
-                                <div class="scroll_content">
-                                    <canvas id="analitics1" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="ibox">
-                            <div class="ibox-title">
-                                <h5>Analitica basada en el promedio de Correctas e Incorrectas por alumno</h5> <span class="  glyphicon glyphicon-info-sign" title="Gráfico referente a la cantidad de correctas e incorrectas obtenidas por cada alumno en las distintas actividades contempladas en el REIM Mundo Animal, adicionalmente se muestra el promedio de cada ITEM, para así distinguir si el alumno esta por debajo o sobre el promedio."></span>
-                                <div class="ibox-tools"></div>
-                            </div>
-                            <div class="ibox-content">
-                                <div class="scroll_content">
-                                    <canvas id="prueba2" height={{cant_usuarios}}>{% load staticfiles %}</canvas>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> 
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
-                    <div class="col-lg-6">
-                        <div class="ibox ">
-                            <div class="ibox-title">
                                 <h5>Tiempo total de juego por alumno (Minutos)</h5> <span class="glyphicon glyphicon-info-sign" title="Gráfico referente a la cantidad de minutos totales de juego que obtuvo cada alumno. "></span>
                                 <div class="ibox-tools"></div>
                             </div>
@@ -1687,39 +1655,6 @@
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
-                    <div class="col-lg-6">
-                        <div class="ibox ">
-                            <div class="ibox-title">
-                                <h5>Total de registros por actividad </h5> <span class="glyphicon glyphicon-info-sign" title="Gráfico referente a la cantidad de registros o instancias obtenidas por cada actividad del total de los alumnos de un curso."></span>
-                                <div class="ibox-tools"></div>
-                            </div>
-                            <div class="ibox-content">
-                                <div class="scroll_content">
-                                    <canvas id="Creacion2">{% load staticfiles %}</canvas>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="ibox">
-                            <div class="ibox-title">
-                                <h5>Tiempo total por actividades (Minutos)</h5> <span class="glyphicon glyphicon-info-sign" title="Gráfico referente a la cantidad de minutos totales de cada una de las actividades contempladas en el REIM Mundo Animal por el total de los alumnos de un curso."></span>
-                                <div class="ibox-tools"></div>
-                            </div>
-                            <div class="ibox-content">
-                                <div class="scroll_content">
-                                    <canvas id="Creacion1" >{% load staticfiles %}</canvas>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
 
         {% endif %}  
             <!-- Fin Mundo animal -->
