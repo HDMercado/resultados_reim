@@ -171,8 +171,9 @@ def welcome(request):
             #print("animales quantity", animales_quantity)
             for row in animales_quantity:
                 animales_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
-            animales_quantity_graph = len(animales_quantity)*40+20
-
+            animales_quantity_graph = len(animales_quantity)*40+20    
+            
+            
             interaccion_query = get_interaccion(request)
             cursor.execute(interaccion_query)
             queries.append({"name": 'Interaccion query', "query": interaccion_query})
@@ -669,7 +670,7 @@ def welcome(request):
                 'tiempo_total_quantity':tiempo_total_quantity_response,
                 'audios_quantity':audios_quantity_response,
                 'animales_quantity_graph':animales_quantity_graph,
-                
+               
                 #PLUSSPACE
                 'move_element_quantity':move_element_quantity_response,
                 'elementos_PS_quantity':elementos_PS_quantity_response,
