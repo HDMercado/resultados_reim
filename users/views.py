@@ -122,10 +122,11 @@ def welcome(request):
         tiempoact_quantity_response=[]
         analytics1_co_quantity_response=[]
         tiempo_total_quantity_response=[]
+        audios_quantity_response=[]
         total_correctas = 0
         count1=1
         promedio_correctas=0
-        
+        animales_quantity_graph=0
         total_incorrectas = 0
         count2=1
         promedio_incorrectas=0
@@ -150,7 +151,7 @@ def welcome(request):
                 piezas_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
                 total_correctas += row[2]
                 count1 = count1+1
-            promedio_correctas = total_correctas / count1
+            promedio_correctas = total_correctas / count1         
 
             malas_query = get_malas(request)
             cursor.execute(malas_query)
@@ -170,8 +171,9 @@ def welcome(request):
             #print("animales quantity", animales_quantity)
             for row in animales_quantity:
                 animales_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
-
-
+            animales_quantity_graph = len(animales_quantity)*40+20    
+            
+            
             interaccion_query = get_interaccion(request)
             cursor.execute(interaccion_query)
             queries.append({"name": 'Interaccion query', "query": interaccion_query})
@@ -203,6 +205,13 @@ def welcome(request):
             #print("tiempo total por act quantity", tiempo_total_quantity)
             for row in tiempo_total_quantity:
                 tiempo_total_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+
+            audios_query = get_audios(request)
+            cursor.execute(audios_query)
+            queries.append({"name": 'Audios query', "query": audios_query})
+            audios_quantity = cursor.fetchall()
+            for row in audios_quantity:
+                audios_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
 
         #FIN MUNDO ANIMAL 
 
@@ -659,6 +668,9 @@ def welcome(request):
                 'promedio_incorrectas':int(promedio_incorrectas),
                 'analytics1_co_quantity':analytics1_co_quantity_response,
                 'tiempo_total_quantity':tiempo_total_quantity_response,
+                'audios_quantity':audios_quantity_response,
+                'animales_quantity_graph':animales_quantity_graph,
+               
                 #PLUSSPACE
                 'move_element_quantity':move_element_quantity_response,
                 'elementos_PS_quantity':elementos_PS_quantity_response,

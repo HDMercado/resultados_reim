@@ -174,7 +174,8 @@ def get_corrects_incorrects_co(request):
         query_params += " AND b.colegio_id = " + request.GET.get('school')
     if request.GET.get('activity') and request.GET.get('activity') != '0':
         query_params += " AND a.id_actividad = " + request.GET.get('activity')
-
+    if request.GET.get('student') and request.GET.get('student') != '0':
+        query_params += " AND a.id_user = " + request.GET.get('student')
 
     date = get_date_param_alumno_respuesta_actividad(request)
     start_base = 'SELECT u.id, concat(u.nombres ," ", u.apellido_paterno ," ", u.apellido_materno) as nombre, count(if(correcta=1,1,NULL)) Correctas, count(if(correcta=0,1,NULL)) Incorrectas FROM alumno_respuesta_actividad a, usuario u, pertenece b WHERE' + date
@@ -573,6 +574,8 @@ def get_animals(request):
         query_params += " AND b.colegio_id = " + request.GET.get('school')
     if request.GET.get('activity') and request.GET.get('activity') != '0':
         query_params += " AND a.id_actividad = " + request.GET.get('activity')
+    if request.GET.get('student') and request.GET.get('student') != '0':
+        query_params += " AND u.id = " + request.GET.get('student')
 
 
     date = get_date_param_alumno_respuesta_actividad(request)
@@ -632,7 +635,7 @@ def get_interaccion(request):
     date = get_date_param_alumno_respuesta_actividad(request)
 
     start_base = 'SELECT c.usuario_id, concat(d.nombres, " ", d.apellido_paterno," ", d.apellido_materno) as Nombre , count(a.id_reim) as Cantidad FROM alumno_respuesta_actividad a, `Avatar-Sesion` b, asigna_reim_alumno c, usuario d, pertenece e where' + date
-    final_base = ' e.colegio_id IN (SELECT colegio_id from pertenece INNER JOIN usuario ON pertenece.usuario_id = usuario.id WHERE username="' + request.user.username + '") AND e.curso_id IN (SELECT curso_id FROM pertenece WHERE usuario_id = (SELECT id FROM usuario WHERE username = "' + request.user.username + '"))' + query_params + ' AND c.usuario_id = d.id and c.usuario_id = e.usuario_id and a.correcta = b.elemento_id and b.asigna_reim_alumno_sesion_id = c.sesion_id and a.datetime_touch > c.datetime_inicio and a.datetime_touch < c.datetime_termino and id_reim=1 and correcta >9 and correcta<100 group by c.usuario_id;'
+    final_base = ' e.colegio_id IN (SELECT colegio_id from pertenece INNER JOIN usuario ON pertenece.usuario_id = usuario.id WHERE username="' + request.user.username + '") AND e.curso_id IN (SELECT curso_id FROM pertenece WHERE usuario_id = (SELECT id FROM usuario WHERE username = "' + request.user.username + '"))' + query_params + ' AND c.usuario_id = d.id and c.usuario_id = e.usuario_id and a.correcta = b.elemento_id and b.asigna_reim_alumno_sesion_id = c.sesion_id and a.datetime_touch > c.datetime_inicio and a.datetime_touch < c.datetime_termino and correcta >9 and correcta<100 group by c.usuario_id;'
     return start_base + final_base
 
 def get_tiempoact(request):
@@ -692,6 +695,28 @@ def get_tiempo_total_act(request):
     start_base = 'SELECT u.id, concat(u.nombres ," ", u.apellido_paterno ," ", u.apellido_materno) as nombre, IF (ROUND((SUM(TIMESTAMPDIFF(SECOND, a.inicio, a.final))))/60<1, 1,ROUND(SUM(TIMESTAMPDIFF(SECOND, a.inicio, a.final))/60)) as total_min FROM tiempoxactividad a, usuario u, pertenece b , nivel n , curso c, colegio co WHERE' + date
     final_base = ' n.id=b.nivel_id and b.curso_id = c.id and a.usuario_id = u.id and b.usuario_id=u.id and co.id = b.colegio_id' + query_params + ' group by u.id;'
     return start_base + final_base
+
+def get_audios(request):
+
+    query_params = ''
+
+    if request.GET.get('reim') and request.GET.get('reim') != '0':
+        query_params += " AND a.id_reim = " + request.GET.get('reim')
+    if request.GET.get('course') and request.GET.get('course') != '0':
+        query_params += " AND b.curso_id = " + request.GET.get('course')
+    if request.GET.get('school') and request.GET.get('school') != '0':
+        query_params += " AND b.colegio_id = " + request.GET.get('school')
+    if request.GET.get('activity') and request.GET.get('activity') != '0':
+        query_params += " AND a.id_actividad = " + request.GET.get('activity')
+
+
+    date = get_date_param_alumno_respuesta_actividad(request)
+    start_base = 'SELECT u.id, concat(u.nombres ," ", u.apellido_paterno ," ", u.apellido_materno) as nombre, count(a.id_elemento) AS audios, b.colegio_id, b.curso_id FROM alumno_respuesta_actividad a, usuario u, pertenece b WHERE' + date
+    final_base = ' a.id_user= u.id && b.usuario_id = a.id_user && b.colegio_id IN (SELECT colegio_id from pertenece INNER JOIN usuario ON pertenece.usuario_id = usuario.id WHERE username="' + request.user.username + '") AND b.curso_id IN (SELECT curso_id FROM pertenece WHERE usuario_id = (SELECT id FROM usuario WHERE username = "' + request.user.username + '"))' + query_params + ' AND (a.id_elemento = 28 OR a.id_elemento = 36 OR a.id_elemento = 48 OR a.id_elemento = 52 OR a.id_elemento = 63 OR a.id_elemento = 64 OR a.id_elemento = 65 OR a.id_elemento = 66 ) GROUP BY u.id'
+    return start_base + final_base
+
+
+
 #FIN QUERYS MUNDO ANIMAL 
 
 #INICIO QUERYS PLUS SPACE
