@@ -440,23 +440,23 @@ def welcome(request):
         completa_incompleta_PS_graf = len(completa_incompleta_PS_quantity_response) * 40+100
         
         #Analitica
-        
+    
         sesiones= len(sesiones_PS_quantity_response)
-        if(len(construccion_PS_quantity_response)!=0 ):
+        if(len(construccion_PS_quantity_response)!=0 or len(sesiones_PS_quantity_response)!=0 ):
             construccion=(len(construccion_PS_quantity_response)/len(sesiones_PS_quantity_response))
-        if(len(construccion_PS_quantity_response)==0):
+        if(len(construccion_PS_quantity_response)==0 or len(sesiones_PS_quantity_response)==0 ):
             construccion=0
-        if(len(saltos_PS_quantity_response)!=0):
+        if(len(saltos_PS_quantity_response)!=0 or len(sesiones_PS_quantity_response)!=0):
             saltos=(len(saltos_PS_quantity_response)/len(sesiones_PS_quantity_response))
-        if(len(saltos_PS_quantity_response)==0):
+        if(len(saltos_PS_quantity_response)==0 or len(sesiones_PS_quantity_response)==0):
             saltos=0
-        if(len(colisiones_PS_quantity_response)!=0):
+        if(len(colisiones_PS_quantity_response)!=0 or len(sesiones_PS_quantity_response)!=0):
             colisiones=(len(colisiones_PS_quantity_response)/len(sesiones_PS_quantity_response))
-        if(len(colisiones_PS_quantity_response)==0):
-               colisiones=0
-        if(len(puzzle_PS_quantity_response)!=0 and ingreso_puzzle_PS_quantity_response!=0):
+        if(len(colisiones_PS_quantity_response)==0 or len(sesiones_PS_quantity_response)==0):
+            colisiones=0
+        if(len(puzzle_PS_quantity_response)!=0 or ingreso_puzzle_PS_quantity_response!=0 or len(sesiones_PS_quantity_response)!=0):
             puzzle=(len(puzzle_PS_quantity_response)/len(ingreso_puzzle_PS_quantity_response))/len(sesiones_PS_quantity_response)
-        if(len(puzzle_PS_quantity_response)==0):
+        if(len(puzzle_PS_quantity_response)==0 or len(sesiones_PS_quantity_response)==0):
             puzzle=0
         print("contruccion")
         print(construccion)
