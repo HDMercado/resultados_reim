@@ -291,7 +291,7 @@ def welcome(request):
             cursor.execute(move_element_query)
             move_element_quantity = cursor.fetchall()
             for row in move_element_quantity:
-                move_element_quantity_response.append({ 'id': row[0], 'fila': row[1], 'columna': row[2] })
+                move_element_quantity_response.append({ 'id': row[0], 'fila': row[1], 'columna':row[2] })
         #ELEMENTOS creacion
             elementos_PS_query = get_elementos_PS(request)
             queries.append({"name": 'planet creacion query', "query": elementos_PS_query})
