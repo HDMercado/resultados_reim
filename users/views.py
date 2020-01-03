@@ -232,6 +232,11 @@ def welcome(request):
         acierto_cuida_quantity_response = []
         completa_incompleta_PS_quantity_response = []
         tiempoXact_quantity_response = []
+        jumpxalumno_quantity_response = []
+        elementosXalum_PS_quantity_response = []
+        element_colission_alum_quantity_response=[]
+        posicionamiento_alu_PS_quantity_response=[]
+        acierto_cuida_alu_quantity_response=[]
         time_PS_graf = 0
         correctas_PS_graf = 0
         move_element_graf = 0
@@ -241,9 +246,29 @@ def welcome(request):
         jump_alternativas_graf = 0
         acierto_cuida_graf = 0
         completa_incompleta_PS_graf = 0
+        i=0
+        construccion_PS_quantity_response=[]
+        saltos_PS_quantity_response=[]
+        colisiones_PS_quantity_response=[]
+        sesiones_PS_quantity_response=[]
+        puzzle_PS_quantity_response=[]
+        ingreso_puzzle_PS_quantity_response=[]
+        construccion=0
+        colisiones=0
+        saltos = 0
+        puzzle=0
+        sesiones = 0
         
-        if reim_num=="2":
+        if reim_num=="2":       
+
         #General
+            sesiones_PS_query = get_time_act_co(request)
+            queries.append({"name": 'Tiempo Actividad query', "query": sesiones_PS_query})
+            cursor.execute(sesiones_PS_query)
+            sesiones_PS_quantity = cursor.fetchall()
+            for row in sesiones_PS_quantity:
+                sesiones_PS_quantity_response.append({ 'id': row[0]})
+       
             time_PS_query = get_time_act_co(request)
             queries.append({"name": 'Tiempo Actividad query', "query": time_PS_query})
             cursor.execute(time_PS_query)
@@ -266,7 +291,7 @@ def welcome(request):
             cursor.execute(move_element_query)
             move_element_quantity = cursor.fetchall()
             for row in move_element_quantity:
-                move_element_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+                move_element_quantity_response.append({ 'id': row[0], 'fila': row[1], 'columna': row[2] })
         #ELEMENTOS creacion
             elementos_PS_query = get_elementos_PS(request)
             queries.append({"name": 'planet creacion query', "query": elementos_PS_query})
@@ -274,6 +299,50 @@ def welcome(request):
             elementos_PS_quantity = cursor.fetchall()
             for row in elementos_PS_quantity:
                 elementos_PS_quantity_response.append({ 'id': row[0], 'name': row[1], 'planeta': row[2], 'planetaCS': row[3], 'planetaCA': row[4], 'estrella': row[5], 'supernova': row[6], 'nebulosa': row[7], 'galaxia': row[8] })
+        #ELEMENTOS creacion
+            elementosXalum_PS_query = get_elementos_alum_PS(request)
+            queries.append({"name": 'planet creacion x alumno query', "query": elementosXalum_PS_query})
+            cursor.execute(elementosXalum_PS_query)
+            elementosXalum_PS_quantity = cursor.fetchall()
+            i=0
+            for row in elementosXalum_PS_quantity:
+                i=i+1
+                elementosXalum_PS_quantity_response.append({ 'id': i, 'name': row[0], 'elemento': row[0]})
+        #construcción PS analitica
+            construccion_PS_query = get_construccion_PS(request)
+            queries.append({"name": 'construcción query', "query": construccion_PS_query})
+            cursor.execute(construccion_PS_query)
+            construccion_PS_quantity = cursor.fetchall()
+            for row in construccion_PS_quantity:
+                construccion_PS_quantity_response.append({ 'id': row[0], 'name': row[1]})
+        #saltos PS analitica
+            saltos_PS_query = get_saltos_analitica_PS(request)
+            queries.append({"name": 'saltos analitica query', "query": saltos_PS_query})
+            cursor.execute(saltos_PS_query)
+            saltos_PS_quantity = cursor.fetchall()
+            for row in saltos_PS_quantity:
+                saltos_PS_quantity_response.append({ 'id': row[0], 'name': row[1]})
+        #colisiones PS analitica
+            colisiones_PS_query = get_colisiones_analitica_PS(request)
+            queries.append({"name": 'colisiones analitica query', "query": colisiones_PS_query})
+            cursor.execute(colisiones_PS_query)
+            colisiones_PS_quantity = cursor.fetchall()
+            for row in colisiones_PS_quantity:
+                colisiones_PS_quantity_response.append({ 'id': row[0], 'name': row[1]})
+        #puzzle PS analitica
+            puzzle_PS_query = get_puzzle_PS(request)
+            queries.append({"name": 'construcción query', "query": puzzle_PS_query})
+            cursor.execute(puzzle_PS_query)
+            puzzle_PS_quantity = cursor.fetchall()
+            for row in puzzle_PS_quantity:
+                puzzle_PS_quantity_response.append({ 'id': row[0], 'name': row[1]})
+        #ingreso puzzle PS analitica
+            ingreso_puzzle_PS_query = get_ingreso_puzzle_PS(request)
+            queries.append({"name": 'construcción query', "query": ingreso_puzzle_PS_query})
+            cursor.execute(ingreso_puzzle_PS_query)
+            ingreso_puzzle_PS_quantity = cursor.fetchall()
+            for row in ingreso_puzzle_PS_quantity:
+                ingreso_puzzle_PS_quantity_response.append({ 'id': row[0], 'name': row[1]})
         #LABERINTO
         #posicionamiento
             posicionamiento_PS_query = get_posicionamiento_PS(request)
@@ -282,6 +351,15 @@ def welcome(request):
             posicionamiento_PS_quantity = cursor.fetchall()
             for row in posicionamiento_PS_quantity:
                 posicionamiento_PS_quantity_response.append({ 'id': row[0], 'name': row[1], 'tierra': row[2], 'neptuno': row[3], 'jupiter': row[4], 'saturno': row[5], 'urano': row[6], 'venus': row[7], 'mercurio': row[8], 'marte': row[9] })
+        #posicionamiento
+            posicionamiento_alu_PS_query = get_posicionamiento_alu_PS(request)
+            queries.append({"name": 'posicionamiento_alu_PS query', "query": posicionamiento_alu_PS_query})
+            cursor.execute(posicionamiento_alu_PS_query)
+            posicionamiento_alu_PS_quantity = cursor.fetchall()
+            for row in posicionamiento_alu_PS_quantity:
+                i=i+1
+                posicionamiento_alu_PS_quantity_response.append({ 'id': i, 'name': row[0], 'elemento': row[0]})
+
         #colisiones
             element_colission_query = get_element_colission_query(request)
             queries.append({"name": 'colisiones query', "query": element_colission_query})
@@ -289,6 +367,16 @@ def welcome(request):
             element_colission_quantity = cursor.fetchall()
             for row in element_colission_quantity:
                 element_colission_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+        #colisiones x alumno
+            element_colission_alum_query = get_element_colission_alu_query(request)
+            queries.append({"name": 'colisionesxalumno query', "query": element_colission_alum_query})
+            cursor.execute(element_colission_alum_query)
+            element_colission_alum_quantity = cursor.fetchall()
+            i=0
+            for row in element_colission_alum_quantity:
+                i=i+1
+                element_colission_alum_quantity_response.append({ 'id':i ,'name': row[0], 'quantity': row[1] })
+        
         #ALTERNATIVAS
         #saltos
             jump_alternativas_query = get_jump_alternativas_query(request)
@@ -297,6 +385,16 @@ def welcome(request):
             jump_alternativas_quantity = cursor.fetchall()
             for row in jump_alternativas_quantity:
                 jump_alternativas_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+        #saltosxalumno
+            jumpxalumno_query = get_jump_alternativas_alu_query(request)
+            queries.append({"name": 'Saltosxalumno query', "query": jumpxalumno_query})
+            cursor.execute(jumpxalumno_query)
+            jumpxalumno_quantity = cursor.fetchall()
+            i=0
+            for row in jumpxalumno_quantity:
+                i=i+1
+                jumpxalumno_quantity_response.append({ 'id':i ,'name': row[0], 'quantity': row[1] })
+        
         #busca
         #CORRECTAS INCORRECTAS
             correctas_PS_query = get_corrects_incorrects_co(request)
@@ -320,16 +418,52 @@ def welcome(request):
             acierto_cuida_quantity = cursor.fetchall()
             for row in acierto_cuida_quantity:
                 acierto_cuida_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+        #acierto x alumno
+            acierto_cuida_alu_query = get_acierto_cuida_alu_query(request)
+            queries.append({"name": 'Acierto Cuida query', "query": acierto_cuida_alu_query})
+            cursor.execute(acierto_cuida_alu_query)
+            acierto_cuida_alu_quantity = cursor.fetchall()
+            i=0
+            for row in acierto_cuida_alu_quantity:
+                i=i+1
+                acierto_cuida_alu_quantity_response.append({ 'id':i ,'name': row[0], 'quantity': row[1] })
+        
+            
         #otros
         time_PS_graf = len(time_PS_quantity_response) * 40+20
-        correctas_PS_graf = len(correctas_PS_quantity_response) * 40+20
-        move_element_graf = len(move_element_quantity_response) * 40+20
+        correctas_PS_graf = len(correctas_PS_quantity_response) * 40+100
         elementos_PS_graf = len(elementos_PS_quantity_response) * 40+100
         element_colission_graf = len(element_colission_quantity_response) * 40+20
         posicionamiento_PS_graf = len(posicionamiento_PS_quantity_response) * 40+100
         jump_alternativas_graf = len(jump_alternativas_quantity_response) * 40+20
         acierto_cuida_graf = len(acierto_cuida_quantity_response) * 40+20
-        completa_incompleta_PS_graf = len(completa_incompleta_PS_quantity_response) * 40+20
+        completa_incompleta_PS_graf = len(completa_incompleta_PS_quantity_response) * 40+100
+        
+        #Analitica
+        if(activity_num==0):
+            sesiones= len(sesiones_PS_quantity_response)
+            if(len(construccion_PS_quantity_response)!=0 ):
+                construccion=(len(construccion_PS_quantity_response)/len(sesiones_PS_quantity_response))
+            if(len(construccion_PS_quantity_response)==0):
+                construccion=0
+            if(len(saltos_PS_quantity_response)!=0):
+                saltos=(len(saltos_PS_quantity_response)/len(sesiones_PS_quantity_response))
+            if(len(saltos_PS_quantity_response)==0):
+                saltos=0
+            if(len(colisiones_PS_quantity_response)!=0):
+                colisiones=(len(colisiones_PS_quantity_response)/len(sesiones_PS_quantity_response))
+            if(len(colisiones_PS_quantity_response)==0):
+                colisiones=0
+            if(len(puzzle_PS_quantity_response)!=0 and ingreso_puzzle_PS_quantity_response!=0):
+                puzzle=(len(puzzle_PS_quantity_response)/len(ingreso_puzzle_PS_quantity_response))/len(sesiones_PS_quantity_response)
+            if(len(puzzle_PS_quantity_response)==0):
+                puzzle=0
+        print("contruccion")
+        print(construccion)
+        print("saltos")
+        print(saltos)
+        print("sesiones")
+        print(sesiones)
         #FIN PLUS SPACE
 
         #INICIO CLEAN OCEAN
@@ -681,6 +815,12 @@ def welcome(request):
                 'completa_incompleta_PS_quantity':completa_incompleta_PS_quantity_response,
                 'correctas_PS_quantity':correctas_PS_quantity_response,
                 'time_PS_quantity':time_PS_quantity_response,
+                #por alumno
+                'jumpxalumno_quantity':jumpxalumno_quantity_response,
+                'elementosXalum_PS_quantity':elementosXalum_PS_quantity_response,
+                'element_colission_alum_quantity':element_colission_alum_quantity_response,
+                'posicionamiento_alu_PS_quantity':posicionamiento_alu_PS_quantity_response,
+                'acierto_cuida_alu_quantity':acierto_cuida_alu_quantity_response,
                 #tamaño de graficos
                 'time_PS_graf':time_PS_graf,
                 'correctas_PS_graf':correctas_PS_graf,
@@ -692,6 +832,12 @@ def welcome(request):
                 'acierto_cuida_graf':acierto_cuida_graf,
                 'completa_incompleta_PS_graf':completa_incompleta_PS_graf,
                 'tiempoXact_quantity':tiempoXact_quantity_response,
+                #ANALITICA PS
+                'construccion':round(construccion),
+                'saltos':round(saltos),
+                'colisiones':round(colisiones),
+                'sesiones':sesiones,
+                'puzzle':round(puzzle),
                 
             })
     # En otro caso redireccionamos al login
