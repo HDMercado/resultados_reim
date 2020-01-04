@@ -3826,11 +3826,35 @@ var CreacionData = {
         }
         ]
         };
-
+        
+        var barOptions2 = {
+            animation: false,
+            responsive: true,
+            isFixedWidth:true,
+            scales: {
+                xAxes:[{
+                    stacked:false,
+                    ticks: {
+                        min: 0,
+                        callback: function(value, index, values) {
+                            if (Math.floor(value) === value) {
+                                return value;
+                            }
+                        }
+                    }
+                }],
+                yAxes:[{
+                    stacked:true,
+                    ticks: {
+                        min: 0
+                    }
+                }]
+            }
+        };
 
         if ($('#AnaliticaPS').length){
             var ctx17 = document.getElementById("AnaliticaPS").getContext("2d");
-            new Chart(ctx17, {type: 'horizontalBar', data: AnaliticaPSData, options:barOptions});
+            new Chart(ctx17, {type: 'horizontalBar', data: AnaliticaPSData, options:barOptions2});
         }
 
 //FIN PLUSSPACE----------------------
