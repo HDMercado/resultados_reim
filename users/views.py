@@ -291,7 +291,9 @@ def welcome(request):
             cursor.execute(move_element_query)
             move_element_quantity = cursor.fetchall()
             for row in move_element_quantity:
-                move_element_quantity_response.append({ 'id': row[0], 'fila': row[1], 'columna':row[2] })
+                move_element_quantity_response.append({ 'id': row[0], 'fila': row[1], 'columna':row[2]})
+                print(row[1])
+                print(row[2])
         #ELEMENTOS creacion
             elementos_PS_query = get_elementos_PS(request)
             queries.append({"name": 'planet creacion query', "query": elementos_PS_query})
@@ -448,17 +450,17 @@ def welcome(request):
         puzzle=len(puzzle_PS_quantity_response)
         ingreso=len(ingreso_puzzle_PS_quantity_response)
         if(construccion>0 or sesiones>0 ):
-            construccion=(construccion/sesiones)
+            construccion=construccion/sesiones
         if(construccion<=0 or sesiones<=0):
             construccion=0
         if(colisiones>0 or sesiones>0 ):
-            colisiones=(construccion/sesiones)
+            colisiones=colisiones/sesiones
         if(colisiones<=0 or sesiones<=0):
             colisiones=0
         if(puzzle>0 or sesiones>0 or ingreso>0):
             puzzle=puzzle/sesiones
         if(puzzle>0 or ingreso>0):
-            puzzle=puzzle//ingreso
+            puzzle=puzzle/ingreso
         if(puzzle<=0 or sesiones<=0 or ingreso<=0):
             puzzle=0
 

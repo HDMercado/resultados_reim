@@ -934,7 +934,7 @@ def get_move_element_query(request):
         end += " 23:59:59.000000"
         date = ' (a.datetime_touch >= TIMESTAMP("'+ start + '") && a.datetime_touch <= TIMESTAMP("' + end  + '")) &&'
 
-    start_base = ' SELECT u.id, round(a.fila/100), round(a.columna/100) FROM alumno_respuesta_actividad a, usuario u, pertenece b WHERE' + date
+    start_base = ' SELECT u.id, CEILING(a.fila/100), CEILING(a.columna/100) FROM alumno_respuesta_actividad a, usuario u, pertenece b WHERE' + date
     final_base = ' a.id_user = u.id && b.usuario_id = a.id_user' + query_params + ' AND (a.id_elemento= 2133 OR a.id_elemento= 2134 OR a.id_elemento= 2135 OR a.id_elemento= 2136 OR a.id_elemento= 2137 OR a.id_elemento= 2138 OR a.id_elemento= 2139)'
 
     return start_base + final_base
