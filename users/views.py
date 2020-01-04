@@ -253,11 +253,11 @@ def welcome(request):
         sesiones_PS_quantity_response=[]
         puzzle_PS_quantity_response=[]
         ingreso_puzzle_PS_quantity_response=[]
-        construccion=0
-        colisiones=0
-        saltos = 0
-        puzzle=0
-        sesiones = 0
+        construccion=0.0
+        colisiones=0.0
+        saltos = 0.0
+        puzzle=0.0
+        sesiones = 0.0
         
         if reim_num=="2":       
 
@@ -442,22 +442,26 @@ def welcome(request):
         #Analitica
     
         sesiones= len(sesiones_PS_quantity_response)
-        if(len(construccion_PS_quantity_response)!=0 or len(sesiones_PS_quantity_response)!=0 ):
-            construccion=(len(construccion_PS_quantity_response)/len(sesiones_PS_quantity_response))
-        if(len(construccion_PS_quantity_response)==0 or len(sesiones_PS_quantity_response)==0 ):
+        construccion=len(construccion_PS_quantity_response)
+        colisiones=len(colisiones_PS_quantity_response)
+        saltos=len(saltos_PS_quantity_response)
+        puzzle=len(puzzle_PS_quantity_response)
+        ingreso=len(ingreso_puzzle_PS_quantity_response)
+        if(construccion>0 or sesiones>0 ):
+            construccion=(construccion/sesiones)
+        if(construccion<=0 or sesiones<=0):
             construccion=0
-        if(len(saltos_PS_quantity_response)!=0 or len(sesiones_PS_quantity_response)!=0):
-            saltos=(len(saltos_PS_quantity_response)/len(sesiones_PS_quantity_response))
-        if(len(saltos_PS_quantity_response)==0 or len(sesiones_PS_quantity_response)==0):
-            saltos=0
-        if(len(colisiones_PS_quantity_response)!=0 or len(sesiones_PS_quantity_response)!=0):
-            colisiones=(len(colisiones_PS_quantity_response)/len(sesiones_PS_quantity_response))
-        if(len(colisiones_PS_quantity_response)==0 or len(sesiones_PS_quantity_response)==0):
+        if(colisiones>0 or sesiones>0 ):
+            colisiones=(construccion/sesiones)
+        if(colisiones<=0 or sesiones<=0):
             colisiones=0
-        if(len(puzzle_PS_quantity_response)!=0 or ingreso_puzzle_PS_quantity_response!=0 or len(sesiones_PS_quantity_response)!=0):
-            puzzle=(len(puzzle_PS_quantity_response)/len(ingreso_puzzle_PS_quantity_response))/len(sesiones_PS_quantity_response)
-        if(len(puzzle_PS_quantity_response)==0 or len(sesiones_PS_quantity_response)==0):
+        if(puzzle>0 or sesiones>0 or ingreso>0):
+            puzzle=puzzle/sesiones
+        if(puzzle>0 or ingreso>0):
+            puzzle=puzzle//ingreso
+        if(puzzle<=0 or sesiones<=0 or ingreso<=0):
             puzzle=0
+
         print("contruccion")
         print(construccion)
         print("saltos")
