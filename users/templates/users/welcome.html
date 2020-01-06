@@ -205,6 +205,19 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-lg-6">
+                            <div class="ibox ">
+                                <div class="ibox-title">
+                                    <h5>Historial de elementos creados</h5><span class="  glyphicon glyphicon-info-sign" title="Mediante este gráfico se puede apreciar las veces que los alumnos completaron una actividad y no la completaron debido a que no desidieron continuar o por inactividad."></span>
+                                    <div class="ibox-tools"></div>
+                                </div>
+                                <div class="ibox-content">
+                                    <div class="scroll_content">
+                                        <canvas id="creadosAnaliticaPS">{% load staticfiles %}</canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div><!--
@@ -295,6 +308,25 @@
                     </div>
                 </div>
             </div>
+            <div class="row" >
+                <div class="col-lg-12">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="ibox">
+                                <div class="ibox-title">
+                                    <h5>Historial de colisiones</h5><span class="  glyphicon glyphicon-info-sign" title="Mediante este gráfico se puede apreciar cantidad de tiempo (en minutos) en que los alumnos han permanecido en la actividad Laberinto."></span>
+                                    <div class="ibox-tools"></div>
+                                </div>
+                                <div class="ibox-content">
+                                    <div class="scroll_content">
+                                        <canvas id="colisionesAnaliticaPS">{% load staticfiles %}</canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             
             {% endif %}
             <!--ALTERNATIVAS -->
@@ -356,6 +388,25 @@
                                 <div class="ibox-content">
                                     <div class="scroll_content">
                                         <canvas id="tiempoActividad" height={{time_PS_graf}}>{% load staticfiles %}</canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" >
+                <div class="col-lg-12">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="ibox ">
+                                <div class="ibox-title">
+                                    <h5>Historial de saltos</h5><span class="  glyphicon glyphicon-info-sign" title="Mediante este gráfico se puede apreciar las veces que los alumnos completaron una actividad y no la completaron debido a que no desidieron continuar o por inactividad."></span>
+                                    <div class="ibox-tools"></div>
+                                </div>
+                                <div class="ibox-content">
+                                    <div class="scroll_content">
+                                        <canvas id="saltosAnaliticaPS">{% load staticfiles %}</canvas>
                                     </div>
                                 </div>
                             </div>
@@ -507,6 +558,25 @@
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="row" >
+                        <div class="col-lg-6">
+                            <div class="ibox ">
+                                <div class="ibox-title">
+                                    <h5>Historial touch</h5><span class="  glyphicon glyphicon-info-sign" title="Mediante este gráfico se puede apreciar las veces que los alumnos completaron una actividad y no la completaron debido a que no desidieron continuar o por inactividad."></span>
+                                    <div class="ibox-tools"></div>
+                                </div>
+                                <div class="ibox-content">
+                                    <div class="scroll_content">
+                                        <canvas id="touchAnaliticaPS">{% load staticfiles %}</canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             {% endif %}
             {% endif %}
             <!--GENERAL-->
@@ -575,25 +645,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="row">
-                <div class="col-lg-6">
-                    <div class="ibox">
-                        <div class="ibox-title">
-                            <h5>Gráfico de Analítica de aprendizaje</h5><span class="  glyphicon glyphicon-info-sign" title="Mediante este gráfico se visualiza el desarrollo que tiene los alumnos por las veces que a ingresado al juego PlusSpace o e el caso de la perseverancia las veces que a ingresado a la actividad Puzzle"></span>
-                            <div class="ibox-tools"></div>
-                        </div>
-                        <div class="ibox-content">
-                            <div class="scroll_content">
-                                <canvas id="AnaliticaPS" height=200>{% load staticfiles %}</canvas>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
                 {% endif %}
             <!-- Fin Plus Space -->
 
@@ -2803,10 +2854,10 @@
         }
         ]
         };
-
+        
         if ($('#tiempoActividad').length){
             var ctx = document.getElementById("tiempoActividad").getContext("2d");
-            new Chart(ctx, {type: 'horizontalBar', data: tiempoActividadData, options:stackedOptions});
+            new Chart(ctx, {type: 'horizontalBar', data: tiempoActividadData, options:barOptions});
         }
         var CCreacionData = {
             labels: [
@@ -2971,73 +3022,60 @@
             var ctx17 = document.getElementById("CreadosCreacion").getContext("2d");
             new Chart(ctx17, {type: 'horizontalBar', data: CreadosCreacionData, options:barOptions});
         }
-//creados x ACTIVIDAD - PLUSSPACE
-var creadosxalumPSData = {
+//creados analitica - PLUSSPACE
+var creadosAnaliticaPSData = {
             labels: [
-                {% if elementosXalum_PS_quantity %}
-        {% for elementosXalum in elementosXalum_PS_quantity %}
-        '{{elementosXalum.id}}',
-        {% endfor%}
-        {% endif%}
-        ],
-        datasets: [
+                {% if elementos_analitica_PS_quantity %}
+                {% for elementos_analitica_PS in elementos_analitica_PS_quantity %}
+                '{{elementos_analitica_PS.name}}',
+                {% endfor%}
+                {% endif%}
+                ],
+            datasets: [
             {
                 label: "Elementos creados",
                 backgroundColor: 'rgb(0,188,212)',
                 borderColor: "rgb(3,155,229)",
                 pointBorderColor: "#fff",
                 data: [
-                    {% if elementosXalum_PS_quantity %}
-                {% for elementosXalum in elementosXalum_PS_quantity %}
-                '{{elementosXalum.quantity}}',
-                {% endfor%}
-                {% endif%}
-                ],
+                    {% if elementos_analitica_PS_quantity %}
+                    {% for elementos_analitica_PS in elementos_analitica_PS_quantity %}
+                    '{{elementos_analitica_PS.quantity}}',
+                    {% endfor%}
+                    {% endif%}
+                    ],
                 fill: false,
-                pointRadius:10,
-                pointHoverRadius:15,
-                showLine:false
+                pointRadius:7,
+                pointHoverRadius:10,
+                showLine:true
         }
         ]
         };       
+        var lineOptions = {
+            animation: false,
+            scales: {
+                xAxes:[{
+                    stacked:true,
+                    ticks: {
+                        min: 0
+                    }
+                }],
+                yAxes:[{
+                    stacked:false,
+                    ticks: {
+                        min: 0
+                    }
+                }]
 
-        if ($('#creadosxalumPS').length){
-            var ctx22 = document.getElementById("creadosxalumPS").getContext("2d");
-            new Chart(ctx22, {type: 'line', data: creadosxalumPSData, options:barOptions});
+            },
+            display: true
+
+        };
+        if ($('#creadosAnaliticaPS').length){
+            var ctx22 = document.getElementById("creadosAnaliticaPS").getContext("2d");
+            new Chart(ctx22, {type: 'line', data: creadosAnaliticaPSData, options:lineOptions});
         }
         //ELEMENTOS DESPLAZADOS - CREACION - PLSSPACE
-        var moveElementData = {
-        datasets: [
-            {
-                label: "Elementos desplazados",
-                backgroundColor: 'rgb(0,188,212)',
-                borderColor: "rgb(3,155,229)",
-                pointBorderColor: "#fff",
-                data: [
-                    {% if move_element_quantity_response %}
-                    {% for move_element_quantity in move_element_quantity_response %}
-                        {
-                            x:'{{move_element_quantity.fila}}', 
-                            y:'{{move_element_quantity.columna}}'
-                        },
-                    {% endfor%}
-                    {% endif%}
-                ],
-        }
-        ]
-        };
-        var scatterOptions={
-            scales: {
-            xAxes: [{
-                type: 'linear',
-                position: 'bottom'
-            }]
-        }};
-
-        if ($('#moveElement').length){
-            var ctx22 = document.getElementById("moveElement").getContext("2d");
-            new Chart(ctx22, {type: 'scatter', data: moveElementData, options:scatterOptions});
-        }
         //LABERINTO
         //COLISIONES
         var ElementColissionData = {
@@ -3069,38 +3107,38 @@ var creadosxalumPSData = {
             var ctx19 = document.getElementById("colissionPS").getContext("2d");
             new Chart(ctx19, {type: 'horizontalBar', data: ElementColissionData, options:barOptions});
         }
-        //colission x ACTIVIDAD - PLUSSPACE
-        var colissionxalumPSData = {
+        //colisiones analitica - PLUSSPACE
+var colisionesAnaliticaPSData = {
             labels: [
-                {% if element_colission_alum_quantity %}
-        {% for element_colission_alum in element_colission_alum_quantity %}
-        '{{element_colission_alum.id}}',
-        {% endfor%}
-        {% endif%}
-        ],
-        datasets: [
-            {
-                label: "Colisiones",
-                backgroundColor: 'rgb(243,156,18)',
-                borderColor: "rgb(214,137,16)",
-                pointBorderColor: "#fff",
-                data: [
-                    {% if element_colission_alum_quantity %}
-                {% for element_colission_alum in element_colission_alum_quantity %}
-                '{{element_colission_alum.quantity}}',
+                {% if colission_analitica_quantity %}
+                {% for colission_analitica in colission_analitica_quantity %}
+                '{{colission_analitica.name}}',
                 {% endfor%}
                 {% endif%}
                 ],
+            datasets: [
+            {
+                label: "Elementos creados",
+                backgroundColor: 'rgb(0,188,212)',
+                borderColor: "rgb(3,155,229)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if colission_analitica_quantity %}
+                    {% for colission_analitica in colission_analitica_quantity %}
+                    '{{colission_analitica.quantity}}',
+                    {% endfor%}
+                    {% endif%}
+                    ],
                 fill: false,
-                pointRadius:10,
-                pointHoverRadius:15,
-                showLine:false
+                pointRadius:7,
+                pointHoverRadius:10,
+                showLine:true
         }
         ]
         };
-        if ($('#colissionxalumPS').length){
-            var ctx22 = document.getElementById("colissionxalumPS").getContext("2d");
-            new Chart(ctx22, {type: 'line', data: colissionxalumPSData, options:barOptions});
+        if ($('#colisionesAnaliticaPS').length){
+            var ctx22 = document.getElementById("colisionesAnaliticaPS").getContext("2d");
+            new Chart(ctx22, {type: 'line', data: colisionesAnaliticaPSData, options:lineOptions});
         }
         //actividades completadas LABERINTO PS
         var CLaberintoData = {
@@ -3279,39 +3317,7 @@ var creadosxalumPSData = {
             var ctx20 = document.getElementById("ALaberinto").getContext("2d");
             new Chart(ctx20, {type: 'horizontalBar', data: ALaberintoData, options: barOptions});
         }
-//posicionamiento x ACTIVIDAD - PLUSSPACE
-var posxalumPSData = {
-            labels: [
-                {% if posicionamiento_alu_PS_quantity %}
-        {% for posicionamiento_alu_PS in posicionamiento_alu_PS_quantity %}
-        '{{posicionamiento_alu_PS.id}}',
-        {% endfor%}
-        {% endif%}
-        ],
-        datasets: [
-            {
-                label: "Colisiones",
-                backgroundColor: 'rgb(243,156,18)',
-                borderColor: "rgb(214,137,16)",
-                pointBorderColor: "#fff",
-                data: [
-                    {% if posicionamiento_alu_PS_quantity %}
-                {% for posicionamiento_alu_PS in posicionamiento_alu_PS_quantity %}
-                '{{posicionamiento_alu_PS.quantity}}',
-                {% endfor%}
-                {% endif%}
-                ],
-                fill: false,
-                pointRadius:10,
-                pointHoverRadius:15,
-                showLine:false
-        }
-        ]
-        };
-        if ($('#posxalumPS').length){
-            var ctx22 = document.getElementById("posxalumPS").getContext("2d");
-            new Chart(ctx22, {type: 'line', data: posxalumPSData, options:barOptions});
-        }
+
         //completas incompletas PS-----------------------------------------------
         var CInInPSData = {
             labels: [
@@ -3442,59 +3448,38 @@ var posxalumPSData = {
             var ctx22 = document.getElementById("jumpAlternativas").getContext("2d");
             new Chart(ctx22, {type: 'horizontalBar', data: jumpAlternativasData, options:barOptions});
         }
-//SALTOS x ACTIVIDAD - PLUSSPACE
-var saltosxalumPSData = {
+//SALTOS analitica - PLUSSPACE
+var saltosAnaliticaPSData = {
             labels: [
                 {% if jumpxalumno_quantity %}
-        {% for jumpxalumno in jumpxalumno_quantity %}
-        '{{jumpxalumno.id}}',
-        {% endfor%}
-        {% endif%}
-        ],
-        datasets: [
-            {
-                label: "Saltos",
-                backgroundColor: 'rgb(243,156,18)',
-                borderColor: "rgb(214,137,16)",
-                pointBorderColor: "#fff",
-                data: [
-                    {% if jumpxalumno_quantity %}
                 {% for jumpxalumno in jumpxalumno_quantity %}
-                '{{jumpxalumno.quantity}}',
+                '{{jumpxalumno.name}}',
                 {% endfor%}
                 {% endif%}
                 ],
+            datasets: [
+            {
+                label: "Elementos creados",
+                backgroundColor: 'rgb(0,188,212)',
+                borderColor: "rgb(3,155,229)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if jumpxalumno_quantity %}
+                    {% for jumpxalumno in jumpxalumno_quantity %}
+                    '{{jumpxalumno.quantity}}',
+                    {% endfor%}
+                    {% endif%}
+                    ],
                 fill: false,
-                pointRadius:10,
-                pointHoverRadius:15,
-                showLine:false
+                pointRadius:7,
+                pointHoverRadius:10,
+                showLine:true
         }
         ]
         };
-        var xOptions = {
-            animation: false,
-            responsive: true,
-            isFixedWidth:true,
-            scales: {
-                xAxes:[{
-                    stacked:false,
-                    ticks: {
-                        min: 0,
-                        callback: function(value, index, values) {
-                            if (Math.floor(value) === value) {
-                                return value;
-                            }
-                        }
-                    }
-                }],
-                yAxes:[{
-                    stacked:false
-                }]
-            }
-        };
-        if ($('#saltosxalumPS').length){
-            var ctx22 = document.getElementById("saltosxalumPS").getContext("2d");
-            new Chart(ctx22, {type: 'line', data: saltosxalumPSData, options:barOptions});
+        if ($('#saltosAnaliticaPS').length){
+            var ctx22 = document.getElementById("saltosAnaliticaPS").getContext("2d");
+            new Chart(ctx22, {type: 'line', data: saltosAnaliticaPSData, options:lineOptions});
         }
 //completas incompletas cuida PS
         var CcuidaData = {
@@ -3739,6 +3724,39 @@ var saltosxalumPSData = {
             var ctx27 = document.getElementById("Cpuzzle").getContext("2d");
             new Chart(ctx27, {type: 'horizontalBar', data: CpuzzleData, options: barOptions});
         }
+//touch analitica puzzle
+        var touchAnaliticaPSData = {
+            labels: [
+                {% if touch_puzzle_quantity %}
+                {% for touch_puzzle in touch_puzzle_quantity %}
+                '{{touch_puzzle.name}}',
+                {% endfor%}
+                {% endif%}
+                ],
+            datasets: [
+            {
+                label: "Elementos creados",
+                backgroundColor: 'rgb(0,188,212)',
+                borderColor: "rgb(3,155,229)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if touch_puzzle_quantity %}
+                    {% for touch_puzzle in touch_puzzle_quantity %}
+                    '{{touch_puzzle.quantity}}',
+                    {% endfor%}
+                    {% endif%}
+                    ],
+                fill: false,
+                pointRadius:7,
+                pointHoverRadius:10,
+                showLine:true
+        }
+        ]
+        };
+        if ($('#touchAnaliticaPS').length){
+            var ctx22 = document.getElementById("touchAnaliticaPS").getContext("2d");
+            new Chart(ctx22, {type: 'line', data: touchAnaliticaPSData, options:lineOptions});
+        }
 //GRAFICOs POR ALUMNO
 var CreacionData = {
             labels: [
@@ -3779,83 +3797,6 @@ var CreacionData = {
             var ctx28 = document.getElementById("Creacion").getContext("2d");
             new Chart(ctx28, {type: 'pie', data: CreacionData, options:CreacionOptions});
         } 
-
-    //ANALITICA PS
-    //ELEMENTOS TOTALES CREADOS
-    var AnaliticaPSData = {
-            labels: [
-                'Actividad Creación', 'Actividad Laberinto', 'Actividad Alternativas', 'Actividad Puzzle'
-
-        ],
-        datasets: [
-            {
-                label: "Construcción",
-                backgroundColor: 'rgb(236,112,99)',
-                borderColor: "rgb(205,97,85)",
-                pointBorderColor: "#fff",
-                data: [
-        '{{construccion}}',0,0,0
-        ]
-        },
-        {
-                label: "Motricidad fina",
-                backgroundColor: 'rgb(175,122,197)',
-                borderColor: "rgb(165,105,189)",
-                pointBorderColor: "#fff",
-                data: [
-                    0,'{{colisiones}}',0,0
-        ]
-        },
-        {
-                label: "Motricidad gruesa",
-                backgroundColor: 'rgb(93,173,226)',
-                borderColor: "rgb(84,153,199)",
-                pointBorderColor: "#fff",
-                data: [
-                    0,0,'{{saltos}}',0
-        ]
-        },
-        {
-                label: "Perseverancia",
-                backgroundColor: 'rgb(72,201,176)',
-                borderColor: "rgb(69,179,157)",
-                pointBorderColor: "#fff",
-                data: [
-                    0,0,0,'{{puzzle}}'
-        ]
-        }
-        ]
-        };
-        
-        var barOptions2 = {
-            animation: false,
-            responsive: true,
-            isFixedWidth:true,
-            scales: {
-                xAxes:[{
-                    stacked:false,
-                    ticks: {
-                        min: 0,
-                        callback: function(value, index, values) {
-                            if (Math.floor(value) === value) {
-                                return value;
-                            }
-                        }
-                    }
-                }],
-                yAxes:[{
-                    stacked:true,
-                    ticks: {
-                        min: 0
-                    }
-                }]
-            }
-        };
-
-        if ($('#AnaliticaPS').length){
-            var ctx17 = document.getElementById("AnaliticaPS").getContext("2d");
-            new Chart(ctx17, {type: 'horizontalBar', data: AnaliticaPSData, options:barOptions2});
-        }
 
 //FIN PLUSSPACE----------------------
 
