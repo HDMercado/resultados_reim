@@ -798,7 +798,7 @@ def get_elementos_alu_PS(request):
     
 
     date = get_date_param_alumno_respuesta_actividad(request)
-    start_base = 'SELECT u.id, concat(day(datetime_touch),"/",month(datetime_touch),"/", year(datetime_touch)) AS fecha, count(a.id_user) AS ocurrecias FROM alumno_respuesta_actividad a, usuario u, pertenece b WHERE ' + date
+    start_base = 'SELECT concat(u.nombres ," ", u.apellido_paterno ," ", u.apellido_materno) as nombre, concat(day(datetime_touch),"/",month(datetime_touch),"/", year(datetime_touch)) AS fecha, count(a.id_user) AS ocurrecias FROM alumno_respuesta_actividad a, usuario u, pertenece b WHERE ' + date
     final_base = '  a.id_user= u.id && b.usuario_id = a.id_user' + query_params + ' AND (a.id_elemento=2018 OR a.id_elemento=2019 OR a.id_elemento=2020 OR a.id_elemento=2021 OR a.id_elemento=2022 OR a.id_elemento=2023 OR a.id_elemento=2024) GROUP BY day(a.datetime_touch) ORDER BY a.datetime_touch ASC'
     
     return start_base + final_base
@@ -861,7 +861,7 @@ def get_colisiones_analitica_PS(request):
         query_params += ' AND a.id_user=' + request.GET.get('student') 
 
     date = get_date_param_alumno_respuesta_actividad(request)
-    start_base = ' SELECT u.id, concat(day(datetime_touch),"/",month(datetime_touch),"/", year(datetime_touch)) AS fecha, count(a.id_user) AS ocurrecias FROM alumno_respuesta_actividad a, usuario u, pertenece b WHERE ' + date
+    start_base = ' SELECT concat(u.nombres ," ", u.apellido_paterno ," ", u.apellido_materno) as nombre, concat(day(datetime_touch),"/",month(datetime_touch),"/", year(datetime_touch)) AS fecha, count(a.id_user) AS ocurrecias FROM alumno_respuesta_actividad a, usuario u, pertenece b WHERE ' + date
     final_base = '  a.id_user= u.id && b.usuario_id = a.id_user ' + query_params + ' AND (a.id_elemento=2091 OR a.id_elemento=2092 OR a.id_elemento=2093 OR a.id_elemento=2094 OR a.id_elemento=2095 OR a.id_elemento=2096 OR a.id_elemento=2097 OR a.id_elemento=2098) GROUP BY day(a.datetime_touch) ORDER BY a.datetime_touch ASC'
     
     return start_base + final_base
@@ -935,7 +935,7 @@ def get_move_element_query(request):
         end += " 23:59:59.000000"
         date = ' (a.datetime_touch >= TIMESTAMP("'+ start + '") && a.datetime_touch <= TIMESTAMP("' + end  + '")) &&'
 
-    start_base = ' SELECT u.id, CEILING(a.fila/100), CEILING(a.columna/100) FROM alumno_respuesta_actividad a, usuario u, pertenece b WHERE' + date
+    start_base = ' SELECT concat(u.nombres ," ", u.apellido_paterno ," ", u.apellido_materno) as nombre, CEILING(a.fila/100), CEILING(a.columna/100) FROM alumno_respuesta_actividad a, usuario u, pertenece b WHERE' + date
     final_base = ' a.id_user = u.id && b.usuario_id = a.id_user' + query_params + ' AND (a.id_elemento= 2133 OR a.id_elemento= 2134 OR a.id_elemento= 2135 OR a.id_elemento= 2136 OR a.id_elemento= 2137 OR a.id_elemento= 2138 OR a.id_elemento= 2139)'
 
     return start_base + final_base
@@ -1009,7 +1009,7 @@ def get_element_colission_alu_query(request):
         end += " 23:59:59.000000"
         date = ' (a.datetime_touch >= TIMESTAMP("'+ start + '") && a.datetime_touch <= TIMESTAMP("' + end  + '")) &&'
 
-    start_base = ' SELECT u.id, concat(day(datetime_touch),"/",month(datetime_touch),"/", year(datetime_touch)) AS fecha, count(a.id_user) AS CantidadTouch, b.colegio_id, b.curso_id FROM alumno_respuesta_actividad a, usuario u, pertenece b WHERE' + date
+    start_base = ' SELECT  concat(u.nombres ," ", u.apellido_paterno ," ", u.apellido_materno) as nombre, concat(day(datetime_touch),"/",month(datetime_touch),"/", year(datetime_touch)) AS fecha, count(a.id_user) AS CantidadTouch, b.colegio_id, b.curso_id FROM alumno_respuesta_actividad a, usuario u, pertenece b WHERE' + date
     final_base = ' a.id_user = u.id && b.usuario_id = a.id_user' + query_params + ' GROUP BY day(a.datetime_touch) ORDER BY a.datetime_touch ASC'
 
     return start_base + final_base
@@ -1063,7 +1063,7 @@ def get_jump_alternativas_alu_query(request):
         end += " 23:59:59.000000"
         date = ' (a.datetime_touch >= TIMESTAMP("'+ start + '") && a.datetime_touch <= TIMESTAMP("' + end  + '")) &&'
 
-    start_base = ' SELECT u.id, concat(day(datetime_touch),"/",month(datetime_touch),"/", year(datetime_touch)) AS fecha, count(a.id_user) AS CantidadTouch, b.colegio_id, b.curso_id FROM alumno_respuesta_actividad a, usuario u, pertenece b WHERE' + date
+    start_base = ' SELECT  concat(u.nombres ," ", u.apellido_paterno ," ", u.apellido_materno) as nombre, concat(day(datetime_touch),"/",month(datetime_touch),"/", year(datetime_touch)) AS fecha, count(a.id_user) AS CantidadTouch, b.colegio_id, b.curso_id FROM alumno_respuesta_actividad a, usuario u, pertenece b WHERE' + date
     final_base = ' a.id_user = u.id && b.usuario_id = a.id_user ' + query_params + ' GROUP BY day(a.datetime_touch) ORDER BY a.datetime_touch ASC'
 
     return start_base + final_base    
@@ -1117,7 +1117,7 @@ def get_acierto_cuida_alu_query(request):
         end += " 23:59:59.000000"
         date = ' (a.datetime_touch >= TIMESTAMP("'+ start + '") && a.datetime_touch <= TIMESTAMP("' + end  + '")) &&'
 
-    start_base = 'SELECT u.id, concat(day(datetime_touch),"/",month(datetime_touch),"/", year(datetime_touch)) AS fecha, count(a.id_user) AS CantidadTouch, b.colegio_id, b.curso_id FROM alumno_respuesta_actividad a, usuario u, pertenece b WHERE' + date
+    start_base = 'SELECT  concat(u.nombres ," ", u.apellido_paterno ," ", u.apellido_materno) as nombre, concat(day(datetime_touch),"/",month(datetime_touch),"/", year(datetime_touch)) AS fecha, count(a.id_user) AS CantidadTouch, b.colegio_id, b.curso_id FROM alumno_respuesta_actividad a, usuario u, pertenece b WHERE' + date
     final_base = ' a.id_user = u.id && b.usuario_id = a.id_user ' + query_params + ' GROUP BY day(a.datetime_touch) ORDER BY a.datetime_touch ASC'
 
     return start_base + final_base
@@ -1143,9 +1143,14 @@ def get_touch_analitica_query(request):
         end += " 23:59:59.000000"
         date = ' (a.datetime_touch >= TIMESTAMP("'+ start + '") && a.datetime_touch <= TIMESTAMP("' + end  + '")) &&'
 
-    start_base = ' SELECT u.id, concat(day(datetime_touch),"/",month(datetime_touch),"/", year(datetime_touch)) AS fecha, COALESCE(round(count((if(a.id_elemento=2128,1,null)))/count((if (a.id_elemento=2031,1,null)))),0) AS CantidadTouch, b.colegio_id, b.curso_id FROM alumno_respuesta_actividad a, usuario u, pertenece b WHERE' + date
+    start_base = ' SELECT  concat(u.nombres ," ", u.apellido_paterno ," ", u.apellido_materno) as nombre, concat(day(datetime_touch),"/",month(datetime_touch),"/", year(datetime_touch)) AS fecha, COALESCE(round(count((if(a.id_elemento=2128,1,null)))/count((if (a.id_elemento=2031,1,null)))),0) AS CantidadTouch, b.colegio_id, b.curso_id FROM alumno_respuesta_actividad a, usuario u, pertenece b WHERE' + date
     final_base = ' a.id_user = u.id && b.usuario_id = a.id_user ' + query_params + ' GROUP BY day(a.datetime_touch) ORDER BY a.datetime_touch ASC'
 
     return start_base + final_base 
+
+def get_name_student(request):
+    start_base = ' SELECT concat(u.nombres ," ", u.apellido_paterno ," ", u.apellido_materno) as nombre FROM  usuario u WHERE u.id= ' + request.GET.get('student')
+
+    return start_base
   
 #FIN QUERY PLUS SPACE------------------------

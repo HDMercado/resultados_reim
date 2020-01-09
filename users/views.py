@@ -251,10 +251,19 @@ def welcome(request):
         elementos_analitica_PS_quantity_response=[]
         colission_analitica_quantity_response=[]
         touch_puzzle_quantity_response=[]
+        nombre=[]
+
  
         if reim_num=="2":       
 
         #General
+            nombre_query = get_name_student(request)
+            queries.append({"name": 'nombre estudiante', "query": nombre_query})
+            cursor.execute(nombre_query)
+            nombre_quantity = cursor.fetchall()
+            for row in nombre_quantity:
+                nombre.append({ 'name': row[0]})
+
             sesiones_PS_query = get_time_act_co(request)
             queries.append({"name": 'Tiempo Actividad query', "query": sesiones_PS_query})
             cursor.execute(sesiones_PS_query)
@@ -751,6 +760,7 @@ def welcome(request):
                 'elementos_analitica_PS_quantity':elementos_analitica_PS_quantity_response,
                 'colission_analitica_quantity':colission_analitica_quantity_response,
                 'touch_puzzle_quantity':touch_puzzle_quantity_response,
+                'nombre':nombre,
                 
             })
     # En otro caso redireccionamos al login
