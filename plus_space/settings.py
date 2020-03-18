@@ -47,6 +47,7 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
@@ -77,12 +78,12 @@ WSGI_APPLICATION = 'plus_space.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'dbker3nsu2q7l6',
-        'USER': 'fxudtkhxzhxtcc',
-        'PASSWORD': '804d318eb57c3b6bc0def3f7004b27c463986a2ce406d4406367fcfe407d9170',
-        'HOST': 'ec2-54-235-92-43.compute-1.amazonaws.com',
-        'PORT': '5432',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'django_reim',
+        'USER': 'masterulearnet',
+        'PASSWORD': 'aT_1mE27X54mL.2018',
+        'HOST': 'ulearnet.org',
+        'PORT': '3306',
     }
 }
 
