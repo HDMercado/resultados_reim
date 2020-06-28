@@ -640,7 +640,8 @@ def welcome(request):
 
 
         #INICIO EN BUSQUEDA DEL TESORO PERDIDO
-        
+        #-------
+        nombre_estilo_cognitivo_alumno = ''
         tiempo_x_actividad_response = []
         identificar_estilo_cognitivo_response = []
         Estilo_cognitivo_por_niño = []
@@ -648,6 +649,13 @@ def welcome(request):
         #-----------------------------------------
         actividad_1_volcan = []
         tiempoxactxsesion = []
+        lista_estudiante = []
+        lista_alumno_cognitivo = []
+        lista_alumno_cognitivo_muy_dependiente = []
+        lista_alumno_cognitivo_dependiente = []
+        lista_alumno_cognitivo_intermedio = []
+        lista_alumno_cognitivo_independiente = []
+        lista_alumno_cognitivo_muy_independiente = []
         #-----------------------------------------
         nombre_activada_1 = ''
         activdad_1_completada = 0
@@ -667,10 +675,13 @@ def welcome(request):
         nombre_activada_6 = ''
         activdad_6_completada = 0
         activdad_6_no_completada = 0
-
+        #-----------------------------------
+        color_base = ''
+        lista_estudiante = students_response
+        #print("\n\n\n lista: ", lista_estudiante[4])
 
         if reim_num=="77":
-            #----------------------------------------------------  11
+            #-------------------------por curso---------------------------  11
             contador_complejo_1 = 0
             contador_complejo_2 = 0
             contador_complejo_3 = 0
@@ -689,215 +700,289 @@ def welcome(request):
             rango_tiempo = datetime.now() 
             fecha_inicial = datetime.now()
             nombre_alumno = '' 
+#POR CURSOR
+            if request.GET.get('student') == '0':
+                #print("\n\n grafico general")
+
+                for alumno in lista_estudiante:
+                    tipo_grafico = int(request.GET.get('option'))
+                    #print("Grafico:", tipo_grafico)
+                    
+
+                    lista_actividad = [[7705, 50], [7706, 50], [7707,50], [7708, 65], [7709, 70], [7710, 80]]
+                    for actividad_77 in lista_actividad:
+                        
+                        contador_complejo_1 = 0
+                        contador_complejo_2 = 0
+                        contador_complejo_3 = 0
+                        contador_complejo_4 = 0
+                        contador_complejo_5 = 0
+                        contador_complejo_6 = 0
+                        contador_complejo_7 = 0
+                        contador_complejo_8 = 0
+                        contador_complejo_9 = 0
+                        contador_complejo_10 = 0
+                        completada_total = 0
+                        total_incompletas = 0
+                        nombre_actividad = ''
+                        contador_tiempo = 0
+                        queryXactividad = ''
+
+                        if(tipo_grafico == 1 ):
+                            #print('\n\nAlumno', alumno["id"], ' nombre: ', alumno["name"])
+                            queryXactividad = get_figura_simple_estandar_por_curso(request, actividad_77, alumno["id"])
+                            #print("ESTANDAR")
+                        if(tipo_grafico == 2 ):
+                            queryXactividad = get_figura_simple_promedio_por_curso(request, actividad_77, alumno["id"])
+                            #print("PROMEDIO")
+                        if(tipo_grafico == 3 ):
+                            queryXactividad = get_figura_simple_ultimos_registros_por_curso(request, actividad_77, alumno["id"])
+                            #print("FINAL")
+                        cursor.execute(queryXactividad)
+                        queries.append({"name": 'TiempoXact query', "query": queryXactividad})
+                        resultado_query = cursor.fetchall()
+                        for row in resultado_query:
+
+                                if(len(row[5]) > 0):
+                                    nombre_alumno = row[5]
+                                    #print("nombre: " + nombre_alumno)
+                                nombre_actividad = row[4]
+                                if(contador_tiempo == 0):
+                                    contador_tiempo+=1
+                                    rango_tiempo = row[2]
+                                    fecha_inicial = rango_tiempo + timedelta(seconds = actividad_77[1])
+                                    if(int(request.GET.get('rango')) != 0):
+                                        valor = actividad_77[1] + ((actividad_77[1] * int(request.GET.get('rango')))/100)
+                                        #print("VALOR: ", valor)
+                                        fecha_inicial = rango_tiempo + timedelta(seconds = valor)
+                                #print("\n\n\n\nFECHA INICIAL: ",fecha_inicial, " Nombre: ", actividad_77[0], " Segundos: ", actividad_77[1])
+                                #print("Contador 1: ", contador_complejo_1)
+                                #print(row[1]," == 7728 and ", contador_complejo_1, " == 0 and correcta ", row[3], " == 1 and ", row[2], " <= " , fecha_inicial )
+                                if(row[1] == 7728 and contador_complejo_1 == 0 and row[3] == 1 and row[2] <= fecha_inicial):
+                                    #print("Entro actividad 7728 7705")
+                                    contador_complejo_1+=1
+                                    completada_total+=1
+                                if(row[1] == 7729 and contador_complejo_2 == 0 and row[3] == 1 and row[2] <= fecha_inicial):
+                                    #print("Entro actividad 7729 7705")
+                                    completada_total+=1
+                                    contador_complejo_2+=1
+                                if(row[1] == 7730 and contador_complejo_3 == 0 and row[3] == 1 and row[2] <= fecha_inicial):
+                                    completada_total+=1
+                                    contador_complejo_3+=1
+                                if(row[1] == 7731 and contador_complejo_4 == 0 and row[3] == 1 and row[2] <= fecha_inicial):
+                                    completada_total+=1
+                                    contador_complejo_4+=1
+                                if(row[1] == 7732 and contador_complejo_5 == 0 and row[3] == 1 and row[2] <= fecha_inicial):
+                                    completada_total+=1
+                                    contador_complejo_5+=1
+                                if(row[1] == 7733 and contador_complejo_6 == 0 and row[3] == 1 and row[2] <= fecha_inicial):
+                                    completada_total+=1
+                                    contador_complejo_6+=1
+                                if(row[1] == 7734 and contador_complejo_7 == 0 and row[3] == 1 and row[2] <= fecha_inicial):
+                                    completada_total+=1
+                                    contador_complejo_7+=1
+                                if(row[1] == 7735 and contador_complejo_8 == 0 and row[3] == 1 and row[2] <= fecha_inicial):
+                                    completada_total+=1
+                                    contador_complejo_8+=1
+                                if(row[1] == 7736 and contador_complejo_9 == 0 and row[3] == 1 and row[2] <= fecha_inicial):
+                                    completada_total+=1
+                                    contador_complejo_9+=1
+                                if(row[1] == 7737 and contador_complejo_10 == 0 and row[3] == 1 and row[2] <= fecha_inicial):
+                                    completada_total+=1
+                                    contador_complejo_10+=1      
+                        if(int(completada_total) < 10 and len(nombre_actividad) != 0):               
+                            total_incompletas = (10 - completada_total)
+                            actividad_1_volcan.append({'name': nombre_actividad, 'completada': completada_total, 'no_completada': total_incompletas})
+                        
+                        Total_Completas_Actividad +=completada_total
+
+                    Nombre_Estilo_Cognitivo = ''
+                    if(Total_Completas_Actividad > 0 and Total_Completas_Actividad < 11):
+                        Nombre_Estilo_Cognitivo = 'Muy Dependiente del Campo'
+                        color_base = '(119,170,255)'
+                        lista_alumno_cognitivo_muy_dependiente.append({'alumno': nombre_alumno,'name': Nombre_Estilo_Cognitivo, 'cantidad': Total_Completas_Actividad})
+                    if(Total_Completas_Actividad > 10 and Total_Completas_Actividad < 21):
+                        Nombre_Estilo_Cognitivo = 'Dependiente del Campo'
+                        color_base = '(153,204,255)'
+                        lista_alumno_cognitivo_dependiente.append({'alumno': nombre_alumno,'name': Nombre_Estilo_Cognitivo, 'cantidad': Total_Completas_Actividad})
+                    if(Total_Completas_Actividad > 20 and Total_Completas_Actividad < 31):
+                        Nombre_Estilo_Cognitivo = 'Intermedio del Campo'
+                        color_base = '(187,238,255)'
+                        lista_alumno_cognitivo_intermedio.append({'alumno': nombre_alumno,'name': Nombre_Estilo_Cognitivo, 'cantidad': Total_Completas_Actividad})
+                    if(Total_Completas_Actividad > 30 and Total_Completas_Actividad < 41):
+                        Nombre_Estilo_Cognitivo = 'Independiente del Campo'
+                        color_base = 'rgb(85,136,255)'
+                        lista_alumno_cognitivo_independiente.append({'alumno': nombre_alumno,'name': Nombre_Estilo_Cognitivo, 'cantidad': Total_Completas_Actividad})
+                    if(Total_Completas_Actividad > 40 and Total_Completas_Actividad < 51):
+                        Nombre_Estilo_Cognitivo = 'Muy Dependiente del Campo'
+                        color_base = '(51,102,255)'
+                        lista_alumno_cognitivo_muy_independiente.append({'alumno': nombre_alumno,'name': Nombre_Estilo_Cognitivo, 'cantidad': Total_Completas_Actividad})    
+                    #print("Nombre: ", nombre_alumno)
+                    
+                    if(len(nombre_alumno) > 0):
+                        lista_alumno_cognitivo.append({'alumno': nombre_alumno,'name': Nombre_Estilo_Cognitivo, 'cantidad': Total_Completas_Actividad, 'color': color_base})
+
+                    nombre_alumno = ''
+                    Nombre_Estilo_Cognitivo = ''
+                    Total_Completas_Actividad = 0
+                    completada_total = 0
+                    #print('\n\nAlumno', nombre_alumno,' Nomnre', Nombre_Estilo_Cognitivo, 'Cantidad: ', Total_Completas_Actividad )
+                    #
+            
+            #----------------------por CURSO----------------------------- 22
+            
+        #---------------------------------por alumno---------------------------------------------------
+            if request.GET.get('student') and request.GET.get('student') != '0':
+                print("\n\n\nPASOS")
+                lista_actividad = [[7705, 50], [7706, 50], [7707,50], [7708, 65], [7709, 70], [7710, 80]]
+                for actividad_77 in lista_actividad:
+                    tipo_grafico = int(request.GET.get('option'))
+                    print("Grafico:", tipo_grafico)
+                    contador_complejo_1 = 0
+                    contador_complejo_2 = 0
+                    contador_complejo_3 = 0
+                    contador_complejo_4 = 0
+                    contador_complejo_5 = 0
+                    contador_complejo_6 = 0
+                    contador_complejo_7 = 0
+                    contador_complejo_8 = 0
+                    contador_complejo_9 = 0
+                    contador_complejo_10 = 0
+                    completada_total = 0
+                    total_incompletas = 0
+                    nombre_actividad = ''
+                    contador_tiempo = 0
+                    queryXactividad = ''
+
+                    if(tipo_grafico == 1 ):
+                        queryXactividad = get_figura_simple_volcan(request, actividad_77)
+                        print("ESTANDAR")
+                    if(tipo_grafico == 2 ):
+                        queryXactividad = get_figura_simple_promedio(request, actividad_77)
+                        print("PROMEDIO")
+                    if(tipo_grafico == 3 ):
+                        queryXactividad = get_figura_simple_ultimos_registros(request, actividad_77)
+                        print("FINAL")
+                    cursor.execute(queryXactividad)
+                    queries.append({"name": 'TiempoXact query', "query": queryXactividad})
+                    resultado_query = cursor.fetchall()
+                    for row in resultado_query:
+
+                            if(len(row[5]) > 0):
+                                nombre_alumno = row[5]
+                            nombre_actividad = row[4]
+                            if(contador_tiempo == 0):
+                                contador_tiempo+=1
+                                rango_tiempo = row[2]
+                                fecha_inicial = rango_tiempo + timedelta(seconds = actividad_77[1])
+                                if(int(request.GET.get('rango')) != 0):
+                                    valor = actividad_77[1] + ((actividad_77[1] * int(request.GET.get('rango')))/100)
+                                    #print("VALOR: ", valor)
+                                    fecha_inicial = rango_tiempo + timedelta(seconds = valor)
+                            print("\n\n\n\nFECHA INICIAL: ",fecha_inicial, " Nombre: ", actividad_77[0], " Segundos: ", actividad_77[1])
+                            #print("Contador 1: ", contador_complejo_1)
+                            #print(row[1]," == 7728 and ", contador_complejo_1, " == 0 and correcta ", row[3], " == 1 and ", row[2], " <= " , fecha_inicial )
+                            if(row[1] == 7728 and contador_complejo_1 == 0 and row[3] == 1 and row[2] <= fecha_inicial):
+                                print("Entro actividad 7728 7705")
+                                contador_complejo_1+=1
+                                completada_total+=1
+                            if(row[1] == 7729 and contador_complejo_2 == 0 and row[3] == 1 and row[2] <= fecha_inicial):
+                                print("Entro actividad 7729 7705")
+                                completada_total+=1
+                                contador_complejo_2+=1
+                            if(row[1] == 7730 and contador_complejo_3 == 0 and row[3] == 1 and row[2] <= fecha_inicial):
+                                completada_total+=1
+                                contador_complejo_3+=1
+                            if(row[1] == 7731 and contador_complejo_4 == 0 and row[3] == 1 and row[2] <= fecha_inicial):
+                                completada_total+=1
+                                contador_complejo_4+=1
+                            if(row[1] == 7732 and contador_complejo_5 == 0 and row[3] == 1 and row[2] <= fecha_inicial):
+                                completada_total+=1
+                                contador_complejo_5+=1
+                            if(row[1] == 7733 and contador_complejo_6 == 0 and row[3] == 1 and row[2] <= fecha_inicial):
+                                completada_total+=1
+                                contador_complejo_6+=1
+                            if(row[1] == 7734 and contador_complejo_7 == 0 and row[3] == 1 and row[2] <= fecha_inicial):
+                                completada_total+=1
+                                contador_complejo_7+=1
+                            if(row[1] == 7735 and contador_complejo_8 == 0 and row[3] == 1 and row[2] <= fecha_inicial):
+                                completada_total+=1
+                                contador_complejo_8+=1
+                            if(row[1] == 7736 and contador_complejo_9 == 0 and row[3] == 1 and row[2] <= fecha_inicial):
+                                completada_total+=1
+                                contador_complejo_9+=1
+                            if(row[1] == 7737 and contador_complejo_10 == 0 and row[3] == 1 and row[2] <= fecha_inicial):
+                                completada_total+=1
+                                contador_complejo_10+=1      
+                    if(int(completada_total) < 10 and len(nombre_actividad) != 0):               
+                        total_incompletas = (10 - completada_total)
+                        actividad_1_volcan.append({'name': nombre_actividad, 'completada': completada_total, 'no_completada': total_incompletas})
+                    
+                    Total_Completas_Actividad +=completada_total
+
+                Nombre_Estilo_Cognitivo = ''
+                if(Total_Completas_Actividad > 0 and Total_Completas_Actividad < 11):
+                    Nombre_Estilo_Cognitivo = 'Muy Dependiente'
+                    nombre_estilo_cognitivo_alumno = 'Muy Dependiente del Campo'
+                    #Estilo_cognitivo_por_niño.append({'alumno': nombre_alumno,'name': Nombre_Estilo_Cognitivo, 'quantity': Total_Completas_Actividad })
+                if(Total_Completas_Actividad > 10 and Total_Completas_Actividad < 21):
+                    Nombre_Estilo_Cognitivo = 'Dependiente'
+                    nombre_estilo_cognitivo_alumno = 'Dependiente del Campo'
+                    #Estilo_cognitivo_por_niño.append({'alumno': nombre_alumno,'name': Nombre_Estilo_Cognitivo, 'quantity': Total_Completas_Actividad })
+                if(Total_Completas_Actividad > 20 and Total_Completas_Actividad < 31):
+                    Nombre_Estilo_Cognitivo = 'Intermedio'
+                    nombre_estilo_cognitivo_alumno = 'Intermedio del Campo'
+                    #Estilo_cognitivo_por_niño.append({'alumno': nombre_alumno,'name': Nombre_Estilo_Cognitivo, 'quantity': Total_Completas_Actividad })
+                if(Total_Completas_Actividad > 30 and Total_Completas_Actividad < 41):
+                    Nombre_Estilo_Cognitivo = 'Independiente'
+                    nombre_estilo_cognitivo_alumno = 'Independiente del Campo'
+                    #Estilo_cognitivo_por_niño.append({'alumno': nombre_alumno,'name': Nombre_Estilo_Cognitivo, 'quantity': Total_Completas_Actividad })
+                if(Total_Completas_Actividad > 40 and Total_Completas_Actividad < 51):
+                    Nombre_Estilo_Cognitivo = 'Muy Dependiente'
+                    nombre_estilo_cognitivo_alumno = 'Muy Independiente del Campo'
+                    #Estilo_cognitivo_por_niño.append({'alumno': nombre_alumno,'name': Nombre_Estilo_Cognitivo, 'quantity': Total_Completas_Actividad })
+
+                Estilo_cognitivo_por_niño.append({'alumno': nombre_alumno,'name': Nombre_Estilo_Cognitivo, 'quantity': Total_Completas_Actividad })
+
             
 
-            
-            lista_actividad = [[7705, 50], [7706, 50], [7707,50], [7708, 65], [7709, 70], [7710, 80]]
-            for actividad_77 in lista_actividad:
-                tipo_grafico = int(request.GET.get('option'))
-                print("Grafico:", tipo_grafico)
-                contador_complejo_1 = 0
-                contador_complejo_2 = 0
-                contador_complejo_3 = 0
-                contador_complejo_4 = 0
-                contador_complejo_5 = 0
-                contador_complejo_6 = 0
-                contador_complejo_7 = 0
-                contador_complejo_8 = 0
-                contador_complejo_9 = 0
-                contador_complejo_10 = 0
-                completada_total = 0
-                total_incompletas = 0
-                nombre_actividad = ''
-                contador_tiempo = 0
-                queryXactividad = ''
+            #----------------------por alumno----------------------------- 22
+            if request.GET.get('student') and request.GET.get('student') != '0':
+                buenas_malas = get_Actividad_Buenas_Mala(request)
+                cursor.execute(buenas_malas)
+                queries.append({"name": 'TiempoXact query', "query": buenas_malas})
+                tiempoXact_quantity = cursor.fetchall()
+                for row in tiempoXact_quantity:
+                    nombre_actividad = row[7]
+                    nombre_actividad = nombre_actividad.replace("Btn-Aceptar-Figura-","Figura Compleja ")
+                    buenas_malas_x_figura_compleja.append({  'name': nombre_actividad, 'completa': row[4], 'no_completa': row[5] })
 
-                if(tipo_grafico == 1 ):
-                    queryXactividad = get_figura_simple_volcan(request, actividad_77)
-                    print("ESTANDAR")
-                if(tipo_grafico == 2 ):
-                    queryXactividad = get_figura_simple_promedio(request, actividad_77)
-                    print("PROMEDIO")
-                if(tipo_grafico == 3 ):
-                    queryXactividad = get_figura_simple_ultimos_registros(request, actividad_77)
-                    print("FINAL")
-                cursor.execute(queryXactividad)
-                queries.append({"name": 'TiempoXact query', "query": queryXactividad})
-                resultado_query = cursor.fetchall()
-                for row in resultado_query:
-
-                        if(len(row[5]) > 0):
-                            nombre_alumno = row[5]
-                        nombre_actividad = row[4]
-                        if(contador_tiempo == 0):
-                            contador_tiempo+=1
-                            rango_tiempo = row[2]
-                            fecha_inicial = rango_tiempo + timedelta(seconds = actividad_77[1])
-                            if(int(request.GET.get('rango')) != 0):
-                                valor = actividad_77[1] + ((actividad_77[1] * int(request.GET.get('rango')))/100)
-                                #print("VALOR: ", valor)
-                                fecha_inicial = rango_tiempo + timedelta(seconds = valor)
-                        print("\n\n\n\nFECHA INICIAL: ",fecha_inicial, " Nombre: ", actividad_77[0], " Segundos: ", actividad_77[1])
-                        #print("Contador 1: ", contador_complejo_1)
-                        #print(row[1]," == 7728 and ", contador_complejo_1, " == 0 and correcta ", row[3], " == 1 and ", row[2], " <= " , fecha_inicial )
-                        if(row[1] == 7728 and contador_complejo_1 == 0 and row[3] == 1 and row[2] <= fecha_inicial):
-                            print("Entro actividad 7728 7705")
-                            contador_complejo_1+=1
-                            completada_total+=1
-                        if(row[1] == 7729 and contador_complejo_2 == 0 and row[3] == 1 and row[2] <= fecha_inicial):
-                            print("Entro actividad 7729 7705")
-                            completada_total+=1
-                            contador_complejo_2+=1
-                        if(row[1] == 7730 and contador_complejo_3 == 0 and row[3] == 1 and row[2] <= fecha_inicial):
-                            completada_total+=1
-                            contador_complejo_3+=1
-                        if(row[1] == 7731 and contador_complejo_4 == 0 and row[3] == 1 and row[2] <= fecha_inicial):
-                            completada_total+=1
-                            contador_complejo_4+=1
-                        if(row[1] == 7732 and contador_complejo_5 == 0 and row[3] == 1 and row[2] <= fecha_inicial):
-                            completada_total+=1
-                            contador_complejo_5+=1
-                        if(row[1] == 7733 and contador_complejo_6 == 0 and row[3] == 1 and row[2] <= fecha_inicial):
-                            completada_total+=1
-                            contador_complejo_6+=1
-                        if(row[1] == 7734 and contador_complejo_7 == 0 and row[3] == 1 and row[2] <= fecha_inicial):
-                            completada_total+=1
-                            contador_complejo_7+=1
-                        if(row[1] == 7735 and contador_complejo_8 == 0 and row[3] == 1 and row[2] <= fecha_inicial):
-                            completada_total+=1
-                            contador_complejo_8+=1
-                        if(row[1] == 7736 and contador_complejo_9 == 0 and row[3] == 1 and row[2] <= fecha_inicial):
-                            completada_total+=1
-                            contador_complejo_9+=1
-                        if(row[1] == 7737 and contador_complejo_10 == 0 and row[3] == 1 and row[2] <= fecha_inicial):
-                            completada_total+=1
-                            contador_complejo_10+=1      
-                if(int(completada_total) < 10 and len(nombre_actividad) != 0):               
-                    total_incompletas = (10 - completada_total)
-                    actividad_1_volcan.append({'name': nombre_actividad, 'completada': completada_total, 'no_completada': total_incompletas})
-                
-                Total_Completas_Actividad +=completada_total
-
-            Nombre_Estilo_Cognitivo = ''
-            if(Total_Completas_Actividad > 0 and Total_Completas_Actividad < 11):
-                Nombre_Estilo_Cognitivo = 'Muy Dependiente'
-            if(Total_Completas_Actividad > 10 and Total_Completas_Actividad < 21):
-                Nombre_Estilo_Cognitivo = 'Dependiente'
-            if(Total_Completas_Actividad > 20 and Total_Completas_Actividad < 31):
-                Nombre_Estilo_Cognitivo = 'Intermedio'
-            if(Total_Completas_Actividad > 30 and Total_Completas_Actividad < 41):
-                Nombre_Estilo_Cognitivo = 'Independiente'
-            if(Total_Completas_Actividad > 40 and Total_Completas_Actividad < 51):
-                Nombre_Estilo_Cognitivo = 'Muy Dependiente'
-
-            Estilo_cognitivo_por_niño.append({'alumno': nombre_alumno,'name': Nombre_Estilo_Cognitivo, 'quantity': Total_Completas_Actividad })
-
-            
-
-            #--------------------------------------------------- 22
-            buenas_malas = get_Actividad_Buenas_Mala(request)
-            cursor.execute(buenas_malas)
-            queries.append({"name": 'TiempoXact query', "query": buenas_malas})
-            tiempoXact_quantity = cursor.fetchall()
-            for row in tiempoXact_quantity:
-                nombre_actividad = row[7]
-                nombre_actividad = nombre_actividad.replace("Btn-Aceptar-Figura-","Figura Compleja ")
-                buenas_malas_x_figura_compleja.append({  'name': nombre_actividad, 'completa': row[4], 'no_completa': row[5] })
 
 
             #--------------------------------------------------- 33
-            tiem_acti_sesion = get_tiempoact_sesion(request)
-            cursor.execute(tiem_acti_sesion)
-            queries.append({"name": 'TiempoXact query', "query": tiem_acti_sesion})
-            tiempoXact_quantity = cursor.fetchall()
-            for row in tiempoXact_quantity:
-                tiempoxactxsesion.append({  'name': row[1], 'quantity': row[2] })
+            if request.GET.get('student') and request.GET.get('student') != '0':
+                tiem_acti_sesion = get_tiempoact_sesion(request)
+                cursor.execute(tiem_acti_sesion)
+                queries.append({"name": 'TiempoXact query', "query": tiem_acti_sesion})
+                tiempoXact_quantity = cursor.fetchall()
+                for row in tiempoXact_quantity:
+                    tiempoxactxsesion.append({  'name': row[1], 'quantity': row[2] })
             
             
             #--------------------------------------------------- 33
-
-
-            tiempoXact_query = get_tiempoXact77(request)
-            cursor.execute(tiempoXact_query)
-            queries.append({"name": 'TiempoXact query', "query": tiempoXact_query})
-            tiempoXact_quantity = cursor.fetchall()
-            for row in tiempoXact_quantity:
-                tiempo_x_actividad_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
-
-            identificar_estilo_query = get_reconocer_estilo_cognitivo_v2(request)
-            cursor.execute(identificar_estilo_query)
-            queries.append({"name": 'identificar query', "query":identificar_estilo_query})
-            tiempoXact_quantity_r = cursor.fetchall()
-            for row in tiempoXact_quantity_r:
-                #Actidad 1
-                if(row[0] == 7705 and row[3] == 1):
-                    activdad_1_completada+=1
-                    nombre_activada_1 = row[1]
-                if(row[0] == 7705 and row[3] == 0):
-                    activdad_1_no_completada+=1
-                    nombre_activada_1 = row[1]
-                #Actividad 2
-                if(row[0] == 7707 and row[3] == 1):
-                    activdad_2_completada+=1
-                    nombre_activada_2 = row[1]
-                if(row[0] == 7707 and row[3] == 0):
-                    activdad_2_no_completada+=1
-                    nombre_activada_2 = row[1]
-                #Actividad 3
-                if(row[0] == 7706 and row[3] == 1):
-                    activdad_3_completada+=1
-                    nombre_activada_3 = row[1]
-                if(row[0] == 7706 and row[3] == 0):
-                    activdad_3_no_completada+=1
-                    nombre_activada_3 = row[1]
-                #Actividad 4
-                if(row[0] == 7708 and row[3] == 1):
-                    activdad_4_completada+=1
-                    nombre_activada_4 = row[1]
-                if(row[0] == 7708 and row[3] == 0):
-                    activdad_4_no_completada+=1
-                    nombre_activada_4 = row[1]
-                #Actividad 5
-                if(row[0] == 7709 and row[3] == 1):
-                    activdad_5_completada+=1
-                    nombre_activada_5 = row[1]
-                if(row[0] == 7709 and row[3] == 0):
-                    activdad_5_no_completada+=1
-                    nombre_activada_5 = row[1]
-                #Actividad 6
-                if(row[0] == 7710 and row[3] == 1):
-                    activdad_6_completada+=1
-                    nombre_activada_6 = row[1]
-                if(row[0] == 7710 and row[3] == 0):
-                    activdad_6_no_completada+=1
-                    nombre_activada_6 = row[1]
-
-            identificar_estilo_cognitivo_response.append({ 'name': nombre_activada_1, 'completada': activdad_1_completada, 'no_completada': activdad_1_no_completada })
-            identificar_estilo_cognitivo_response.append({ 'name': nombre_activada_2, 'completada': activdad_2_completada, 'no_completada': activdad_2_no_completada })
-            identificar_estilo_cognitivo_response.append({ 'name': nombre_activada_3, 'completada': activdad_3_completada, 'no_completada': activdad_3_no_completada })
-            identificar_estilo_cognitivo_response.append({ 'name': nombre_activada_4, 'completada': activdad_4_completada, 'no_completada': activdad_4_no_completada })
-            identificar_estilo_cognitivo_response.append({ 'name': nombre_activada_5, 'completada': activdad_5_completada, 'no_completada': activdad_5_no_completada })
-            identificar_estilo_cognitivo_response.append({ 'name': nombre_activada_6, 'completada': activdad_6_completada, 'no_completada': activdad_6_no_completada })
-
-            Valor_Total_Figuras_complejas = activdad_1_completada + activdad_2_completada + activdad_3_completada + activdad_4_completada + activdad_5_completada + activdad_6_completada
-            Nombre_Estilo_Cognitivo = ''
-            if(Valor_Total_Figuras_complejas > 0 and Valor_Total_Figuras_complejas < 11):
-                Nombre_Estilo_Cognitivo = 'Muy Dependiente'
-            if(Valor_Total_Figuras_complejas > 10 and Valor_Total_Figuras_complejas < 21):
-                Nombre_Estilo_Cognitivo = 'Dependiente'
-            if(Valor_Total_Figuras_complejas > 20 and Valor_Total_Figuras_complejas < 31):
-                Nombre_Estilo_Cognitivo = 'Intermedio'
-            if(Valor_Total_Figuras_complejas > 30 and Valor_Total_Figuras_complejas < 41):
-                Nombre_Estilo_Cognitivo = 'Independiente'
-            if(Valor_Total_Figuras_complejas > 40 and Valor_Total_Figuras_complejas < 51):
-                Nombre_Estilo_Cognitivo = 'Muy Dependiente'
-
             #Estilo_cognitivo_por_niño.append({'name': Nombre_Estilo_Cognitivo, 'quantity': Valor_Total_Figuras_complejas })
 
 
         #TAMAÑO GRAFICOS
         time_ps_query_77= len(tiempo_x_actividad_response) * 40+20
         identificar_estilo_cognitivo = len(identificar_estilo_cognitivo_response) * 40+20
+        tamaño_curso = len(lista_alumno_cognitivo) * 40+20
+        tamaña_grafico_por_alumno = len(actividad_1_volcan) * 40 + 20
+        tamaña_grafico_por_actividad = len(buenas_malas_x_figura_compleja) * 40 + 20
+        
+        print("Tamaño: ", tamaño_curso)
+        for item in lista_alumno_cognitivo:
+                print("Nombre: ", item["alumno"], "item: ", item["cantidad"], "Estilo del campo: ", item["name"])
 
 
 
@@ -1037,9 +1122,19 @@ def welcome(request):
                 'actividad_1_volcan_response': actividad_1_volcan,
                 'figura_compleja_x_actividad': buenas_malas_x_figura_compleja,
                 'tiempo_acti_sesion':  tiempoxactxsesion,
+                'grafico_curso_77': lista_alumno_cognitivo,
+                'grafico_muy_dependiente': lista_alumno_cognitivo_muy_dependiente,
+                'grafico_dependiente': lista_alumno_cognitivo_dependiente,
+                'grafico_intermedio': lista_alumno_cognitivo_intermedio,
+                'grafico_independiente': lista_alumno_cognitivo_independiente,
+                'grafico_muy_independiente': lista_alumno_cognitivo_muy_independiente,
+                'Reconocimiento_Alumno': nombre_estilo_cognitivo_alumno,
                 #Tamaño Grafico
                 'time_PS_graf_1': time_ps_query_77,
-                'estilo_cognitivo': identificar_estilo_cognitivo
+                'estilo_cognitivo': identificar_estilo_cognitivo,
+                'tamaño_curso': tamaño_curso,
+                'tamaña_grafico_por_alumno': tamaña_grafico_por_alumno,
+                'tamaño_actividad_alumno': tamaña_grafico_por_actividad
                 
             })
     # En otro caso redireccionamos al login

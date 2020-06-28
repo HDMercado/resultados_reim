@@ -655,7 +655,7 @@
 
                 {% if reim_num == '77' %}
                 <div class="wrapper wrapper-content">
-
+                    <!--77 GRAFICO POR ALUMNO Y ACTIVIDAD-->
                     {% if reim_num == '77' and student_num != '0' and activity_num != '0' %}
                     <div class="row">
                     <div class="col-lg-12">
@@ -668,7 +668,7 @@
                                     </div>
                                     <div class="ibox-content">
                                         <div class="scroll_content">
-                                            <canvas id="respuestaFiguraCompleja" height={{estilo_cognitivo}}>{% load staticfiles %}</canvas>
+                                            <canvas id="respuestaFiguraCompleja" height={{tamaño_actividad_alumno}}>{% load staticfiles %}</canvas>
                                         </div>
                                     </div>
                                 </div>
@@ -681,7 +681,7 @@
                                     </div>
                                     <div class="ibox-content">
                                         <div class="scroll_content">
-                                            <canvas id="tiempoActividadSesion" height={{time_PS_graf_1}}>{% load staticfiles %}</canvas>
+                                            <canvas id="tiempoActividadSesion" height={{tamaño_actividad_alumno}}>{% load staticfiles %}</canvas>
                                         </div>
                                     </div>
                                 </div>
@@ -690,13 +690,13 @@
                     </div>
                     </div>
                 {% endif %}
-
+                <!--77 GRAFICO POR ALUMNO Y ACTIVIDAD-->
                 </div>    
                     {% endif %}
 
 
-
-                {% if reim_num != '0' and activity_num == '0' and reim_num == '77' %}
+                <!--77 GRAFICO POR ALUMNO Y PERO NO ACTIDIDAD SELECCIONADA ACTIVIDAD-->
+                {% if reim_num != '0' and activity_num == '0' and reim_num == '77' and student_num != '0' %}
                 <div class="row">
                         <div class="col-lg-12">
                             <div class="row">
@@ -721,7 +721,7 @@
                                     </div>
                                     <div class="ibox-content">
                                         <div class="scroll_content">
-                                            <canvas id="respuestaEstilos" height={{estilo_cognitivo}}>{% load staticfiles %}</canvas>
+                                            <canvas id="respuestaEstilos" height={{tamaña_grafico_por_alumno}}>{% load staticfiles %}</canvas>
                                         </div>
                                     </div>
                                 </div>
@@ -785,6 +785,110 @@
 
                     </div>
                     {% endif %}
+                <!--77 GRAFICO POR ALUMNO Y PERO NO ACTIDIDAD SELECCIONADA ACTIVIDAD-->
+
+
+                <!--77 GRAFICO POR CURSO Y SIN ACTIVIDAD-->
+                {% if reim_num != '0' and activity_num == '0' and reim_num == '77' and student_num == '0' %}
+                <div class="row">
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="ibox ">
+                                        <div class="ibox-title">
+                                            <h5>Reconociendo estilo cognitivo muy dependiente del campo por curso</h5><span class="  glyphicon glyphicon-info-sign" title="Para describir el grupo teniendo en cuenta la preferencia de estilo en la DIC se establecieron los siguientes rangos: muy dependiente (1-10), dependiente (11-20), intermedio (21-30), independiente (31-40) y muy independiente (41-50)."></span>
+                                            <div class="ibox-tools"></div>
+                                        </div>
+                                        <div class="ibox-content">
+                                            <div class="scroll_content">
+                                                <canvas id="canvas_id_77" height={{tamaño_curso}}>{% load staticfiles %}</canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="ibox ">
+                                        <div class="ibox-title">
+                                            <h5>Reconociendo estilo cognitivo dependiente del campo por curso</h5><span class="  glyphicon glyphicon-info-sign" title="Para describir el grupo teniendo en cuenta la preferencia de estilo en la DIC se establecieron los siguientes rangos: muy dependiente (1-10), dependiente (11-20), intermedio (21-30), independiente (31-40) y muy independiente (41-50)."></span>
+                                            <div class="ibox-tools"></div>
+                                        </div>
+                                        <div class="ibox-content">
+                                            <div class="scroll_content">
+                                                <canvas id="grafico_pendiente" height={{tamaño_curso}}>{% load staticfiles %}</canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>                               
+                        </div>
+                </div>
+                <div class="row">
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="ibox ">
+                                        <div class="ibox-title">
+                                            <h5>Reconociendo estilo cognitivo intermedio</h5><span class="  glyphicon glyphicon-info-sign" title="Para describir el grupo teniendo en cuenta la preferencia de estilo en la DIC se establecieron los siguientes rangos: muy dependiente (1-10), dependiente (11-20), intermedio (21-30), independiente (31-40) y muy independiente (41-50)."></span>
+                                            <div class="ibox-tools"></div>
+                                        </div>
+                                        <div class="ibox-content">
+                                            <div class="scroll_content">
+                                                <canvas id="grafico_intermedio" height={{tamaño_curso}}>{% load staticfiles %}</canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="ibox ">
+                                        <div class="ibox-title">
+                                            <h5>Reconociendo estilo cognitivo independiente del campo</h5><span class="  glyphicon glyphicon-info-sign" title="Para describir el grupo teniendo en cuenta la preferencia de estilo en la DIC se establecieron los siguientes rangos: muy dependiente (1-10), dependiente (11-20), intermedio (21-30), independiente (31-40) y muy independiente (41-50)."></span>
+                                            <div class="ibox-tools"></div>
+                                        </div>
+                                        <div class="ibox-content">
+                                            <div class="scroll_content">
+                                                <canvas id="grafico_independiente" height={{tamaño_curso}}>{% load staticfiles %}</canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="ibox ">
+                                        <div class="ibox-title">
+                                            <h5>Reconociendo estilo cognitivo muy independiente del campo</h5><span class="  glyphicon glyphicon-info-sign" title="Para describir el grupo teniendo en cuenta la preferencia de estilo en la DIC se establecieron los siguientes rangos: muy dependiente (1-10), dependiente (11-20), intermedio (21-30), independiente (31-40) y muy independiente (41-50)."></span>
+                                            <div class="ibox-tools"></div>
+                                        </div>
+                                        <div class="ibox-content">
+                                            <div class="scroll_content">
+                                                <canvas id="grafico_muy_independiente" height={{tamaño_curso}}>{% load staticfiles %}</canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="ibox ">
+                                        <div class="ibox-title">
+                                            <h5>Reconociendo Estilo Cognitivo</h5><span class="  glyphicon glyphicon-info-sign" title="Para describir el grupo teniendo en cuenta la preferencia de estilo en la DIC se establecieron los siguientes rangos: muy dependiente (1-10), dependiente (11-20), intermedio (21-30), independiente (31-40) y muy independiente (41-50)."></span>
+                                            <div class="ibox-tools"></div>
+                                        </div>
+                                        <div class="ibox-content">
+                                            <div class="scroll_content">
+                                                <canvas id="1234" height={{tamaño_curso}}>{% load staticfiles %}</canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                    {% endif %}
+                <!--77 GRAFICO POR CURSO Y SIN ACTIVIDAD-->
+
 
 
 
@@ -3071,7 +3175,7 @@
             var estiloCognitivo = {
                 labels:
                         [
-                        {% if tiempo_x_actividad %}
+                        {% if actividad_1_volcan_response %}
                         {% for time_TP in actividad_1_volcan_response %}
                         '{{time_TP.name}}',
                         {% endfor%}
@@ -3084,7 +3188,7 @@
                     borderColor: "rgb(55,255,51)",
                     pointBorderColor: "#fff",
                     data: [
-                        {% if tiempo_x_actividad %}
+                        {% if actividad_1_volcan_response %}
                         {% for time_TP in actividad_1_volcan_response %}
                         '{{time_TP.completada}}',
                         {% endfor%}
@@ -3097,7 +3201,7 @@
                     borderColor: "rgb(0,172,193)",
                     pointBorderColor: "#fff",
                     data: [
-                        {% if tiempo_x_actividad %}
+                        {% if actividad_1_volcan_response %}
                         {% for time_TP in actividad_1_volcan_response %}
                         '{{time_TP.no_completada}}',
                         {% endfor%}
@@ -3145,7 +3249,7 @@
                     borderColor: "rgb(0,172,193)",
                     pointBorderColor: "#fff",
                     data: [
-                        {% if tiempo_x_actividad %}
+                        {% if figura_compleja_x_actividad %}
                         {% for time_TP in figura_compleja_x_actividad %}
                         '{{time_TP.no_completa}}',
                         {% endfor%}
@@ -3167,7 +3271,7 @@
             var estiloCognitivoPorAlumno = {
                 labels:
                         [
-                        {% if tiempo_x_actividad %}
+                        {% if estilo_x_cognitivo %}
                         {% for time_TP in estilo_x_cognitivo %}
                         '{{time_TP.alumno}}',
                         {% endfor%}
@@ -3175,16 +3279,12 @@
                         ],
             datasets: [
                 {
-                    label: "Estilo Cognitivo " + {% if tiempo_x_actividad %}
-                        {% for time_TP in estilo_x_cognitivo %}
-                        '{{time_TP.name}}',
-                        {% endfor%}
-                        {% endif%}
-                    backgroundColor: 'rgb(55,255,51)',
+                    label: '{{Reconocimiento_Alumno}}',
+                    backgroundColor: "rgb(55,255,51)",
                     borderColor: "rgb(55,255,51)",
                     pointBorderColor: "#fff",
                     data: [
-                        {% if tiempo_x_actividad %}
+                        {% if estilo_x_cognitivo %}
                         {% for time_TP in estilo_x_cognitivo %}
                         '{{time_TP.quantity}}',
                         {% endfor%}
@@ -3216,8 +3316,8 @@
             datasets: [
                 {
                     label: "Tiempo por Actividad en Minutos",
-                    backgroundColor: 'rgb(128,64,0)',
-                    borderColor: "rgb(128,64,0)",
+                    backgroundColor: "rgb(85,136,255)",
+                    borderColor: "rgb(85,136,255)",
                     pointBorderColor: "#fff",
                     data: [
                         {% if tiempo_acti_sesion %}
@@ -3238,7 +3338,176 @@
                 new Chart(ctx, {type: 'horizontalBar', data: tiempoxactxsesion, options:barOptions});
             }    
 
-    //        
+    //graficoxcursoxgeneral
+         var MuyDependienteCampo = {
+            labels:
+                        [
+                        {% if grafico_muy_dependiente %}
+                        {% for time_TP in grafico_muy_dependiente %}
+                        '{{time_TP.alumno}}',
+                        {% endfor%}
+                        {% endif%}
+                        ],
+            datasets: [
+                {
+                    label: "Estilo Muy Dependiente del Campo",
+                    backgroundColor: "rgb(119,170,255)",
+                    borderColor: "rgb(119,170,255)",
+                    pointBorderColor: "#fff",
+                    data: [
+                        {% if grafico_muy_dependiente %}
+                        {% for time_TP in grafico_muy_dependiente %}
+                        '{{time_TP.cantidad}}',
+                        {% endfor%}
+                        {% endif%}
+                        ]
+                }
+            ]
+            };
+            
+            if ($('#canvas_id_77').length){
+                var ctx = document.getElementById("canvas_id_77").getContext("2d");
+                console.log("example: " + ctx);
+                //stackedOptions
+                ////barOptions
+                new Chart(ctx, {type: 'horizontalBar', data: MuyDependienteCampo, options:barOptions});
+            }  
+//---------------------------------------------------------------------------------------
+         var DependienteCampo = {
+            labels:
+                        [
+                        {% if grafico_dependiente %}
+                        {% for time_TP in grafico_dependiente %}
+                        '{{time_TP.alumno}}',
+                        {% endfor%}
+                        {% endif%}
+                        ],
+            datasets: [
+                {
+                    label: "Estilo Dependiente del Campo",
+                    backgroundColor: "rgb(153,204,255)",
+                    borderColor: "rgb(153,204,255)",
+                    pointBorderColor: "#fff",
+                    data: [
+                        {% if grafico_dependiente %}
+                        {% for time_TP in grafico_dependiente %}
+                        '{{time_TP.cantidad}}',
+                        {% endfor%}
+                        {% endif%}
+                        ]
+                }
+            ]
+            };
+            
+            if ($('#grafico_pendiente').length){
+                var ctx = document.getElementById("grafico_pendiente").getContext("2d");
+                console.log("example: " + ctx);
+                //stackedOptions
+                ////barOptions
+                new Chart(ctx, {type: 'horizontalBar', data: DependienteCampo, options:barOptions});
+            }
+//-----------------------------------------------------------------------                               
+         var IntermedioCampo = {
+            labels:
+                        [
+                        {% if grafico_intermedio %}
+                        {% for time_TP in grafico_intermedio %}
+                        '{{time_TP.alumno}}',
+                        {% endfor%}
+                        {% endif%}
+                        ],
+            datasets: [
+                {
+                    label: "Estilo Intermedio del Campo",
+                    backgroundColor: "rgb(187,238,255)",
+                    borderColor: "rgb(187,238,255)",
+                    pointBorderColor: "#fff",
+                    data: [
+                        {% if grafico_intermedio %}
+                        {% for time_TP in grafico_intermedio %}
+                        '{{time_TP.cantidad}}',
+                        {% endfor%}
+                        {% endif%}
+                        ]
+                }
+            ]
+            };
+            
+            if ($('#grafico_intermedio').length){
+                var ctx = document.getElementById("grafico_intermedio").getContext("2d");
+                console.log("example: " + ctx);
+                //stackedOptions
+                ////barOptions
+                new Chart(ctx, {type: 'horizontalBar', data: IntermedioCampo, options:barOptions});
+            }
+//-----------------------------------------------------------------------                               
+         var Independiente = {
+            labels:
+                        [
+                        {% if grafico_independiente %}
+                        {% for time_TP in grafico_independiente %}
+                        '{{time_TP.alumno}}',
+                        {% endfor%}
+                        {% endif%}
+                        ],
+            datasets: [
+                {
+                    label: "Estilo Independiente del Campo",
+                    backgroundColor: "rgb(85,136,255)",
+                    borderColor: "rgb(85,136,255)",
+                    pointBorderColor: "#fff",
+                    data: [
+                        {% if grafico_independiente %}
+                        {% for time_TP in grafico_independiente %}
+                        '{{time_TP.cantidad}}',
+                        {% endfor%}
+                        {% endif%}
+                        ]
+                }
+            ]
+            };
+            
+            if ($('#grafico_independiente').length){
+                var ctx = document.getElementById("grafico_independiente").getContext("2d");
+                console.log("example: " + ctx);
+                //stackedOptions
+                ////barOptions
+                new Chart(ctx, {type: 'horizontalBar', data: Independiente, options:barOptions});
+            }
+//-----------------------------------------------------------------------                               
+         var MuyIndependienteCampo = {
+            labels:
+                        [
+                        {% if grafico_muy_independiente %}
+                        {% for time_TP in grafico_muy_independiente %}
+                        '{{time_TP.alumno}}',
+                        {% endfor%}
+                        {% endif%}
+                        ],
+            datasets: [
+                {
+                    label: "Estilo Muy Independiente del Campo",
+                    backgroundColor: "rgb(51,102,255)",
+                    borderColor: "rgb(51,102,255)",
+                    pointBorderColor: "#fff",
+                    data: [
+                        {% if grafico_muy_independiente %}
+                        {% for time_TP in grafico_muy_independiente %}
+                        '{{time_TP.cantidad}}',
+                        {% endfor%}
+                        {% endif%}
+                        ]
+                }
+            ]
+            };
+            
+            if ($('#grafico_muy_independiente').length){
+                var ctx = document.getElementById("grafico_muy_independiente").getContext("2d");
+                console.log("example: " + ctx);
+                //stackedOptions
+                ////barOptions
+                new Chart(ctx, {type: 'horizontalBar', data: MuyIndependienteCampo, options:barOptions});
+            }            
     //REIM 77
             var CCreacionData = {
                 labels: [
