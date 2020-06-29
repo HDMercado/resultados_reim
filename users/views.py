@@ -677,11 +677,12 @@ def welcome(request):
         activdad_6_no_completada = 0
         #-----------------------------------
         color_base = ''
-        lista_estudiante = students_response
+        lista_estudiante = []
         #print("\n\n\n lista: ", lista_estudiante[4])
 
         if reim_num=="77":
             #-------------------------por curso---------------------------  11
+            tipo_grafico = 0
             contador_complejo_1 = 0
             contador_complejo_2 = 0
             contador_complejo_3 = 0
@@ -703,9 +704,12 @@ def welcome(request):
 #POR CURSOR
             if request.GET.get('student') == '0':
                 #print("\n\n grafico general")
-
+                lista_estudiante = students_response
                 for alumno in lista_estudiante:
-                    tipo_grafico = int(request.GET.get('option'))
+                    try:
+                        tipo_grafico = int(request.GET.get('option'))
+                    except:
+                        tipo_grafico = 1
                     #print("Grafico:", tipo_grafico)
                     
 
@@ -729,7 +733,7 @@ def welcome(request):
                         queryXactividad = ''
 
                         if(tipo_grafico == 1 ):
-                            #print('\n\nAlumno', alumno["id"], ' nombre: ', alumno["name"])
+                            print('\n\nAlumno', alumno["id"], ' nombre: ', alumno["name"])
                             queryXactividad = get_figura_simple_estandar_por_curso(request, actividad_77, alumno["id"])
                             #print("ESTANDAR")
                         if(tipo_grafico == 2 ):
@@ -751,10 +755,15 @@ def welcome(request):
                                     contador_tiempo+=1
                                     rango_tiempo = row[2]
                                     fecha_inicial = rango_tiempo + timedelta(seconds = actividad_77[1])
-                                    if(int(request.GET.get('rango')) != 0):
-                                        valor = actividad_77[1] + ((actividad_77[1] * int(request.GET.get('rango')))/100)
-                                        #print("VALOR: ", valor)
-                                        fecha_inicial = rango_tiempo + timedelta(seconds = valor)
+                                    try:
+                                        if(int(request.GET.get('rango')) != 0):
+                                            valor = actividad_77[1] + ((actividad_77[1] * int(request.GET.get('rango')))/100)
+                                            #print("VALOR: ", valor)
+                                            fecha_inicial = rango_tiempo + timedelta(seconds = valor)
+                                    except:
+                                            valor = actividad_77[1] + ((actividad_77[1] * int("50"))/100)
+                                            #print("VALOR: ", valor)
+                                            fecha_inicial = rango_tiempo + timedelta(seconds = valor)
                                 #print("\n\n\n\nFECHA INICIAL: ",fecha_inicial, " Nombre: ", actividad_77[0], " Segundos: ", actividad_77[1])
                                 #print("Contador 1: ", contador_complejo_1)
                                 #print(row[1]," == 7728 and ", contador_complejo_1, " == 0 and correcta ", row[3], " == 1 and ", row[2], " <= " , fecha_inicial )

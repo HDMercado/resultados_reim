@@ -141,6 +141,8 @@
                                                 {% endif %}
                                             </select>
                                         </div>
+
+                                        {% if reim_num == '77' %}
                                         <div  class="col-md-4">
                                             <label  class="font-normal">Hora Sesion</label>
                                                 <div class="input-group clockpicker" data-placement="right" data-align="top" data-autoclose="true" name="clock" >
@@ -153,18 +155,19 @@
                                          <div  class="col-md-2">
                                             <label  class="font-normal">Tipo de Graficos</label>
                                             <select id="option-filter-selector" name="option" class="form-control m-b">
-                                                <option value ="1">Estandar</option>
-                                                <option value ="2">Promedio</option>
-                                                <option value ="3">Registro Final</option>
+                                                <option value ="1">Primer Registro</option>
+                                                <option value ="2">Promedio Registro</option>
+                                                <option value ="3">Ultimo Registro</option>
                                             </select>
                                         </div>
                                         <div  class="col-md-4">
                                             <div class="form-group">
-                                            <label  class="font-normal">Rango de Medicion del Test en tiempo (0% a 100%)</label>
+                                            <label  class="font-normal">Extender el rango de medición del tiempo (0% a 100%)</label>
                                             <br>
-                                            <input type="range" min="0" max="100" value="0" name="rango" id="rango-filter-selector">
+                                            <input type="range" min="0" max="100" value="50" name="rango" id="rango-filter-selector">
                                             </div>
                                         </div>
+                                        {% endif %}
 
                                         <p class="col-lg-12">
                                             <button class="btn btn-sm btn-primary m-t-n-xs float-right"><i class="fa fa-filter"></i> Filtrar</button>
@@ -663,7 +666,7 @@
                             <div class="col-lg-6">
                                 <div class="ibox">
                                     <div class="ibox-title">
-                                        <h5>Cantidad de intentos por Figura Compleja</h5><span class="  glyphicon glyphicon-info-sign" title="Intentos de Figura Compleja"></span>
+                                        <h5>Cantidad de intentos por Figura Compleja</h5><span class="  glyphicon glyphicon-info-sign" title="Muestra las cantidad de intentos de una figura compleja que corresponde a una figura simple, cada figura simple corresponde a una actividad del Reim."></span>
                                         <div class="ibox-tools"></div>
                                     </div>
                                     <div class="ibox-content">
@@ -676,7 +679,7 @@
                             <div class="col-lg-6">
                                 <div class="ibox">
                                     <div class="ibox-title">
-                                        <h5>Tiempo de juego total de la actividad</h5><span class="  glyphicon glyphicon-info-sign" title="Indica la cantidad de tiempo (en minutos) en que los/las alumnos/as han permanecido en la actividad Creación"></span>
+                                        <h5>Tiempo de juego total de la actividad</h5><span class="  glyphicon glyphicon-info-sign" title="Indica la cantidad de tiempo (en segundos) en que los/las alumnos/as han permanecido en la actividad"></span>
                                         <div class="ibox-tools"></div>
                                     </div>
                                     <div class="ibox-content">
@@ -703,7 +706,7 @@
                                 <div class="col-lg-6">
                                     <div class="ibox ">
                                         <div class="ibox-title">
-                                            <h5>Reconociendo el estilo cognitivo</h5><span class="  glyphicon glyphicon-info-sign" title="Para describir el grupo teniendo en cuenta la preferencia de estilo en la DIC se establecieron los siguientes rangos: muy dependiente (1-10), dependiente (11-20), intermedio (21-30), independiente (31-40) y muy independiente (41-50)."></span>
+                                            <h5>Reconociendo el estilo cognitivo</h5><span class="  glyphicon glyphicon-info-sign" title="La Dependencia de Campo e Indepencia de Campo son dos estilos cognitivos. Diferencias individuales en cuanto a la tendencia a percibir las situaciones de una manera global o a percibirlas de una manera analítica, superando la influencia del contexto. La dependencia del campo se caracteriza por la tendencia a percibir un fenómeno como un todo unitario, sin atender a las diferentes partes que lo integran; la independencia, por el contrario, consiste en la capacidad de aislar un determinado rasgo que se percibe como relevante, del contexto en el que se integra. Para reconocer los estilos se establecieron los siguientes rangos: muy dependiente (1-10), dependiente (11-20), intermedio (21-30), independiente (31-40) y muy independiente (41-50)."></span>
                                             <div class="ibox-tools"></div>
                                         </div>
                                         <div class="ibox-content">
@@ -716,7 +719,7 @@
                                 <div class="col-lg-6">
                                 <div class="ibox">
                                     <div class="ibox-title">
-                                        <h5>Grafico General de las Figuras Simple</h5><span class="  glyphicon glyphicon-info-sign" title="Indica la cantidad de figuras completadas del Test de Figuras Enmascaradas por figura simple, es necesario hacer el filtro por fecha y hora"></span>
+                                        <h5>Grafico General de las Figuras Simple</h5><span class="  glyphicon glyphicon-info-sign" title="Grafico que muestra la cantidad de figuras complejas completas y no completadas de una figura simple del Test de Figuras Enmascaradas, cada figura simple corresponde a una actividad del Reim."></span>
                                         <div class="ibox-tools"></div>
                                     </div>
                                     <div class="ibox-content">
@@ -735,7 +738,7 @@
                                 <div class="col-lg-6">
                                     <div class="ibox ">
                                         <div class="ibox-title">
-                                            <h5>Minutos de Juego por Estudiante</h5><span class="  glyphicon glyphicon-info-sign" title="Cantidad de tiempo (min) que cada niño/a ha jugado con PlusSpace entre las fechas seleccionadas"></span>
+                                            <h5>Minutos de Juego por Estudiante</h5><span class="  glyphicon glyphicon-info-sign" title="Cantidad de tiempo (segundos) que cada niño/a ha jugado con PlusSpace entre las fechas seleccionadas"></span>
                                             <div class="ibox-tools"></div>
                                         </div>
                                         <div class="ibox-content">
@@ -748,7 +751,7 @@
                                 <div class="col-lg-6">
                                     <div class="ibox">
                                         <div class="ibox-title">
-                                            <h5>Cantidad de Touch por Estudiante</h5><span class="  glyphicon glyphicon-info-sign" title="Cantidad de touch (interacción) que cada niño/a realizó al jugar con PlusSpace entre las fechas seleccionadas"></span>
+                                            <h5>Cantidad de Touch por Estudiante</h5><span class="  glyphicon glyphicon-info-sign" title="Cantidad de touch (interacción) que cada niño/a realizó al jugar con el Reim entre las fechas seleccionadas"></span>
                                             <div class="ibox-tools"></div>
                                         </div>
                                         <div class="ibox-content">
@@ -767,7 +770,7 @@
                                 <div class="col-lg-6">
                                     <div class="ibox ">
                                         <div class="ibox-title">
-                                            <h5>Sesiones por Estudiante</h5><span class="  glyphicon glyphicon-info-sign" title="Cantidad de sesiones que cada niño/a realizó al jugar con PlusSpace entre las fechas seleccionadas"></span>
+                                            <h5>Sesiones por Estudiante</h5><span class="  glyphicon glyphicon-info-sign" title="Cantidad de sesiones que cada niño/a realizó al jugar con el Reim entre las fechas seleccionadas"></span>
                                             <div class="ibox-tools"></div>
                                         </div>
                                         <div class="ibox-content">
@@ -796,7 +799,7 @@
                                 <div class="col-lg-6">
                                     <div class="ibox ">
                                         <div class="ibox-title">
-                                            <h5>Reconociendo estilo cognitivo muy dependiente del campo por curso</h5><span class="  glyphicon glyphicon-info-sign" title="Para describir el grupo teniendo en cuenta la preferencia de estilo en la DIC se establecieron los siguientes rangos: muy dependiente (1-10), dependiente (11-20), intermedio (21-30), independiente (31-40) y muy independiente (41-50)."></span>
+                                            <h5>Reconociendo estilo cognitivo muy dependiente del campo por alumno</h5><span class="  glyphicon glyphicon-info-sign" title="La Dependencia de Campo e Indepencia de Campo son dos estilos cognitivos. Generalmente, las personas tenemos uno de estos dos estilos, aunque puede ser que en ocasiones utilicemos más uno que otro pero que dispongamos de los dos. Este estilo hace referencia, a grandes rasgos, a cómo procesamos la información: si de forma global y holística (dependencia de campo) o de forma analítica, detallada y concreta (independencia de campo). Alumnos dependientes de campo: 1) Perciben globalmente. 2) Son mejores para aprender material de contenido social. 3) Memorizan mejor información social. 4) Necesitan instrucciones para llevar a cabo una tarea. 5) Suelen aceptar la organización que se les impone y son incapaces de reorganizar. 6) Están acostumbrados a que les digan qué hacer. 7) Son sensibles a la crítica. 8) Requieren estructuras, metas y refuerzos externos para trabajar. Para reconocer el estilo se establecieron los siguientes rangos: muy dependiente (1-10), dependiente (11-20)."></span>
                                             <div class="ibox-tools"></div>
                                         </div>
                                         <div class="ibox-content">
@@ -809,7 +812,7 @@
                                 <div class="col-lg-6">
                                     <div class="ibox ">
                                         <div class="ibox-title">
-                                            <h5>Reconociendo estilo cognitivo dependiente del campo por curso</h5><span class="  glyphicon glyphicon-info-sign" title="Para describir el grupo teniendo en cuenta la preferencia de estilo en la DIC se establecieron los siguientes rangos: muy dependiente (1-10), dependiente (11-20), intermedio (21-30), independiente (31-40) y muy independiente (41-50)."></span>
+                                            <h5>Reconociendo estilo cognitivo dependiente del campo por alumno</h5><span class="  glyphicon glyphicon-info-sign" title="La Dependencia de Campo e Indepencia de Campo son dos estilos cognitivos. Generalmente, las personas tenemos uno de estos dos estilos, aunque puede ser que en ocasiones utilicemos más uno que otro pero que dispongamos de los dos. Este estilo hace referencia, a grandes rasgos, a cómo procesamos la información: si de forma global y holística (dependencia de campo) o de forma analítica, detallada y concreta (independencia de campo). Alumnos dependientes de campo: 1) Perciben globalmente. 2) Son mejores para aprender material de contenido social. 3) Memorizan mejor información social. 4) Necesitan instrucciones para llevar a cabo una tarea. 5) Suelen aceptar la organización que se les impone y son incapaces de reorganizar. 6) Están acostumbrados a que les digan qué hacer. 7) Son sensibles a la crítica. 8) Requieren estructuras, metas y refuerzos externos para trabajar. Para reconocer el estilo se establecieron los siguientes rangos: muy dependiente (1-10), dependiente (11-20)."></span>
                                             <div class="ibox-tools"></div>
                                         </div>
                                         <div class="ibox-content">
@@ -828,7 +831,7 @@
                                 <div class="col-lg-6">
                                     <div class="ibox ">
                                         <div class="ibox-title">
-                                            <h5>Reconociendo estilo cognitivo intermedio</h5><span class="  glyphicon glyphicon-info-sign" title="Para describir el grupo teniendo en cuenta la preferencia de estilo en la DIC se establecieron los siguientes rangos: muy dependiente (1-10), dependiente (11-20), intermedio (21-30), independiente (31-40) y muy independiente (41-50)."></span>
+                                            <h5>Reconociendo estilo cognitivo intermedio</h5><span class="  glyphicon glyphicon-info-sign" title="La Dependencia de Campo e Indepencia de Campo son dos estilos cognitivos. Generalmente, las personas tenemos uno de estos dos estilos, aunque puede ser que en ocasiones utilicemos más uno que otro pero que dispongamos de los dos. Este estilo hace referencia, a grandes rasgos, a cómo procesamos la información: si de forma global y holística (dependencia de campo) o de forma analítica, detallada y concreta (independencia de campo). Alumnos dependientes de campo: 1) Perciben globalmente. 2) Son mejores para aprender material de contenido social. 3) Memorizan mejor información social. Alumnos indepenties de campo: 1) Perciben analíticamente. 2) Necesitan ayuda para concentrarse en el material de contenido social. 3) Se les debe enseñar a usar el contexto para manejar información social. Para reconocer el estilo se establecio el siguiente rango: intermedio (21-30)"></span>
                                             <div class="ibox-tools"></div>
                                         </div>
                                         <div class="ibox-content">
@@ -841,7 +844,7 @@
                                 <div class="col-lg-6">
                                     <div class="ibox ">
                                         <div class="ibox-title">
-                                            <h5>Reconociendo estilo cognitivo independiente del campo</h5><span class="  glyphicon glyphicon-info-sign" title="Para describir el grupo teniendo en cuenta la preferencia de estilo en la DIC se establecieron los siguientes rangos: muy dependiente (1-10), dependiente (11-20), intermedio (21-30), independiente (31-40) y muy independiente (41-50)."></span>
+                                            <h5>Reconociendo estilo cognitivo independiente del campo por alumno</h5><span class="  glyphicon glyphicon-info-sign" title="La Dependencia de Campo e Indepencia de Campo son dos estilos cognitivos. Generalmente, las personas tenemos uno de estos dos estilos, aunque puede ser que en ocasiones utilicemos más uno que otro pero que dispongamos de los dos. Este estilo hace referencia, a grandes rasgos, a cómo procesamos la información: si de forma global y holística (dependencia de campo) o de forma analítica, detallada y concreta (independencia de campo). Alumnos indepenties de campo: 1) Perciben analíticamente. 2) Necesitan ayuda para concentrarse en el material de contenido social. 3) Se les debe enseñar a usar el contexto para manejar información social. 4) Son capaces de resolver problemas y llevar a cabo tareas sin necesidad de instrucciones. 5) Pueden analizar una situación y reorganizarla. 6) Tienen iniciativa y pueden utilizar sus propios criterios para desarrollar tareas. 7) Las críticas no los afectan mucho. 8) Suelen tener metas y refuerzos internos. 9) Les gusta trabajar solos. Para reconocer el estilo se establecieron los siguientes rangos: independiente (31-40) y muy independiente (41-50)."></span>
                                             <div class="ibox-tools"></div>
                                         </div>
                                         <div class="ibox-content">
@@ -860,7 +863,7 @@
                                 <div class="col-lg-6">
                                     <div class="ibox ">
                                         <div class="ibox-title">
-                                            <h5>Reconociendo estilo cognitivo muy independiente del campo</h5><span class="  glyphicon glyphicon-info-sign" title="Para describir el grupo teniendo en cuenta la preferencia de estilo en la DIC se establecieron los siguientes rangos: muy dependiente (1-10), dependiente (11-20), intermedio (21-30), independiente (31-40) y muy independiente (41-50)."></span>
+                                            <h5>Reconociendo estilo cognitivo muy independiente del campo por alumno</h5><span class="  glyphicon glyphicon-info-sign" title="La Dependencia de Campo e Indepencia de Campo son dos estilos cognitivos. Generalmente, las personas tenemos uno de estos dos estilos, aunque puede ser que en ocasiones utilicemos más uno que otro pero que dispongamos de los dos. Este estilo hace referencia, a grandes rasgos, a cómo procesamos la información: si de forma global y holística (dependencia de campo) o de forma analítica, detallada y concreta (independencia de campo). Alumnos indepenties de campo: 1) Perciben analíticamente. 2) Necesitan ayuda para concentrarse en el material de contenido social. 3) Se les debe enseñar a usar el contexto para manejar información social. 4) Son capaces de resolver problemas y llevar a cabo tareas sin necesidad de instrucciones. 5) Pueden analizar una situación y reorganizarla. 6) Tienen iniciativa y pueden utilizar sus propios criterios para desarrollar tareas. 7) Las críticas no los afectan mucho. 8) Suelen tener metas y refuerzos internos. 9) Les gusta trabajar solos. Para describir el grupo teniendo en cuenta la preferencia de estilo cognitivo se establecieron los siguientes rangos: independiente (31-40) y muy independiente (41-50)."></span>
                                             <div class="ibox-tools"></div>
                                         </div>
                                         <div class="ibox-content">
