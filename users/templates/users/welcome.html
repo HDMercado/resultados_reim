@@ -658,6 +658,7 @@
 
                 {% if reim_num == '77' %}
                 <div class="wrapper wrapper-content">
+
                     <!--77 GRAFICO POR ALUMNO Y ACTIVIDAD-->
                     {% if reim_num == '77' and student_num != '0' and activity_num != '0' %}
                     <div class="row">
@@ -873,22 +874,61 @@
                                         </div>
                                     </div>
                                 </div>
+
+                            </div>
+                        </div>
+                </div>
+                                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="row" >
                                 <div class="col-lg-6">
                                     <div class="ibox ">
                                         <div class="ibox-title">
-                                            <h5>Reconociendo Estilo Cognitivo</h5><span class="  glyphicon glyphicon-info-sign" title="Para describir el grupo teniendo en cuenta la preferencia de estilo en la DIC se establecieron los siguientes rangos: muy dependiente (1-10), dependiente (11-20), intermedio (21-30), independiente (31-40) y muy independiente (41-50)."></span>
+                                            <h5>Minutos de Juego por Estudiante</h5><span class="  glyphicon glyphicon-info-sign" title="Cantidad de tiempo (min) que cada niño/a ha jugado con PlusSpace entre las fechas seleccionadas"></span>
                                             <div class="ibox-tools"></div>
                                         </div>
                                         <div class="ibox-content">
                                             <div class="scroll_content">
-                                                <canvas id="1234" height={{tamaño_curso}}>{% load staticfiles %}</canvas>
+                                                <canvas id="stacked" height={{game_time_graph}}>{% load staticfiles %}</canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="ibox">
+                                        <div class="ibox-title">
+                                            <h5>Cantidad de Touch por Estudiante</h5><span class="  glyphicon glyphicon-info-sign" title="Cantidad de touch (interacción) que cada niño/a realizó al jugar con PlusSpace entre las fechas seleccionadas"></span>
+                                            <div class="ibox-tools"></div>
+                                        </div>
+                                        <div class="ibox-content">
+                                            <div class="scroll_content">
+                                                <canvas id="horizontalBar" height={{game_time_graph}}>{% load staticfiles %}</canvas>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="ibox ">
+                                        <div class="ibox-title">
+                                            <h5>Sesiones por Estudiante</h5><span class="  glyphicon glyphicon-info-sign" title="Cantidad de sesiones que cada niño/a realizó al jugar con PlusSpace entre las fechas seleccionadas"></span>
+                                            <div class="ibox-tools"></div>
+                                        </div>
+                                        <div class="ibox-content">
+                                            <div class="scroll_content">
+                                                <canvas id="stacked2" height={{sesion_quantity_graph}}>{% load staticfiles %}</canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     {% endif %}
                 <!--77 GRAFICO POR CURSO Y SIN ACTIVIDAD-->
 
@@ -3318,7 +3358,7 @@
                         ],
             datasets: [
                 {
-                    label: "Tiempo por Actividad en Minutos",
+                    label: "Tiempo por Actividad en Segundos",
                     backgroundColor: "rgb(85,136,255)",
                     borderColor: "rgb(85,136,255)",
                     pointBorderColor: "#fff",
