@@ -1152,8 +1152,10 @@ def get_name_student(request):
   
 #FIN QUERY PLUS SPACE------------------------
 #
-#
-#INICIO QUERY BUSCANDO EL TESORO PERDIDO
+
+
+
+#INICIO REIM ID = 77, NOMBRE = BUSCANDO EL TESORO PERDIDO
 
 def get_touch_analitica_prueba_query(request):
     
@@ -1675,6 +1677,5 @@ def get_figura_simple_ultimos_registros_por_curso(request, lista, userid):
 
         #print("\n\n: " + query_final)
         return query_final
-#GRAFICOS POR CURSO REIM 77
 
-#FIN QUERY BUSCANDO EL TESORO PERDIDO
+#FIN REIM ID = 77, NOMBRE = BUSCANDO EL TESORO PERDIDO

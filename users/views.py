@@ -639,7 +639,7 @@ def welcome(request):
         #FIN CLEAN OCEAN
 
 
-        #INICIO EN BUSQUEDA DEL TESORO PERDIDO
+#INICIO REIM ID = 77, NOMBRE = BUSCANDO EL TESORO PERDIDO
         #-------
         nombre_estilo_cognitivo_alumno = ''
         tiempo_x_actividad_response = []
@@ -995,7 +995,7 @@ def welcome(request):
 
 
 
-        #FIN EN BUSQUEDA DEL TESORO PERDIDO
+#FIN REIM ID = 77, NOMBRE = BUSCANDO EL TESORO PERDIDO
         
         #Cantidad de Sesiones
         session_query = get_session_query(request)
@@ -1124,7 +1124,7 @@ def welcome(request):
                 'touch_puzzle_quantity':touch_puzzle_quantity_response,
                 'nombre':nombre,
 
-                #buscando el tesoro perdido
+                #INICIO REIM ID = 77, NOMBRE = BUSCANDO EL TESORO PERDIDO
                 'tiempo_x_actividad': tiempo_x_actividad_response,
                 'respuesta_x_estilo': identificar_estilo_cognitivo_response,
                 'estilo_x_cognitivo': Estilo_cognitivo_por_niño,
@@ -1144,6 +1144,7 @@ def welcome(request):
                 'tamaño_curso': tamaño_curso,
                 'tamaña_grafico_por_alumno': tamaña_grafico_por_alumno,
                 'tamaño_actividad_alumno': tamaña_grafico_por_actividad
+                #FIN REIM ID = 77, NOMBRE = BUSCANDO EL TESORO PERDIDO
                 
             })
     # En otro caso redireccionamos al login
