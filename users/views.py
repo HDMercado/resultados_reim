@@ -6,6 +6,9 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login as do_login
 from django.contrib.auth import logout as do_logout
 from django.contrib.auth.models import User
+# ----- 77
+from datetime import timedelta
+# ----- 77
 
 
 def welcome(request):
