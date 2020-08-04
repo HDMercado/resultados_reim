@@ -8,6 +8,15 @@ from django.contrib.auth import logout as do_logout
 from django.contrib.auth.models import User
 
 
+def order_list_alm(json):
+    try:
+        # Also convert to int since update_time will be string.  When comparing
+        # strings, "10" is smaller than "2".
+        return int(json['porcent'])
+    except KeyError:
+        return 0
+
+
 def welcome(request):
 
     # Si estamos identificados devolvemos la portada
@@ -219,6 +228,311 @@ def welcome(request):
         activate_student_filter = False
         if request.GET.get('student') and request.GET.get('student') != "0":
             activate_student_filter = True
+
+
+        #INICIO DIA MUNDIAL
+        #Generales
+        nombre=[]
+        sesiones_PS_quantity_response=[]
+        time_PS_quantity_response=[]
+        tiempoXact_quantity_responseDM=[]##TIEMPO  POR ACTIVIDAD
+        completa_incompleta_inactividad=[]
+        get_ganar_perder_DM_Quest_response=[]
+
+        #QUERYS LAB
+        completa_incompleta_DM_quantity_response=[]
+        fruta_chatarra_DM_quantity_response=[]
+        muro_hoyo_DM_quantity_response=[]
+        col_vs_time=[]
+        #QUERYS RIO OCE
+        tipo_basura_DM_quantity_response=[]
+        animales_nivel_DM_quantity_response=[]
+        #QUERYS LUCES
+        touches_luces_DM_quantity_response=[]
+        #QUERYS ABEJA
+        get_miel_cae_choca_DM_quantity_response=[]
+        #QUERYS ANIMALES
+        get_animales_salvados_DM_quantity_response=[]
+        get_animales_salvados_pornivel_DM_quantity_response=[]
+        #QUERYS ARBOL
+        correcta_incorrecta_arbol_DM_quantity_response=[]
+        crecimiento_arbol_DM_quantity_response=[]
+
+        #TAMAÑOS
+        total_completa_incompleta=0
+        time_DM_graf=0
+        colisiones_tiempo_media = -1
+        colisiones_muro_media = 0
+        colisiones_hoyo_media = 0
+
+        lista_alumnos_final = []
+        lista_alumnos_final2 = []
+        lista_unico_alumno = []
+
+
+        if reim_num=="4":
+
+            #GRAN GRAFICO
+            lista_alumnos = get_alumnos_and_id(request)
+            cursor.execute(lista_alumnos)
+            lista_alumnos = cursor.fetchall()
+            for alumnoo in lista_alumnos:
+                alumnoC = [alumnoo[1], 0, 0, 0, 0, alumnoo[0]]
+                sesiones_lab = get_laberinto_porniño(request, alumnoo[0])
+                cursor.execute(sesiones_lab)
+                sesiones_lab = cursor.fetchall()
+                if len(sesiones_lab) > 3:
+                    a = 0
+                    error_max = 0
+                    porcent = 0
+                    for sesion_lab in sesiones_lab:
+                        if a == 2:
+                            error_max = sesion_lab[2]
+                        else:
+                            if a > 2 and error_max > 0:
+                                b = (100 * sesion_lab[2])/error_max
+                                porcent += b
+                        a += 1
+                    porcent = porcent / (len(sesiones_lab)-3)
+                    alumnoC[1] = porcent
+                sesiones_abejas = get_abejas_porniño(request, alumnoo[0])
+                cursor.execute(sesiones_abejas)
+                sesiones_abejas = cursor.fetchall()
+                if len(sesiones_abejas) > 3:
+                    a = 0
+                    error_max = 0
+                    porcentt = 0
+                    for sesion_lab in sesiones_abejas:
+                        if a == 2:
+                            error_max = sesion_lab[2]
+                        else:
+                            if a > 2 and error_max > 0:
+                                b = (100 * sesion_lab[2])/error_max
+                                porcentt += b
+                        a += 1
+                    porcentt = porcentt / (len(sesiones_abejas)-3)
+                    alumnoC[2] = porcentt
+                sesiones_luces = get_luces_porniño(request, alumnoo[0])
+                cursor.execute(sesiones_luces)
+                sesiones_luces = cursor.fetchall()
+                if len(sesiones_luces) > 3:
+                    a = 0
+                    error_max = 0
+                    porcenttt = 0
+                    for sesion_lab in sesiones_luces:
+                        if a == 2:
+                            error_max = sesion_lab[2]
+                        else:
+                            if a > 2 and error_max > 0:
+                                b = (100 * sesion_lab[2])/error_max
+                                porcenttt += b
+                        a += 1
+                    porcenttt = porcenttt / (len(sesiones_luces)-3)
+                    alumnoC[3] = porcenttt
+                sesiones_ocerio = get_oceanorio_porniño(request, alumnoo[0])
+                cursor.execute(sesiones_ocerio)
+                sesiones_ocerio = cursor.fetchall()
+                if len(sesiones_ocerio) > 3:
+                    a = 0
+                    error_max = 0
+                    porcentttt=0
+                    for sesion_lab in sesiones_ocerio:
+                        if a == 2:
+                            error_max = sesion_lab[2]
+                        else:
+                            if a > 2 and error_max > 0:
+                                b = (100 * sesion_lab[2])/error_max
+                                porcentttt += b
+                        a += 1
+                    porcentttt = porcentttt / (len(sesiones_ocerio)-3)
+                    alumnoC[4] = porcentttt
+                lista_alumnos_final.append(alumnoC)
+            lista_unico_alumno = []
+            for alm in lista_alumnos_final:
+                if int(student_num) == int(alm[5]):
+                    print("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb")
+                    lista_unico_alumno.append({'name': alm[0], 'lab': int(alm[1]), 'abejas': int(alm[2]), 'luces': int(alm[3]), 'ocerio': int(alm[4]), 'id': alm[5]})
+                prcentt = 0
+                bb = 0
+                if alm[1] != 0:
+                    prcentt += alm[1]
+                    bb += 1
+                if alm[2] != 0:
+                    prcentt += alm[2]
+                    bb += 1
+                if alm[3] != 0:
+                    prcentt += alm[3]
+                    bb += 1
+                if alm[4] != 0:
+                    prcentt += alm[4]
+                    bb += 1
+                if bb > 0:
+                    prcentt = int(prcentt / bb)
+                    prcentt = 100 - prcentt
+                lista_alumnos_final2.append({'name': alm[0], 'porcent': prcentt})
+            print(lista_alumnos_final)
+            print("---------------------------------------------O---------------------------------------------------")
+            print(lista_alumnos_final2)
+
+            #General
+            nombre_query = get_name_student(request)
+            queries.append({"name": 'nombre estudiante', "query": nombre_query})
+            cursor.execute(nombre_query)
+            nombre_quantity = cursor.fetchall()
+            for row in nombre_quantity:
+                nombre.append({ 'name': row[0]})
+
+            sesiones_PS_query = get_time_act_co(request)
+            queries.append({"name": 'Tiempo Actividad sesion query', "query": sesiones_PS_query})
+            cursor.execute(sesiones_PS_query)
+            sesiones_PS_quantity = cursor.fetchall()
+            for row in sesiones_PS_quantity:
+                sesiones_PS_quantity_response.append({ 'id': row[0]})
+       
+            time_PS_query = get_time_act_co(request)
+            queries.append({"name": 'Tiempo Actividad query', "query": time_PS_query})
+            cursor.execute(time_PS_query)
+            time_PS_quantity = cursor.fetchall()
+            for row in time_PS_quantity:
+                time_PS_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+            
+        #tiempo por actividad general
+            tiempoXact_query = get_tiempoactDM(request)
+            cursor.execute(tiempoXact_query)
+            queries.append({"name": 'TiempoXact query', "query": tiempoXact_query})
+            tiempoXact_quantity = cursor.fetchall()
+            for row in tiempoXact_quantity:
+                tiempoXact_quantity_responseDM.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+
+        #QUEST DM
+            completa_incompleta_PS_query = get_ganar_perder_DM_Quest(request)
+            queries.append({"name": 'Correcta Incorrecta Quest DM query', "query": completa_incompleta_PS_query})
+            cursor.execute(completa_incompleta_PS_query)
+            completa_incompleta_PS_quantity = cursor.fetchall()
+            for row in completa_incompleta_PS_quantity:
+                get_ganar_perder_DM_Quest_response.append({ 'id': row[0], 'name': row[1], 'correcta': row[2], 'incorrecta': row[3]})
+
+
+        ##JUEGO LABERINTO
+        #Colisiones en el tiempo
+            colission_analitica_query = get_colisiones_analitica_DM(request)
+            queries.append({"name": 'colisiones tiempo', "query": colission_analitica_query})
+            cursor.execute(colission_analitica_query)
+            colission_analitica_quantity = cursor.fetchall()
+            a = 0
+            for row in colission_analitica_quantity:
+                col_vs_time.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+                if a == 3:
+                    colisiones_tiempo_media += row[2]
+                a += 1
+
+        #CompletavsIncompleta
+            completa_incompleta_PS_query = get_completa_incompleta_PS(request)
+            queries.append({"name": 'Completas incompletas DM query', "query": completa_incompleta_PS_query})
+            cursor.execute(completa_incompleta_PS_query)
+            completa_incompleta_PS_quantity = cursor.fetchall()
+            for row in completa_incompleta_PS_quantity:
+                completa_incompleta_inactividad.append({ 'id': row[0], 'name': row[1], 'completa': row[2], 'incompleta': row[3], 'inactiva': row[4] })
+            
+        #Fruta vs Chatarra
+            elementos_PS_query = get_ganar_perder_lab(request)
+            queries.append({"name": 'Fruta Chatarra DM query', "query": elementos_PS_query})
+            cursor.execute(elementos_PS_query)
+            elementos_PS_quantity = cursor.fetchall()
+            for row in elementos_PS_quantity:
+                fruta_chatarra_DM_quantity_response.append({ 'id': row[0], 'name': row[1], 'fruta': row[2], 'chatarra': row[3],})
+
+        #Muro vs Hoyo
+            muro_hoyo = get_colision_muro_hoyo(request)
+            queries.append({"name": 'Muro Hoyo DM query', "query": muro_hoyo})
+            cursor.execute(muro_hoyo)
+            muro_hoyo_quantity = cursor.fetchall()
+            for row in muro_hoyo_quantity:
+                muro_hoyo_DM_quantity_response.append({ 'id': row[0], 'name': row[1], 'muro': row[2], 'hoyo': row[3]})
+                colisiones_muro_media += row[2]
+                colisiones_hoyo_media += row[3]
+
+        ##JUEGO RIO OCEANO
+        #Tipo basura
+            elementos_PS_query = get_tipo_basura(request)
+            queries.append({"name": 'Tipo Basura DM query', "query": elementos_PS_query})
+            cursor.execute(elementos_PS_query)
+            elementos_PS_quantity = cursor.fetchall()
+            for row in elementos_PS_quantity:
+                tipo_basura_DM_quantity_response.append({ 'id': row[0], 'name': row[1], 'bolsa': row[2], 'botella': row[3], 'mancha': row[4], 'red': row[5], 'zapato': row[6],})            
+
+        #Animal Nivel
+            elementos_PS_query = get_animales_nivel(request)
+            queries.append({"name": 'Animales Nivel DM query', "query": elementos_PS_query})
+            cursor.execute(elementos_PS_query)
+            elementos_PS_quantity = cursor.fetchall()
+            for row in elementos_PS_quantity:
+                animales_nivel_DM_quantity_response.append({ 'id': row[0], 'name': row[1], 'animalesoceano': row[2], 'animalesrio': row[3], 'basuraoceano': row[4], 'basurario': row[5],}) 
+
+        ##JUEGO LUCES
+        #Touches Luces
+            elementos_PS_query = get_touches_luces(request)
+            queries.append({"name": 'Touches Luces DM query', "query": elementos_PS_query})
+            cursor.execute(elementos_PS_query)
+            elementos_PS_quantity = cursor.fetchall()
+            for row in elementos_PS_quantity:
+                touches_luces_DM_quantity_response.append({ 'id': row[0], 'name': row[1], 'touches': row[2], 'lucescorrectas': row[3],})  
+
+        ##JUEGO ABEJA
+        #GET MIEL
+            elementos_PS_query = get_miel_cae_choca(request)
+            queries.append({"name": 'Get Miel DM query', "query": elementos_PS_query})
+            cursor.execute(elementos_PS_query)
+            elementos_PS_quantity = cursor.fetchall()
+            for row in elementos_PS_quantity:
+                get_miel_cae_choca_DM_quantity_response.append({ 'id': row[0], 'name': row[1], 'colisionpanal': row[2], 'colisionsuelo': row[3], 'colisionosoavispa': row[4],})
+
+        ##JUEGO ANIMALES
+        #ANIMALES SALVADOS
+            elementos_PS_query = get_animales_salvados(request)
+            queries.append({"name": 'Animales Salvados DM query', "query": elementos_PS_query})
+            cursor.execute(elementos_PS_query)
+            elementos_PS_quantity = cursor.fetchall()
+            for row in elementos_PS_quantity:
+                get_animales_salvados_DM_quantity_response.append({ 'id': row[0], 'name': row[1], 'ballena': row[2], 'oso': row[3], 'pinguino': row[4], 'pepino': row[5], 'pajaro': row[6], 'foca': row[7], 'tigre': row[8], 'cocodrilo': row[9], 'mono': row[10], 'serpiente': row[11], 'perezoso': row[12], 'rana': row[13], 'lagartija': row[14], 'lemur': row[15], 'camaleon': row[16], 'tortuga': row[17], 'leon': row[18], 'fosa': row[19]})
+
+        #ANIMALES SALVADOS POR NIVEL
+            elementos_PS_query = get_animales_salvados_pornivel(request)
+            queries.append({"name": 'Animales Salvados Por Nivel DM query', "query": elementos_PS_query})
+            cursor.execute(elementos_PS_query)
+            elementos_PS_quantity = cursor.fetchall()
+            for row in elementos_PS_quantity:
+                get_animales_salvados_pornivel_DM_quantity_response.append({ 'id': row[0], 'name': row[1], 'animalesantartica': row[2], 'animalesselva': row[3], 'animalesmadagascar': row[4],})
+
+        ##JUEGO ARBOL
+        #Correcta Incorrecta
+            elementos_PS_query = get_correcta_incorrecta_arbol(request)
+            queries.append({"name": 'Correcta Incorrecta Arbol DM query', "query": elementos_PS_query})
+            cursor.execute(elementos_PS_query)
+            elementos_PS_quantity = cursor.fetchall()
+            for row in elementos_PS_quantity:
+                correcta_incorrecta_arbol_DM_quantity_response.append({ 'id': row[0], 'name': row[1], 'perdida': row[2], 'atino': row[3],})
+
+        #Crecimiento Arbol
+            colission_analitica_query = get_crecimiento_arbol(request)
+            queries.append({"name": 'Crecer Árbol en el tiempo', "query": colission_analitica_query})
+            cursor.execute(colission_analitica_query)
+            colission_analitica_quantity = cursor.fetchall()
+            for row in colission_analitica_quantity:
+                crecimiento_arbol_DM_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+
+        #OTROS
+            if len(col_vs_time) > 3 and len(muro_hoyo_DM_quantity_response) > 0:
+                colisiones_tiempo_media = colisiones_tiempo_media * 0.6
+                colisiones_muro_media = (colisiones_muro_media / len(muro_hoyo_DM_quantity_response))
+                colisiones_hoyo_media = (colisiones_hoyo_media / len(muro_hoyo_DM_quantity_response))
+
+
+            lista_alumnos_final2.sort(key=order_list_alm, reverse=True)
+
+
+
+
         #INICIO PLUS SPACE
         #PLUS SPACE-------------------------------------
         #General
@@ -282,7 +596,6 @@ def welcome(request):
             cursor.execute(tiempoXact_query)
             queries.append({"name": 'TiempoXact query', "query": tiempoXact_query})
             tiempoXact_quantity = cursor.fetchall()
-            print("tiempoXact quantity", tiempoXact_quantity)
             for row in tiempoXact_quantity:
                 tiempoXact_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
 
@@ -666,6 +979,7 @@ def welcome(request):
                 'activities': activities_response,
                 'students': students_response,
                 'touch_quantity': touch_quantity_response,
+                'touch_quantity_len': len(touch_quantity_response),
                 'sesion_quantity': sesion_quantity_response,
                 'cant_usuarios':cant_usuarios,
                 'activity_num':activity_num,
@@ -728,7 +1042,28 @@ def welcome(request):
                 'tiempo_total_quantity':tiempo_total_quantity_response,
                 'audios_quantity':audios_quantity_response,
                 'animales_quantity_graph':animales_quantity_graph,
-               
+                #Día Mundial
+                'time_DM_quantity':time_PS_quantity_response,
+                'completa_incompleta_DM_quantity':completa_incompleta_DM_quantity_response,
+                'fruta_chatarra_DM_quantity_response':fruta_chatarra_DM_quantity_response,
+                'muro_hoyo_DM_quantity_response':muro_hoyo_DM_quantity_response,
+                'tipo_basura_DM_quantity_response': tipo_basura_DM_quantity_response,
+                'animales_nivel_DM_quantity_response':animales_nivel_DM_quantity_response,
+                'touches_luces_DM_quantity_response': touches_luces_DM_quantity_response,
+                'get_miel_cae_choca_DM_quantity_response':get_miel_cae_choca_DM_quantity_response,
+                'get_animales_salvados_DM_quantity_response':get_animales_salvados_DM_quantity_response,
+                'get_animales_salvados_pornivel_DM_quantity_response':get_animales_salvados_pornivel_DM_quantity_response,
+                'correcta_incorrecta_arbol_DM_quantity_response':correcta_incorrecta_arbol_DM_quantity_response,
+                'crecimiento_arbol_DM_quantity_response':crecimiento_arbol_DM_quantity_response,
+                'completa_incompleta_inactividad':completa_incompleta_inactividad,
+                'col_vs_time':col_vs_time,
+                'tiempoXact_quantity_responseDM': tiempoXact_quantity_responseDM,
+                'get_ganar_perder_DM_Quest_response': get_ganar_perder_DM_Quest_response,
+                'colisiones_tiempo_media': colisiones_tiempo_media,
+                'colisiones_muro_media' : colisiones_muro_media,
+                'colisiones_hoyo_media' : colisiones_hoyo_media,
+                'lista_alumnos_final2': lista_alumnos_final2,
+                'lista_unico_alumno': lista_unico_alumno,
                 #PLUSSPACE
                 'move_element_quantity':move_element_quantity_response,
                 'elementos_PS_quantity':elementos_PS_quantity_response,
@@ -746,6 +1081,7 @@ def welcome(request):
                 'posicionamiento_alu_PS_quantity':posicionamiento_alu_PS_quantity_response,
                 'acierto_cuida_alu_quantity':acierto_cuida_alu_quantity_response,
                 #tamaño de graficos
+
                 'time_PS_graf':time_PS_graf,
                 'correctas_PS_graf':correctas_PS_graf,
                 'move_element_graf':move_element_graf,

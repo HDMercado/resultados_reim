@@ -15,7 +15,16 @@
     <link href="{% static 'css/animate.css' %}" rel="stylesheet">
     <link href="{% static 'css/style.css' %}" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js"></script>
+    <!--script src="path/to/chartjs/dist/Chart.js"></script-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+    <style type="text/css">
+        .descriptionBottom{
+            text-align: center;
+            margin-top: 20px;
+            font-size: 15px;
+            background-color: #DEDEDE;
+        }
+    </style>
 </head>
 <body>
 <div id="wrapper">
@@ -152,6 +161,624 @@
                 </div>
             </div>
         </div>
+        <!-- INICIO DIA MUNDIAL -->
+        {% if reim_num == '4' %}
+        <div class="wrapper wrapper-content">
+            <!-- GENERALES -->
+            {% if activity_num == '0' and student_num != '0' %}
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
+                                    <div class="col-lg-6">
+                                        <div class="ibox">
+                                            <div class="ibox-title">
+                                                <h5>Tiempo de juego</h5><span class="glyphicon glyphicon-info-sign" title="Gráfico que muestra la comparación de tiempos dentro del juego de cada alumno"></span>
+                                            </div>
+                                            <div class="ibox-content">
+                                                <div class="scroll_content">
+                                                    <canvas id="stacked" height={{analytics_co_quantity_graph}}>{% load staticfiles %}</canvas>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="ibox ">
+                                            <div class="ibox-title">
+                                                <h5>Cantidad de interacciones totales del curso por actividad</h5><span class="glyphicon glyphicon-info-sign" title="Gráfico que muestra la cantidad de interacciones realizadas por curso en las actividades del REIM 'Día Mundial'."></span>
+                                                <div class="ibox-tools"></div>
+                                            </div>
+                                            <div class="ibox-content">
+                                                <div class="scroll_content">
+                                                    <canvas id="horizontalBar" height={{actividades_co_quantity_graph}}>{% load staticfiles %}</canvas>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
+                                    <div class="col-lg-6">
+                                        <div class="ibox">
+                                            <div class="ibox-title">
+                                                <h5>Cantidad de sesiones</h5><span class="glyphicon glyphicon-info-sign" title="Gráfico que muestra la comparación de tiempos dentro del juego de cada alumno"></span>
+                                            </div>
+                                            <div class="ibox-content">
+                                                <div class="scroll_content">
+                                                    <canvas id="stacked2" height={{analytics_co_quantity_graph}}>{% load staticfiles %}</canvas>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                <div class="ibox ">
+                                    <div class="ibox-title">
+                                        <h5>Tiempo de juego por Actividad</h5><span class="  glyphicon glyphicon-info-sign" title="Cantidad de tiempo (min) que los niños/as estuvieron interactuando con cada actividad de  Día Mundial entre las fechas seleccionadas'¿"></span>
+                                        <div class="ibox-tools"></div>
+                                    </div>
+                                    <div class="ibox-content">
+                                        <div class="scroll_content">
+                                            <canvas id="pieAnalitic">{% load staticfiles %}</canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
+                                    <div class="col-lg-6">
+                                        <div class="ibox">
+                                            <div class="ibox-title">
+                                                <h5>Correctas Incorrectas pregunta Día Mundial</h5><span class="glyphicon glyphicon-info-sign" title="Gráfico que muestra la comparación de respuestas en las preguntas de los días mundiales."></span>
+                                            </div>
+                                            <div class="ibox-content">
+                                                <div class="scroll_content">
+                                                    <canvas id="QUESTDM" height={{analytics_co_quantity_graph}}>{% load staticfiles %}</canvas>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                <div class="ibox ">
+                                    <div class="ibox-title">
+                                        <h5>Desarrollo de motricidad fina</h5><span class="  glyphicon glyphicon-info-sign" title="Gráfico que muestra el porcentaje de Desarrollo de motricidad fina en las diferentes actividades."></span>
+                                        <div class="ibox-tools"></div>
+                                    </div>
+                                    <div class="ibox-content">
+                                        <div class="scroll_content">
+                                            <canvas id="GranGraficoI">{% load staticfiles %}</canvas>
+                                            <div class="descriptionBottom">Gráfico que muestra la media de todas las sesiones que se realizaron en las diferentes actividades, este avance se obtiene con la tercera sesión de cada estudiante como base.</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+            <!-- GENERALES -->
+            {% if activity_num == '4000' and student_num == '0' %}
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
+                                    <div class="col-lg-6">
+                                        <div class="ibox">
+                                            <div class="ibox-title">
+                                                <h5>Tiempo de juego</h5><span class="glyphicon glyphicon-info-sign" title="Gráfico que muestra la comparación de tiempos dentro del juego de cada alumno"></span>
+                                            </div>
+                                            <div class="ibox-content">
+                                                <div class="scroll_content">
+                                                    <canvas id="stacked" height={{analytics_co_quantity_graph}}>{% load staticfiles %}</canvas>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="ibox ">
+                                            <div class="ibox-title">
+                                                <h5>Cantidad de interacciones totales del curso por actividad</h5><span class="glyphicon glyphicon-info-sign" title="Gráfico que muestra la cantidad de interacciones realizadas por curso en las actividades del REIM 'Día Mundial'."></span>
+                                                <div class="ibox-tools"></div>
+                                            </div>
+                                            <div class="ibox-content">
+                                                <div class="scroll_content">
+                                                    <canvas id="horizontalBar" height={{actividades_co_quantity_graph}}>{% load staticfiles %}</canvas>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
+                                    <div class="col-lg-6">
+                                        <div class="ibox">
+                                            <div class="ibox-title">
+                                                <h5>Cantidad de sesiones</h5><span class="glyphicon glyphicon-info-sign" title="Gráfico que muestra la comparación de tiempos dentro del juego de cada alumno"></span>
+                                            </div>
+                                            <div class="ibox-content">
+                                                <div class="scroll_content">
+                                                    <canvas id="stacked2" height={{analytics_co_quantity_graph}}>{% load staticfiles %}</canvas>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                <div class="ibox ">
+                                    <div class="ibox-title">
+                                        <h5>Tiempo de juego por Actividad</h5><span class="  glyphicon glyphicon-info-sign" title="Cantidad de tiempo (min) que los niños/as estuvieron interactuando con cada actividad de  Día Mundial entre las fechas seleccionadas'¿"></span>
+                                        <div class="ibox-tools"></div>
+                                    </div>
+                                    <div class="ibox-content">
+                                        <div class="scroll_content">
+                                            <canvas id="pieAnalitic">{% load staticfiles %}</canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
+                                    <div class="col-lg-6">
+                                        <div class="ibox">
+                                            <div class="ibox-title">
+                                                <h5>Correctas Incorrectas pregunta Día Mundial</h5><span class="glyphicon glyphicon-info-sign" title="Gráfico que muestra la comparación de respuestas en las preguntas de los días mundiales."></span>
+                                            </div>
+                                            <div class="ibox-content">
+                                                <div class="scroll_content">
+                                                    <canvas id="QUESTDM" height={{analytics_co_quantity_graph}}>{% load staticfiles %}</canvas>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="ibox">
+                                            <div class="ibox-title">
+                                        <h5>Desarrollo de motricidad fina</h5><span class="  glyphicon glyphicon-info-sign" title="Gráfico que muestra el porcentaje de Desarrollo de motricidad fina en las diferentes actividades."></span>
+                                        <div class="ibox-tools"></div>
+                                        <div class="ibox-content">
+                                </div>
+                                    </div>
+                                            <div class="ibox-content">
+                                                <div class="scroll_content">
+                                                    <canvas id="GranGrafico" height={{analytics_co_quantity_graph}}>{% load staticfiles %}</canvas>
+                                                    <div class="descriptionBottom">Gráfico muestra de manera descendente el desarrollo motriz de todos los niños de un mismo curso. Para esto, se toman los porcentajes de desarrollo motriz fino de cada actividad, promediándolos. Además, se muestra la media de todo el curso, con lo cual es más facil identificar quienes necesitan reforzar ciertas habilidades </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+            <!-- GENERALES -->
+            {% if activity_num == '0' and student_num == '0' %}
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
+                                    <div class="col-lg-6">
+                                        <div class="ibox">
+                                            <div class="ibox-title">
+                                                <h5>Tiempo de juego</h5><span class="glyphicon glyphicon-info-sign" title="Gráfico que muestra la comparación de tiempos dentro del juego de cada alumno"></span>
+                                            </div>
+                                            <div class="ibox-content">
+                                                <div class="scroll_content">
+                                                    <canvas id="stacked" height={{analytics_co_quantity_graph}}>{% load staticfiles %}</canvas>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="ibox ">
+                                            <div class="ibox-title">
+                                                <h5>Cantidad de interacciones totales del curso por actividad</h5><span class="glyphicon glyphicon-info-sign" title="Gráfico que muestra la cantidad de interacciones realizadas por curso en las actividades del REIM 'Día Mundial'."></span>
+                                                <div class="ibox-tools"></div>
+                                            </div>
+                                            <div class="ibox-content">
+                                                <div class="scroll_content">
+                                                    <canvas id="horizontalBar" height={{actividades_co_quantity_graph}}>{% load staticfiles %}</canvas>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
+                                    <div class="col-lg-6">
+                                        <div class="ibox">
+                                            <div class="ibox-title">
+                                                <h5>Cantidad de sesiones</h5><span class="glyphicon glyphicon-info-sign" title="Gráfico que muestra la comparación de tiempos dentro del juego de cada alumno"></span>
+                                            </div>
+                                            <div class="ibox-content">
+                                                <div class="scroll_content">
+                                                    <canvas id="stacked2" height={{analytics_co_quantity_graph}}>{% load staticfiles %}</canvas>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                <div class="ibox ">
+                                    <div class="ibox-title">
+                                        <h5>Tiempo de juego por Actividad</h5><span class="  glyphicon glyphicon-info-sign" title="Cantidad de tiempo (min) que los niños/as estuvieron interactuando con cada actividad de  Día Mundial entre las fechas seleccionadas'¿"></span>
+                                        <div class="ibox-tools"></div>
+                                    </div>
+                                    <div class="ibox-content">
+                                        <div class="scroll_content">
+                                            <canvas id="pieAnalitic">{% load staticfiles %}</canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
+                                    <div class="col-lg-6">
+                                        <div class="ibox">
+                                            <div class="ibox-title">
+                                                <h5>Correctas Incorrectas pregunta Día Mundial</h5><span class="glyphicon glyphicon-info-sign" title="Gráfico que muestra la comparación de respuestas en las preguntas de los días mundiales."></span>
+                                            </div>
+                                            <div class="ibox-content">
+                                                <div class="scroll_content">
+                                                    <canvas id="QUESTDM" height={{analytics_co_quantity_graph}}>{% load staticfiles %}</canvas>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="ibox">
+                                            <div class="ibox-title">
+                                        <h5>Desarrollo de motricidad fina</h5><span class="  glyphicon glyphicon-info-sign" title="Gráfico que muestra el porcentaje de Desarrollo de motricidad fina en las diferentes actividades."></span>
+                                        <div class="ibox-tools"></div>
+                                    </div>
+                                    </div>
+                                            <div class="ibox-content">
+                                                <div class="scroll_content">
+                                                    <canvas id="GranGrafico" height={{analytics_co_quantity_graph}}>{% load staticfiles %}</canvas>
+                                                    <div class="descriptionBottom">Gráfico muestra de manera descendente el desarrollo motriz de todos los niños de un mismo curso. Para esto, se toman los porcentajes de desarrollo motriz fino de cada actividad, promediándolos. Además, se muestra la media de todo el curso, con lo cual es más facil identificar quienes necesitan reforzar ciertas habilidades </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+            <!--LABERINTO -->
+            {% if activity_num == '4010'%}
+            <div style="background-color: #E8E8E8; margin: 30px; text-align: center;">
+                <div style="margin: 20px; font-size: 20px;">Actividad del Laberinto</div>
+                <img align="center" alt="image" src="{% static 'img/laberinto.PNG' %}"/>
+                <div style="margin: 20px; font-size: 15px;">En esta actividad se deben utilizar las habilidades motrices de precisión, para tomar correctamente el camino del laberinto, además de esquivar los hoyos negros que presentan los mapas. Este juego termina al llegar  a una de las salidas que presenta el laberinto.</div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="row" >
+                        <div class="col-lg-6">
+                            <div class="ibox">
+                                <div class="ibox-title">
+                                    <h5>Pruebas de motricidad fina</h5><span class="  glyphicon glyphicon-info-sign" title="Obtenemos los resultados de la Prueba de motricidad fina 1° por la cantidad de choques que realiza el niño/a dentro de la actividad Laberinto. Obtenemos los resultados de la Prueba de motricidad fina 2° por la cantidad de caídas que realiza el niño/a dentro de la actividad Laberinto"></span>
+                                    <div class="ibox-tools"></div>
+                                </div>
+                                <div class="ibox-content">
+                                    <div class="scroll_content">
+                                        <canvas id="MuroVsHoyo" height={{time_DM_graf}}>{% load staticfiles %}</canvas>
+                                        {% if colisiones_muro_media > 0 and colisiones_hoyo_media > 0 and touch_quantity_len > 1 %}
+                                        <div class="descriptionBottom">La media del curso de la Prueba de motricidad fina 1° es: {{colisiones_muro_media}}</br>La media del curso de la Prueba de motricidad fina 2° es: {{colisiones_hoyo_media}}</div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="ibox ">
+                                <div class="ibox-title">
+                                    <h5>Elección Saludable vs Elección no Saludable</h5><span class="  glyphicon glyphicon-info-sign" title="Cantidad total de elecciones realizadas por el/la niño/a al escoger el camino hacia comida saludable o no saludable"></span>
+                                    <div class="ibox-tools"></div>
+                                </div>
+                                <div class="ibox-content">
+                                    <div class="scroll_content">
+                                        <canvas id="FrutaVsChatarra" height={{completa_incompleta_PS_graf}}>{% load staticfiles %}</canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="row" >
+                        <div class="col-lg-6">
+                            <div class="ibox">
+                                <div class="ibox-title">
+                                    <h5>Actividades completas, incompletas o inactividad</h5><span class="  glyphicon glyphicon-info-sign" title="Cantidad de actividades completas, incompletas o con inactividad realizadas por el/la niñ@ en la actividad"></span>
+                                    <div class="ibox-tools"></div>
+                                </div>
+                                <div class="ibox-content">
+                                    <div class="scroll_content">
+                                        <canvas id="CompletaIncompleta" height={{time_DM_graf}}>{% load staticfiles %}</canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="ibox">
+                                <div class="ibox-title">
+                                    <h5>Colisiones por sesión</h5><span class="  glyphicon glyphicon-info-sign" title="Cantidad de colisiones realizadas por el/la niñ@"></span>
+                                    <div class="ibox-tools"></div>
+                                </div>
+                                <div class="ibox-content">
+                                    <div class="scroll_content">
+                                        <canvas id="colisionesAnaliticaDM" height={{time_DM_graf}}>{% load staticfiles %}</canvas>
+                                        {% if colisiones_tiempo_media < 0 and touch_quantity_len < 2 %}
+                                        <div class="descriptionBottom">Los resultados correspondientes se toman a partir de la 4° sesión</div>
+                                        {% endif %}
+                                        {% if colisiones_tiempo_media > 0 and touch_quantity_len < 2 %}
+                                        <div class="descriptionBottom">Si el niño se encuentra por debajo de la Linea de mejora, éste mejoró su habilidad de motricidad fina</div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            <!--OCEANO RIO -->
+            {% if activity_num == '4016'%}
+            <div style="background-color: #E8E8E8; margin: 30px; text-align: center;">
+                <div style="margin: 20px; font-size: 20px;">Actividad del Agua</div>
+                <img align="center" alt="image" src="{% static 'img/oceanorio.PNG' %}"/>
+                <div style="margin: 20px; font-size: 15px;">En esta actividad se deben liberar a los animales marinos de la basura en el océano o río. Además, se puede recolectar los desechos sueltos en el mar. Se logra ganar la actividad al liberar al menos 13 animales, y recolectar al menos 10 desechos sueltos.</div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="row" >
+                        <div class="col-lg-6">
+                            <div class="ibox">
+                                <div class="ibox-title">
+                                    <h5>Basura recolectada por el/la niño/a</h5><span class="  glyphicon glyphicon-info-sign" title="Tipo de basura recolectada por el/la niño/a en las actividades río y oceáno"></span>
+                                    <div class="ibox-tools"></div>
+                                </div>
+                                <div class="ibox-content">
+                                    <div class="scroll_content">
+                                        <canvas id="TipoBasura" height={{time_DM_graf}}>{% load staticfiles %}</canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="ibox ">
+                                <div class="ibox-title">
+                                    <h5>Animales salvados por actividad</h5><span class="  glyphicon glyphicon-info-sign" title="Tipo de animales salvados por el/la niño/a en las actividades río y océano"></span>
+                                    <div class="ibox-tools"></div>
+                                </div>
+                                <div class="ibox-content">
+                                    <div class="scroll_content">
+                                        <canvas id="AnimalesNivel" height={{completa_incompleta_PS_graf}}>{% load staticfiles %}</canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            <!-- LUCES -->
+            {% if activity_num == '4013'%}
+            <div style="background-color: #E8E8E8; margin: 30px; text-align: center;">
+                <div style="margin: 20px; font-size: 20px;">Actividad de las Luces</div>
+                <img align="center" alt="image" src="{% static 'img/luces.PNG' %}"/>
+                <div style="margin: 20px; font-size: 15px;">En esta actividad es necesario utilizar la rapidéz, por lo cual la motricidad es el punto a evaluar, ya que debemos apagar todas las luces de las casas, edificios o fábricas . Esta actividad se gana sólo al apagar todas las luces.</div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="row" >
+                        <div class="col-lg-6">
+                            <div class="ibox">
+                                <div class="ibox-title">
+                                    <h5>Toques correctos vs Incorrectos</h5><span class="  glyphicon glyphicon-info-sign" title="Cantidad de toques realizados por el/la niño/a a las casas e incorrectos (fuera de las casas) en las actividades de las luces"></span>
+                                    <div class="ibox-tools"></div>
+                                </div>
+                                <div class="ibox-content">
+                                    <div class="scroll_content">
+                                        <canvas id="TouchesLuces" height={{time_DM_graf}}>{% load staticfiles %}</canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="ibox">
+                                <div class="ibox-title">
+                                    <h5>Actividades completas, incompletas o inactivas</h5><span class="  glyphicon glyphicon-info-sign" title="Cantidad de actividades completas, incompletas o inactivas realizadas por el/la niño/a"></span>
+                                    <div class="ibox-tools"></div>
+                                </div>
+                                <div class="ibox-content">
+                                    <div class="scroll_content">
+                                        <canvas id="CompletaIncompleta" height={{time_DM_graf}}>{% load staticfiles %}</canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            <!-- ABEJAS -->
+            {% if activity_num == '4019'%}
+            <div style="background-color: #E8E8E8; margin: 30px; text-align: center;">
+                <div style="margin: 20px; font-size: 20px;">Actividad de las Abejas</div>
+                <img align="center" alt="image" src="{% static 'img/abejas.PNG' %}"/>
+                <div style="margin: 20px; font-size: 15px;">En esta actividad se debe guiar a la abeja para llegar a su destino, para ello se deben utilizar los reflejos de reacción para esquivar a todos los enemigos de este importante animal. Se gana esta actividad cuando la abeja llega al panal.</div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="row" >
+                        <div class="col-lg-6">
+                            <div class="ibox">
+                                <div class="ibox-title">
+                                    <h5>Actividad finalizada vs no finalizada por obstáculos</h5><span class="  glyphicon glyphicon-info-sign" title="Cantidad de veces que el/la niño/a completó una actividad hasta finalizarla, se cayó o chocó con un enemigo de las abejas"></span>
+                                    <div class="ibox-tools"></div>
+                                </div>
+                                <div class="ibox-content">
+                                    <div class="scroll_content">
+                                        <canvas id="MielCaerChoca" height={{time_DM_graf}}>{% load staticfiles %}</canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="ibox">
+                                <div class="ibox-title">
+                                    <h5>Actividades completas, incompletas o inactivas</h5><span class="  glyphicon glyphicon-info-sign" title="Cantidad de actividades completas, incompletas o inactivas realizadas por el/la niño/a"></span>
+                                    <div class="ibox-tools"></div>
+                                </div>
+                                <div class="ibox-content">
+                                    <div class="scroll_content">
+                                        <canvas id="CompletaIncompleta" height={{time_DM_graf}}>{% load staticfiles %}</canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            <!-- Animales -->
+            {% if activity_num == '4007'%}
+            <div style="background-color: #E8E8E8; margin: 30px; text-align: center;">
+                <div style="margin: 20px; font-size: 20px;">Actividad de los Animales</div>
+                <img align="center" alt="image" src="{% static 'img/animales.PNG' %}"/>
+                <div style="margin: 20px; font-size: 15px;">En esta actividad se deben encontrar los animales camuflados en sus hábitats naturales, cada animal de esta actividad está en peligro de extinción. Cada nivel de este juego corresponde a un hábitat distinto. Se gana al encontrar al menos 4 animales dentro del tiempo correspondiente.</div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="row" >
+                        <div class="col-lg-6">
+                            <div class="ibox">
+                                <div class="ibox-title">
+                                    <h5>Animales salvados</h5><span class="  glyphicon glyphicon-info-sign" title="Cada tipo de animales salvados por el/la niño/a en todas las actividades jugadas"></span>
+                                    <div class="ibox-tools"></div>
+                                </div>
+                                <div class="ibox-content">
+                                    <div class="scroll_content">
+                                        <canvas id="AnimalesSalvados" height={{time_DM_graf}}>{% load staticfiles %}</canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="ibox">
+                                <div class="ibox-title">
+                                    <h5>Animales salvados por nivel</h5><span class="  glyphicon glyphicon-info-sign" title="Cantidad de animales salvados por el/la niño/a en cada nivel jugado"></span>
+                                    <div class="ibox-tools"></div>
+                                </div>
+                                <div class="ibox-content">
+                                    <div class="scroll_content">
+                                        <canvas id="AnimalesSalvadosPorNivel" height={{completa_incompleta_PS_graf}}>{% load staticfiles %}</canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="row" >
+                        <div class="col-lg-6">
+                            <div class="ibox">
+                                <div class="ibox-title">
+                                    <h5>Actividades completas, incompletas o inactivas</h5><span class="  glyphicon glyphicon-info-sign" title="Cantidad de actividades completas, incompletas o inactivas realizadas por el/la niño/a"></span>
+                                    <div class="ibox-tools"></div>
+                                </div>
+                                <div class="ibox-content">
+                                    <div class="scroll_content">
+                                        <canvas id="CompletaIncompleta" height={{time_DM_graf}}>{% load staticfiles %}</canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+                 <!-- Arbol -->
+            {% if activity_num == '4006'%}
+            <div style="background-color: #E8E8E8; margin: 30px; text-align: center;">
+                <div style="margin: 20px; font-size: 20px;">Actividad del Árbol</div>
+                <img align="center" alt="image" src="{% static 'img/arbol.PNG' %}"/>
+                <div style="margin: 20px; font-size: 15px;">En esta actividad, se deben seguir las instrucciones presentadas aleatoriamente para mantener el arbolito, arbusto y árbol sanamente durante la actividad. Cada vez que se inicie esta actividad, las instrucciones serán aleatorias. Esta actividad se gana, al hacer crecer sano nuestro árbol.</div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="row" >
+                        <div class="col-lg-6">
+                            <div class="ibox">
+                                <div class="ibox-title">
+                                    <h5>Instrucciones seguidas correcta e incorrectamente</h5><span class="  glyphicon glyphicon-info-sign" title="Cantidad total de instrucciones seguidas correcta e incorrectamente por el/la niño/a"></span>
+                                    <div class="ibox-tools"></div>
+                                </div>
+                                <div class="ibox-content">
+                                    <div class="scroll_content">
+                                        <canvas id="CorrectaIncorrecta" height={{time_DM_graf}}>{% load staticfiles %}</canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="ibox">
+                                <div class="ibox-title">
+                                    <h5>Crecimiento completo del árbol</h5><span class="  glyphicon glyphicon-info-sign" title="Cantidad de veces que el/la niño/a siguió correctamente todas las instrucciones hasta hacer crecer el árbol completamente en cada sesión"></span>
+                                    <div class="ibox-tools"></div>
+                                </div>
+                                <div class="ibox-content">
+                                    <div class="scroll_content">
+                                        <canvas id="Crecerarbol" height={{completa_incompleta_PS_graf}}>{% load staticfiles %}</canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="row" >
+                        <div class="col-lg-6">
+                            <div class="ibox">
+                                <div class="ibox-title">
+                                    <h5>Actividades completas, incompletas o inactivas</h5><span class="  glyphicon glyphicon-info-sign" title="Cantidad de actividades completas, incompletas o inactivas realizadas por el/la niño/a"></span>
+                                    <div class="ibox-tools"></div>
+                                </div>
+                                <div class="ibox-content">
+                                    <div class="scroll_content">
+                                        <canvas id="CompletaIncompleta" height={{time_DM_graf}}>{% load staticfiles %}</canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+        {% endif %}
         <!-- INICIO PLUS SPACE -->
         {% if reim_num == '2' %}
         <div class="wrapper wrapper-content">
@@ -1265,7 +1892,7 @@
             
             <!-- Fin Clean Ocean -->
 
-            {% if student_num == '0' and reim_num != '0' and reim_num != '1' and activity_num == '0' and reim_num != '3' and reim_num != '2' %}
+            {% if student_num == '0' and reim_num != '0' and reim_num != '1' and activity_num == '0' and reim_num != '3' and reim_num != '2' and reim_num != '4' %}
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
@@ -1673,11 +2300,11 @@
                     <strong>Copyright</strong>  &copy; 2019
 
 
-                    <!-- <button type="button" class="btn btn-link btn-sm" data-toggle="modal" data-target="#queriesModal">
+                    <button type="button" class="btn btn-link btn-sm" data-toggle="modal" data-target="#queriesModal">
                         queries
-                    </button> -->
+                    </button>
 
-                    <!-- <div class="modal fade" id="queriesModal" tabindex="-1" role="dialog" aria-labelledby="queriesModalTitle" aria-hidden="true">
+                    <div class="modal fade" id="queriesModal" tabindex="-1" role="dialog" aria-labelledby="queriesModalTitle" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -1694,7 +2321,7 @@
                                     </ul>
                                 </div>
                             </div>
-                        </div> -->
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1728,6 +2355,7 @@
     <script src="{% static 'js/demo/sparkline-demo.js' %}"></script>
     <!-- ChartJS-->
     <script src="{% static 'js/plugins/chartJs/Chart.min.js' %}"></script>
+    <script src="{% static 'js/plugins/chartJs/chartjs-plugin-annotation/chartjs-plugin-annotation.min.js' %}"></script>
     <!-- Toastr -->
     <script src="{% static 'js/plugins/toastr/toastr.min.js' %}"></script>
     <!-- Date range picker -->
@@ -2801,6 +3429,1105 @@
         } 
 
         //Fin Mundo Animal
+
+        //INICIO DIA MUNDIAL
+
+
+        //GRAN GRAFICO
+        var granGraficoDM = {
+            labels: [
+                {% if lista_alumnos_final2 %}
+        {% for lista_alumnos_fina in lista_alumnos_final2 %}
+        '{{lista_alumnos_fina.name}}',
+        {% endfor%}
+        {% endif%}
+        ],
+        datasets: [
+            {
+                label: "Porcentaje de Desarrollo Motriz",
+                backgroundColor: 'rgb(254, 241, 129)',
+                borderColor: "rgb(254, 241, 129)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if lista_alumnos_final2 %}
+        {% for lista_alumnos_fina in lista_alumnos_final2 %}
+        '{{lista_alumnos_fina.porcent}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        },
+        ]
+        };
+        var BarstackedOptionsMediaGranGrafico ={
+                scales: {
+                    xAxes:[{
+                            stacked:false,
+                            ticks: {
+                                min: 0,
+                                callback: function(value, index, values) {
+                                    if (Math.floor(value) === value) {
+                                        return value;
+                                    }
+                                }
+                            }
+                        }],
+                yAxes: [{ stacked: false }]
+                },
+            };
+
+        if ($('#GranGrafico').length){
+            var ctx21 = document.getElementById("GranGrafico").getContext("2d");
+            new Chart(ctx21, {type: 'horizontalBar', data: granGraficoDM, options: BarstackedOptions});
+        }
+
+        //GRAN GRAFICO INDIVIDUAL
+        var granGraficoIDM = {
+            labels: [
+                {% if lista_unico_alumno %}
+        {% for lista_alumnos_fi in lista_unico_alumno %}
+        '{{lista_alumnos_fi.name}}',
+        {% endfor%}
+        {% endif%}
+        ],
+        datasets: [
+            {
+                label: "Porcentaje de Desarrollo motriz ACtividad Laberinto",
+                backgroundColor: 'rgb(254, 241, 129)',
+                borderColor: "rgb(254, 241, 129)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if lista_unico_alumno %}
+        {% for lista_alumnos_fi in lista_unico_alumno %}
+        '{{lista_alumnos_fi.lab}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        },//
+        {
+                label: "Porcentaje de Desarrollo motriz ACtividad Abejas",
+                backgroundColor: 'rgb(255, 176, 176)',
+                borderColor: "rgb(255, 176, 176)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if lista_unico_alumno %}
+        {% for lista_alumnos_fina in lista_unico_alumno %}
+        '{{lista_alumnos_fina.abejas}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        },//
+        {
+                label: "Porcentaje de Desarrollo motriz ACtividad Luces",
+                backgroundColor: 'rgb(192, 255, 176)',
+                borderColor: "rgb(192, 255, 176)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if lista_unico_alumno %}
+        {% for lista_alumnos_fi in lista_unico_alumno %}
+        '{{lista_alumnos_fi.luces}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        },// 
+        {
+                label: "Porcentaje de Desarrollo motriz ACtividad Agua",
+                backgroundColor: 'rgb(176, 230, 255)',
+                borderColor: "rgb(176, 230, 255)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if lista_unico_alumno %}
+        {% for lista_alumnos_fi in lista_unico_alumno %}
+        '{{lista_alumnos_fi.ocerio}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        },
+        ]
+        };
+
+        if ($('#GranGraficoI').length){
+            var ctx21 = document.getElementById("GranGraficoI").getContext("2d");
+            new Chart(ctx21, {type: 'horizontalBar', data: granGraficoIDM, options: BarstackedOptions});
+        }
+
+
+
+
+
+
+        //TIEMPO DE JUEGO GENERAL
+
+        var time_vs_actData = {
+            labels: [
+                    {% if tiempoXact_quantity_responseDM %}
+                    {% for tiempoXact in tiempoXact_quantity_responseDM %}
+                    '{{tiempoXact.name}}',
+                    {% endfor%}
+                    {% endif%}
+                    
+],
+        datasets: [
+            {
+                backgroundColor: ['rgb(236,112,99)','rgb(175,122,197)','rgb(93,173,226)','rgb(245,176,65)','rgb(253,216,53)','rgb(72,201,176)'],
+                pointBorderColor: "#fff",
+                data: [{% if tiempoXact_quantity_responseDM %}
+                    {% for tiempoXact in tiempoXact_quantity_responseDM %}
+                    '{{tiempoXact.quantity}}',
+                    {% endfor%}
+                    {% endif%}
+]
+        }
+        ]
+        };
+
+        var time_vs_actOPT = {
+               scale: {
+                    angleLines: {
+                       display: false
+                   },
+                   ticks: {
+                       suggestedMin: 0,
+                       suggestedMax: 5
+                   }
+               }
+            };
+
+        if ($('#pieAnalitic').length){
+            var ctx28 = document.getElementById("pieAnalitic").getContext("2d");
+            new Chart(ctx28, {type: 'pie', data: time_vs_actData, options:time_vs_actOPT});
+        }
+
+        //COMPLETA, INCOMPLETA, SIN ACTIVIDAD
+        var CompletaIncompletaData = {
+            labels:
+                    [
+                    {% if completa_incompleta_inactividad %}
+                    {% for time_PS in completa_incompleta_inactividad %}
+                    '{{time_PS.name}}',
+                    {% endfor%}
+                    {% endif%}
+                    ],
+        datasets: [
+            {
+                label: "Completa",
+                backgroundColor: 'rgb(254, 129, 129 )',
+                borderColor: "rgb(254, 129, 129)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if completa_incompleta_inactividad %}
+                    {% for time_PS in completa_incompleta_inactividad %}
+                    '{{time_PS.completa}}',
+                    {% endfor%}
+                    {% endif%}
+        ]
+        },
+        {
+                label: "Incompleta",
+                backgroundColor: 'rgb(129, 254, 245 )',
+                borderColor: "rgb(129, 254, 245 )",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if completa_incompleta_inactividad %}
+                    {% for time_PS in completa_incompleta_inactividad %}
+                    '{{time_PS.incompleta}}',
+                    {% endfor%}
+                    {% endif%}
+        ]
+        },
+        {
+                label: "Inactividad",
+                backgroundColor: 'rgb(254, 129, 246)',
+                borderColor: "rgb(254, 129, 246)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if completa_incompleta_inactividad %}
+                    {% for time_PS in completa_incompleta_inactividad %}
+                    '{{time_PS.inactiva}}',
+                    {% endfor%}
+                    {% endif%}
+        ]
+        }
+        ]
+        };
+        
+        if ($('#CompletaIncompleta').length){
+            var ctx = document.getElementById("CompletaIncompleta").getContext("2d");
+            new Chart(ctx, {type: 'horizontalBar', data: CompletaIncompletaData, options:barOptions});
+        }
+
+        //QUEST DM
+        var QUESTDMData = {
+            labels: [
+                {% if get_ganar_perder_DM_Quest_response %}
+        {% for completa_incompleta_PS in get_ganar_perder_DM_Quest_response %}
+        '{{completa_incompleta_PS.name}}',
+        {% endfor%}
+        {% endif%}
+        ],
+        datasets: [
+            {
+                label: "Correcta",
+                backgroundColor: 'rgb(254, 188, 129)',
+                borderColor: "rgb(254, 188, 129)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if get_ganar_perder_DM_Quest_response %}
+            {% for completa_incompleta_PS in get_ganar_perder_DM_Quest_response %}
+        '{{completa_incompleta_PS.correcta}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        },
+        {
+                label: "Incorrecta",
+                backgroundColor: 'rgb(171, 129, 254 )',
+                borderColor: "rgb(171, 129, 254)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if get_ganar_perder_DM_Quest_response %}
+            {% for completa_incompleta_PS in get_ganar_perder_DM_Quest_response %}
+        '{{completa_incompleta_PS.incorrecta}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        },
+        ]
+        };
+
+        if ($('#QUESTDM').length){
+            var ctx21 = document.getElementById("QUESTDM").getContext("2d");
+            new Chart(ctx21, {type: 'horizontalBar', data: QUESTDMData, options: BarstackedOptions});
+        }
+        //LABERINTO
+        //COLISION EN EL TIEMPO
+        var colisionesAnaliticaDMData = {
+            labels: [
+                {% if col_vs_time %}
+                {% for colission_analitica in col_vs_time %}
+                '{{colission_analitica.name}}',
+                {% endfor%}
+                {% endif%}
+                ],
+            datasets: [
+            {
+                label: "Colisiones",
+                backgroundColor: 'rgb(254, 129, 203)',
+                borderColor: "rgb(254, 129, 203)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if col_vs_time %}
+                    {% for colission_analitica in col_vs_time %}
+                    '{{colission_analitica.quantity}}',
+                    {% endfor%}
+                    {% endif%}
+                    ],
+                fill: false,
+                pointRadius:7,
+                pointHoverRadius:10,
+                showLine:true
+        }
+        ],
+        };
+        console.log('{{touch_quantity_len}}');
+        var lineOptionsTimeVsCol = {
+            {% if colisiones_tiempo_media > 0 and touch_quantity_len < 2 %}
+            annotation: {
+      annotations: [{
+        type: 'line',
+        mode: 'horizontal',
+        scaleID: 'y-axis-0',
+        value: parseFloat('{{colisiones_tiempo_media}}'),
+        borderColor: 'rgb(75, 192, 192)',
+        borderWidth: 2,
+        label: {
+          enabled: true,
+          content: 'Línea de mejora'
+        }
+      }]
+    },
+    {% endif %}
+            animation: false,
+            scales: {
+                xAxes:[{
+                    stacked:true,
+                    ticks: {
+                        min: 0
+                    }
+                }],
+                yAxes:[{
+                    stacked:false,
+                    ticks: {
+                        min: 0
+                    }
+                }]
+
+            },
+            display: true
+        };
+        if ($('#colisionesAnaliticaDM').length){
+            var ctx22 = document.getElementById("colisionesAnaliticaDM").getContext("2d");
+            new Chart(ctx22, {type: 'line', data: colisionesAnaliticaDMData, options:lineOptionsTimeVsCol});
+        }
+
+        //FRUTA VS CHATARRA
+        var FCDMData = {
+            labels: [
+                {% if fruta_chatarra_DM_quantity_response %}
+        {% for completa_incompleta_PS in fruta_chatarra_DM_quantity_response %}
+        '{{completa_incompleta_PS.name}}',
+        {% endfor%}
+        {% endif%}
+        ],
+        datasets: [
+            {
+                label: "Fruta",
+                backgroundColor: 'rgb(144, 254, 129)',
+                borderColor: "rgb(144, 254, 129)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if fruta_chatarra_DM_quantity_response %}
+            {% for completa_incompleta_PS in fruta_chatarra_DM_quantity_response %}
+        '{{completa_incompleta_PS.fruta}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        },
+        {
+                label: "Chatarra",
+                backgroundColor: 'rgb(254, 129, 203)',
+                borderColor: "rgb(254, 129, 203)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if fruta_chatarra_DM_quantity_response %}
+            {% for completa_incompleta_PS in fruta_chatarra_DM_quantity_response %}
+        '{{completa_incompleta_PS.chatarra}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        },
+        ]
+        };
+
+        if ($('#FrutaVsChatarra').length){
+            var ctx21 = document.getElementById("FrutaVsChatarra").getContext("2d");
+            new Chart(ctx21, {type: 'horizontalBar', data: FCDMData, options: BarstackedOptions});
+        }
+
+        //MURO VS HOYO
+        var MHDMData = {
+            labels: [
+                {% if muro_hoyo_DM_quantity_response %}
+        {% for completa_incompleta_PS in muro_hoyo_DM_quantity_response %}
+        '{{completa_incompleta_PS.name}}',
+        {% endfor%}
+        {% endif%}
+        ],
+        datasets: [
+            {
+                label: "Prueba 1°",
+                backgroundColor: 'rgb(254, 241, 129)',
+                borderColor: "rgb(254, 241, 129)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if muro_hoyo_DM_quantity_response %}
+            {% for completa_incompleta_PS in muro_hoyo_DM_quantity_response %}
+        '{{completa_incompleta_PS.muro}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        },
+        {
+                label: "Prueba 2°",
+                backgroundColor: 'rgb(254, 129, 246)',
+                borderColor: "rgb(254, 129, 246)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if muro_hoyo_DM_quantity_response %}
+            {% for completa_incompleta_PS in muro_hoyo_DM_quantity_response %}
+        '{{completa_incompleta_PS.hoyo}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        },
+        ]
+        };
+        var BarstackedOptionsMediaMuroHoyo ={
+                scales: {
+                    xAxes:[{
+                            stacked:false,
+                            ticks: {
+                                min: 0,
+                                callback: function(value, index, values) {
+                                    if (Math.floor(value) === value) {
+                                        return value;
+                                    }
+                                }
+                            }
+                        }],
+                yAxes: [{ stacked: false }]
+                },
+            };
+
+        if ($('#MuroVsHoyo').length){
+            var ctx21 = document.getElementById("MuroVsHoyo").getContext("2d");
+            new Chart(ctx21, {type: 'horizontalBar', data: MHDMData, options: BarstackedOptionsMediaMuroHoyo});
+        }
+        //TIPO BASURA
+        var TipoBasuraDMData = {
+            labels: [
+                {% if tipo_basura_DM_quantity_response %}
+        {% for completa_incompleta_PS in tipo_basura_DM_quantity_response %}
+        '{{completa_incompleta_PS.name}}',
+        {% endfor%}
+        {% endif%}
+        ],
+        datasets: [
+            {
+                label: "Bolsa",
+                backgroundColor: 'rgb(144, 254, 129)',
+                borderColor: "rgb(144, 254, 129)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if tipo_basura_DM_quantity_response %}
+            {% for completa_incompleta_PS in tipo_basura_DM_quantity_response %}
+        '{{completa_incompleta_PS.bolsa}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        },
+        {
+                label: "Botella",
+                backgroundColor: 'rgb(210, 129, 254)',
+                borderColor: "rgb(210, 129, 254)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if tipo_basura_DM_quantity_response %}
+            {% for completa_incompleta_PS in tipo_basura_DM_quantity_response %}
+        '{{completa_incompleta_PS.botella}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        },
+        {
+                label: "Mancha",
+                backgroundColor: 'rgb(210, 254, 129)',
+                borderColor: "rgb(210, 254, 129)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if tipo_basura_DM_quantity_response %}
+            {% for completa_incompleta_PS in tipo_basura_DM_quantity_response %}
+        '{{completa_incompleta_PS.mancha}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        },
+        {
+                label: "Red",
+                backgroundColor: 'rgb(129, 254, 184)',
+                borderColor: "rgb(129, 254, 184)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if tipo_basura_DM_quantity_response %}
+            {% for completa_incompleta_PS in tipo_basura_DM_quantity_response %}
+        '{{completa_incompleta_PS.red}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        },
+        {
+                label: "Zapato",
+                backgroundColor: 'rgb(129, 131, 254)',
+                borderColor: "rgb(129, 131, 254)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if tipo_basura_DM_quantity_response %}
+            {% for completa_incompleta_PS in tipo_basura_DM_quantity_response %}
+        '{{completa_incompleta_PS.zapato}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        },
+        ]
+        };
+
+        if ($('#TipoBasura').length){
+            var ctx21 = document.getElementById("TipoBasura").getContext("2d");
+            new Chart(ctx21, {type: 'horizontalBar', data: TipoBasuraDMData, options: BarstackedOptions});
+        }
+
+        //ANIMALES NIVEL
+        var AnimalesNivelDMData = {
+            labels: [
+                {% if animales_nivel_DM_quantity_response %}
+        {% for completa_incompleta_PS in animales_nivel_DM_quantity_response %}
+        '{{completa_incompleta_PS.name}}',
+        {% endfor%}
+        {% endif%}
+        ],
+        datasets: [
+            {
+                label: "Animales Oceano",
+                backgroundColor: 'rgb(171, 129, 254 )',
+                borderColor: "rgb(171, 129, 254)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if animales_nivel_DM_quantity_response %}
+            {% for completa_incompleta_PS in animales_nivel_DM_quantity_response %}
+        '{{completa_incompleta_PS.animalesoceano}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        },
+        {
+                label: "Animales Rio",
+                backgroundColor: 'rgb(254, 129, 129)',
+                borderColor: "rgb(254, 129, 129)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if animales_nivel_DM_quantity_response %}
+            {% for completa_incompleta_PS in animales_nivel_DM_quantity_response %}
+        '{{completa_incompleta_PS.animalesrio}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        },
+        {
+                label: "Basura Oceano",
+                backgroundColor: 'rgb(210, 254, 129)',
+                borderColor: "rgb(210, 254, 129)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if animales_nivel_DM_quantity_response %}
+            {% for completa_incompleta_PS in animales_nivel_DM_quantity_response %}
+        '{{completa_incompleta_PS.basuraoceano}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        },
+        {
+                label: "Basura Río",
+                backgroundColor: 'rgb(129, 254, 184)',
+                borderColor: "rgb(129, 254, 184)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if animales_nivel_DM_quantity_response %}
+            {% for completa_incompleta_PS in animales_nivel_DM_quantity_response %}
+        '{{completa_incompleta_PS.basurario}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        },
+        ]
+        };
+
+        if ($('#AnimalesNivel').length){
+            var ctx21 = document.getElementById("AnimalesNivel").getContext("2d");
+            new Chart(ctx21, {type: 'horizontalBar', data: AnimalesNivelDMData, options: BarstackedOptions});
+        }
+
+        //JUEGO LUCES
+        //TOUCHES LUCES
+        var TouchesLucesDMData = {
+            labels: [
+                {% if touches_luces_DM_quantity_response %}
+        {% for completa_incompleta_PS in touches_luces_DM_quantity_response %}
+        '{{completa_incompleta_PS.name}}',
+        {% endfor%}
+        {% endif%}
+        ],
+        datasets: [
+            {
+                label: "Touch realizados",
+                backgroundColor: 'rgb(254, 188, 129)',
+                borderColor: "rgb(254, 188, 129)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if touches_luces_DM_quantity_response %}
+            {% for completa_incompleta_PS in touches_luces_DM_quantity_response %}
+        '{{completa_incompleta_PS.touches}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        },
+        {
+                label: "Touch correcto",
+                backgroundColor: 'rgb(129, 184, 254)',
+                borderColor: "rgb(129, 184, 254)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if touches_luces_DM_quantity_response %}
+            {% for completa_incompleta_PS in touches_luces_DM_quantity_response %}
+        '{{completa_incompleta_PS.lucescorrectas}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        },
+        ]
+        };
+
+        if ($('#TouchesLuces').length){
+            var ctx21 = document.getElementById("TouchesLuces").getContext("2d");
+            new Chart(ctx21, {type: 'horizontalBar', data: TouchesLucesDMData, options: BarstackedOptions});
+        }
+
+        //JUEGO ABEJAS
+        //MIEL CAER CHOCA
+        var MielCaerChocaDMData = {
+            labels: [
+                {% if get_miel_cae_choca_DM_quantity_response %}
+        {% for completa_incompleta_PS in get_miel_cae_choca_DM_quantity_response %}
+        '{{completa_incompleta_PS.name}}',
+        {% endfor%}
+        {% endif%}
+        ],
+        datasets: [
+            {
+                label: "Colisión con el Panal",
+                backgroundColor: 'rgb(254, 241, 129)',
+                borderColor: "rgb(254, 241, 129)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if get_miel_cae_choca_DM_quantity_response %}
+            {% for completa_incompleta_PS in get_miel_cae_choca_DM_quantity_response %}
+        '{{completa_incompleta_PS.colisionpanal}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        },
+        {
+                label: "Colisión con el suelo",
+                backgroundColor: 'rgb(144, 254, 129)',
+                borderColor: "rgb(144, 254, 129)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if get_miel_cae_choca_DM_quantity_response %}
+            {% for completa_incompleta_PS in get_miel_cae_choca_DM_quantity_response %}
+        '{{completa_incompleta_PS.colisionsuelo}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        },
+        {
+                label: "Colisión con enemigos",
+                backgroundColor: 'rgb(210, 129, 254)',
+                borderColor: "rgb(210, 129, 254)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if get_miel_cae_choca_DM_quantity_response %}
+            {% for completa_incompleta_PS in get_miel_cae_choca_DM_quantity_response %}
+        '{{completa_incompleta_PS.colisionosoavispa}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        },
+        ]
+        };
+
+        if ($('#MielCaerChoca').length){
+            var ctx21 = document.getElementById("MielCaerChoca").getContext("2d");
+            new Chart(ctx21, {type: 'horizontalBar', data: MielCaerChocaDMData, options: BarstackedOptions});
+        }
+
+        //JUEGOS ANIMALES
+        //ANIMALES SALVADOS
+        var AnimalesSalvadosDMData = {
+            type: 'doughnut',
+            labels: [
+                {% if get_animales_salvados_DM_quantity_response %}
+        {% for completa_incompleta_PS in get_animales_salvados_DM_quantity_response %}
+        '{{completa_incompleta_PS.name}}',
+        {% endfor%}
+        {% endif%}
+        ],
+        datasets: [
+            {
+                label: "Ballena",
+                backgroundColor: 'rgb(129, 254, 245)',
+                borderColor: "rgb(129, 254, 245)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if get_animales_salvados_DM_quantity_response %}
+            {% for completa_incompleta_PS in get_animales_salvados_DM_quantity_response %}
+        '{{completa_incompleta_PS.ballena}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        },
+        {
+                label: "Oso",
+                backgroundColor: 'rgb(254, 129, 203)',
+                borderColor: "rgb(254, 129, 203)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if get_animales_salvados_DM_quantity_response %}
+            {% for completa_incompleta_PS in get_animales_salvados_DM_quantity_response %}
+        '{{completa_incompleta_PS.oso}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        },
+        {
+                label: "Pinguino",
+                backgroundColor: 'rgb(254, 129, 246)',
+                borderColor: "rgb(254, 129, 246)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if get_animales_salvados_DM_quantity_response %}
+            {% for completa_incompleta_PS in get_animales_salvados_DM_quantity_response %}
+        '{{completa_incompleta_PS.pinguino}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        },
+        {
+                label: "Pepino",
+                backgroundColor: 'rgb(129, 131, 254)',
+                borderColor: "rgb(129, 131, 254)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if get_animales_salvados_DM_quantity_response %}
+            {% for completa_incompleta_PS in get_animales_salvados_DM_quantity_response %}
+        '{{completa_incompleta_PS.pepino}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        },
+        {
+                label: "Pajaro",
+                backgroundColor: 'rgb(254, 129, 167)',
+                borderColor: "rgb(254, 129, 167)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if get_animales_salvados_DM_quantity_response %}
+            {% for completa_incompleta_PS in get_animales_salvados_DM_quantity_response %}
+        '{{completa_incompleta_PS.pajaro}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        },
+        {
+                label: "Foca",
+                backgroundColor: 'rgb(254, 188, 129)',
+                borderColor: "rgb(254, 188, 129)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if get_animales_salvados_DM_quantity_response %}
+            {% for completa_incompleta_PS in get_animales_salvados_DM_quantity_response %}
+        '{{completa_incompleta_PS.foca}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        },
+        {
+                label: "Tigre",
+                backgroundColor: 'rgb(129, 131, 254)',
+                borderColor: "rgb(129, 131, 254)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if get_animales_salvados_DM_quantity_response %}
+            {% for completa_incompleta_PS in get_animales_salvados_DM_quantity_response %}
+        '{{completa_incompleta_PS.tigre}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        },
+        {
+                label: "Cocodrilo",
+                backgroundColor: 'rgb(129, 254, 245)',
+                borderColor: "rgb(129, 254, 245)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if get_animales_salvados_DM_quantity_response %}
+            {% for completa_incompleta_PS in get_animales_salvados_DM_quantity_response %}
+        '{{completa_incompleta_PS.cocodrilo}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        },
+        {
+                label: "Mono",
+                backgroundColor: 'rgb(254, 241, 129)',
+                borderColor: "rgb(254, 241, 129)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if get_animales_salvados_DM_quantity_response %}
+            {% for completa_incompleta_PS in get_animales_salvados_DM_quantity_response %}
+        '{{completa_incompleta_PS.mono}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        },
+        {
+                label: "Serpiente",
+                backgroundColor: 'rgb(52, 250, 199)',
+                borderColor: "rgb(52, 250, 199)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if get_animales_salvados_DM_quantity_response %}
+            {% for completa_incompleta_PS in get_animales_salvados_DM_quantity_response %}
+        '{{completa_incompleta_PS.serpiente}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        },
+        {
+                label: "Perezoso",
+                backgroundColor: 'rgb(129, 254, 184)',
+                borderColor: "rgb(129, 254, 184)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if get_animales_salvados_DM_quantity_response %}
+            {% for completa_incompleta_PS in get_animales_salvados_DM_quantity_response %}
+        '{{completa_incompleta_PS.perezoso}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        },
+        {
+                label: "Rana",
+                backgroundColor: 'rgb(210, 129, 254)',
+                borderColor: "rgb(210, 129, 254)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if get_animales_salvados_DM_quantity_response %}
+            {% for completa_incompleta_PS in get_animales_salvados_DM_quantity_response %}
+        '{{completa_incompleta_PS.rana}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        },
+        {
+                label: "Lagartija",
+                backgroundColor: 'rgb(129, 131, 254)',
+                borderColor: "rgb(129, 131, 254)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if get_animales_salvados_DM_quantity_response %}
+            {% for completa_incompleta_PS in get_animales_salvados_DM_quantity_response %}
+        '{{completa_incompleta_PS.lagartija}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        },
+        {
+                label: "Lemur",
+                backgroundColor: 'rgb(254, 129, 167)',
+                borderColor: "rgb(254, 129, 167)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if get_animales_salvados_DM_quantity_response %}
+            {% for completa_incompleta_PS in get_animales_salvados_DM_quantity_response %}
+        '{{completa_incompleta_PS.lemur}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        },
+        {
+                label: "Camaleon",
+                backgroundColor: 'rgb(144, 254, 129)',
+                borderColor: "rgb(144, 254, 129)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if get_animales_salvados_DM_quantity_response %}
+            {% for completa_incompleta_PS in get_animales_salvados_DM_quantity_response %}
+        '{{completa_incompleta_PS.camaleon}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        },
+        {
+                label: "Tortuga",
+                backgroundColor: 'rgb(129, 184, 254)',
+                borderColor: "rgb(129, 184, 254)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if get_animales_salvados_DM_quantity_response %}
+            {% for completa_incompleta_PS in get_animales_salvados_DM_quantity_response %}
+        '{{completa_incompleta_PS.tortuga}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        },
+        {
+                label: "Leon",
+                backgroundColor: 'rgb(10, 254, 129)',
+                borderColor: "rgb(10, 254, 129)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if get_animales_salvados_DM_quantity_response %}
+            {% for completa_incompleta_PS in get_animales_salvados_DM_quantity_response %}
+        '{{completa_incompleta_PS.leon}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        },
+        {
+                label: "Fosa",
+                backgroundColor: 'rgb(254, 129, 203)',
+                borderColor: "rgb(254, 129, 203)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if get_animales_salvados_DM_quantity_response %}
+            {% for completa_incompleta_PS in get_animales_salvados_DM_quantity_response %}
+        '{{completa_incompleta_PS.fosa}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        },
+        ]
+        };
+        var CircleOptions = {
+               scale: {
+                    angleLines: {
+                       display: false
+                   },
+                   ticks: {
+                       suggestedMin: 0,
+                       suggestedMax: 5
+                   }
+               }
+            };
+
+        if ($('#AnimalesSalvados').length){
+            var ctx28 = document.getElementById("AnimalesSalvados").getContext("2d");
+            new Chart(ctx28, {type: 'bar', data: AnimalesSalvadosDMData, options:CircleOptions});
+        } 
+
+        //ANIMALES SALVADOS POR NIVEL
+        var AnimalesSalvadosPorNivelDMData = {
+            labels: [
+                {% if get_animales_salvados_pornivel_DM_quantity_response %}
+        {% for completa_incompleta_PS in get_animales_salvados_pornivel_DM_quantity_response %}
+        '{{completa_incompleta_PS.name}}',
+        {% endfor%}
+        {% endif%}
+        ],
+        datasets: [
+            {
+                label: "Animales Antártica",
+                backgroundColor: 'rgb(254, 129, 246 )',
+                borderColor: "rgb(254, 129, 246 )",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if get_animales_salvados_pornivel_DM_quantity_response %}
+            {% for completa_incompleta_PS in get_animales_salvados_pornivel_DM_quantity_response %}
+        '{{completa_incompleta_PS.animalesantartica}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        },
+        {
+                label: "Animales Selva",
+                backgroundColor: 'rgb(129, 254, 245)',
+                borderColor: "rgb(129, 254, 245)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if get_animales_salvados_pornivel_DM_quantity_response %}
+            {% for completa_incompleta_PS in get_animales_salvados_pornivel_DM_quantity_response %}
+        '{{completa_incompleta_PS.animalesselva}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        },
+        {
+                label: "Animales Madagascar",
+                backgroundColor: 'rgb(171, 129, 254)',
+                borderColor: "rgb(171, 129, 254)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if get_animales_salvados_pornivel_DM_quantity_response %}
+            {% for completa_incompleta_PS in get_animales_salvados_pornivel_DM_quantity_response %}
+        '{{completa_incompleta_PS.animalesmadagascar}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        },
+        ]
+        };
+
+        if ($('#AnimalesSalvadosPorNivel').length){
+            var ctx21 = document.getElementById("AnimalesSalvadosPorNivel").getContext("2d");
+            new Chart(ctx21, {type: 'horizontalBar', data: AnimalesSalvadosPorNivelDMData, options: BarstackedOptions});
+        }
+
+        //JUEGO ARBOL
+        //CORRECTA VS INCORRECTA
+        var CorrectaIncorrectaDMData = {
+            labels: [
+                {% if correcta_incorrecta_arbol_DM_quantity_response %}
+        {% for completa_incompleta_PS in correcta_incorrecta_arbol_DM_quantity_response %}
+        '{{completa_incompleta_PS.name}}',
+        {% endfor%}
+        {% endif%}
+        ],
+        datasets: [
+            {
+                label: "Instrucción perdida",
+                backgroundColor: 'rgb(210, 254, 129)',
+                borderColor: "rgb(210, 254, 129)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if correcta_incorrecta_arbol_DM_quantity_response %}
+            {% for completa_incompleta_PS in correcta_incorrecta_arbol_DM_quantity_response %}
+        '{{completa_incompleta_PS.perdida}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        },
+        {
+                label: "Instrucción Correcta",
+                backgroundColor: 'rgb(129, 254, 245)',
+                borderColor: "rgb(129, 254, 245)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if correcta_incorrecta_arbol_DM_quantity_response %}
+            {% for completa_incompleta_PS in correcta_incorrecta_arbol_DM_quantity_response %}
+        '{{completa_incompleta_PS.atino}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        },
+        ]
+        };
+        if ($('#CorrectaIncorrecta').length){
+            var ctx21 = document.getElementById("CorrectaIncorrecta").getContext("2d");
+            new Chart(ctx21, {type: 'horizontalBar', data: CorrectaIncorrectaDMData, options: BarstackedOptions});
+        }
+
+        //CRECIMINETO DEL ARBOL EN EL TIEMPO
+        var CrecerAnaliticaDMData = {
+            labels: [
+                {% if crecimiento_arbol_DM_quantity_response %}
+                {% for colission_analitica in crecimiento_arbol_DM_quantity_response %}
+                '{{colission_analitica.name}}',
+                {% endfor%}
+                {% endif%}
+                ],
+            datasets: [
+            {
+                label: "Crecimiento del árbol",
+                backgroundColor: 'rgb(210, 129, 254)',
+                borderColor: "rgb(210, 129, 254)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if crecimiento_arbol_DM_quantity_response %}
+                    {% for colission_analitica in crecimiento_arbol_DM_quantity_response %}
+                    '{{colission_analitica.quantity}}',
+                    {% endfor%}
+                    {% endif%}
+                    ],
+                fill: false,
+                pointRadius:7,
+                pointHoverRadius:10,
+                showLine:true
+        }
+        ]
+        };
+        if ($('#Crecerarbol').length){
+            var ctx22 = document.getElementById("Crecerarbol").getContext("2d");
+            new Chart(ctx22, {type: 'line', data: CrecerAnaliticaDMData, options:lineOptions});
+        }
+
 
         // Inicio Plus Space
         //TIEMPO DE JUEGO GENERAL
