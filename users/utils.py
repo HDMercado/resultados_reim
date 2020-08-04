@@ -265,7 +265,6 @@ def get_oceanorio_porniño(request, id_niño):
     
     return start_base + final_base
 
-
 #Correcta_Incorrecta Dia mundial
 def get_ganar_perder_DM_Quest(request):
 
@@ -1556,3 +1555,530 @@ def get_name_student(request):
     return start_base
   
 #FIN QUERY PLUS SPACE------------------------
+
+#INICIO REIM ID = 77, NOMBRE = BUSCANDO EL TESORO PERDIDO
+
+def get_touch_analitica_prueba_query(request):
+    
+    query_params = ''
+    date = ''
+
+    if request.GET.get('reim') and request.GET.get('reim') != '0':
+        query_params = ' AND a.id_reim=' + request.GET.get('reim')
+    if request.GET.get('course') and request.GET.get('course') != '0':
+        query_params += " AND b.curso_id = " + request.GET.get('course')
+    if request.GET.get('school') and request.GET.get('school') != '0':
+        query_params += " AND b.colegio_id = " + request.GET.get('school')
+    if request.GET.get('student') and request.GET.get('student') != '0':
+        query_params += ' AND a.id_user=' + request.GET.get('student')
+
+    if request.GET.get('start') and (request.GET.get('start') != 'dd/mm/aaaa') and request.GET.get('end') and (request.GET.get('end') != 'dd/mm/aaaa'):
+        start = str(datetime.strptime(request.GET.get('start'), '%d/%m/%Y').date())
+        end = str(datetime.strptime(request.GET.get('end'), '%d/%m/%Y').date())
+        start += " 00:00:00.000000"
+        end += " 23:59:59.000000"
+        date = ' (a.datetime_touch >= TIMESTAMP("'+ start + '") && a.datetime_touch <= TIMESTAMP("' + end  + '")) &&'
+
+    start_base = ' SELECT  concat(u.nombres ," ", u.apellido_paterno ," ", u.apellido_materno) as nombre, concat(day(datetime_touch),"/",month(datetime_touch),"/", year(datetime_touch)) AS fecha, COALESCE(round(count((if(a.id_elemento=2128,1,null)))/count((if (a.id_elemento=2031,1,null)))),0) AS CantidadTouch, b.colegio_id, b.curso_id FROM alumno_respuesta_actividad a, usuario u, pertenece b WHERE' + date
+    final_base = ' a.id_user = u.id && b.usuario_id = a.id_user ' + query_params + ' GROUP BY day(a.datetime_touch) ORDER BY a.datetime_touch ASC'
+
+    return start_base + final_base 
+
+def get_tiempoXact77(request):
+    cursor = get_from_db()
+    query_params = ''
+
+    if request.GET.get('reim') and request.GET.get('reim') != '0':
+        query_params += " AND a.reim_id = " + request.GET.get('reim')
+    if request.GET.get('course') and request.GET.get('course') != '0':
+        query_params += " AND e.curso_id = " + request.GET.get('course')
+    if request.GET.get('school') and request.GET.get('school') != '0':
+        query_params += " AND e.colegio_id = " + request.GET.get('school')
+    if request.GET.get('student') and request.GET.get('student') != '0':
+        query_params += ' AND a.usuario_id=' + request.GET.get('student')
+        
+    date = get_date_param_tiempoxactividad(request)
+
+    start_base = 'SELECT a.actividad_id, b.nombre, round((sum(timestampdiff(minute, inicio, final))/60)) as tiempo FROM tiempoxactividad a, actividad b, pertenece e where'
+    final_base = ' e.colegio_id IN (SELECT colegio_id from pertenece INNER JOIN usuario ON pertenece.usuario_id = usuario.id WHERE username="' + request.user.username + '") AND e.curso_id IN (SELECT curso_id FROM pertenece WHERE usuario_id = (SELECT id FROM usuario WHERE username = "' + request.user.username + '"))' + query_params + ' AND a.actividad_id = b.id group by actividad_id;'
+    return start_base + final_base
+
+def get_reconocer_estilo_cognitivo(request):
+    curso = get_from_db()
+    query_params = ''
+    query_id_reim = ''
+    query_id_user = ''
+
+    if request.GET.get('reim') and request.GET.get('reim') != '0':
+        query_params += " AND a.reim_id = " + request.GET.get('reim')
+        query_id_reim = request.GET.get('reim')
+    if request.GET.get('course') and request.GET.get('course') != '0':
+        query_params += " AND e.curso_id = " + request.GET.get('course')
+    if request.GET.get('school') and request.GET.get('school') != '0':
+        query_params += " AND e.colegio_id = " + request.GET.get('school')
+    if request.GET.get('student') and request.GET.get('student') != '0':
+        query_id_user = "respuesta.id_user = " + request.GET.get('student') + " and" 
+
+    #print("USER: " + query_id_user)
+    #print("\n\nHORA-HORA-HORA\n: ", request.GET.get('clock'))
+
+    query_parte_1 =  " SELECT respuesta.id_actividad, activ.nombre, count(respuesta.correcta) AS acertada, (10 - COUNT(respuesta.correcta )) AS no_acertada " 
+    query_parte_2 =  " FROM ulearnet_reim_pilotaje.alumno_respuesta_actividad respuesta, ulearnet_reim_pilotaje.actividad activ " 
+    query_parte_3 =  " WHERE respuesta.id_reim = "+ query_id_reim +" and respuesta.id_elemento = 7723 and " 
+    query_parte_4 =  query_id_user
+    query_parte_5 =  " respuesta.id_actividad = activ.id and " 
+    query_parte_6 =  " respuesta.datetime_touch BETWEEN (SELECT sesion.datetime_inicio FROM ulearnet_reim_pilotaje.asigna_reim_alumno sesion WHERE reim_id = " +query_id_reim+ " AND '2020-05-30 21:58:00' BETWEEN datetime_inicio AND datetime_termino) AND " 
+    query_parte_7 =  " (SELECT sesion.datetime_termino FROM ulearnet_reim_pilotaje.asigna_reim_alumno sesion WHERE reim_id = " +query_id_reim+ " AND '2020-05-30 21:58:00' BETWEEN datetime_inicio AND datetime_termino) " 
+    query_parte_8 =  " GROUP BY respuesta.id_actividad, respuesta.correcta HAVING respuesta.correcta = 1; "
+
+    query_final = query_parte_1 + query_parte_2 + query_parte_3 + query_parte_4 + query_parte_5 + query_parte_6 + query_parte_7 + query_parte_8
+
+    #print("QUERY: " + query_final)
+    return query_final
+
+
+def get_reconocer_estilo_cognitivo_v2(request):
+    curso = get_from_db()
+    query_params = ''
+    query_id_reim = ''
+    query_id_user = ''
+    filtro_hora = ''
+    fecha_inicio = ''
+    fecha_final = ''
+    if request.GET.get('reim') and request.GET.get('reim') != '0':
+        query_params += " AND a.reim_id = " + request.GET.get('reim')
+        query_id_reim = request.GET.get('reim')
+    if request.GET.get('course') and request.GET.get('course') != '0':
+        query_params += " AND e.curso_id = " + request.GET.get('course')
+    if request.GET.get('school') and request.GET.get('school') != '0':
+        query_params += " AND e.colegio_id = " + request.GET.get('school')
+    if request.GET.get('student') and request.GET.get('student') != '0':
+        query_id_user = " AND respuesta.id_user = " + request.GET.get('student')
+    if request.GET.get('clock') and request.GET.get('clock') != '0':
+        filtro_hora =  request.GET.get('clock')
+        filtro_hora += ":00"
+    if request.GET.get('start') and (request.GET.get('start') != 'dd/mm/aaaa') or request.GET.get('end') and (request.GET.get('end') != 'dd/mm/aaaa'):
+        start = str(datetime.strptime(request.GET.get('start'), '%d/%m/%Y').date())
+        end = str(datetime.strptime(request.GET.get('end'), '%d/%m/%Y').date())
+        fecha_inicio = start + " " + filtro_hora
+        fecha_final = end + " " + filtro_hora
+
+    print("\n\FECHA: " + fecha_inicio +" \n\n")
+    print("\n\nHora: " + filtro_hora+" \n\n")
+
+    query_parte_1 =  "SELECT respuesta.id_actividad, activ.nombre, respuesta.id_elemento, respuesta.correcta " 
+    query_parte_2 =  "FROM ulearnet_reim_pilotaje.alumno_respuesta_actividad respuesta, ulearnet_reim_pilotaje.actividad activ " 
+    query_parte_3 =  "WHERE respuesta.id_reim = " + query_id_reim + " AND respuesta.id_elemento > 7727 AND respuesta.id_elemento < 7738 " 
+    query_parte_4 =  "AND respuesta.id_actividad = activ.id " + query_id_user +" "
+    query_parte_5 =  "AND respuesta.datetime_touch BETWEEN (SELECT sesion.datetime_inicio FROM ulearnet_reim_pilotaje.asigna_reim_alumno sesion WHERE reim_id = " + query_id_reim + " " + query_id_user + " AND '" + fecha_inicio + "' BETWEEN datetime_inicio AND datetime_termino) AND " 
+    query_parte_6 =  "(SELECT sesion.datetime_termino FROM ulearnet_reim_pilotaje.asigna_reim_alumno sesion WHERE reim_id = " +query_id_reim+ " "+query_id_user+" AND '" + fecha_inicio + "' BETWEEN datetime_inicio AND datetime_termino) " 
+    query_parte_7 =  "GROUP BY respuesta.id_actividad, respuesta.id_elemento" 
+    query_parte_8 = " ORDER BY respuesta.datetime_touch DESC;"
+
+
+    query_final = query_parte_1 + query_parte_2 + query_parte_3 + query_parte_4 + query_parte_5 + query_parte_6 + query_parte_7 + query_parte_8
+
+    return query_final
+
+
+def get_figura_simple_volcan(request, lista):
+
+        #print("\n\nENTRO EN QUERY: ", lista[0], lista[1])    
+        curso = get_from_db()
+        query_params = ''
+        query_id_reim = ''
+        query_id_user = ''
+        filtro_hora = ''
+        fecha_inicio = ''
+        fecha_final = ''
+        userid = ''
+        if request.GET.get('reim') and request.GET.get('reim') != '0':
+            query_params += " AND a.reim_id = " + request.GET.get('reim')
+            query_id_reim = request.GET.get('reim')
+        if request.GET.get('course') and request.GET.get('course') != '0':
+            query_params += " AND e.curso_id = " + request.GET.get('course')
+        if request.GET.get('school') and request.GET.get('school') != '0':
+            query_params += " AND e.colegio_id = " + request.GET.get('school')
+        if request.GET.get('student') and request.GET.get('student') != '0':
+            query_id_user = " AND respuesta.id_user = " + request.GET.get('student') + " AND respuesta.id_user = u.id "
+            userid = request.GET.get('student')
+        if request.GET.get('clock') and request.GET.get('clock') != '0':
+            filtro_hora =  request.GET.get('clock')
+            filtro_hora += ":00"
+        if request.GET.get('start') and (request.GET.get('start') != 'dd/mm/aaaa') or request.GET.get('end') and (request.GET.get('end') != 'dd/mm/aaaa'):
+         #   print("\n\STAR: " + str(datetime.strptime(request.GET.get('start'), '%d/%m/%Y').date()) + " \n\n")
+         #   print("\n\END: " + str(datetime.strptime(request.GET.get('end'), '%d/%m/%Y').date()) +" \n\n")
+            start = str(datetime.strptime(request.GET.get('start'), '%d/%m/%Y').date())
+            end = str(datetime.strptime(request.GET.get('end'), '%d/%m/%Y').date())
+            fecha_inicio = start + " " + filtro_hora
+            fecha_final = end + " " + filtro_hora
+            query_sesion_inicio = " SELECT sesion.datetime_inicio FROM ulearnet_reim_pilotaje.asigna_reim_alumno sesion WHERE reim_id = " + query_id_reim + " " + query_id_user + " AND '" + fecha_inicio + "' BETWEEN datetime_inicio AND datetime_termino "
+            query_sesion_fin = " SELECT sesion.datetime_termino FROM ulearnet_reim_pilotaje.asigna_reim_alumno sesion WHERE reim_id = " +query_id_reim+ " "+query_id_user+" AND '" + fecha_inicio + "' BETWEEN datetime_inicio AND datetime_termino "
+        if request.GET.get('start') and (request.GET.get('start') == 'dd/mm/aaaa') or request.GET.get('end') and (request.GET.get('end') == 'dd/mm/aaaa'):
+            query_sesion_inicio = " SELECT sesion.datetime_inicio FROM ulearnet_reim_pilotaje.asigna_reim_alumno sesion WHERE reim_id = " + query_id_reim + " AND usuario_id = " + str(userid) + "  ORDER BY datetime_inicio desc LIMIT 1  "
+            query_sesion_fin = " SELECT sesion.datetime_termino FROM ulearnet_reim_pilotaje.asigna_reim_alumno sesion WHERE reim_id = " + query_id_reim + " AND usuario_id = " + str(userid) + " ORDER BY datetime_inicio desc LIMIT 1 "
+            print("NO HAY RANGO")
+
+        query_1 = "SELECT DISTINCT respuesta.id_actividad, respuesta.id_elemento, respuesta.datetime_touch, respuesta.correcta, activ.nombre, concat(nombres ,' ', apellido_paterno , ' ',apellido_materno) as nombre  FROM ulearnet_reim_pilotaje.alumno_respuesta_actividad respuesta, ulearnet_reim_pilotaje.actividad activ, ulearnet_reim_pilotaje.usuario u "
+        query_2 = " WHERE respuesta.id_reim = 77 AND respuesta.id_elemento > 7727 AND respuesta.id_elemento < 7738 "
+        query_3 = " AND respuesta.id_actividad = " + str(lista[0]) +" " + query_id_user +" AND respuesta.id_actividad = activ.id "
+        query_4 = " AND respuesta.datetime_touch BETWEEN (" + query_sesion_inicio  +") AND " 
+        query_5 = " (" + query_sesion_fin + ") " 
+        query_6 = " ORDER BY respuesta.datetime_touch;"
+        query_final = query_1 + query_2 + query_3 + query_4 + query_5 + query_6
+        print("\n\n:: " + query_final + "\n\n:: ")
+
+        return query_final
+
+
+def get_figura_simple_promedio(request, lista):
+
+        #print("\n\nENTRO EN QUERY: ", lista[0], lista[1])    
+        curso = get_from_db()
+        query_params = ''
+        query_id_reim = ''
+        query_id_user = ''
+        filtro_hora = ''
+        fecha_inicio = ''
+        fecha_final = ''
+        userid = ''
+        if request.GET.get('reim') and request.GET.get('reim') != '0':
+            query_params += " AND a.reim_id = " + request.GET.get('reim')
+            query_id_reim = request.GET.get('reim')
+        if request.GET.get('course') and request.GET.get('course') != '0':
+            query_params += " AND e.curso_id = " + request.GET.get('course')
+        if request.GET.get('school') and request.GET.get('school') != '0':
+            query_params += " AND e.colegio_id = " + request.GET.get('school')
+        if request.GET.get('student') and request.GET.get('student') != '0':
+            query_id_user = " AND respuesta.id_user = " + request.GET.get('student') + " AND respuesta.id_user = u.id "
+            userid = request.GET.get('student')
+        if request.GET.get('clock') and request.GET.get('clock') != '0':
+            filtro_hora =  request.GET.get('clock')
+            filtro_hora += ":00"
+        if request.GET.get('start') and (request.GET.get('start') != 'dd/mm/aaaa') or request.GET.get('end') and (request.GET.get('end') != 'dd/mm/aaaa'):
+         #   print("\n\STAR: " + str(datetime.strptime(request.GET.get('start'), '%d/%m/%Y').date()) + " \n\n")
+         #   print("\n\END: " + str(datetime.strptime(request.GET.get('end'), '%d/%m/%Y').date()) +" \n\n")
+            start = str(datetime.strptime(request.GET.get('start'), '%d/%m/%Y').date())
+            end = str(datetime.strptime(request.GET.get('end'), '%d/%m/%Y').date())
+            fecha_inicio = start + " " + filtro_hora
+            fecha_final = end + " " + filtro_hora
+            query_sesion_inicio = " SELECT sesion.datetime_inicio FROM ulearnet_reim_pilotaje.asigna_reim_alumno sesion WHERE reim_id = " + query_id_reim + " " + query_id_user + " AND '" + fecha_inicio + "' BETWEEN datetime_inicio AND datetime_termino "
+            query_sesion_fin = " SELECT sesion.datetime_termino FROM ulearnet_reim_pilotaje.asigna_reim_alumno sesion WHERE reim_id = " +query_id_reim+ " "+query_id_user+" AND '" + fecha_inicio + "' BETWEEN datetime_inicio AND datetime_termino "
+        if request.GET.get('start') and (request.GET.get('start') == 'dd/mm/aaaa') or request.GET.get('end') and (request.GET.get('end') == 'dd/mm/aaaa'):
+            query_sesion_inicio = " SELECT sesion.datetime_inicio FROM ulearnet_reim_pilotaje.asigna_reim_alumno sesion WHERE reim_id = " + query_id_reim + " AND usuario_id = " + str(userid) + "  ORDER BY datetime_inicio desc LIMIT 1  "
+            query_sesion_fin = " SELECT sesion.datetime_termino FROM ulearnet_reim_pilotaje.asigna_reim_alumno sesion WHERE reim_id = " + query_id_reim + " AND usuario_id = " + str(userid) + " ORDER BY datetime_inicio desc LIMIT 1 "
+            print("NO HAY RANGO")
+
+        query_1 = "SELECT DISTINCT respuesta.id_actividad, respuesta.id_elemento, respuesta.datetime_touch, ROUND(AVG(respuesta.correcta)) as correcta, activ.nombre, concat(nombres ,' ', apellido_paterno , ' ',apellido_materno) as nombre  FROM ulearnet_reim_pilotaje.alumno_respuesta_actividad respuesta, ulearnet_reim_pilotaje.actividad activ, ulearnet_reim_pilotaje.usuario u "
+        query_2 = " WHERE respuesta.id_reim = 77 AND respuesta.id_elemento > 7727 AND respuesta.id_elemento < 7738 "
+        query_3 = " AND respuesta.id_actividad = " + str(lista[0]) +" " + query_id_user +" AND respuesta.id_actividad = activ.id "
+        query_4 = " AND respuesta.datetime_touch BETWEEN (" + query_sesion_inicio  +") AND " 
+        query_5 = " (" + query_sesion_fin + ") " 
+        query_6 = " GROUP BY respuesta.id_elemento ORDER BY respuesta.datetime_touch;"
+        query_final = query_1 + query_2 + query_3 + query_4 + query_5 + query_6
+
+        return query_final
+
+def get_figura_simple_ultimos_registros(request, lista):
+
+        #print("\n\nENTRO EN QUERY: ", lista[0], lista[1])    
+        curso = get_from_db()
+        query_params = ''
+        query_id_reim = ''
+        query_id_user = ''
+        filtro_hora = ''
+        fecha_inicio = ''
+        fecha_final = ''
+        query_sesion_inicio = ''
+        query_sesion_fin = ''
+        userid = ''
+
+        if request.GET.get('reim') and request.GET.get('reim') != '0':
+            query_params += " AND a.reim_id = " + request.GET.get('reim')
+            query_id_reim = request.GET.get('reim')
+        if request.GET.get('course') and request.GET.get('course') != '0':
+            query_params += " AND e.curso_id = " + request.GET.get('course')
+        if request.GET.get('school') and request.GET.get('school') != '0':
+            query_params += " AND e.colegio_id = " + request.GET.get('school')
+        if request.GET.get('student') and request.GET.get('student') != '0':
+            query_id_user = " AND respuesta.id_user = " + request.GET.get('student') + " AND respuesta.id_user = u.id "
+            userid = request.GET.get('student')
+        if request.GET.get('clock') and request.GET.get('clock') != '0':
+            filtro_hora =  request.GET.get('clock')
+            filtro_hora += ":00"
+        if request.GET.get('start') and (request.GET.get('start') != 'dd/mm/aaaa') or request.GET.get('end') and (request.GET.get('end') != 'dd/mm/aaaa'):
+            start = str(datetime.strptime(request.GET.get('start'), '%d/%m/%Y').date())
+            end = str(datetime.strptime(request.GET.get('end'), '%d/%m/%Y').date())
+            fecha_inicio = start + " " + filtro_hora
+            fecha_final = end + " " + filtro_hora
+            query_sesion_inicio = " SELECT sesion.datetime_inicio FROM ulearnet_reim_pilotaje.asigna_reim_alumno sesion WHERE reim_id = " + query_id_reim + " " + query_id_user + " AND '" + fecha_inicio + "' BETWEEN datetime_inicio AND datetime_termino "
+            query_sesion_fin = " SELECT sesion.datetime_termino FROM ulearnet_reim_pilotaje.asigna_reim_alumno sesion WHERE reim_id = " +query_id_reim+ " "+query_id_user+" AND '" + fecha_inicio + "' BETWEEN datetime_inicio AND datetime_termino "
+        if request.GET.get('start') and (request.GET.get('start') == 'dd/mm/aaaa') or request.GET.get('end') and (request.GET.get('end') == 'dd/mm/aaaa'):
+            query_sesion_inicio = " SELECT sesion.datetime_inicio FROM ulearnet_reim_pilotaje.asigna_reim_alumno sesion WHERE reim_id = " + query_id_reim + " AND usuario_id = " + str(userid) + "  ORDER BY datetime_inicio desc LIMIT 1  "
+            query_sesion_fin = " SELECT sesion.datetime_termino FROM ulearnet_reim_pilotaje.asigna_reim_alumno sesion WHERE reim_id = " + query_id_reim + " AND usuario_id = " + str(userid) + " ORDER BY datetime_inicio desc LIMIT 1 "
+            print("NO HAY RANGO")
+
+        query_1 = "SELECT DISTINCT respuesta.id_actividad, respuesta.id_elemento, respuesta.datetime_touch, respuesta.correcta, activ.nombre, concat(nombres ,' ', apellido_paterno , ' ',apellido_materno) as nombre  FROM ulearnet_reim_pilotaje.alumno_respuesta_actividad respuesta, ulearnet_reim_pilotaje.actividad activ, ulearnet_reim_pilotaje.usuario u "
+        query_2 = " WHERE respuesta.id_reim = 77 AND respuesta.id_elemento > 7727 AND respuesta.id_elemento < 7738 "
+        query_3 = " AND respuesta.id_actividad = " + str(lista[0]) +" " + query_id_user +" AND respuesta.id_actividad = activ.id "
+        query_4 = " AND respuesta.datetime_touch BETWEEN (" + query_sesion_inicio  +") AND " 
+        query_5 = " (" + query_sesion_fin + ") " 
+        query_6 = " ORDER BY respuesta.datetime_touch DESC;"
+        query_final = query_1 + query_2 + query_3 + query_4 + query_5 + query_6
+
+        return query_final
+#GRAFICOS POR ACTIVIDAD REIM 77
+def get_Actividad_Buenas_Mala(request):
+        curso = get_from_db()
+        query_params = ''
+        query_id_reim = ''
+        query_id_user = ''
+        filtro_hora = ''
+        fecha_inicio = ''
+        fecha_final = ''
+        actividad = ''
+        query_sesion_inicio = ''
+        query_sesion_fin = ''
+        userid = ''
+
+        if request.GET.get('activity') and request.GET.get('activity') != '0':
+            actividad = " AND respuesta.id_actividad =  " + request.GET.get('activity')
+        if request.GET.get('reim') and request.GET.get('reim') != '0':
+            query_params += " AND a.reim_id = " + request.GET.get('reim')
+            query_id_reim = request.GET.get('reim')
+        if request.GET.get('course') and request.GET.get('course') != '0':
+            query_params += " AND e.curso_id = " + request.GET.get('course')
+        if request.GET.get('school') and request.GET.get('school') != '0':
+            query_params += " AND e.colegio_id = " + request.GET.get('school')
+        if request.GET.get('student') and request.GET.get('student') != '0':
+            query_id_user = " AND respuesta.id_user = " + request.GET.get('student') + " AND respuesta.id_user = u.id "
+            userid = request.GET.get('student') 
+        if request.GET.get('clock') and request.GET.get('clock') != '0':
+            filtro_hora =  request.GET.get('clock')
+            filtro_hora += ":00"
+        if request.GET.get('start') and (request.GET.get('start') != 'dd/mm/aaaa') or request.GET.get('end') and (request.GET.get('end') != 'dd/mm/aaaa'):
+            start = str(datetime.strptime(request.GET.get('start'), '%d/%m/%Y').date())
+            end = str(datetime.strptime(request.GET.get('end'), '%d/%m/%Y').date())
+            fecha_inicio = start + " " + filtro_hora
+            fecha_final = end + " " + filtro_hora
+            query_sesion_inicio = " SELECT sesion.datetime_inicio FROM ulearnet_reim_pilotaje.asigna_reim_alumno sesion WHERE reim_id = " + query_id_reim + " " + query_id_user + " AND '" + fecha_inicio + "' BETWEEN datetime_inicio AND datetime_termino "
+            query_sesion_fin = " SELECT sesion.datetime_termino FROM ulearnet_reim_pilotaje.asigna_reim_alumno sesion WHERE reim_id = " +query_id_reim+ " "+query_id_user+" AND '" + fecha_inicio + "' BETWEEN datetime_inicio AND datetime_termino "
+        if request.GET.get('start') and (request.GET.get('start') == 'dd/mm/aaaa') or request.GET.get('end') and (request.GET.get('end') == 'dd/mm/aaaa'):
+            query_sesion_inicio = " SELECT sesion.datetime_inicio FROM ulearnet_reim_pilotaje.asigna_reim_alumno sesion WHERE reim_id = " + query_id_reim + " AND usuario_id = " + str(userid) + "  ORDER BY datetime_inicio desc LIMIT 1  "
+            query_sesion_fin = " SELECT sesion.datetime_termino FROM ulearnet_reim_pilotaje.asigna_reim_alumno sesion WHERE reim_id = " + query_id_reim + " AND usuario_id = " + str(userid) + " ORDER BY datetime_inicio desc LIMIT 1 "
+            print("NO HAY RANGO")
+
+        query_1 = " SELECT respuesta.id_actividad, respuesta.id_elemento, respuesta.datetime_touch, respuesta.correcta, SUM(IF (respuesta.correcta = 1, 1, 0 )) as completada , SUM(IF (respuesta.correcta = 0, 1, 0 )) as no_completada  ,activ.nombre,  elemento.nombre FROM ulearnet_reim_pilotaje.alumno_respuesta_actividad respuesta, ulearnet_reim_pilotaje.actividad activ, ulearnet_reim_pilotaje.usuario u, ulearnet_reim_pilotaje.elemento elemento  "
+        query_2 = " WHERE respuesta.id_reim = 77 AND respuesta.id_elemento > 7727 AND respuesta.id_elemento < 7738 "
+        query_3 = " " + actividad + " AND respuesta .id_actividad = activ.id "
+        query_4 = query_id_user
+        query_5 = " AND respuesta.id_elemento = elemento.id AND respuesta.datetime_touch BETWEEN (" + query_sesion_inicio + ") AND " 
+        query_6 = " ("+ query_sesion_fin  +") " 
+        query_7 = " GROUP by respuesta.id_elemento ORDER BY respuesta.datetime_touch DESC; "
+
+        #print("\n\n BUENA Y MALA query: "+ query_1 + query_2 + query_3 + query_4 + query_5 + query_6 + query_7)
+        return query_1 + query_2 + query_3 + query_4 + query_5 + query_6 + query_7
+
+def get_tiempoact_sesion(request):
+    cursor = get_from_db()
+    query_params = ''
+    query_id_reim = ''
+    query_id_user = ''
+    query_id_activ = ''
+    query_sesion_inicio = ''
+    query_sesion_fin = ''
+
+    if request.GET.get('reim') and request.GET.get('reim') != '0':
+        query_params += " AND a.reim_id = " + request.GET.get('reim')
+        query_id_reim = request.GET.get('reim')
+    if request.GET.get('course') and request.GET.get('course') != '0':
+        query_params += " AND e.curso_id = " + request.GET.get('course')
+    if request.GET.get('school') and request.GET.get('school') != '0':
+        query_params += " AND e.colegio_id = " + request.GET.get('school')
+    if request.GET.get('student') and request.GET.get('student') != '0':
+        query_params += ' AND a.usuario_id=' + request.GET.get('student')
+        query_id_user = request.GET.get('student')
+    if request.GET.get('clock') and request.GET.get('clock') != '0':
+            filtro_hora =  request.GET.get('clock')
+            filtro_hora += ":00"
+    if request.GET.get('activity') and request.GET.get('activity') != '0':
+        query_id_activ = " and a.actividad_id = " + request.GET.get('activity') 
+    if request.GET.get('start') and (request.GET.get('start') != 'dd/mm/aaaa') or request.GET.get('end') and (request.GET.get('end') != 'dd/mm/aaaa'):
+        start = str(datetime.strptime(request.GET.get('start'), '%d/%m/%Y').date())
+        end = str(datetime.strptime(request.GET.get('end'), '%d/%m/%Y').date())
+        fecha_inicio = start + " " + filtro_hora
+        fecha_final = end + " " + filtro_hora
+        query_sesion_inicio = " SELECT sesion.datetime_inicio FROM ulearnet_reim_pilotaje.asigna_reim_alumno sesion WHERE reim_id = " + query_id_reim + " AND usuario_id = " + query_id_user + " AND '" + fecha_inicio + "' BETWEEN datetime_inicio AND datetime_termino "
+        query_sesion_fin = " SELECT sesion.datetime_termino FROM ulearnet_reim_pilotaje.asigna_reim_alumno sesion WHERE reim_id = " +query_id_reim+ " AND usuario_id = "+query_id_user+" AND '" + fecha_inicio + "' BETWEEN datetime_inicio AND datetime_termino "
+    if request.GET.get('start') and (request.GET.get('start') == 'dd/mm/aaaa') or request.GET.get('end') and (request.GET.get('end') == 'dd/mm/aaaa'):
+        query_sesion_inicio = " SELECT sesion.datetime_inicio FROM ulearnet_reim_pilotaje.asigna_reim_alumno sesion WHERE reim_id = " + query_id_reim + " AND usuario_id = " + query_id_user + "  ORDER BY datetime_inicio desc LIMIT 1  "
+        query_sesion_fin = " SELECT sesion.datetime_termino FROM ulearnet_reim_pilotaje.asigna_reim_alumno sesion WHERE reim_id = " + query_id_reim + " AND usuario_id = " + query_id_user + " ORDER BY datetime_inicio desc LIMIT 1 "
+        print("NO HAY RANGO")
+        
+    date = get_date_param_tiempoxactividad(request)
+
+    start_base = 'SELECT a.actividad_id, b.nombre, round((sum(timestampdiff(SECOND, inicio, final))/60)) as tiempo FROM tiempoxactividad a, actividad b, pertenece e where'
+    intermedio_sesion =  " a.inicio BETWEEN (" +query_sesion_inicio + ") AND  (" +query_sesion_fin+") AND" 
+    final_base = ' e.colegio_id IN (SELECT colegio_id from pertenece INNER JOIN usuario ON pertenece.usuario_id = usuario.id WHERE username="' + request.user.username + '") AND e.curso_id IN (SELECT curso_id FROM pertenece WHERE usuario_id = (SELECT id FROM usuario WHERE username = "' + request.user.username + '"))' + query_params + ' AND a.actividad_id = b.id '+ query_id_activ  +' group by actividad_id;'
+    
+    #print("\n\n TIEMPO Query: " +start_base + intermedio_sesion + final_base)
+
+    return start_base + intermedio_sesion + final_base
+#POR ACTIVIDAD
+#GRAFICO GENERARL DE RECONOCER ESTILO COGNITIVO
+#
+#GRAFICOS POR CURSO REIM 77
+def get_figura_simple_estandar_por_curso(request, lista, userid):
+
+        print("\n\nENTRO EN QUERY: ", lista[0], lista[1])    
+        #print("user: ", userid)
+        print("Primero registro")
+        curso = get_from_db()
+        query_params = ''
+        query_id_reim = ''
+        query_id_user = ''
+        filtro_hora = ''
+        fecha_inicio = ''
+        fecha_final = ''
+        query_sesion_inicio = ''
+        query_sesion_fin = ''
+        if request.GET.get('reim') and request.GET.get('reim') != '0':
+            query_params += " AND a.reim_id = " + request.GET.get('reim')
+            query_id_reim = request.GET.get('reim')
+        if request.GET.get('course') and request.GET.get('course') != '0':
+            query_params += " AND e.curso_id = " + request.GET.get('course')
+        if request.GET.get('school') and request.GET.get('school') != '0':
+            query_params += " AND e.colegio_id = " + request.GET.get('school')
+        if request.GET.get('student') == '0':
+            query_id_user = " AND respuesta.id_user = " + str(userid) + " AND respuesta.id_user = u.id "
+        if request.GET.get('clock') and request.GET.get('clock') != '0':
+            filtro_hora =  request.GET.get('clock')
+            filtro_hora += ":00"
+        if request.GET.get('start') and (request.GET.get('start') != 'dd/mm/aaaa') or request.GET.get('end') and (request.GET.get('end') != 'dd/mm/aaaa'):
+         #   print("\n\STAR: " + str(datetime.strptime(request.GET.get('start'), '%d/%m/%Y').date()) + " \n\n")
+         #   print("\n\END: " + str(datetime.strptime(request.GET.get('end'), '%d/%m/%Y').date()) +" \n\n")
+            start = str(datetime.strptime(request.GET.get('start'), '%d/%m/%Y').date())
+            end = str(datetime.strptime(request.GET.get('end'), '%d/%m/%Y').date())
+            fecha_inicio = start + " " + filtro_hora
+            fecha_final = end + " " + filtro_hora
+            query_sesion_inicio = " SELECT sesion.datetime_inicio FROM ulearnet_reim_pilotaje.asigna_reim_alumno sesion WHERE reim_id = " + query_id_reim + " AND usuario_id = " + str(userid) + " AND datetime_inicio <= '" + fecha_inicio + "' ORDER BY datetime_inicio desc LIMIT 1 "
+            query_sesion_fin = " SELECT sesion.datetime_termino FROM ulearnet_reim_pilotaje.asigna_reim_alumno sesion WHERE reim_id = " + query_id_reim + " AND usuario_id = " + str(userid) + " AND datetime_inicio <= '" + fecha_inicio + "' ORDER BY datetime_inicio desc LIMIT 1 "
+        if request.GET.get('start') and (request.GET.get('start') == 'dd/mm/aaaa') or request.GET.get('end') and (request.GET.get('end') == 'dd/mm/aaaa'):
+            query_sesion_inicio = " SELECT sesion.datetime_inicio FROM ulearnet_reim_pilotaje.asigna_reim_alumno sesion WHERE reim_id = " + query_id_reim + " AND usuario_id = " + str(userid) + "  ORDER BY datetime_inicio desc LIMIT 1  "
+            query_sesion_fin = " SELECT sesion.datetime_termino FROM ulearnet_reim_pilotaje.asigna_reim_alumno sesion WHERE reim_id = " + query_id_reim + " AND usuario_id = " + str(userid) + " ORDER BY datetime_inicio desc LIMIT 1 "
+            print("NO HAY RANGO")
+
+        query_1 = "SELECT DISTINCT respuesta.id_actividad, respuesta.id_elemento, respuesta.datetime_touch, respuesta.correcta, activ.nombre, concat(nombres ,' ', apellido_paterno , ' ',apellido_materno) as nombre  FROM ulearnet_reim_pilotaje.alumno_respuesta_actividad respuesta, ulearnet_reim_pilotaje.actividad activ, ulearnet_reim_pilotaje.usuario u "
+        query_2 = " WHERE respuesta.id_reim = 77 AND respuesta.id_elemento > 7727 AND respuesta.id_elemento < 7738 "
+        query_3 = " AND respuesta.id_actividad = " + str(lista[0]) +" AND respuesta.id_user = " + str(userid) +" AND respuesta.id_user = u.id  AND respuesta.id_actividad = activ.id "
+        query_4 = " AND respuesta.datetime_touch BETWEEN (" +query_sesion_inicio+ " ) AND " 
+        query_5 = " ( "+query_sesion_fin+" ) " 
+        query_6 = " ORDER BY respuesta.datetime_touch;"
+        query_final = query_1 + query_2 + query_3 + query_4 + query_5 + query_6
+
+        print("\n\nQUERY por cursor: " + query_final)
+
+        return query_final
+
+def get_figura_simple_promedio_por_curso(request, lista, userid):
+
+        #print("\n\nENTRO EN QUERY: ", lista[0], lista[1])
+        print("Promedio registro")    
+        curso = get_from_db()
+        query_params = ''
+        query_id_reim = ''
+        query_id_user = ''
+        filtro_hora = ''
+        fecha_inicio = ''
+        fecha_final = ''
+        query_sesion_inicio = ''
+        query_sesion_fin = ''
+        if request.GET.get('reim') and request.GET.get('reim') != '0':
+            query_params += " AND a.reim_id = " + request.GET.get('reim')
+            query_id_reim = request.GET.get('reim')
+        if request.GET.get('course') and request.GET.get('course') != '0':
+            query_params += " AND e.curso_id = " + request.GET.get('course')
+        if request.GET.get('school') and request.GET.get('school') != '0':
+            query_params += " AND e.colegio_id = " + request.GET.get('school')
+        if request.GET.get('student') and request.GET.get('student') != '0':
+            query_id_user = " AND respuesta.id_user = " + request.GET.get('student') + " AND respuesta.id_user = u.id "
+        if request.GET.get('clock') and request.GET.get('clock') != '0':
+            filtro_hora =  request.GET.get('clock')
+            filtro_hora += ":00"
+        if request.GET.get('start') and (request.GET.get('start') != 'dd/mm/aaaa') or request.GET.get('end') and (request.GET.get('end') != 'dd/mm/aaaa'):
+         #   print("\n\STAR: " + str(datetime.strptime(request.GET.get('start'), '%d/%m/%Y').date()) + " \n\n")
+         #   print("\n\END: " + str(datetime.strptime(request.GET.get('end'), '%d/%m/%Y').date()) +" \n\n")
+            start = str(datetime.strptime(request.GET.get('start'), '%d/%m/%Y').date())
+            end = str(datetime.strptime(request.GET.get('end'), '%d/%m/%Y').date())
+            fecha_inicio = start + " " + filtro_hora
+            fecha_final = end + " " + filtro_hora
+            query_sesion_inicio = " SELECT sesion.datetime_inicio FROM ulearnet_reim_pilotaje.asigna_reim_alumno sesion WHERE reim_id = " + query_id_reim + " AND usuario_id = " + str(userid) + " AND datetime_inicio <= '" + fecha_inicio + "' ORDER BY datetime_inicio desc LIMIT 1 "
+            query_sesion_fin = " SELECT sesion.datetime_termino FROM ulearnet_reim_pilotaje.asigna_reim_alumno sesion WHERE reim_id = " + query_id_reim + " AND usuario_id = " + str(userid) + " AND datetime_inicio <= '" + fecha_inicio + "' ORDER BY datetime_inicio desc LIMIT 1 "
+        if request.GET.get('start') and (request.GET.get('start') == 'dd/mm/aaaa') or request.GET.get('end') and (request.GET.get('end') == 'dd/mm/aaaa'):
+            query_sesion_inicio = " SELECT sesion.datetime_inicio FROM ulearnet_reim_pilotaje.asigna_reim_alumno sesion WHERE reim_id = " + query_id_reim + " AND usuario_id = " + str(userid) + "  ORDER BY datetime_inicio desc LIMIT 1  "
+            query_sesion_fin = " SELECT sesion.datetime_termino FROM ulearnet_reim_pilotaje.asigna_reim_alumno sesion WHERE reim_id = " + query_id_reim + " AND usuario_id = " + str(userid) + " ORDER BY datetime_inicio desc LIMIT 1 "
+            print("NO HAY RANGO")
+
+        query_1 = "SELECT DISTINCT respuesta.id_actividad, respuesta.id_elemento, respuesta.datetime_touch, ROUND(AVG(respuesta.correcta)) as correcta, activ.nombre, concat(nombres ,' ', apellido_paterno , ' ',apellido_materno) as nombre  FROM ulearnet_reim_pilotaje.alumno_respuesta_actividad respuesta, ulearnet_reim_pilotaje.actividad activ, ulearnet_reim_pilotaje.usuario u "
+        query_2 = " WHERE respuesta.id_reim = 77 AND respuesta.id_elemento > 7727 AND respuesta.id_elemento < 7738 "
+        query_3 = " AND respuesta.id_actividad = " + str(lista[0]) +" AND respuesta.id_user = " + str(userid) +" AND respuesta.id_user = u.id AND respuesta.id_actividad = activ.id "
+        query_4 = " AND respuesta.datetime_touch BETWEEN (" +query_sesion_inicio+ ") AND " 
+        query_5 = " ("+query_sesion_fin+" ) " 
+        query_6 = " GROUP BY respuesta.id_elemento ORDER BY respuesta.datetime_touch;"
+        query_final = query_1 + query_2 + query_3 + query_4 + query_5 + query_6
+
+        return query_final
+
+def get_figura_simple_ultimos_registros_por_curso(request, lista, userid):
+
+        #print ultimo registro
+        print("Ultimo registro")
+        #print("\n\nENTRO EN QUERY: ", lista[0], lista[1])    
+        curso = get_from_db()
+        query_params = ''
+        query_id_reim = ''
+        query_id_user = ''
+        filtro_hora = ''
+        fecha_inicio = ''
+        fecha_final = ''
+        query_sesion_inicio = ''
+        query_sesion_fin = ''
+        if request.GET.get('reim') and request.GET.get('reim') != '0':
+            query_params += " AND a.reim_id = " + request.GET.get('reim')
+            query_id_reim = request.GET.get('reim')
+        if request.GET.get('course') and request.GET.get('course') != '0':
+            query_params += " AND e.curso_id = " + request.GET.get('course')
+        if request.GET.get('school') and request.GET.get('school') != '0':
+            query_params += " AND e.colegio_id = " + request.GET.get('school')
+        if request.GET.get('student') and request.GET.get('student') != '0':
+            query_id_user = " AND respuesta.id_user = " + request.GET.get('student') + " AND respuesta.id_user = u.id "
+        if request.GET.get('clock') and request.GET.get('clock') != '0':
+            filtro_hora =  request.GET.get('clock')
+            filtro_hora += ":00"
+        if request.GET.get('start') and (request.GET.get('start') != 'dd/mm/aaaa') or request.GET.get('end') and (request.GET.get('end') != 'dd/mm/aaaa'):
+            print("SI HAY RANGO")
+            start = str(datetime.strptime(request.GET.get('start'), '%d/%m/%Y').date())
+            end = str(datetime.strptime(request.GET.get('end'), '%d/%m/%Y').date())
+            fecha_inicio = start + " " + filtro_hora
+            fecha_final = end + " " + filtro_hora
+            query_sesion_inicio = " SELECT sesion.datetime_inicio FROM ulearnet_reim_pilotaje.asigna_reim_alumno sesion WHERE reim_id = " + query_id_reim + " AND usuario_id = " + str(userid) + " AND datetime_inicio <= '" + fecha_inicio + "' ORDER BY datetime_inicio desc LIMIT 1 "
+            query_sesion_fin = " SELECT sesion.datetime_termino FROM ulearnet_reim_pilotaje.asigna_reim_alumno sesion WHERE reim_id = " + query_id_reim + " AND usuario_id = " + str(userid) + " AND datetime_inicio <= '" + fecha_inicio + "' ORDER BY datetime_inicio desc LIMIT 1 "
+        if request.GET.get('start') and (request.GET.get('start') == 'dd/mm/aaaa') or request.GET.get('end') and (request.GET.get('end') == 'dd/mm/aaaa'):
+            query_sesion_inicio = " SELECT sesion.datetime_inicio FROM ulearnet_reim_pilotaje.asigna_reim_alumno sesion WHERE reim_id = " + query_id_reim + " AND usuario_id = " + str(userid) + "  ORDER BY datetime_inicio desc LIMIT 1  "
+            query_sesion_fin = " SELECT sesion.datetime_termino FROM ulearnet_reim_pilotaje.asigna_reim_alumno sesion WHERE reim_id = " + query_id_reim + " AND usuario_id = " + str(userid) + " ORDER BY datetime_inicio desc LIMIT 1 "
+            print("NO HAY RANGO")
+
+        query_1 = "SELECT DISTINCT respuesta.id_actividad, respuesta.id_elemento, respuesta.datetime_touch, respuesta.correcta, activ.nombre, concat(nombres ,' ', apellido_paterno , ' ',apellido_materno) as nombre  FROM ulearnet_reim_pilotaje.alumno_respuesta_actividad respuesta, ulearnet_reim_pilotaje.actividad activ, ulearnet_reim_pilotaje.usuario u "
+        query_2 = " WHERE respuesta.id_reim = 77 AND respuesta.id_elemento > 7727 AND respuesta.id_elemento < 7738 "
+        query_3 = " AND respuesta.id_actividad = " + str(lista[0]) +" AND respuesta.id_user = " + str(userid) +" AND respuesta.id_user = u.id  AND respuesta.id_actividad = activ.id "
+        query_4 = " AND respuesta.datetime_touch BETWEEN (" +query_sesion_inicio+ ") AND " 
+        query_5 = " ( "+query_sesion_fin+" ) " 
+        query_6 = " ORDER BY respuesta.datetime_touch DESC;"
+        query_final = query_1 + query_2 + query_3 + query_4 + query_5 + query_6
+
+        #print("\n\n: " + query_final)
+        return query_final
+
+#FIN REIM ID = 77, NOMBRE = BUSCANDO EL TESORO PERDIDO
+
+

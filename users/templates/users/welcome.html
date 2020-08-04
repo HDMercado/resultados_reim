@@ -14,6 +14,7 @@
     <link href="{% static 'css/plugins/gritter/jquery.gritter.css' %}" rel="stylesheet">
     <link href="{% static 'css/animate.css' %}" rel="stylesheet">
     <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <link href="{% static 'css/clockpicker.css' %}" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js"></script>
     <!--script src="path/to/chartjs/dist/Chart.js"></script-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
@@ -150,6 +151,34 @@
                                             {% endif %}
                                         </select>
                                     </div>
+                                        <!--#INICIO REIM ID = 77, NOMBRE = BUSCANDO EL TESORO PERDIDO-->
+                                        {% if reim_num == '77' %}
+                                        <div  class="col-md-4">
+                                            <label  class="font-normal">Hora Sesion</label>
+                                                <div class="input-group clockpicker" data-placement="right" data-align="top" data-autoclose="true" name="clock" >
+                                                    <input type="text" class="form-control" value="13:00" name="clock" id="clock-filter-selector">
+                                                    <span class="input-group-addon">
+                                                        <span class="glyphicon glyphicon-time"></span>
+                                                    </span>
+                                                </div>
+                                        </div>
+                                         <div  class="col-md-2">
+                                            <label  class="font-normal">Tipo de Graficos</label>
+                                            <select id="option-filter-selector" name="option" class="form-control m-b">
+                                                <option value ="1">Primer Registro</option>
+                                                <option value ="2">Promedio Registro</option>
+                                                <option value ="3">Ultimo Registro</option>
+                                            </select>
+                                        </div>
+                                        <div  class="col-md-4">
+                                            <div class="form-group">
+                                            <label  class="font-normal">Extender el rango de medición del tiempo (0% a 100%)</label>
+                                            <br>
+                                            <input type="range" min="0" max="100" value="50" name="rango" id="rango-filter-selector">
+                                            </div>
+                                        </div>
+                                        {% endif %}
+                                        <!--#FIN REIM ID = 77, NOMBRE = BUSCANDO EL TESORO PERDIDO-->
                                     <p class="col-lg-12">
                                         <button class="btn btn-sm btn-primary m-t-n-xs float-right"><i class="fa fa-filter"></i> Filtrar</button>
                                         <a href="/" class="btn btn-sm btn-secondary m-t-n-xs float-right" style="margin-right: 5px"><i class="fa fa-trash"></i> Limpiar</a>
@@ -1573,21 +1602,22 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
-                                    <div class="col-lg-6">
-                                        <div class="ibox ">
-                                            <div class="ibox-title">
-                                                <h5>Tendencia a salidas actividad laberinto</h5><span class="glyphicon glyphicon-info-sign" title="Gráfico que muestra la tendencia del curso a las salidas del laberinto."></span>
-                                                <div class="ibox-tools"></div>
-                                            </div>
-                                            <div class="ibox-content">
-                                                <div class="scroll_content">
-                                                    <canvas id="exitslabco" height={{exits_lab_co_quantity_graph}}>{% load staticfiles %}</canvas>
-                                                </div>
-                                            </div>
-                                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            
+            <!-- Fin Clean Ocean -->
+
+            {% if student_num == '0' and reim_num != '0' and reim_num != '1' and activity_num == '0' and reim_num != '3' and reim_num != '2' and reim_num != '4' %}
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
+                            <div class="col-lg-6">
+                                <div class="ibox ">
+                                    <div class="ibox-title">
+                                        <h5>Minutos de juego</h5>
+                                        <div class="ibox-tools"></div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="ibox ">
@@ -2296,6 +2326,235 @@
 
         {% endif %}  
             <!-- Fin Mundo animal -->
+
+            <!-- #INICIO REIM ID = 77, NOMBRE = BUSCANDO EL TESORO PERDIDO -->
+                {% if reim_num == '77' %}
+                <div class="wrapper wrapper-content">
+                    <!--77 GRAFICO POR ALUMNO Y ACTIVIDAD-->
+                    {% if reim_num == '77' and student_num != '0' and activity_num != '0' %}
+                    <div class="row">
+                    <div class="col-lg-12">
+                        <div class="row" >
+                            <div class="col-lg-6">
+                                <div class="ibox">
+                                    <div class="ibox-title">
+                                        <h5>Cantidad de intentos por Figura Compleja</h5><span class="  glyphicon glyphicon-info-sign" title="Muestra las cantidad de intentos de una figura compleja que corresponde a una figura simple, cada figura simple corresponde a una actividad del Reim."></span>
+                                        <div class="ibox-tools"></div>
+                                    </div>
+                                    <div class="ibox-content">
+                                        <div class="scroll_content">
+                                            <canvas id="respuestaFiguraCompleja" height={{tamaño_actividad_alumno}}>{% load staticfiles %}</canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="ibox">
+                                    <div class="ibox-title">
+                                        <h5>Tiempo de juego total de la actividad</h5><span class="  glyphicon glyphicon-info-sign" title="Indica la cantidad de tiempo (en segundos) en que los/las alumnos/as han permanecido en la actividad"></span>
+                                        <div class="ibox-tools"></div>
+                                    </div>
+                                    <div class="ibox-content">
+                                        <div class="scroll_content">
+                                            <canvas id="tiempoActividadSesion" height={{tamaño_actividad_alumno}}>{% load staticfiles %}</canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                {% endif %}
+                <!--77 GRAFICO POR ALUMNO Y ACTIVIDAD-->
+                </div>    
+                    {% endif %}
+
+
+                <!--77 GRAFICO POR ALUMNO Y PERO NO ACTIDIDAD SELECCIONADA ACTIVIDAD-->
+                {% if reim_num != '0' and activity_num == '0' and reim_num == '77' and student_num != '0' %}
+                <div class="row">
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="ibox ">
+                                        <div class="ibox-title">
+                                            <h5>Reconociendo el estilo cognitivo</h5><span class="  glyphicon glyphicon-info-sign" title="La Dependencia de Campo e Indepencia de Campo son dos estilos cognitivos. Diferencias individuales en cuanto a la tendencia a percibir las situaciones de una manera global o a percibirlas de una manera analítica, superando la influencia del contexto. La dependencia del campo se caracteriza por la tendencia a percibir un fenómeno como un todo unitario, sin atender a las diferentes partes que lo integran; la independencia, por el contrario, consiste en la capacidad de aislar un determinado rasgo que se percibe como relevante, del contexto en el que se integra. Para reconocer los estilos se establecieron los siguientes rangos: muy dependiente (1-10), dependiente (11-20), intermedio (21-30), independiente (31-40) y muy independiente (41-50)."></span>
+                                            <div class="ibox-tools"></div>
+                                        </div>
+                                        <div class="ibox-content">
+                                            <div class="scroll_content">
+                                                <canvas id="estiloxcongitivos" height={{sesion_quantity_graph}}>{% load staticfiles %}</canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                <div class="ibox">
+                                    <div class="ibox-title">
+                                        <h5>Grafico General de las Figuras Simple</h5><span class="  glyphicon glyphicon-info-sign" title="Grafico que muestra la cantidad de figuras complejas completas y no completadas de una figura simple del Test de Figuras Enmascaradas, cada figura simple corresponde a una actividad del Reim."></span>
+                                        <div class="ibox-tools"></div>
+                                    </div>
+                                    <div class="ibox-content">
+                                        <div class="scroll_content">
+                                            <canvas id="respuestaEstilos" height={{tamaña_grafico_por_alumno}}>{% load staticfiles %}</canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="row" >
+                                <div class="col-lg-6">
+                                    <div class="ibox ">
+                                        <div class="ibox-title">
+                                            <h5>Minutos de Juego por Estudiante</h5><span class="  glyphicon glyphicon-info-sign" title="Cantidad de tiempo (segundos) que cada niño/a ha jugado con Buscando el Tesoro Perdido entre las fechas seleccionadas"></span>
+                                            <div class="ibox-tools"></div>
+                                        </div>
+                                        <div class="ibox-content">
+                                            <div class="scroll_content">
+                                                <canvas id="stacked" height={{game_time_graph}}>{% load staticfiles %}</canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="ibox">
+                                        <div class="ibox-title">
+                                            <h5>Cantidad de Touch por Estudiante</h5><span class="  glyphicon glyphicon-info-sign" title="Cantidad de touch (interacción) que cada niño/a realizó al jugar con el Reim entre las fechas seleccionadas"></span>
+                                            <div class="ibox-tools"></div>
+                                        </div>
+                                        <div class="ibox-content">
+                                            <div class="scroll_content">
+                                                <canvas id="horizontalBar" height={{game_time_graph}}>{% load staticfiles %}</canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="ibox ">
+                                        <div class="ibox-title">
+                                            <h5>Sesiones por Estudiante</h5><span class="  glyphicon glyphicon-info-sign" title="Cantidad de sesiones que cada niño/a realizó al jugar con el Reim entre las fechas seleccionadas"></span>
+                                            <div class="ibox-tools"></div>
+                                        </div>
+                                        <div class="ibox-content">
+                                            <div class="scroll_content">
+                                                <canvas id="stacked2" height={{sesion_quantity_graph}}>{% load staticfiles %}</canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+
+                    </div>
+                    {% endif %}
+                <!--77 GRAFICO POR ALUMNO Y PERO NO ACTIDIDAD SELECCIONADA ACTIVIDAD-->
+
+
+                <!--77 GRAFICO POR CURSO Y SIN ACTIVIDAD-->
+                {% if reim_num != '0' and activity_num == '0' and reim_num == '77' and student_num == '0' %}
+                <div class="row">
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="ibox ">
+                                        <div class="ibox-title">
+                                            <h5>Reconociendo estilo cognitivo muy dependiente del campo por alumno</h5><span class="  glyphicon glyphicon-info-sign" title="La Dependencia de Campo e Indepencia de Campo son dos estilos cognitivos. Generalmente, las personas tenemos uno de estos dos estilos, aunque puede ser que en ocasiones utilicemos más uno que otro pero que dispongamos de los dos. Este estilo hace referencia, a grandes rasgos, a cómo procesamos la información: si de forma global y holística (dependencia de campo) o de forma analítica, detallada y concreta (independencia de campo). Alumnos dependientes de campo: 1) Perciben globalmente. 2) Son mejores para aprender material de contenido social. 3) Memorizan mejor información social. 4) Necesitan instrucciones para llevar a cabo una tarea. 5) Suelen aceptar la organización que se les impone y son incapaces de reorganizar. 6) Están acostumbrados a que les digan qué hacer. 7) Son sensibles a la crítica. 8) Requieren estructuras, metas y refuerzos externos para trabajar. Para reconocer el estilo se establecieron los siguientes rangos: muy dependiente (1-10), dependiente (11-20)."></span>
+                                            <div class="ibox-tools"></div>
+                                        </div>
+                                        <div class="ibox-content">
+                                            <div class="scroll_content">
+                                                <canvas id="canvas_id_77" height={{tamaño_curso}}>{% load staticfiles %}</canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="ibox ">
+                                        <div class="ibox-title">
+                                            <h5>Reconociendo estilo cognitivo dependiente del campo por alumno</h5><span class="  glyphicon glyphicon-info-sign" title="La Dependencia de Campo e Indepencia de Campo son dos estilos cognitivos. Generalmente, las personas tenemos uno de estos dos estilos, aunque puede ser que en ocasiones utilicemos más uno que otro pero que dispongamos de los dos. Este estilo hace referencia, a grandes rasgos, a cómo procesamos la información: si de forma global y holística (dependencia de campo) o de forma analítica, detallada y concreta (independencia de campo). Alumnos dependientes de campo: 1) Perciben globalmente. 2) Son mejores para aprender material de contenido social. 3) Memorizan mejor información social. 4) Necesitan instrucciones para llevar a cabo una tarea. 5) Suelen aceptar la organización que se les impone y son incapaces de reorganizar. 6) Están acostumbrados a que les digan qué hacer. 7) Son sensibles a la crítica. 8) Requieren estructuras, metas y refuerzos externos para trabajar. Para reconocer el estilo se establecieron los siguientes rangos: muy dependiente (1-10), dependiente (11-20)."></span>
+                                            <div class="ibox-tools"></div>
+                                        </div>
+                                        <div class="ibox-content">
+                                            <div class="scroll_content">
+                                                <canvas id="grafico_pendiente" height={{tamaño_curso}}>{% load staticfiles %}</canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>                               
+                        </div>
+                </div>
+                <div class="row">
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="ibox ">
+                                        <div class="ibox-title">
+                                            <h5>Reconociendo estilo cognitivo intermedio por alumno</h5><span class="  glyphicon glyphicon-info-sign" title="La Dependencia de Campo e Indepencia de Campo son dos estilos cognitivos. Generalmente, las personas tenemos uno de estos dos estilos, aunque puede ser que en ocasiones utilicemos más uno que otro pero que dispongamos de los dos. Este estilo hace referencia, a grandes rasgos, a cómo procesamos la información: si de forma global y holística (dependencia de campo) o de forma analítica, detallada y concreta (independencia de campo). Alumnos dependientes de campo: 1) Perciben globalmente. 2) Son mejores para aprender material de contenido social. 3) Memorizan mejor información social. Alumnos indepenties de campo: 1) Perciben analíticamente. 2) Necesitan ayuda para concentrarse en el material de contenido social. 3) Se les debe enseñar a usar el contexto para manejar información social. Para reconocer el estilo se establecio el siguiente rango: intermedio (21-30)"></span>
+                                            <div class="ibox-tools"></div>
+                                        </div>
+                                        <div class="ibox-content">
+                                            <div class="scroll_content">
+                                                <canvas id="grafico_intermedio" height={{tamaño_curso}}>{% load staticfiles %}</canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="ibox ">
+                                        <div class="ibox-title">
+                                            <h5>Reconociendo estilo cognitivo independiente del campo por alumno</h5><span class="  glyphicon glyphicon-info-sign" title="La Dependencia de Campo e Indepencia de Campo son dos estilos cognitivos. Generalmente, las personas tenemos uno de estos dos estilos, aunque puede ser que en ocasiones utilicemos más uno que otro pero que dispongamos de los dos. Este estilo hace referencia, a grandes rasgos, a cómo procesamos la información: si de forma global y holística (dependencia de campo) o de forma analítica, detallada y concreta (independencia de campo). Alumnos indepenties de campo: 1) Perciben analíticamente. 2) Necesitan ayuda para concentrarse en el material de contenido social. 3) Se les debe enseñar a usar el contexto para manejar información social. 4) Son capaces de resolver problemas y llevar a cabo tareas sin necesidad de instrucciones. 5) Pueden analizar una situación y reorganizarla. 6) Tienen iniciativa y pueden utilizar sus propios criterios para desarrollar tareas. 7) Las críticas no los afectan mucho. 8) Suelen tener metas y refuerzos internos. 9) Les gusta trabajar solos. Para reconocer el estilo se establecieron los siguientes rangos: independiente (31-40) y muy independiente (41-50)."></span>
+                                            <div class="ibox-tools"></div>
+                                        </div>
+                                        <div class="ibox-content">
+                                            <div class="scroll_content">
+                                                <canvas id="grafico_independiente" height={{tamaño_curso}}>{% load staticfiles %}</canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="ibox ">
+                                        <div class="ibox-title">
+                                            <h5>Reconociendo estilo cognitivo muy independiente del campo por alumno</h5><span class="  glyphicon glyphicon-info-sign" title="La Dependencia de Campo e Indepencia de Campo son dos estilos cognitivos. Generalmente, las personas tenemos uno de estos dos estilos, aunque puede ser que en ocasiones utilicemos más uno que otro pero que dispongamos de los dos. Este estilo hace referencia, a grandes rasgos, a cómo procesamos la información: si de forma global y holística (dependencia de campo) o de forma analítica, detallada y concreta (independencia de campo). Alumnos indepenties de campo: 1) Perciben analíticamente. 2) Necesitan ayuda para concentrarse en el material de contenido social. 3) Se les debe enseñar a usar el contexto para manejar información social. 4) Son capaces de resolver problemas y llevar a cabo tareas sin necesidad de instrucciones. 5) Pueden analizar una situación y reorganizarla. 6) Tienen iniciativa y pueden utilizar sus propios criterios para desarrollar tareas. 7) Las críticas no los afectan mucho. 8) Suelen tener metas y refuerzos internos. 9) Les gusta trabajar solos. Para describir el grupo teniendo en cuenta la preferencia de estilo cognitivo se establecieron los siguientes rangos: independiente (31-40) y muy independiente (41-50)."></span>
+                                            <div class="ibox-tools"></div>
+                                        </div>
+                                        <div class="ibox-content">
+                                            <div class="scroll_content">
+                                                <canvas id="grafico_muy_independiente" height={{tamaño_curso}}>{% load staticfiles %}</canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                </div>
+                    {% endif %}
+                <!--77 GRAFICO POR CURSO Y SIN ACTIVIDAD-->
+                <!-- #FIN REIM ID = 77, NOMBRE = BUSCANDO EL TESORO PERDIDO-->
+
+
+
                 <div>
                     <strong>Copyright</strong>  &copy; 2019
 
@@ -2360,6 +2619,12 @@
     <script src="{% static 'js/plugins/toastr/toastr.min.js' %}"></script>
     <!-- Date range picker -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+    <!--FILTRO POR Hora-->
+     <script src="{% static 'js/clockpicker.js' %}"> </script>
+    <script type="text/javascript">
+        $('.clockpicker').clockpicker();
+    </script>
+    <!--FILTRO POR Hora-->
 
     <script>
         $('.datepicker').datepicker({
@@ -4528,7 +4793,6 @@
             new Chart(ctx22, {type: 'line', data: CrecerAnaliticaDMData, options:lineOptions});
         }
 
-
         // Inicio Plus Space
         //TIEMPO DE JUEGO GENERAL
         
@@ -5946,6 +6210,394 @@ var CreacionData = {
             var ctx38 = document.getElementById("totaltimeco");
             new Chart(ctx38, {type: 'horizontalBar', data: ctx38data, options:barOptions});
         }
+    //#INICIO REIM ID = 77, NOMBRE = BUSCANDO EL TESORO PERDIDO
+            
+
+            var tiempoActividadData1 = {
+                labels:
+                        [
+                        {% if tiempo_x_actividad %}
+                        {% for time_TP in tiempo_x_actividad %}
+                        '{{time_TP.name}}',
+                        {% endfor%}
+                        {% endif%}
+                        ],
+            datasets: [
+                {
+                    label: "Minutos de juego total",
+                    backgroundColor: 'rgb(38,198,218)',
+                    borderColor: "rgb(0,172,193)",
+                    pointBorderColor: "#fff",
+                    data: [
+                        {% if tiempo_x_actividad %}
+                        {% for time_TP in tiempo_x_actividad %}
+                        '{{time_TP.quantity}}',
+                        {% endfor%}
+                        {% endif%}
+            ]
+            }
+            ]
+            };
+
+            if ($('#tiempoActividad1').length){
+                var ctx = document.getElementById("tiempoActividad1").getContext("2d");
+                console.log("example: " + ctx);
+                //stackedOptions
+                ////barOptions
+                new Chart(ctx, {type: 'horizontalBar', data: tiempoActividadData1, options:barOptions});
+            }
+
+            var chartOptions77 = {
+                scales: {
+                yAxes: [{
+                barPercentage: 1
+                }]
+                },
+                elements: {
+                rectangle: {
+                borderSkipped: 'left',
+                }
+            }
+            };
+    // -----------------------------
+            var estiloCognitivo = {
+                labels:
+                        [
+                        {% if actividad_1_volcan_response %}
+                        {% for time_TP in actividad_1_volcan_response %}
+                        '{{time_TP.name}}',
+                        {% endfor%}
+                        {% endif%}
+                        ],
+            datasets: [
+                {
+                    label: "Figuras complejas completadas",
+                    backgroundColor: 'rgb(55,255,51)',
+                    borderColor: "rgb(55,255,51)",
+                    pointBorderColor: "#fff",
+                    data: [
+                        {% if actividad_1_volcan_response %}
+                        {% for time_TP in actividad_1_volcan_response %}
+                        '{{time_TP.completada}}',
+                        {% endfor%}
+                        {% endif%}
+                        ]
+                },
+                {
+                    label: "Figuras complejas no completadas",
+                    backgroundColor: 'rgb(38,198,218)',
+                    borderColor: "rgb(0,172,193)",
+                    pointBorderColor: "#fff",
+                    data: [
+                        {% if actividad_1_volcan_response %}
+                        {% for time_TP in actividad_1_volcan_response %}
+                        '{{time_TP.no_completada}}',
+                        {% endfor%}
+                        {% endif%}
+                        ]
+                }
+            ]
+            };
+            
+            if ($('#respuestaEstilos').length){
+                var ctx = document.getElementById("respuestaEstilos").getContext("2d");
+                console.log("example: " + ctx);
+                //stackedOptions
+                ////barOptions
+                new Chart(ctx, {type: 'horizontalBar', data: estiloCognitivo, options:barOptions});
+            }
+    //    Reconocer Estilo cognitivo --------------------
+    // -----------------------------
+            var figuraCompleja = {
+                labels:
+                        [
+                        {% if figura_compleja_x_actividad %}
+                        {% for time_TP in figura_compleja_x_actividad %}
+                        '{{time_TP.name}}',
+                        {% endfor%}
+                        {% endif%}
+                        ],
+            datasets: [
+                {
+                    label: "Total de completadas",
+                    backgroundColor: 'rgb(55,255,51)',
+                    borderColor: "rgb(55,255,51)",
+                    pointBorderColor: "#fff",
+                    data: [
+                        {% if figura_compleja_x_actividad %}
+                        {% for time_TP in figura_compleja_x_actividad %}
+                        '{{time_TP.completa}}',
+                        {% endfor%}
+                        {% endif%}
+                        ]
+                },
+                {
+                    label: "Total de no completadas",
+                    backgroundColor: 'rgb(38,198,218)',
+                    borderColor: "rgb(0,172,193)",
+                    pointBorderColor: "#fff",
+                    data: [
+                        {% if figura_compleja_x_actividad %}
+                        {% for time_TP in figura_compleja_x_actividad %}
+                        '{{time_TP.no_completa}}',
+                        {% endfor%}
+                        {% endif%}
+                        ]
+                }
+            ]
+            };
+            
+            if ($('#respuestaFiguraCompleja').length){
+                var ctx = document.getElementById("respuestaFiguraCompleja").getContext("2d");
+                console.log("example: " + ctx);
+                //stackedOptions
+                ////barOptions
+                new Chart(ctx, {type: 'horizontalBar', data: figuraCompleja, options:barOptions});
+            }
+    //    Reconocer Estilo cognitivo --------------------
+
+            var estiloCognitivoPorAlumno = {
+                labels:
+                        [
+                        {% if estilo_x_cognitivo %}
+                        {% for time_TP in estilo_x_cognitivo %}
+                        '{{time_TP.alumno}}',
+                        {% endfor%}
+                        {% endif%}
+                        ],
+            datasets: [
+                {
+                    label: '{{Reconocimiento_Alumno}}',
+                    backgroundColor: "rgb(55,255,51)",
+                    borderColor: "rgb(55,255,51)",
+                    pointBorderColor: "#fff",
+                    data: [
+                        {% if estilo_x_cognitivo %}
+                        {% for time_TP in estilo_x_cognitivo %}
+                        '{{time_TP.quantity}}',
+                        {% endfor%}
+                        {% endif%}
+                        ]
+                }
+            ]
+            };
+            
+            if ($('#estiloxcongitivos').length){
+                var ctx = document.getElementById("estiloxcongitivos").getContext("2d");
+                console.log("example: " + ctx);
+                //stackedOptions
+                ////barOptions
+                new Chart(ctx, {type: 'horizontalBar', data: estiloCognitivoPorAlumno, options:barOptions});
+            }    
+    
+
+    //    -------------------------
+            var tiempoxactxsesion = {
+                labels:
+                        [
+                        {% if tiempo_acti_sesion %}
+                        {% for time_TP in tiempo_acti_sesion %}
+                        '{{time_TP.name}}',
+                        {% endfor%}
+                        {% endif%}
+                        ],
+            datasets: [
+                {
+                    label: "Tiempo por Actividad en Segundos",
+                    backgroundColor: "rgb(85,136,255)",
+                    borderColor: "rgb(85,136,255)",
+                    pointBorderColor: "#fff",
+                    data: [
+                        {% if tiempo_acti_sesion %}
+                        {% for time_TP in tiempo_acti_sesion %}
+                        '{{time_TP.quantity}}',
+                        {% endfor%}
+                        {% endif%}
+                        ]
+                }
+            ]
+            };
+            
+            if ($('#tiempoActividadSesion').length){
+                var ctx = document.getElementById("tiempoActividadSesion").getContext("2d");
+                console.log("example: " + ctx);
+                //stackedOptions
+                ////barOptions
+                new Chart(ctx, {type: 'horizontalBar', data: tiempoxactxsesion, options:barOptions});
+            }    
+
+    //graficoxcursoxgeneral
+         var MuyDependienteCampo = {
+            labels:
+                        [
+                        {% if grafico_muy_dependiente %}
+                        {% for time_TP in grafico_muy_dependiente %}
+                        '{{time_TP.alumno}}',
+                        {% endfor%}
+                        {% endif%}
+                        ],
+            datasets: [
+                {
+                    label: "Estilo Muy Dependiente del Campo",
+                    backgroundColor: "rgb(119,170,255)",
+                    borderColor: "rgb(119,170,255)",
+                    pointBorderColor: "#fff",
+                    data: [
+                        {% if grafico_muy_dependiente %}
+                        {% for time_TP in grafico_muy_dependiente %}
+                        '{{time_TP.cantidad}}',
+                        {% endfor%}
+                        {% endif%}
+                        ]
+                }
+            ]
+            };
+            
+            if ($('#canvas_id_77').length){
+                var ctx = document.getElementById("canvas_id_77").getContext("2d");
+                console.log("example: " + ctx);
+                //stackedOptions
+                ////barOptions
+                new Chart(ctx, {type: 'horizontalBar', data: MuyDependienteCampo, options:barOptions});
+            }  
+//---------------------------------------------------------------------------------------
+         var DependienteCampo = {
+            labels:
+                        [
+                        {% if grafico_dependiente %}
+                        {% for time_TP in grafico_dependiente %}
+                        '{{time_TP.alumno}}',
+                        {% endfor%}
+                        {% endif%}
+                        ],
+            datasets: [
+                {
+                    label: "Estilo Dependiente del Campo",
+                    backgroundColor: "rgb(153,204,255)",
+                    borderColor: "rgb(153,204,255)",
+                    pointBorderColor: "#fff",
+                    data: [
+                        {% if grafico_dependiente %}
+                        {% for time_TP in grafico_dependiente %}
+                        '{{time_TP.cantidad}}',
+                        {% endfor%}
+                        {% endif%}
+                        ]
+                }
+            ]
+            };
+            
+            if ($('#grafico_pendiente').length){
+                var ctx = document.getElementById("grafico_pendiente").getContext("2d");
+                console.log("example: " + ctx);
+                //stackedOptions
+                ////barOptions
+                new Chart(ctx, {type: 'horizontalBar', data: DependienteCampo, options:barOptions});
+            }
+//-----------------------------------------------------------------------                               
+         var IntermedioCampo = {
+            labels:
+                        [
+                        {% if grafico_intermedio %}
+                        {% for time_TP in grafico_intermedio %}
+                        '{{time_TP.alumno}}',
+                        {% endfor%}
+                        {% endif%}
+                        ],
+            datasets: [
+                {
+                    label: "Estilo Intermedio del Campo",
+                    backgroundColor: "rgb(187,238,255)",
+                    borderColor: "rgb(187,238,255)",
+                    pointBorderColor: "#fff",
+                    data: [
+                        {% if grafico_intermedio %}
+                        {% for time_TP in grafico_intermedio %}
+                        '{{time_TP.cantidad}}',
+                        {% endfor%}
+                        {% endif%}
+                        ]
+                }
+            ]
+            };
+            
+            if ($('#grafico_intermedio').length){
+                var ctx = document.getElementById("grafico_intermedio").getContext("2d");
+                console.log("example: " + ctx);
+                //stackedOptions
+                ////barOptions
+                new Chart(ctx, {type: 'horizontalBar', data: IntermedioCampo, options:barOptions});
+            }
+//-----------------------------------------------------------------------                               
+         var Independiente = {
+            labels:
+                        [
+                        {% if grafico_independiente %}
+                        {% for time_TP in grafico_independiente %}
+                        '{{time_TP.alumno}}',
+                        {% endfor%}
+                        {% endif%}
+                        ],
+            datasets: [
+                {
+                    label: "Estilo Independiente del Campo",
+                    backgroundColor: "rgb(85,136,255)",
+                    borderColor: "rgb(85,136,255)",
+                    pointBorderColor: "#fff",
+                    data: [
+                        {% if grafico_independiente %}
+                        {% for time_TP in grafico_independiente %}
+                        '{{time_TP.cantidad}}',
+                        {% endfor%}
+                        {% endif%}
+                        ]
+                }
+            ]
+            };
+            
+            if ($('#grafico_independiente').length){
+                var ctx = document.getElementById("grafico_independiente").getContext("2d");
+                console.log("example: " + ctx);
+                //stackedOptions
+                ////barOptions
+                new Chart(ctx, {type: 'horizontalBar', data: Independiente, options:barOptions});
+            }
+//-----------------------------------------------------------------------                               
+         var MuyIndependienteCampo = {
+            labels:
+                        [
+                        {% if grafico_muy_independiente %}
+                        {% for time_TP in grafico_muy_independiente %}
+                        '{{time_TP.alumno}}',
+                        {% endfor%}
+                        {% endif%}
+                        ],
+            datasets: [
+                {
+                    label: "Estilo Muy Independiente del Campo",
+                    backgroundColor: "rgb(51,102,255)",
+                    borderColor: "rgb(51,102,255)",
+                    pointBorderColor: "#fff",
+                    data: [
+                        {% if grafico_muy_independiente %}
+                        {% for time_TP in grafico_muy_independiente %}
+                        '{{time_TP.cantidad}}',
+                        {% endfor%}
+                        {% endif%}
+                        ]
+                }
+            ]
+            };
+            
+            if ($('#grafico_muy_independiente').length){
+                var ctx = document.getElementById("grafico_muy_independiente").getContext("2d");
+                console.log("example: " + ctx);
+                //stackedOptions
+                ////barOptions
+                new Chart(ctx, {type: 'horizontalBar', data: MuyIndependienteCampo, options:barOptions});
+            }            
+    //#FIN REIM ID = 77, NOMBRE = BUSCANDO EL TESORO PERDIDO
+
     </script>
 
     <script>
@@ -5960,7 +6612,10 @@ var CreacionData = {
                 }
             }
         }
-        setFilterSelectors(['school','course','reim', 'activity', 'start', 'end', 'student'])
+        //setFilterSelectors(['school','course','reim', 'activity', 'start', 'end', 'student'])
+        //#INICIO REIM ID = 77, NOMBRE = BUSCANDO EL TESORO PERDIDO
+        setFilterSelectors(['school','course','reim', 'activity', 'start', 'end', 'student', 'clock', 'option'])
+        //#FIN REIM ID = 77, NOMBRE = BUSCANDO EL TESORO PERDIDO
     </script>
 
     <!-- <script type="text/javascript">
