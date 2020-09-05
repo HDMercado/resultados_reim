@@ -1887,7 +1887,7 @@ def welcome(request):
                 'estilo_cognitivo': identificar_estilo_cognitivo,
                 'tamaño_curso': tamaño_curso,
                 'tamaña_grafico_por_alumno': tamaña_grafico_por_alumno,
-                'tamaño_actividad_alumno': tamaña_grafico_por_actividad
+                'tamaño_actividad_alumno': tamaña_grafico_por_actividad,
                 #FIN REIM ID = 77, NOMBRE = BUSCANDO EL TESORO PERDIDO
 				#####BEGIN BUILD YOUR CITY#####
                 #LISTS OF DUMMY VALUES (FRONTEND TEST):
