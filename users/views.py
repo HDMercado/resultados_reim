@@ -125,6 +125,413 @@ def welcome(request):
                 for row in students:
                     students_response.append({ 'id': row[0], 'name': row[1] })
 
+
+		#####BEGIN BUILD YOUR CITY#####
+        #DEFINITIONS:
+        ##DICTIONARYS:
+        ByC_numberOfSessions_Dictionary = []
+        ByC_playTime_Dictionary = []
+        ByC_touchCount_Dictionary = []
+        ByC_activitiesPlayedCounter_Dictionary = []
+        ByC_built_elementsCounter_Dictionary = []
+        ByC_built_elementsCounter_perCategory_Dictionary = []
+        ByC_maxNumberOfAssistants_Dictionary = []
+        ByC_Cinema_CompleteVsIncomplete_Dictionary = []
+        ByC_Cinema_SuccessVsFailure_Dictionary = []
+        ByC_Cinema_SuccessVsFailure_ParticularSeats_Dictionary = []
+        ByC_Cinema_NumberOfEntrances_Dictionary = []
+        ByC_Cinema_SuccessPercentageInTime_Dictionary = []
+        ByC_Cinema_Count_Attempts = 0
+        ByC_Cinema_Count_Success = 0
+        ByC_Cinema_Count_Failure = 0
+        ByC_Cinema_Average_Success = 0
+        ByC_Cinema_Average_Failure = 0
+        ByC_Cinema_Count_ParticularAttempts = 0        
+        ByC_Cinema_Count_ParticularSuccess = 0
+        ByC_Cinema_Count_ParticularFailure = 0
+        ByC_Cinema_Average_ParticularSuccess = 0
+        ByC_Cinema_Average_ParticularFailure = 0
+        ByC_Cinema_TotalAttempts = 0
+        ByC_School_CompleteVsIncomplete_Dictionary = []
+        ByC_School_SuccessVsFailure_Dictionary = []
+        ByC_School_SuccessVsFailure_ParticularSeats_Dictionary = []
+        ByC_School_NumberOfEntrances_Dictionary = []
+        ByC_School_SuccessPercentageInTime_Dictionary = []
+        ByC_School_Count_Attempts = 0
+        ByC_School_Count_Success = 0
+        ByC_School_Count_Failure = 0
+        ByC_School_Average_Success = 0
+        ByC_School_Average_Failure = 0
+        ByC_School_Count_ParticularAttempts = 0        
+        ByC_School_Count_ParticularSuccess = 0
+        ByC_School_Count_ParticularFailure = 0
+        ByC_School_Average_ParticularSuccess = 0
+        ByC_School_Average_ParticularFailure = 0
+        ByC_School_TotalAttempts = 0
+        ByC_Taxi_CompleteVsIncomplete_Dictionary = []
+        ByC_Taxi_SuccessVsFailure_Dictionary = []
+        ByC_Taxi_SuccessVsFailure_ParticularSeats_Dictionary = []
+        ByC_Taxi_NumberOfEntrances_Dictionary = []
+        ByC_Taxi_SuccessPercentageInTime_Dictionary = []
+        ByC_Taxi_Count_Attempts = 0
+        ByC_Taxi_Count_Success = 0
+        ByC_Taxi_Count_Failure = 0
+        ByC_Taxi_Average_Success = 0
+        ByC_Taxi_Average_Failure = 0
+        ByC_Taxi_Count_ParticularAttempts = 0        
+        ByC_Taxi_Count_ParticularSuccess = 0
+        ByC_Taxi_Count_ParticularFailure = 0
+        ByC_Taxi_Average_ParticularSuccess = 0
+        ByC_Taxi_Average_ParticularFailure = 0
+        ByC_Taxi_TotalAttempts = 0
+
+
+        ##GRAPHS SIZE:
+        ByC_numberOfSessions_GraphSize = 0
+        ByC_playTime_GraphSize = 0
+        ByC_touchCount_GraphSize = 0
+        ByC_activitiesPlayedCounter_GraphSize = 0
+        ByC_built_elementsCounter_GraphSize = 0
+        ByC_built_elementsCounter_perCategory_GraphSize = 0
+        ByC_maxNumberOfAssistants_GraphSize = 0
+        ByC_Cinema_CompleteVsIncomplete_GraphSize = 0
+        ByC_Cinema_SuccessVsFailure_GraphSize = 0
+        ByC_Cinema_SuccessVsFailure_ParticularSeats_GraphSize = 0
+        ByC_Cinema_NumberOfEntrances_GraphSize = 0
+        ByC_School_CompleteVsIncomplete_GraphSize = 0
+        ByC_School_SuccessVsFailure_GraphSize = 0
+        ByC_School_SuccessVsFailure_ParticularSeats_GraphSize = 0
+        ByC_School_NumberOfEntrances_GraphSize = 0
+        ByC_Taxi_CompleteVsIncomplete_GraphSize = 0
+        ByC_Taxi_SuccessVsFailure_GraphSize = 0
+        ByC_Taxi_SuccessVsFailure_ParticularSeats_GraphSize = 0
+        ByC_Taxi_NumberOfEntrances_GraphSize = 0
+        
+
+        if reim_num=="27":
+            
+            ##GET NUMBER OF SESSIONS##
+            getNumberOfSessions_query = get_number_of_sessions(request)
+            cursor.execute(getNumberOfSessions_query)
+            queries.append({"name": 'Get Number Of Sessions', "query": getNumberOfSessions_query})
+            numberOfSessions_QueryResponse= cursor.fetchall()
+            #print ("analytics1_co_quantity", analytics1_co_quantity)
+            for row in numberOfSessions_QueryResponse:
+                ByC_numberOfSessions_Dictionary.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+            ByC_numberOfSessions_GraphSize = len(numberOfSessions_QueryResponse)*40+20
+
+            ##PLAYTIME REIM##
+            getPlayTime = get_playtime(request)
+            cursor.execute(getPlayTime)
+            queries.append({"name": 'Get PlayTime of REIM', "query": getPlayTime})
+            playTime_QueryResponse= cursor.fetchall()
+            print ("playTime_QueryResponse", playTime_QueryResponse)
+            for row in playTime_QueryResponse:
+                ByC_playTime_Dictionary.append({ 'id': row[0], 'name': row[1], 'playTime': row[2] })
+            ByC_playTime_GraphSize = len(playTime_QueryResponse)*40+20
+
+            ##TOUCH COUNT REIM##
+            touch_query = get_touch_count(request)
+            queries.append({"name": 'Get Touch Count', "query": touch_query})
+            cursor.execute(touch_query)
+            touchCount_QueryResponse = cursor.fetchall()
+            for row in touchCount_QueryResponse:
+                ByC_touchCount_Dictionary.append({ 'id': row[0], 'name': row[1], 'touchCount': row[2] })
+            ByC_touchCount_GraphSize = len(touchCount_QueryResponse)*40+20
+
+            ##ACTIVITIES PLAYED COUNTER##
+            touch_query = get_activities_played_counter(request)
+            queries.append({"name": 'Activities Played Counter', "query": touch_query})
+            cursor.execute(touch_query)
+            activitiesPlayedCounter_QueryResponse = cursor.fetchall()
+            for row in activitiesPlayedCounter_QueryResponse:
+                name = ''
+                if row[0] == 27101:
+                    name = 'Actividad 2: Cine'
+                elif row[0] == 27102:
+                    name = 'Actividad 3: Escuela'
+                elif row[0] == 27103:
+                    name = 'Actividad 4: Taxi'
+                ByC_activitiesPlayedCounter_Dictionary.append({
+                    'id': row[0], 
+                    'name': name,
+                    'counter': row[1] 
+                    }
+                )
+            ByC_activitiesPlayedCounter_GraphSize = len(activitiesPlayedCounter_QueryResponse)*40+20
+            
+
+            ##BUILT ELEMENTS COUNTER PER CATEGORY##
+            built_elements_counter_percategory_query = get_built_elements_counter_per_category(request)
+            queries.append({"name": 'BUILT ELEMENTS COUNTER PER CATEGORY', "query": built_elements_counter_percategory_query})
+            cursor.execute(built_elements_counter_percategory_query)
+            built_elementsCounter_percategory_QueryResponse = cursor.fetchall()
+            for row in built_elementsCounter_percategory_QueryResponse:
+                ByC_built_elementsCounter_perCategory_Dictionary.append({ 'id': row[0], 'name': row[1], 'buildingsCount': row[2], 'ornamentsCount': row[3], 'carsCount': row[4] })
+            ByC_built_elementsCounter_perCategory_GraphSize = len(built_elementsCounter_percategory_QueryResponse)*40+100
+
+            ##BUILT ELEMENTS COUNTER ##
+            built_elements_counter_query = get_built_elements_counter(request)
+            queries.append({"name": 'BUILT ELEMENTS COUNTER', "query": built_elements_counter_query})
+            cursor.execute(built_elements_counter_query)
+            built_elementsCounter_QueryResponse = cursor.fetchall()
+            for row in built_elementsCounter_QueryResponse:
+                name = ''
+                if row[0] == 27104:
+                    name = 'Casa Azul'
+                elif row[0] == 27105:
+                    name = 'Casa Roja'
+                elif row[0] == 27106:
+                    name = 'Casa Verde'
+                elif row[0] == 27107:
+                    name = 'Edificio Azul'
+                elif row[0] == 27108:
+                    name = 'Fuente de Agua'
+                elif row[0] == 27109:
+                    name = 'Semaforo'
+                elif row[0] == 27110:
+                    name = 'Arbol'
+                elif row[0] == 27111:
+                    name = 'Obelisco'
+                elif row[0] == 27112:
+                    name = 'Taxi'
+                elif row[0] == 27113:
+                    name = 'Policia'
+                elif row[0] == 27114:
+                    name = 'Ambulancia'
+                elif row[0] == 27115:
+                    name = 'Camion de Bomberos'
+                ByC_built_elementsCounter_Dictionary.append({ 'id': row[0], 'name': name, 'counter': row[1] })
+            ByC_built_elementsCounter_GraphSize = len(built_elementsCounter_QueryResponse)*40+20
+
+        ##CINEMA:
+        
+        ##2.1.- NUMBER OF ENTRANCES:
+            Cinema_NumberOfEntrances_query = getNumberOfEntrances(request)
+            queries.append({"name": 'NUMBER OF ENTRANCES', "query": Cinema_NumberOfEntrances_query})
+            cursor.execute(Cinema_NumberOfEntrances_query)
+            Cinema_NumberOfEntrances_QueryResponse = cursor.fetchall()
+            for row in Cinema_NumberOfEntrances_QueryResponse:
+                ByC_Cinema_NumberOfEntrances_Dictionary.append({ 'id': row[0], 'name': row[1], 'numberOfEntrances': row[2] })
+            ByC_Cinema_NumberOfEntrances_GraphSize = len(Cinema_NumberOfEntrances_QueryResponse)*40+20
+
+            
+        ##2.2.- CINEMA: ACTIVITY COMPLETE V/S INCOMPLETE:
+            Cinema_CompleteVsIncomplete_query = getCinema_CompleteVsIncomplete(request)
+            queries.append({"name": 'CINEMA: ACTIVITY COMPLETE V/S INCOMPLETE', "query": Cinema_CompleteVsIncomplete_query})
+            cursor.execute(Cinema_CompleteVsIncomplete_query)
+            Cinema_CompleteVsIncomplete_QueryResponse = cursor.fetchall()
+            for row in Cinema_CompleteVsIncomplete_QueryResponse:
+                ByC_Cinema_CompleteVsIncomplete_Dictionary.append({ 'id': row[0], 'name': row[1], 'Complete': row[2] , 'Incomplete': row[3]})
+            ByC_Cinema_CompleteVsIncomplete_GraphSize = len(Cinema_CompleteVsIncomplete_QueryResponse)*50+20
+    
+        ##2.3.- CINEMA: NUMBER OF SUCCESS V/S FAILURE:
+            Cinema_SuccessVsFailure_query = getCinema_SuccessVsFailure(request)
+            queries.append({"name": 'CINEMA: NUMBER OF SUCCESS V/S FAILURE', "query": Cinema_SuccessVsFailure_query})
+            cursor.execute(Cinema_SuccessVsFailure_query)
+            Cinema_SuccessVsFailure_QueryResponse = cursor.fetchall()
+            for row in Cinema_SuccessVsFailure_QueryResponse:
+                ByC_Cinema_SuccessVsFailure_Dictionary.append({ 'id': row[0], 'name': row[1], 'Success': row[2] , 'Failure': row[3],  })
+                ByC_Cinema_Count_ParticularSuccess = ByC_Cinema_Count_Success + row[2] 
+                ByC_Cinema_Count_ParticularFailure = ByC_Cinema_Count_Failure + row[3]
+            ByC_Cinema_TotalAttempts = (ByC_Cinema_Count_ParticularSuccess + ByC_Cinema_Count_ParticularFailure) 
+            if ByC_Cinema_TotalAttempts == 0:
+                ByC_Cinema_TotalAttempts = 1
+            ByC_Cinema_Average_ParticularSuccess = int((ByC_Cinema_Count_ParticularSuccess/ByC_Cinema_TotalAttempts)*100)
+            ByC_Cinema_Average_ParticularFailure = 100 - ByC_Cinema_Average_ParticularSuccess
+            ByC_Cinema_SuccessVsFailure_GraphSize = len(Cinema_SuccessVsFailure_QueryResponse)*50+20
+
+            Cinema_SuccessVsFailureGeneral_query = getCinema_SuccessVsFailureGeneral(request)
+            queries.append({"name": 'CINEMA: NUMBER OF SUCCESS V/S FAILURE (GENERAL)', "query": Cinema_SuccessVsFailureGeneral_query})
+            cursor.execute(Cinema_SuccessVsFailureGeneral_query)
+            Cinema_SuccessVsFailureGeneral_QueryResponse = cursor.fetchall()
+            for row in Cinema_SuccessVsFailureGeneral_QueryResponse:
+                ByC_Cinema_Count_Success = ByC_Cinema_Count_Success + row[2] 
+                ByC_Cinema_Count_Failure = ByC_Cinema_Count_Failure + row[3]
+                ByC_Cinema_Count_Attempts = ByC_Cinema_Count_Attempts + 1
+            if ByC_Cinema_Count_Attempts == 0:
+                ByC_Cinema_Count_Attempts = 1
+            ByC_Cinema_Average_Success = ByC_Cinema_Count_Success/ByC_Cinema_Count_Attempts
+            ByC_Cinema_Average_Failure = ByC_Cinema_Count_Failure/ByC_Cinema_Count_Attempts
+
+        ##2.5.- CINEMA: SUCCESS PERCENTAGE IN TIME:
+            Cinema_SuccessPercentageInTime_query = getCinema_SuccessPercentageInTime(request)
+            queries.append({"name": 'CINEMA: NUMBER OF SUCCESS IN TIME', "query": Cinema_SuccessPercentageInTime_query})
+            cursor.execute(Cinema_SuccessPercentageInTime_query)
+            Cinema_SuccessPercentageInTime_QueryResponse = cursor.fetchall()
+            for row in Cinema_SuccessPercentageInTime_QueryResponse:
+                nombre = row[0]
+                fecha = row[1]
+                success = row[2]
+                failure = row[3]
+                attemps = success + failure
+                if(attemps == 0):
+                    attemps = 1
+                percentage = int((success/attemps)*100)
+                ByC_Cinema_SuccessPercentageInTime_Dictionary.append({ 'name': nombre, 'fecha': fecha, 'percentage': percentage })                
+            ByC_Cinema_SuccessPercentageInTime_GraphSize = len(Cinema_SuccessPercentageInTime_QueryResponse)*50+20
+            
+            
+
+        ##2.6.- CINEMA: NUMBER OF SUCCESS V/S FAILURE PARTICULAR SEATS:
+            Cinema_SuccessVsFailure_ParticularSeats_query = getCinema_SuccessVsFailure_ParticularSeats(request)
+            queries.append({"name": 'CINEMA: NUMBER OF SUCCESS V/S FAILURE (PARTICULAR SEATS)', "query": Cinema_SuccessVsFailure_ParticularSeats_query})
+            cursor.execute(Cinema_SuccessVsFailure_ParticularSeats_query)
+            Cinema_SuccessVsFailure_ParticularSeats_QueryResponse = cursor.fetchall()
+            for row in Cinema_SuccessVsFailure_ParticularSeats_QueryResponse:
+                ByC_Cinema_SuccessVsFailure_ParticularSeats_Dictionary.append({ 'id': row[0], 'name_student': row[1], 'name_assistant': row[2], 'Success': row[3] , 'Failure': row[4] })
+            ByC_Cinema_SuccessVsFailure_ParticularSeats_GraphSize = len(Cinema_SuccessVsFailure_ParticularSeats_QueryResponse)*50+20
+    
+
+        ##SCHOOL:
+
+        ##3.1.- SCHOOL: NUMBER OF ENTRANCES:
+            School_NumberOfEntrances_query = getSchoolNumberOfEntrances(request)
+            queries.append({"name": 'NUMBER OF ENTRANCES', "query": School_NumberOfEntrances_query})
+            cursor.execute(School_NumberOfEntrances_query)
+            School_NumberOfEntrances_QueryResponse = cursor.fetchall()
+            for row in School_NumberOfEntrances_QueryResponse:
+                ByC_School_NumberOfEntrances_Dictionary.append({ 'id': row[0], 'name': row[1], 'numberOfEntrances': row[2] })
+            ByC_School_NumberOfEntrances_GraphSize = len(School_NumberOfEntrances_QueryResponse)*40+20
+        
+        ##3.2.- SCHOOL: ACTIVITY COMPLETE V/S INCOMPLETE:
+            School_CompleteVsIncomplete_query = getSchool_CompleteVsIncomplete(request)
+            queries.append({"name": 'School: ACTIVITY COMPLETE V/S INCOMPLETE', "query": School_CompleteVsIncomplete_query})
+            cursor.execute(School_CompleteVsIncomplete_query)
+            School_CompleteVsIncomplete_QueryResponse = cursor.fetchall()
+            for row in School_CompleteVsIncomplete_QueryResponse:
+                ByC_School_CompleteVsIncomplete_Dictionary.append({ 'id': row[0], 'name': row[1], 'Complete': row[2] , 'Incomplete': row[3]})
+            ByC_School_CompleteVsIncomplete_GraphSize = len(School_CompleteVsIncomplete_QueryResponse)*50+20
+    
+        ##3.3.- SCHOOL: NUMBER OF SUCCESS V/S FAILURE:
+            School_SuccessVsFailure_query = getSchool_SuccessVsFailure(request)
+            queries.append({"name": 'School: NUMBER OF SUCCESS V/S FAILURE', "query": School_SuccessVsFailure_query})
+            cursor.execute(School_SuccessVsFailure_query)
+            School_SuccessVsFailure_QueryResponse = cursor.fetchall()
+            for row in School_SuccessVsFailure_QueryResponse:
+                ByC_School_SuccessVsFailure_Dictionary.append({ 'id': row[0], 'name': row[1], 'Success': row[2] , 'Failure': row[3],  })
+                ByC_School_Count_ParticularSuccess = ByC_School_Count_Success + row[2] 
+                ByC_School_Count_ParticularFailure = ByC_School_Count_Failure + row[3]
+            ByC_Cinema_TotalAttempts = (ByC_School_Count_ParticularSuccess + ByC_School_Count_ParticularFailure) 
+            if ByC_Cinema_TotalAttempts == 0:
+                ByC_Cinema_TotalAttempts = 1
+            ByC_School_Average_ParticularSuccess = int((ByC_School_Count_ParticularSuccess/ByC_Cinema_TotalAttempts)*100)
+            ByC_School_Average_ParticularFailure = 100 - ByC_School_Average_ParticularSuccess
+            ByC_School_SuccessVsFailure_GraphSize = len(School_SuccessVsFailure_QueryResponse)*50+20
+
+            School_SuccessVsFailureGeneral_query = getSchool_SuccessVsFailureGeneral(request)
+            queries.append({"name": 'School: NUMBER OF SUCCESS V/S FAILURE (GENERAL)', "query": School_SuccessVsFailureGeneral_query})
+            cursor.execute(School_SuccessVsFailureGeneral_query)
+            School_SuccessVsFailureGeneral_QueryResponse = cursor.fetchall()
+            for row in School_SuccessVsFailureGeneral_QueryResponse:
+                ByC_School_Count_Success = ByC_School_Count_Success + row[2] 
+                ByC_School_Count_Failure = ByC_School_Count_Failure + row[3]
+                ByC_School_Count_Attempts = ByC_School_Count_Attempts + 1
+            if ByC_School_Count_Attempts == 0:
+                ByC_School_Count_Attempts = 1
+            ByC_School_Average_Success = ByC_School_Count_Success/ByC_School_Count_Attempts
+            ByC_School_Average_Failure = ByC_School_Count_Failure/ByC_School_Count_Attempts
+
+        ##3.5.- SCHOOL: SUCCESS PERCENTAGE IN TIME:
+            School_SuccessPercentageInTime_query = getSchool_SuccessPercentageInTime(request)
+            queries.append({"name": 'School: NUMBER OF SUCCESS IN TIME', "query": School_SuccessPercentageInTime_query})
+            cursor.execute(School_SuccessPercentageInTime_query)
+            School_SuccessPercentageInTime_QueryResponse = cursor.fetchall()
+            for row in School_SuccessPercentageInTime_QueryResponse:
+                nombre = row[0]
+                fecha = row[1]
+                success = row[2]
+                failure = row[3]
+                attemps = success + failure
+                if(attemps == 0):
+                    attemps = 1
+                percentage = int((success/attemps)*100)
+                ByC_School_SuccessPercentageInTime_Dictionary.append({ 'name': nombre, 'fecha': fecha, 'percentage': percentage })                
+            ByC_School_SuccessPercentageInTime_GraphSize = len(School_SuccessPercentageInTime_QueryResponse)*50+20            
+
+        ##3.6.- SCHOOL: NUMBER OF SUCCESS V/S FAILURE PARTICULAR SEATS:
+            School_SuccessVsFailure_ParticularSeats_query = getSchool_SuccessVsFailure_ParticularSeats(request)
+            queries.append({"name": 'School: NUMBER OF SUCCESS V/S FAILURE (PARTICULAR SEATS)', "query": School_SuccessVsFailure_ParticularSeats_query})
+            cursor.execute(School_SuccessVsFailure_ParticularSeats_query)
+            School_SuccessVsFailure_ParticularSeats_QueryResponse = cursor.fetchall()
+            for row in School_SuccessVsFailure_ParticularSeats_QueryResponse:
+                ByC_School_SuccessVsFailure_ParticularSeats_Dictionary.append({ 'id': row[0], 'name_student': row[1], 'name_assistant': row[2], 'Success': row[3] , 'Failure': row[4] })
+            ByC_School_SuccessVsFailure_ParticularSeats_GraphSize = len(School_SuccessVsFailure_ParticularSeats_QueryResponse)*50+20
+
+        ##TAXI:
+        ##4.1.- TAXI: NUMBER OF ENTRANCES:
+            Taxi_NumberOfEntrances_query = getTaxiNumberOfEntrances(request)
+            queries.append({"name": 'NUMBER OF ENTRANCES', "query": Taxi_NumberOfEntrances_query})
+            cursor.execute(Taxi_NumberOfEntrances_query)
+            Taxi_NumberOfEntrances_QueryResponse = cursor.fetchall()
+            for row in Taxi_NumberOfEntrances_QueryResponse:
+                ByC_Taxi_NumberOfEntrances_Dictionary.append({ 'id': row[0], 'name': row[1], 'numberOfEntrances': row[2] })
+            ByC_Taxi_NumberOfEntrances_GraphSize = len(Taxi_NumberOfEntrances_QueryResponse)*40+20
+        
+        ##4.2.- TAXI: ACTIVITY COMPLETE V/S INCOMPLETE:
+            Taxi_CompleteVsIncomplete_query = getTaxi_CompleteVsIncomplete(request)
+            queries.append({"name": 'Taxi: ACTIVITY COMPLETE V/S INCOMPLETE', "query": Taxi_CompleteVsIncomplete_query})
+            cursor.execute(Taxi_CompleteVsIncomplete_query)
+            Taxi_CompleteVsIncomplete_QueryResponse = cursor.fetchall()
+            for row in Taxi_CompleteVsIncomplete_QueryResponse:
+                ByC_Taxi_CompleteVsIncomplete_Dictionary.append({ 'id': row[0], 'name': row[1], 'Complete': row[2] , 'Incomplete': row[3]})
+            ByC_Taxi_CompleteVsIncomplete_GraphSize = len(Taxi_CompleteVsIncomplete_QueryResponse)*50+20
+    
+        ##4.3.- TAXI: NUMBER OF SUCCESS V/S FAILURE:
+            Taxi_SuccessVsFailure_query = getTaxi_SuccessVsFailure(request)
+            queries.append({"name": 'Taxi: NUMBER OF SUCCESS V/S FAILURE', "query": Taxi_SuccessVsFailure_query})
+            cursor.execute(Taxi_SuccessVsFailure_query)
+            Taxi_SuccessVsFailure_QueryResponse = cursor.fetchall()
+            for row in Taxi_SuccessVsFailure_QueryResponse:
+                ByC_Taxi_SuccessVsFailure_Dictionary.append({ 'id': row[0], 'name': row[1], 'Success': row[2] , 'Failure': row[3],  })
+                ByC_Taxi_Count_ParticularSuccess = ByC_Taxi_Count_Success + row[2] 
+                ByC_Taxi_Count_ParticularFailure = ByC_Taxi_Count_Failure + row[3]
+            ByC_Taxi_TotalAttempts = (ByC_Taxi_Count_ParticularSuccess + ByC_Taxi_Count_ParticularFailure) 
+            if ByC_Taxi_TotalAttempts == 0:
+                ByC_Taxi_TotalAttempts = 1
+            ByC_Taxi_Average_ParticularSuccess = int((ByC_Taxi_Count_ParticularSuccess/ByC_Taxi_TotalAttempts)*100)
+            ByC_Taxi_Average_ParticularFailure = 100 - ByC_Taxi_Average_ParticularSuccess
+            ByC_Taxi_SuccessVsFailure_GraphSize = len(Taxi_SuccessVsFailure_QueryResponse)*50+20
+
+            Taxi_SuccessVsFailureGeneral_query = getTaxi_SuccessVsFailureGeneral(request)
+            queries.append({"name": 'Taxi: NUMBER OF SUCCESS V/S FAILURE (GENERAL)', "query": Taxi_SuccessVsFailureGeneral_query})
+            cursor.execute(Taxi_SuccessVsFailureGeneral_query)
+            Taxi_SuccessVsFailureGeneral_QueryResponse = cursor.fetchall()
+            for row in Taxi_SuccessVsFailureGeneral_QueryResponse:
+                ByC_Taxi_Count_Success = ByC_Taxi_Count_Success + row[2] 
+                ByC_Taxi_Count_Failure = ByC_Taxi_Count_Failure + row[3]
+                ByC_Taxi_Count_Attempts = ByC_Taxi_Count_Attempts + 1
+            if ByC_Taxi_Count_Attempts == 0:
+                ByC_Taxi_Count_Attempts = 1
+            ByC_Taxi_Average_Success = ByC_Taxi_Count_Success/ByC_Taxi_Count_Attempts
+            ByC_Taxi_Average_Failure = ByC_Taxi_Count_Failure/ByC_Taxi_Count_Attempts
+
+        ##4.5.- TAXI: SUCCESS PERCENTAGE IN TIME:
+            Taxi_SuccessPercentageInTime_query = getTaxi_SuccessPercentageInTime(request)
+            queries.append({"name": 'Taxi: NUMBER OF SUCCESS IN TIME', "query": Taxi_SuccessPercentageInTime_query})
+            cursor.execute(Taxi_SuccessPercentageInTime_query)
+            Taxi_SuccessPercentageInTime_QueryResponse = cursor.fetchall()
+            for row in Taxi_SuccessPercentageInTime_QueryResponse:
+                nombre = row[0]
+                fecha = row[1]
+                success = row[2]
+                failure = row[3]
+                attemps = success + failure
+                if(attemps == 0):
+                    attemps = 1
+                percentage = int((success/attemps)*100)
+                ByC_Taxi_SuccessPercentageInTime_Dictionary.append({ 'name': nombre, 'fecha': fecha, 'percentage': percentage })                
+            ByC_Taxi_SuccessPercentageInTime_GraphSize = len(Taxi_SuccessPercentageInTime_QueryResponse)*50+20            
+
+        ##4.6.- TAXI: NUMBER OF SUCCESS V/S FAILURE PARTICULAR SEATS:
+            Taxi_SuccessVsFailure_ParticularSeats_query = getTaxi_SuccessVsFailure_ParticularSeats(request)
+            queries.append({"name": 'Taxi: NUMBER OF SUCCESS V/S FAILURE (PARTICULAR SEATS)', "query": Taxi_SuccessVsFailure_ParticularSeats_query})
+            cursor.execute(Taxi_SuccessVsFailure_ParticularSeats_query)
+            Taxi_SuccessVsFailure_ParticularSeats_QueryResponse = cursor.fetchall()
+            for row in Taxi_SuccessVsFailure_ParticularSeats_QueryResponse:
+                ByC_Taxi_SuccessVsFailure_ParticularSeats_Dictionary.append({ 'id': row[0], 'name_student': row[1], 'name_assistant': row[2], 'Success': row[3] , 'Failure': row[4] })
+            ByC_Taxi_SuccessVsFailure_ParticularSeats_GraphSize = len(Taxi_SuccessVsFailure_ParticularSeats_QueryResponse)*50+20
+        ######END BUILD YOUR CITY######
         #INICIO MUNDO ANIMAL 
         piezas_quantity_response =[]
         malas_quantity_response = []
@@ -1480,8 +1887,75 @@ def welcome(request):
                 'estilo_cognitivo': identificar_estilo_cognitivo,
                 'tamaño_curso': tamaño_curso,
                 'tamaña_grafico_por_alumno': tamaña_grafico_por_alumno,
-                'tamaño_actividad_alumno': tamaña_grafico_por_actividad
+                'tamaño_actividad_alumno': tamaña_grafico_por_actividad,
                 #FIN REIM ID = 77, NOMBRE = BUSCANDO EL TESORO PERDIDO
+				#####BEGIN BUILD YOUR CITY#####
+                #LISTS OF DUMMY VALUES (FRONTEND TEST):
+                'listOfFirst50Numbers': ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45', '46', '47', '48', '49', '50'],
+                'listOf100to2000by100': [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900, 2000],
+                'listOf25To42': [25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42],
+                'listOfFirst10Numbers': ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
+                'listOfDates': ['10/05/2020', '11/05/2020', '12/05/2020', '13/05/2020', '14/05/2020', '15/05/2020', '16/05/2020' ,'17/05/2020', '18/05/2020'],
+                'activities_ByC': ["Actividad 1: Mapa de Construccion", "Actividad 2: Cine", "Actividad 3: Escuela", "Actividad 4: Taxi"],
+                'ByC_UrbanElements': ['Casa Azul', 'Casa Roja', 'Casa Verde', 'Edificio Azul', 'Fuente de Agua', 'Semaforo', 'Arbol', 'Obelisco', 'Taxi', 'Policia', 'Ambulancia', 'Camion de Bomberos'],
+
+                #GRAPHS SIZE:
+                'ByC_numberOfSessions_GraphSize': ByC_numberOfSessions_GraphSize,
+                'ByC_playTime_GraphSize': ByC_playTime_GraphSize,
+                'ByC_touchCount_GraphSize': ByC_touchCount_GraphSize,
+                'ByC_activitiesPlayedCounter_GraphSize': ByC_activitiesPlayedCounter_GraphSize,
+                'ByC_built_elementsCounter_GraphSize': ByC_built_elementsCounter_GraphSize,
+                'ByC_built_elementsCounter_perCategory_GraphSize': ByC_built_elementsCounter_perCategory_GraphSize,
+                'ByC_maxNumberOfAssistants_GraphSize': ByC_maxNumberOfAssistants_GraphSize,
+                'ByC_Cinema_CompleteVsIncomplete_GraphSize': ByC_Cinema_CompleteVsIncomplete_GraphSize,
+                'ByC_Cinema_SuccessVsFailure_GraphSize': ByC_Cinema_SuccessVsFailure_GraphSize,
+                'ByC_Cinema_SuccessVsFailure_ParticularSeats_GraphSize': ByC_Cinema_SuccessVsFailure_ParticularSeats_GraphSize,
+                'ByC_Cinema_NumberOfEntrances_GraphSize': ByC_Cinema_NumberOfEntrances_GraphSize,
+                'ByC_School_CompleteVsIncomplete_GraphSize': ByC_School_CompleteVsIncomplete_GraphSize,
+                'ByC_School_SuccessVsFailure_GraphSize': ByC_School_SuccessVsFailure_GraphSize,
+                'ByC_School_SuccessVsFailure_ParticularSeats_GraphSize': ByC_School_SuccessVsFailure_ParticularSeats_GraphSize,
+                'ByC_School_NumberOfEntrances_GraphSize': ByC_School_NumberOfEntrances_GraphSize,
+                'ByC_Taxi_CompleteVsIncomplete_GraphSize': ByC_Taxi_CompleteVsIncomplete_GraphSize,
+                'ByC_Taxi_SuccessVsFailure_GraphSize': ByC_Taxi_SuccessVsFailure_GraphSize,
+                'ByC_Taxi_SuccessVsFailure_ParticularSeats_GraphSize': ByC_Taxi_SuccessVsFailure_ParticularSeats_GraphSize,
+                'ByC_Taxi_NumberOfEntrances_GraphSize': ByC_Taxi_NumberOfEntrances_GraphSize,
+                
+                #RESPONSE TO QUERYS:
+                'ByC_numberOfSessions_Dictionary': ByC_numberOfSessions_Dictionary,
+                'ByC_playTime_Dictionary': ByC_playTime_Dictionary,
+                'ByC_touchCount_Dictionary': ByC_touchCount_Dictionary,
+                'ByC_activitiesPlayedCounter_Dictionary': ByC_activitiesPlayedCounter_Dictionary,
+                'ByC_built_elementsCounter_Dictionary': ByC_built_elementsCounter_Dictionary,
+                'ByC_built_elementsCounter_perCategory_Dictionary': ByC_built_elementsCounter_perCategory_Dictionary,
+                'ByC_maxNumberOfAssistants_Dictionary': ByC_maxNumberOfAssistants_Dictionary,
+                'ByC_Cinema_CompleteVsIncomplete_Dictionary': ByC_Cinema_CompleteVsIncomplete_Dictionary,
+                'ByC_Cinema_SuccessVsFailure_Dictionary': ByC_Cinema_SuccessVsFailure_Dictionary,
+                'ByC_Cinema_SuccessVsFailure_ParticularSeats_Dictionary': ByC_Cinema_SuccessVsFailure_ParticularSeats_Dictionary,
+                'ByC_Cinema_NumberOfEntrances_Dictionary': ByC_Cinema_NumberOfEntrances_Dictionary,
+                'ByC_Cinema_Average_Success': int(ByC_Cinema_Average_Success),
+                'ByC_Cinema_Average_Failure': int(ByC_Cinema_Average_Failure),
+                'ByC_Cinema_Average_ParticularSuccess': int(ByC_Cinema_Average_ParticularSuccess),
+                'ByC_Cinema_Average_ParticularFailure': int(ByC_Cinema_Average_ParticularFailure),
+                'ByC_Cinema_SuccessPercentageInTime_Dictionary': ByC_Cinema_SuccessPercentageInTime_Dictionary,
+                'ByC_School_CompleteVsIncomplete_Dictionary': ByC_School_CompleteVsIncomplete_Dictionary,
+                'ByC_School_SuccessVsFailure_Dictionary': ByC_School_SuccessVsFailure_Dictionary,
+                'ByC_School_SuccessVsFailure_ParticularSeats_Dictionary': ByC_School_SuccessVsFailure_ParticularSeats_Dictionary,
+                'ByC_School_NumberOfEntrances_Dictionary': ByC_School_NumberOfEntrances_Dictionary,
+                'ByC_School_Average_Success': int(ByC_School_Average_Success),
+                'ByC_School_Average_Failure': int(ByC_School_Average_Failure),
+                'ByC_School_Average_ParticularSuccess': int(ByC_School_Average_ParticularSuccess),
+                'ByC_School_Average_ParticularFailure': int(ByC_School_Average_ParticularFailure),
+                'ByC_School_SuccessPercentageInTime_Dictionary': ByC_School_SuccessPercentageInTime_Dictionary,
+                'ByC_Taxi_CompleteVsIncomplete_Dictionary': ByC_Taxi_CompleteVsIncomplete_Dictionary,
+                'ByC_Taxi_SuccessVsFailure_Dictionary': ByC_Taxi_SuccessVsFailure_Dictionary,
+                'ByC_Taxi_SuccessVsFailure_ParticularSeats_Dictionary': ByC_Taxi_SuccessVsFailure_ParticularSeats_Dictionary,
+                'ByC_Taxi_NumberOfEntrances_Dictionary': ByC_Taxi_NumberOfEntrances_Dictionary,
+                'ByC_Taxi_Average_Success': int(ByC_Taxi_Average_Success),
+                'ByC_Taxi_Average_Failure': int(ByC_Taxi_Average_Failure),
+                'ByC_Taxi_Average_ParticularSuccess': int(ByC_Taxi_Average_ParticularSuccess),
+                'ByC_Taxi_Average_ParticularFailure': int(ByC_Taxi_Average_ParticularFailure),
+                'ByC_Taxi_SuccessPercentageInTime_Dictionary': ByC_Taxi_SuccessPercentageInTime_Dictionary,
+                ######END BUILD YOUR CITY#####
                 
             })
     # En otro caso redireccionamos al login

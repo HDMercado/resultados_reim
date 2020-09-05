@@ -1922,7 +1922,7 @@
             
             <!-- Fin Clean Ocean -->
 
-            {% if student_num == '0' and reim_num != '0' and reim_num != '1' and activity_num == '0' and reim_num != '3' and reim_num != '2' and reim_num != '4' %}
+            {% if student_num == '0' and reim_num != '0' and reim_num != '1' and activity_num == '0' and reim_num != '3' and reim_num != '2' and reim_num != '4' and reim_num != '27' %}
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
@@ -2554,6 +2554,472 @@
                 <!-- #FIN REIM ID = 77, NOMBRE = BUSCANDO EL TESORO PERDIDO-->
 
 
+                <!-- BUILD YOUR CITY -->
+                {% if reim_num == '27' %}
+                            
+                    <div class="wrapper wrapper-content">
+                        <!-- GENERAL RESULTS-->                
+                        {% if activity_num == '0' %}
+                            <h1>Resultados Generales REIM: <strong>BUILD YOUR CITY</strong></h1>
+                            <hr><br>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="row" >
+                                        <div class="col-lg-6">
+                                            <div class="ibox ">
+                                                <div class="ibox-title">
+                                                    <h5>Sesiones por Estudiante </h5><span class="  glyphicon glyphicon-info-sign" title="Cantidad de sesiones que cada niño/a realizó al jugar con BuildYourCity entre las fechas seleccionadas"></span>
+                                                    <div class="ibox-tools"></div>
+                                                </div>
+                                                <div class="ibox-content">
+                                                    <div class="scroll_content">
+                                                        {% comment %} <canvas id="ByC_NumberOfSessions" height=1620>{% load staticfiles %}</canvas> {% endcomment %}
+                                                        <canvas id="ByC_NumberOfSessions" height={{ByC_numberOfSessions_GraphSize}}>{% load staticfiles %}</canvas>
+                                                        
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="ibox ">
+                                                <div class="ibox-title">
+                                                    <h5>Tiempo de juego por Estudiante </h5><span class="  glyphicon glyphicon-info-sign" title="Cantidad de tiempo (min) que cada niño/a ha jugado con BuildYourCity entre las fechas seleccionadas"></span>
+                                                    <div class="ibox-tools"></div>
+                                                </div>
+                                                <div class="ibox-content">
+                                                    <div class="scroll_content">
+                                                        {% comment %} <canvas id="ByC_GameTime" height={{game_time_graph}}>{% load staticfiles %}</canvas> {% endcomment %}
+                                                        <canvas id="ByC_PlayTime" height={{ByC_playTime_GraphSize}}>{% load staticfiles %}</canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>                                
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="ibox">
+                                                <div class="ibox-title">
+                                                    <h5>Cantidad de toques a la pantalla por Estudiante </h5><span class="  glyphicon glyphicon-info-sign" title="Cantidad de toques a la pantalla que cada niño/a realizó al jugar con BuildYourCity entre las fechas seleccionadas"></span>
+                                                    <div class="ibox-tools"></div>
+                                                </div>
+                                                <div class="ibox-content">
+                                                    <div class="scroll_content">
+                                                        {% comment %} <canvas id="horizontalBar" height={{game_time_graph}}>{% load staticfiles %}</canvas> {% endcomment %}
+                                                        <canvas id="ByC_TouchCountInGame" height={{ByC_touchCount_GraphSize}}>{% load staticfiles %}</canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="ibox ">
+                                                <div class="ibox-title">
+                                                    <h5>Preferencia de Actividades </h5><span class="  glyphicon glyphicon-info-sign" title="Numero de ingresos a cada actividad de BuildYourCity entre las fechas seleccionadas"></span>
+                                                    <div class="ibox-tools"></div>
+                                                </div>
+                                                <div class="ibox-content">
+                                                    <div class="scroll_content">
+                                                        <canvas id="ByC_ActivityPreference">{% load staticfiles %}</canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                        
+                        <!-- ACTIVITY 1: BUILDING MAP - RESULTS: -->
+                        {% if activity_num == '271' %}
+                            <h1>Resultados Actividad 1: <strong>Mapa de Construccion</strong></h1>
+                            <hr><br>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="row" >
+                                        <div class="col-lg-6">
+                                            <div class="ibox ">
+                                                <div class="ibox-title">
+                                                    <h5>Preferencia de construcción por categoría de elementos urbanos </h5><span class="glyphicon glyphicon-info-sign" title="Indica la cantidad de elementos urbanos que el/la alumno/a construye en el mapa de construcción por categoría."></span>
+                                                    <div class="ibox-tools"></div>
+                                                </div>
+                                                <div class="ibox-content">
+                                                    <div class="scroll_content">
+                                                        {% comment %} <canvas id="CreadosCreacion" height={{elementos_PS_graf}}>{% load staticfiles %}</canvas> {% endcomment %}
+                                                        <canvas id="ByC_BuildingMap_BuiltElementsCounterPerCategory" height={{ByC_built_elementsCounter_perCategory_GraphSize}}>{% load staticfiles %}</canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="ibox ">
+                                                <div class="ibox-title">
+                                                    <h5>Preferencia de construcción para elementos urbanos específicos </h5><span class="  glyphicon glyphicon-info-sign" title="Indica la cantidad de elementos urbanos construidos en el Mapa de Construcción"></span>
+                                                    <div class="ibox-tools"></div>
+                                                </div>
+                                                <div class="ibox-content">
+                                                    <div class="scroll_content">
+                                                        {% comment %} <canvas id="CreadosCreacion" height={{elementos_PS_graf}}>{% load staticfiles %}</canvas> {% endcomment %}
+                                                        <canvas id="ByC_BuildingMap_BuiltElementsCounter"  height={{ByC_built_elementsCounter_GraphSize}}>{% load staticfiles %}</canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>                                
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="row" >
+                                        {% comment %} <div class="col-lg-6">
+                                            <div class="ibox">
+                                                <div class="ibox-title">
+                                                    <h5>Tiempo de juego total en el Mapa de Construccion</h5><span class="  glyphicon glyphicon-info-sign" title="Indica la cantidad de tiempo (en minutos) en que los/las alumnos/as han permanecido en el Mapa de Construccion"></span>
+                                                    <div class="ibox-tools"></div>
+                                                </div>
+                                                <div class="ibox-content">
+                                                    <div class="scroll_content">
+                                                        <canvas id="ByC_BuildingMap_TimeCounter" height=1620>{% load staticfiles %}</canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> 
+                                        {% endcomment %}
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                        <!-- ACTIVITY 2: CINEMA - RESULTS: -->
+                        {% if activity_num == '272' %}
+                            <h1>Resultados Actividad 2: <strong>Cine</strong></h1>
+                            <hr><br>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="row" >
+                                        <div class="col-lg-6">
+                                            <div class="ibox ">
+                                                <div class="ibox-title">
+                                                    <h5>Cantidad de ingresos a la Actividad Cine </h5><span class="  glyphicon glyphicon-info-sign" title="Gráfico que indica la cantidad de veces que los alumnos ingresan a la Actividad Cine"></span>
+                                                    <div class="ibox-tools"></div>
+                                                </div>
+                                                <div class="ibox-content">
+                                                    <div class="scroll_content">
+                                                        {% comment %} <canvas id="ByC_Cinema_MaxNumberOfAssistants_Data" height={{elementos_PS_graf}}>{% load staticfiles %}</canvas> {% endcomment %}
+                                                        <canvas id="ByC_Cinema_NumberOfEntrances" height={{ByC_Cinema_NumberOfEntrances_GraphSize}}>{% load staticfiles %}</canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>                                
+                                        <div class="col-lg-6">
+                                            <div class="ibox ">
+                                                <div class="ibox-title">
+                                                    <h5>Actividades Completas v/s Actividades Incompletas </h5><span class="  glyphicon glyphicon-info-sign" title="Indica la cantidad de actividades completadas (Llenar la sala o se acaba el tiempo limite) v/s las actividades incompletas (Volver al mapa de Construcción)"></span>
+                                                    <div class="ibox-tools"></div>
+                                                </div>
+                                                <div class="ibox-content">
+                                                    <div class="scroll_content">
+                                                        {% comment %} <canvas id="ByC_Cinema_CompleteVsIncomplete_Data" height={{elementos_PS_graf}}>{% load staticfiles %}</canvas> {% endcomment %}
+                                                        <canvas id="ByC_Cinema_CompleteVsIncomplete" height={{ByC_Cinema_CompleteVsIncomplete_GraphSize}}>{% load staticfiles %}</canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row" >
+                                        <div class="col-lg-6">
+                                            <div class="ibox ">
+                                                <div class="ibox-title">
+                                                    <h5>Nivel de logro al aplicar las coordenadas de posición </h5><span class="  glyphicon glyphicon-info-sign" title="Gráfico que indica el % de efectividad en el posicionamiento de asistentes al Cine (Nº de Aciertos/Nº de Intentos). 
+                                                    Bajo el siguiente criterio: 
+                                                    - Insuficiente si Porcentaje <= 59%. 
+                                                    - Suficiente si Porcentaje >=60% y <=69%.
+                                                    - Bien si Porcentaje >=70% y <=79%
+                                                    - Notable si Porcentaje >=80% y <=89%
+                                                    - Sobresaliente si Porcentaje >=90%"></span>
+                                                    <div class="ibox-tools"></div>
+                                                </div>
+                                                <div class="ibox-content">
+                                                    <div class="scroll_content">
+                                                        {% comment %} <canvas id="ByC_Cinema_MaxNumberOfAssistants_Data" height={{elementos_PS_graf}}>{% load staticfiles %}</canvas> {% endcomment %}
+                                                        <canvas id="ByC_Cinema_SuccessPercentage">{% load staticfiles %}</canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="ibox ">
+                                                <div class="ibox-title">
+                                                    <h5>Nivel de logro al aplicar las coordenadas de posición en el tiempo </h5><span class="  glyphicon glyphicon-info-sign" title="Gráfico que indica el % de efectividad en el posicionamiento de asistentes al Cine (Nº de Aciertos/Nº de Intentos) a través del tiempo"></span>
+                                                    <div class="ibox-tools"></div>
+                                                </div>
+                                                <div class="ibox-content">
+                                                    <div class="scroll_content">
+                                                        {% comment %} <canvas id="ByC_Cinema_CompleteVsIncomplete_Data" height={{elementos_PS_graf}}>{% load staticfiles %}</canvas> {% endcomment %}
+                                                        <canvas id="ByC_Cinema_SuccessPercentageInTime" height={{ByC_Cinema_SuccessPercentageInTime_GraphSize}}>{% load staticfiles %}</canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row" >
+                                        <div class="col-lg-6">
+                                            <div class="ibox ">
+                                                <div class="ibox-title">
+                                                    <h5>Comparación del rendimiento del estudiante versus el promedio general </h5><span class="  glyphicon glyphicon-info-sign" title="Gráfico referente a la cantidad de aciertos y errores al posicionar los asistentes del Cine, adicionalmente se muestra el promedio de cada ITEM, para así distinguir si el alumno esta por debajo o sobre el promedio."></span>
+                                                    <div class="ibox-tools"></div>
+                                                </div>
+                                                <div class="ibox-content">
+                                                    <div class="scroll_content">
+                                                        {% comment %} <canvas id="ByC_Cinema_CompleteVsIncomplete_Data" height={{elementos_PS_graf}}>{% load staticfiles %}</canvas> {% endcomment %}
+                                                        <canvas id="ByC_Cinema_SuccessVsFailure" height={{ByC_Cinema_SuccessVsFailure_GraphSize}}>{% load staticfiles %}</canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="ibox ">
+                                                <div class="ibox-title">
+                                                    <h5>Nivel de logro al aplicar las coordenadas específicas de posición </h5><span class="  glyphicon glyphicon-info-sign" title="Gráfico referente a la cantidad de aciertos y errores al posicionar los asistentes del Cine distinguiendo cada coordenada de las entradas"></span>
+                                                    <div class="ibox-tools"></div>
+                                                </div>
+                                                <div class="ibox-content">
+                                                    <div class="scroll_content">
+                                                        {% comment %} <canvas id="ByC_Cinema_MaxNumberOfAssistants_Data" height={{elementos_PS_graf}}>{% load staticfiles %}</canvas> {% endcomment %}
+                                                        <canvas id="ByC_Cinema_SuccessVsFailure_ParticularSeats" height={{ByC_Cinema_SuccessVsFailure_ParticularSeats_GraphSize}}>{% load staticfiles %}</canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>        
+                        {% endif %}
+
+                        <!-- ACTIVITY 3: SCHOOL - RESULTS: -->
+                        {% if activity_num == '273' %}
+                            <h1>Resultados Actividad 3: <strong>Escuela</strong></h1>
+                            <hr><br>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="row" >
+                                        <div class="col-lg-6">
+                                            <div class="ibox ">
+                                                <div class="ibox-title">
+                                                    <h5>Cantidad de ingresos a la Actividad Escuela</h5><span class="  glyphicon glyphicon-info-sign" title="Gráfico que indica la cantidad de veces que los alumnos ingresan a la Actividad Escuela"></span>
+                                                    <div class="ibox-tools"></div>
+                                                </div>
+                                                <div class="ibox-content">
+                                                    <div class="scroll_content">
+                                                        {% comment %} <canvas id="ByC_Cinema_MaxNumberOfAssistants_Data" height={{elementos_PS_graf}}>{% load staticfiles %}</canvas> {% endcomment %}
+                                                        <canvas id="ByC_School_NumberOfEntrances" height={{ByC_School_NumberOfEntrances_GraphSize}}>{% load staticfiles %}</canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>                                
+                                        <div class="col-lg-6">
+                                            <div class="ibox ">
+                                                <div class="ibox-title">
+                                                    <h5>Actividades Completas v/s Actividades Incompletas</h5><span class="  glyphicon glyphicon-info-sign" title="Indica la cantidad de actividades completadas (Cuando se acaba el tiempo limite) v/s las actividades incompletas (Volver al mapa de Construcción)"></span>
+                                                    <div class="ibox-tools"></div>
+                                                </div>
+                                                <div class="ibox-content">
+                                                    <div class="scroll_content">
+                                                        {% comment %} <canvas id="ByC_School_CompleteVsIncomplete_Data" height={{elementos_PS_graf}}>{% load staticfiles %}</canvas> {% endcomment %}
+                                                        <canvas id="ByC_School_CompleteVsIncomplete" height={{ByC_School_CompleteVsIncomplete_GraphSize}}>{% load staticfiles %}</canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row" >
+                                        <div class="col-lg-6">
+                                            <div class="ibox ">
+                                                <div class="ibox-title">
+                                                    <h5>Nivel de logro al aplicar las posiciones relativas </h5><span class="  glyphicon glyphicon-info-sign" title="Gráfico que indica el % de efectividad al identificar la posicion de los Alumnos en la Escuela (Nº de Aciertos/Nº de Intentos) 
+                                                    Bajo el siguiente criterio: 
+                                                    - Insuficiente si Porcentaje <= 59%. 
+                                                    - Suficiente si Porcentaje >=60% y <=69%.
+                                                    - Bien si Porcentaje >=70% y <=79%
+                                                    - Notable si Porcentaje >=80% y <=89%
+                                                    - Sobresaliente si Porcentaje >=90%"></span>
+                                                    <div class="ibox-tools"></div>
+                                                </div>
+                                                <div class="ibox-content">
+                                                    <div class="scroll_content">
+                                                        {% comment %} <canvas id="ByC_School_MaxNumberOfAssistants_Data" height={{elementos_PS_graf}}>{% load staticfiles %}</canvas> {% endcomment %}
+                                                        <canvas id="ByC_School_SuccessPercentage">{% load staticfiles %}</canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="ibox ">
+                                                <div class="ibox-title">
+                                                    <h5>Nivel de logro al aplicar las posiciones relativas en el tiempo </h5><span class="  glyphicon glyphicon-info-sign" title="Gráfico que indica el % de efectividad al identificar la posicion de los Alumnos en la Escuela (Nº de Aciertos/Nº de Intentos) a través del tiempo"></span>
+                                                    <div class="ibox-tools"></div>
+                                                </div>
+                                                <div class="ibox-content">
+                                                    <div class="scroll_content">
+                                                        {% comment %} <canvas id="ByC_School_CompleteVsIncomplete_Data" height={{elementos_PS_graf}}>{% load staticfiles %}</canvas> {% endcomment %}
+                                                        <canvas id="ByC_School_SuccessPercentageInTime" height={{ByC_School_SuccessPercentageInTime_GraphSize}}>{% load staticfiles %}</canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row" >
+                                        <div class="col-lg-6">
+                                            <div class="ibox ">
+                                                <div class="ibox-title">
+                                                    <h5>Comparación del rendimiento del estudiante versus el promedio general </h5><span class="  glyphicon glyphicon-info-sign" title="Gráfico referente a la cantidad de aciertos y errores al identificar la posicion de los alumnos de la Escuela, adicionalmente se muestra el promedio de cada ITEM, para así distinguir si el alumno esta por debajo o sobre el promedio."></span>
+                                                    <div class="ibox-tools"></div>
+                                                </div>
+                                                <div class="ibox-content">
+                                                    <div class="scroll_content">
+                                                        {% comment %} <canvas id="ByC_School_CompleteVsIncomplete_Data" height={{elementos_PS_graf}}>{% load staticfiles %}</canvas> {% endcomment %}
+                                                        <canvas id="ByC_School_SuccessVsFailure" height={{ByC_School_SuccessVsFailure_GraphSize}}>{% load staticfiles %}</canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="ibox ">
+                                                <div class="ibox-title">
+                                                    <h5>Nivel de logro al aplicar las posiciones relativas en específico </h5><span class="  glyphicon glyphicon-info-sign" title="Gráfico referente a la cantidad de aciertos y errores al identificar la posicion de los alumnos de la Escuela"></span>
+                                                    <div class="ibox-tools"></div>
+                                                </div>
+                                                <div class="ibox-content">
+                                                    <div class="scroll_content">
+                                                        {% comment %} <canvas id="ByC_School_MaxNumberOfAssistants_Data" height={{elementos_PS_graf}}>{% load staticfiles %}</canvas> {% endcomment %}
+                                                        <canvas id="ByC_School_SuccessVsFailure_ParticularSeats" height={{ByC_School_SuccessVsFailure_ParticularSeats_GraphSize}}>{% load staticfiles %}</canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>   
+                        {% endif %}
+
+                        <!-- ACTIVITY 4: TAXI - RESULTS: -->
+                        {% if activity_num == '274' %}
+                            <h1>Resultados Actividad 4: <strong>Taxi</strong></h1>
+                            <hr><br>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="row" >
+                                        <div class="col-lg-6">
+                                            <div class="ibox ">
+                                                <div class="ibox-title">
+                                                    <h5>Cantidad de ingresos a la Actividad Taxi </h5><span class="  glyphicon glyphicon-info-sign" title="Gráfico que indica la cantidad de veces que los alumnos ingresan a la Actividad Taxi"></span>
+                                                    <div class="ibox-tools"></div>
+                                                </div>
+                                                <div class="ibox-content">
+                                                    <div class="scroll_content">
+                                                        {% comment %} <canvas id="ByC_Cinema_MaxNumberOfAssistants_Data" height={{elementos_PS_graf}}>{% load staticfiles %}</canvas> {% endcomment %}
+                                                        <canvas id="ByC_Taxi_NumberOfEntrances" height={{ByC_Taxi_NumberOfEntrances_GraphSize}}>{% load staticfiles %}</canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>                                
+                                        <div class="col-lg-6">
+                                            <div class="ibox ">
+                                                <div class="ibox-title">
+                                                    <h5>Actividades Completas v/s Actividades Incompletas </h5><span class="  glyphicon glyphicon-info-sign" title="Indica la cantidad de actividades completadas (Cuando se acaba el tiempo limite) v/s las actividades incompletas (Volver al mapa de Construcción)"></span>
+                                                    <div class="ibox-tools"></div>
+                                                </div>
+                                                <div class="ibox-content">
+                                                    <div class="scroll_content">
+                                                        {% comment %} <canvas id="ByC_Taxi_CompleteVsIncomplete_Data" height={{elementos_PS_graf}}>{% load staticfiles %}</canvas> {% endcomment %}
+                                                        <canvas id="ByC_Taxi_CompleteVsIncomplete" height={{ByC_Taxi_CompleteVsIncomplete_GraphSize}}>{% load staticfiles %}</canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row" >
+                                        <div class="col-lg-6">
+                                            <div class="ibox ">
+                                                <div class="ibox-title">
+                                                    <h5>Nivel de logro al aplicar los puntos cardinales </h5><span class="  glyphicon glyphicon-info-sign" title="Gráfico que indica el % de efectividad al identificar los puntos cardinales relativos a la cuadra central (Nº de Aciertos/Nº de Intentos) 
+                                                    Bajo el siguiente criterio: 
+                                                    - Insuficiente si Porcentaje <= 59%. 
+                                                    - Suficiente si Porcentaje >=60% y <=69%.
+                                                    - Bien si Porcentaje >=70% y <=79%
+                                                    - Notable si Porcentaje >=80% y <=89%
+                                                    - Sobresaliente si Porcentaje >=90%"></span>
+                                                    <div class="ibox-tools"></div>
+                                                </div>
+                                                <div class="ibox-content">
+                                                    <div class="scroll_content">
+                                                        {% comment %} <canvas id="ByC_Taxi_MaxNumberOfAssistants_Data" height={{elementos_PS_graf}}>{% load staticfiles %}</canvas> {% endcomment %}
+                                                        <canvas id="ByC_Taxi_SuccessPercentage">{% load staticfiles %}</canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="ibox ">
+                                                <div class="ibox-title">
+                                                    <h5>Nivel de logro al aplicar los puntos cardinales a traves del tiempo </h5><span class="  glyphicon glyphicon-info-sign" title="Gráfico que indica el % de efectividad al identificar los puntos cardinales en relacion a la cuadra central (Nº de Aciertos/Nº de Intentos) a través del tiempo"></span>
+                                                    <div class="ibox-tools"></div>
+                                                </div>
+                                                <div class="ibox-content">
+                                                    <div class="scroll_content">
+                                                        {% comment %} <canvas id="ByC_Taxi_CompleteVsIncomplete_Data" height={{elementos_PS_graf}}>{% load staticfiles %}</canvas> {% endcomment %}
+                                                        <canvas id="ByC_Taxi_SuccessPercentageInTime" height={{ByC_Taxi_SuccessPercentageInTime_GraphSize}}>{% load staticfiles %}</canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row" >
+                                        <div class="col-lg-6">
+                                            <div class="ibox ">
+                                                <div class="ibox-title">
+                                                    <h5>Comparación del rendimiento del estudiante versus el promedio general </h5><span class="  glyphicon glyphicon-info-sign" title="Gráfico referente a la cantidad de aciertos y errores al identificar la posicion de las cuadras en la ciudad, adicionalmente se muestra el promedio de cada ITEM, para así distinguir si el alumno esta por debajo o sobre el promedio."></span>
+                                                    <div class="ibox-tools"></div>
+                                                </div>
+                                                <div class="ibox-content">
+                                                    <div class="scroll_content">
+                                                        {% comment %} <canvas id="ByC_Taxi_CompleteVsIncomplete_Data" height={{elementos_PS_graf}}>{% load staticfiles %}</canvas> {% endcomment %}
+                                                        <canvas id="ByC_Taxi_SuccessVsFailure" height={{ByC_Taxi_SuccessVsFailure_GraphSize}}>{% load staticfiles %}</canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="ibox ">
+                                                <div class="ibox-title">
+                                                    <h5>Nivel de logro al aplicar los puntos cardinales en especifico </h5><span class="  glyphicon glyphicon-info-sign" title="Gráfico referente a la cantidad de aciertos y errores al identificar los puntos cardinales en relación a la cuadra central de la ciudad"></span>
+                                                    <div class="ibox-tools"></div>
+                                                </div>
+                                                <div class="ibox-content">
+                                                    <div class="scroll_content">
+                                                        {% comment %} <canvas id="ByC_Taxi_MaxNumberOfAssistants_Data" height={{elementos_PS_graf}}>{% load staticfiles %}</canvas> {% endcomment %}
+                                                        <canvas id="ByC_Taxi_SuccessVsFailure_ParticularSeats" height={{ByC_Taxi_SuccessVsFailure_ParticularSeats_GraphSize}}>{% load staticfiles %}</canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>   
+                        {% endif %}                
+                    </div>            
+                {% endif %}
+
+
+
+
+
+                <!-- FIN BUILD YOUR CITY -->
+
 
                 <div>
                     <strong>Copyright</strong>  &copy; 2019
@@ -2756,6 +3222,1635 @@
           
       }
   });
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////BUILD YOUR CITY//////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //GRAPHS SETTINGS:
+        //0.- REIM: 
+        //0.1.- SESSIONS COUNTER:
+        var ByC_NumberOfSessions_Data = {
+            labels: [
+                //CONNECT WITH BD:
+                {% if ByC_numberOfSessions_Dictionary %}
+                    {% for session in ByC_numberOfSessions_Dictionary %}
+                        '{{session.name}}',
+                    {% endfor%}
+                {% endif%} 
+                
+                //DUMMY VALUES:
+                {% comment %} 
+                {% for item in "x"|ljust:"40" %}
+                    'Alumno '+ '{{forloop.counter}}', 
+                {% endfor %}
+                'Alumno 1', 'Alumno 2', 'Alumno 3' 
+                {% endcomment %}
+
+            ],
+            datasets: [
+                {
+                    label: "Numero de sesiones iniciadas",
+                    backgroundColor: 'rgb(255,152,0)',
+                    borderColor: "rgb(251,104,0)",
+                    pointBorderColor: "#fff",
+                    data: [
+                        //CONNECT WITH BD:                        
+                        {% if ByC_numberOfSessions_Dictionary %}
+                            {% for session in ByC_numberOfSessions_Dictionary %}
+                                '{{session.quantity}}',
+                            {% endfor%}
+                        {% endif%} 
+                        
+                        //DUMMY VALUES:
+                        {% comment %} 
+                        {% for item in "x"|ljust:"40" %}
+                            {{listOfFirst50Numbers|random}}, 
+                        {% endfor %} 
+                        {% endcomment %}
+                    ]
+                }
+            ]
+        };
+
+        //0.2.- PLAY TIME:
+        var ByC_PlayTime_Data = {
+            labels:
+                    [
+                        //CONNECT WITH BD:                        
+                        {% if ByC_playTime_Dictionary %}
+                            {% for user in ByC_playTime_Dictionary %}
+                                '{{user.name}}',
+                            {% endfor%}
+                        {% endif%}
+                        
+                        //DUMMY VALUES:
+                        {% comment %} 
+                        {% for item in "x"|ljust:"40" %}
+                           'Alumno '+ '{{forloop.counter}}', 
+                        {% endfor %} 
+                        {% endcomment %}
+                    ],
+                    
+            datasets: [
+                {
+                    label: "Tiempo de juego en minutos",
+                    backgroundColor: 'rgb(46,204,113)',
+                    borderColor: "rgb(39,174,96)",
+                    pointBorderColor: "#fff",
+                    data:
+                        [
+                            //CONNECT WITH BD:                            
+                            {% if ByC_playTime_Dictionary %}
+                                {% for user in ByC_playTime_Dictionary %}
+                                    '{{user.playTime}}',
+                                {% endfor%}
+                            {% endif%}
+                            
+                            //DUMMY VALUES:
+                            {% comment %} {% for item in "x"|ljust:"40" %}
+                                 {{listOfFirst50Numbers|random}}, 
+                            {% endfor %} {% endcomment %}
+                        ]
+                }
+            ]
+        };
+                
+
+        //0.3.- TOUCH COUNT:
+        var ByC_TouchCountInGame_Data = {
+            labels: [
+                //CONNECT WITH BD:
+                
+                {% if ByC_touchCount_Dictionary %}
+                    {% for touch in ByC_touchCount_Dictionary %}
+                        '{{touch.name}}',
+                    {% endfor%}
+                {% endif%} 
+                
+
+                //DUMMY VALUES:
+                {% comment %} 
+                {% for item in "x"|ljust:"40" %}
+                    'Alumno '+ '{{forloop.counter}}', 
+                {% endfor %}
+                {% endcomment %}
+                
+
+            ],
+            datasets: [
+                {
+                    label: "Numero de toques en pantalla",
+                    backgroundColor: 'rgb(92,107,192)',
+                    borderColor: "rgb(63,81,181)",
+                    pointBorderColor: "#fff",
+                    data: [
+                        //CONNECT WITH BD:                        
+                        {% if ByC_touchCount_Dictionary %}
+                            {% for touch in ByC_touchCount_Dictionary %}
+                                '{{touch.touchCount}}',
+                            {% endfor%}
+                        {% endif%} 
+                        
+                        //DUMMY VALUES:
+                        {% comment %} 
+                        {% for item in "x"|ljust:"40" %}
+                            {{listOf100to2000by100|random}}, 
+                        {% endfor %} 
+                        {% endcomment %}
+                    ]
+                }
+            ]
+        };
+        
+
+        //0.4.- ACTIVITY PREFERENCE:
+        var ByC_ActivityPreference_Data = {
+            labels: [
+                    //CONNECT WITH BD:
+                    
+                    {% if ByC_activitiesPlayedCounter_Dictionary %}
+                        {% for actividad in ByC_activitiesPlayedCounter_Dictionary %}
+                            '{{actividad.name}}',
+                        {% endfor%}
+                    {% endif%}
+                    
+
+                    //DUMMY VALUES:
+                    {% comment %} 
+                    {% for activity in activities_ByC %}
+                        '{{activity}}',
+                    {% endfor%} 
+                    {% endcomment %}
+                    
+            ],
+            datasets: 
+            [
+                {
+                    backgroundColor: ['rgb(236,112,99)','rgb(175,122,197)','rgb(93,173,226)','rgb(245,176,65)','rgb(253,216,53)','rgb(72,201,176)'],
+                    pointBorderColor: "#fff",
+                    data: [
+                        //CONNECT WITH BD:
+                        
+                        {% if ByC_activitiesPlayedCounter_Dictionary %}
+                            {% for actividad in ByC_activitiesPlayedCounter_Dictionary %}
+                                '{{actividad.counter}}',
+                            {% endfor%}
+                        {% endif%} 
+                        
+
+                        //DUMMY VALUES:
+                        {% comment %} 
+                        {% for item in "x"|ljust:"4" %}
+                            {{listOfFirst50Numbers|random}}, 
+                        {% endfor %} 
+                        {% endcomment %}
+                    ]
+                }
+            ]
+        };
+        //1.- BUILDING MAP:
+        //1.1.- BUILT ELEMENTS COUNTER:
+        var ByC_BuildingMap_BuiltElementsCounter_Data = {
+            labels: [
+                //CONNECT WITH BD:
+                
+                {% if ByC_built_elementsCounter_Dictionary %}
+                    {% for element in ByC_built_elementsCounter_Dictionary %}
+                        "{{element.name}}",
+                    {% endfor%}
+                {% endif%} 
+                
+
+                //DUMMY VALUES:
+                {% comment %} 
+                {% for item in "x"|ljust:"40" %}
+                    'Alumno '+ '{{forloop.counter}}', 
+                {% endfor %}
+                {% endcomment %}
+                
+
+            ],
+            datasets: [
+                {
+                    label: "Numero de elementos construidos",
+                    backgroundColor: ['rgb(236,112,99)', 'rgb(236,112,99)', 'rgb(236,112,99)', 'rgb(236,112,99)', 'rgb(175,122,197)', 'rgb(175,122,197)', 'rgb(175,122,197)', 'rgb(175,122,197)', 'rgb(93,173,226)', 'rgb(93,173,226)', 'rgb(93,173,226)', 'rgb(93,173,226)'],
+                    borderColor: "rgb(63,81,181)",
+                    pointBorderColor: "#fff",
+                    data: [
+                        //CONNECT WITH BD:                        
+                        {% if ByC_built_elementsCounter_Dictionary %}
+                            {% for element in ByC_built_elementsCounter_Dictionary %}
+                                '{{element.counter}}',
+                            {% endfor%}
+                        {% endif%} 
+                        
+                        //DUMMY VALUES:
+                        {% comment %} 
+                        {% for item in "x"|ljust:"40" %}
+                            {{listOf100to2000by100|random}}, 
+                        {% endfor %} 
+                        {% endcomment %}
+                    ]
+                }
+            ]
+        };  
+
+        //1.2.- PLAY TIME BUILDING MAP
+        var ByC_BuildingMap_TimeCounter_Data = {
+            labels:
+                    [
+                        //CONNECT WITH BD:
+                        {% comment %} 
+                            {% if game_time %}
+                                {% for user in game_time %}
+                                    '{{user.name}}',
+                                {% endfor%}
+                            {% endif%}
+                        {% endcomment %}
+                        //DUMMY VALUES:
+                        {% for item in "x"|ljust:"40" %}
+                           'Alumno '+ '{{forloop.counter}}', 
+                        {% endfor %}
+                    ],
+                    
+            datasets: [
+                {
+                    label: "Tiempo de juego en minutos",
+                    backgroundColor: 'rgb(46,204,113)',
+                    borderColor: "rgb(39,174,96)",
+                    pointBorderColor: "#fff",
+                    data:
+                        [
+                            //CONNECT WITH BD:
+                            {% comment %}  
+                                {% if game_time %}
+                                    {% for user in game_time %}
+                                        '{{user.time}}',
+                                    {% endfor%}
+                                {% endif%}
+                            {% endcomment %}
+                            //DUMMY VALUES:
+                            {% for item in "x"|ljust:"40" %}
+                                 {{listOfFirst50Numbers|random}}, 
+                            {% endfor %}
+                        ]
+                }
+            ]
+        };
+        
+        //1.3.-BUILT ELEMENTS COUNTER PER CATEGORY
+        var ByC_BuildingMap_BuiltElementsCounterPerCategory_Data = {
+            labels: [
+                //CONNECT WITH BD:                
+                {% if ByC_built_elementsCounter_perCategory_Dictionary %}
+                    {% for elementos in ByC_built_elementsCounter_perCategory_Dictionary %}
+                        '{{elementos.name}}',
+                    {% endfor%}
+                {% endif%}
+                
+
+                //DUMMY VALUES:
+                {% comment %} 
+                {% for item in "x"|ljust:"40" %}
+                    'Alumno '+ '{{forloop.counter}}', 
+                {% endfor %} 
+                {% endcomment %}
+                ],
+            datasets: [
+                {
+                    label: "Edificios",
+                    backgroundColor: 'rgb(236,112,99)', 
+                    borderColor: "rgb(205,97,85)",
+                    pointBorderColor: "#fff",
+                    data: [
+                            //CONNECT WITH BD:
+                            {% if ByC_built_elementsCounter_perCategory_Dictionary %}
+                                {% for elemento in ByC_built_elementsCounter_perCategory_Dictionary %}
+                                    '{{elemento.buildingsCount}}',
+                                {% endfor%}
+                            {% endif%}
+
+                            //DUMMY VALUES:
+                            {% comment %} 
+                            {% for item in "x"|ljust:"40" %}
+                                 {{listOfFirst50Numbers|random}}, 
+                            {% endfor %} 
+                            {% endcomment %}
+
+                        ]
+                },
+                {
+                    label: "Adornos Urbanos",
+                    backgroundColor: 'rgb(175,122,197)', 
+                    borderColor: "rgb(165,105,189)",
+                    pointBorderColor: "#fff",
+                    data: [
+                            //CONNECT WITH BD:
+                            {% if ByC_built_elementsCounter_perCategory_Dictionary %}
+                                {% for elemento in ByC_built_elementsCounter_perCategory_Dictionary %}
+                                    '{{elemento.ornamentsCount}}',
+                                {% endfor%}
+                            {% endif%}
+
+                            //DUMMY VALUES:
+                            {% comment %} 
+                            {% for item in "x"|ljust:"40" %}
+                                 {{listOfFirst50Numbers|random}}, 
+                            {% endfor %} 
+                            {% endcomment %}
+
+                        ]
+                },
+                {
+                        label: "Automoviles",
+                        backgroundColor: 'rgb(93,173,226)', 
+                        borderColor: "rgb(84,153,199)",
+                        pointBorderColor: "#fff",
+                        data: [
+                            //CONNECT WITH BD:
+                            {% if ByC_built_elementsCounter_perCategory_Dictionary %}
+                                {% for elemento in ByC_built_elementsCounter_perCategory_Dictionary %}
+                                    '{{elemento.carsCount}}',
+                                {% endfor%}
+                            {% endif%}
+
+                            //DUMMY VALUES:
+                            {% comment %} 
+                            {% for item in "x"|ljust:"40" %}
+                                 {{listOfFirst50Numbers|random}}, 
+                            {% endfor %} 
+                            {% endcomment %}
+
+                        ]
+                },
+            ]
+        }
+        //2.- CINEMA: 
+        //2.1.- MAXIMUM NUMBER OF ENTRANCES:
+        var ByC_Cinema_NumberOfEntrances_Data = {
+            labels: [
+                //CONNECT WITH BD:
+                {% if ByC_Cinema_NumberOfEntrances_Dictionary %}
+                    {% for element in ByC_Cinema_NumberOfEntrances_Dictionary %}
+                        '{{element.name}}',
+                    {% endfor%}
+                {% endif%} 
+                
+
+                //DUMMY VALUES:
+                {% comment %} 
+                {% for item in "x"|ljust:"40" %}
+                    'Alumno '+ '{{forloop.counter}}', 
+                {% endfor %} 
+                {% endcomment %}
+                
+
+            ],
+            datasets: [
+                {
+                    label: "Cantidad de ingresos a la Actividad Cine",
+                    backgroundColor: 'rgb(253,216,53)',
+                    pointBorderColor: "#fff",
+                    data: [
+                        //CONNECT WITH BD:                        
+                        {% if ByC_Cinema_NumberOfEntrances_Dictionary %}
+                            {% for elemento in ByC_Cinema_NumberOfEntrances_Dictionary %}
+                                '{{elemento.numberOfEntrances}}',
+                            {% endfor%}
+                        {% endif%} 
+                        
+                        //DUMMY VALUES:
+                        {% comment %} 
+                        {% for item in "x"|ljust:"40" %}
+                            {{listOf25To42|random}}, 
+                        {% endfor %} 
+                        {% endcomment %}
+                    ]
+                }
+            ]
+        };
+        
+        //2.X.- MAXIMUM NUMBER OF ASSISTANTS(SIN USAR AUN):
+        var ByC_Cinema_MaxNumberOfAssistants_Data = {
+            labels: [
+                //CONNECT WITH BD:
+                {% if ByC_maxNumberOfAssistants_Dictionary %}
+                    {% for element in ByC_maxNumberOfAssistants_Dictionary %}
+                        '{{element.name}}',
+                    {% endfor%}
+                {% endif%} 
+                
+
+                //DUMMY VALUES:
+                {% comment %} 
+                {% for item in "x"|ljust:"40" %}
+                    'Alumno '+ '{{forloop.counter}}', 
+                {% endfor %} 
+                {% endcomment %}
+                
+
+            ],
+            datasets: [
+                {
+                    label: "Maxima cantidad de asistentes posicionados correctamente",
+                    backgroundColor: 'rgb(75, 192, 192)',//GREEN
+                    pointBorderColor: "#fff",
+                    data: [
+                        //CONNECT WITH BD:                        
+                        {% if ByC_maxNumberOfAssistants_Dictionary %}
+                            {% for elemento in ByC_maxNumberOfAssistants_Dictionary %}
+                                '{{elemento.maxNumberOfAssistants}}',
+                            {% endfor%}
+                        {% endif%} 
+                        
+                        //DUMMY VALUES:
+                        {% comment %} 
+                        {% for item in "x"|ljust:"40" %}
+                            {{listOf25To42|random}}, 
+                        {% endfor %} 
+                        {% endcomment %}
+                    ]
+                }
+            ]
+        };
+        //2.2.- ACTIVITY COMPLETE V/S INCOMPLETE:
+        var ByC_Cinema_CompleteVsIncomplete_Data = {
+            labels: [
+                //CONNECT WITH BD:
+                
+                {% if ByC_Cinema_CompleteVsIncomplete_Dictionary %}
+                    {% for elemento in ByC_Cinema_CompleteVsIncomplete_Dictionary %}
+                        '{{elemento.name}}',
+                    {% endfor%}
+                {% endif%} 
+                
+
+                //DUMMY VALUES:
+                {% comment %} {% for item in "x"|ljust:"40" %}
+                    'Alumno '+ '{{forloop.counter}}', 
+                {% endfor %} {% endcomment %}
+                
+
+            ],
+            datasets: [
+                {
+                    label: "Actividades Completas",
+                    backgroundColor: 'rgb(75, 192, 192)',//GREEN                   
+                    pointBorderColor: "#fff",
+                    data: [
+                        //CONNECT WITH BD:                       
+                        {% if ByC_Cinema_CompleteVsIncomplete_Dictionary %}
+                            {% for elemento in ByC_Cinema_CompleteVsIncomplete_Dictionary %}
+                                '{{elemento.Complete}}',
+                            {% endfor%}
+                        {% endif%} 
+                        
+                        //DUMMY VALUES:
+                        {% comment %} {% for item in "x"|ljust:"40" %}
+                            {{listOf25To42|random}}, 
+                        {% endfor %} {% endcomment %}
+                    ]
+                },
+                {
+                    label: "Actividades Incompletas",
+                    backgroundColor: 'rgb(255, 99, 132)', //RED                    
+                    pointBorderColor: "#fff",
+                    data: [
+                        //CONNECT WITH BD:                        
+                        {% if ByC_Cinema_CompleteVsIncomplete_Dictionary %}
+                            {% for elemento in ByC_Cinema_CompleteVsIncomplete_Dictionary %}
+                                '{{elemento.Incomplete}}',
+                            {% endfor%}
+                        {% endif%} 
+                        
+                        //DUMMY VALUES:
+                        {% comment %} {% for item in "x"|ljust:"40" %}
+                            {{listOf25To42|random}}, 
+                        {% endfor %} {% endcomment %}
+                    ]
+                }
+            ]
+        };
+        //2.3.- SUCCESS PERCENTAGE:
+        var ByC_Cinema_SuccessPercentage_Data = {
+            labels: [
+                    //CONNECT WITH BD:
+                    
+                    "Porcentaje de Aciertos", "Porcentaje de Errores"
+                    
+
+                    //DUMMY VALUES:
+                    {% comment %} 
+                    {% for activity in activities_ByC %}
+                        '{{activity}}',
+                    {% endfor%} 
+                    {% endcomment %}
+                    
+            ],
+            datasets: 
+            [
+                {
+                    backgroundColor: ['rgb(75, 192, 192)','rgb(236,112,99)'],
+                    pointBorderColor: "#fff",
+                    data: [
+                        //CONNECT WITH BD:
+                        
+                        '{{ByC_Cinema_Average_ParticularSuccess}}' , '{{ByC_Cinema_Average_ParticularFailure}}' 
+                        
+
+                        //DUMMY VALUES:
+                        {% comment %} 
+                        {% for item in "x"|ljust:"4" %}
+                            {{listOfFirst50Numbers|random}}, 
+                        {% endfor %} 
+                        {% endcomment %}
+                    ]
+                }
+            ]
+        };
+        //2.4.- SUCCESS PERCENTAGE IN TIME:
+        var ByC_Cinema_SuccessPercentageInTime_Data = {
+            labels: [
+                    {% if ByC_Cinema_SuccessPercentageInTime_Dictionary %}
+                        {% for elemento in ByC_Cinema_SuccessPercentageInTime_Dictionary %}
+                            '{{elemento.fecha}}',
+                        {% endfor%}
+                    {% endif%}
+                ],
+            datasets: [
+                {
+                    label: "Porcentaje de Aciertos",
+                    backgroundColor: 'rgb(0,188,212)',
+                    borderColor: "rgb(3,155,229)",
+                    pointBorderColor: "#fff",
+                    data: [
+                        {% if ByC_Cinema_SuccessPercentageInTime_Dictionary %}
+                            {% for elemento in ByC_Cinema_SuccessPercentageInTime_Dictionary %}
+                                '{{elemento.percentage}}',
+                            {% endfor%}
+                        {% endif%}
+                        ],
+                    fill: false,
+                    pointRadius:7,
+                    pointHoverRadius:10,
+                    showLine:true
+                }
+            ]
+        };    
+        //2.5.- NUMBER OF SUCCESS V/S FAILURE:
+        var ByC_Cinema_SuccessVsFailure_Data = {
+            labels: [
+                //CONNECT WITH BD:                
+                {% if ByC_Cinema_SuccessVsFailure_Dictionary %}
+                    {% for elemento in ByC_Cinema_SuccessVsFailure_Dictionary %}
+                        '{{elemento.name}}',
+                    {% endfor%}
+                {% endif%} 
+               
+
+                //DUMMY VALUES:
+                {% comment %} {% for item in "x"|ljust:"40" %}
+                    'Alumno '+ '{{forloop.counter}}', 
+                {% endfor %}
+                 {% endcomment %}
+
+            ],
+            datasets: [
+                {
+                    label: "Aciertos",
+                    backgroundColor: 'rgb(75, 192, 192)',//GREEN                   
+                    pointBorderColor: "#fff",
+                    data: [
+                        //CONNECT WITH BD:                        
+                        {% if ByC_Cinema_SuccessVsFailure_Dictionary %}
+                            {% for elemento in ByC_Cinema_SuccessVsFailure_Dictionary %}
+                                '{{elemento.Success}}',
+                            {% endfor%}
+                        {% endif%} 
+                        
+                        //DUMMY VALUES:
+                        {% comment %} {% for item in "x"|ljust:"40" %}
+                            {{listOf25To42|random}}, 
+                        {% endfor %} {% endcomment %}
+                    ]
+                },
+                {
+                    label: "Errores",
+                    backgroundColor: 'rgb(255, 99, 132)', //RED                    
+                    pointBorderColor: "#fff",
+                    data: [
+                        //CONNECT WITH BD:                        
+                        {% if ByC_Cinema_SuccessVsFailure_Dictionary %}
+                            {% for elemento in ByC_Cinema_SuccessVsFailure_Dictionary %}
+                                '{{elemento.Failure}}',
+                            {% endfor%}
+                        {% endif%} 
+
+                        //DUMMY VALUES:
+                        {% comment %} {% for item in "x"|ljust:"40" %}
+                            {{listOf25To42|random}}, 
+                        {% endfor %} {% endcomment %}
+                    ]
+                }
+            ]
+        };
+        //2.6.- NUMBER OF SUCCESS V/S FAILURE (PARTICULAR SEATS):
+        var ByC_Cinema_SuccessVsFailure_ParticularSeats_Data = {
+            labels: [
+                //CONNECT WITH BD:                
+                {% if ByC_Cinema_SuccessVsFailure_ParticularSeats_Dictionary %}
+                    {% for elemento in ByC_Cinema_SuccessVsFailure_ParticularSeats_Dictionary %}
+                        '{{elemento.name_assistant}}',
+                    {% endfor%}
+                {% endif%} 
+               
+
+                //DUMMY VALUES:
+                {% comment %} {% for item in "x"|ljust:"40" %}
+                    'Alumno '+ '{{forloop.counter}}', 
+                {% endfor %}
+                {% endcomment %}
+
+            ],
+            datasets: [
+                {
+                    label: "Aciertos",
+                    backgroundColor: 'rgb(75, 192, 192)',//GREEN                   
+                    pointBorderColor: "#fff",
+                    data: [
+                        //CONNECT WITH BD:                        
+                        {% if ByC_Cinema_SuccessVsFailure_ParticularSeats_Dictionary %}
+                            {% for elemento in ByC_Cinema_SuccessVsFailure_ParticularSeats_Dictionary %}
+                                '{{elemento.Success}}',
+                            {% endfor%}
+                        {% endif%} 
+                        
+                        //DUMMY VALUES:
+                        {% comment %} {% for item in "x"|ljust:"40" %}
+                            {{listOf25To42|random}}, 
+                        {% endfor %} {% endcomment %}
+                    ]
+                },
+                {
+                    label: "Errores",
+                    backgroundColor: 'rgb(255, 99, 132)', //RED                    
+                    pointBorderColor: "#fff",
+                    data: [
+                        //CONNECT WITH BD:                        
+                        {% if ByC_Cinema_SuccessVsFailure_ParticularSeats_Dictionary %}
+                            {% for elemento in ByC_Cinema_SuccessVsFailure_ParticularSeats_Dictionary %}
+                                '{{elemento.Failure}}',
+                            {% endfor%}
+                        {% endif%} 
+
+                        //DUMMY VALUES:
+                        {% comment %} {% for item in "x"|ljust:"40" %}
+                            {{listOf25To42|random}}, 
+                        {% endfor %} {% endcomment %}
+                    ]
+                }
+            ]
+        };
+        //2.X.- MAXIMUM TIME WITHOUT FAIL: (SIN USAR AUN)
+        var ByC_Cinema_MaxTimeWithoutFail_Data = {
+            labels: [
+                //CONNECT WITH BD:
+                {% comment %} 
+                    {% if touch_quantity %}
+                        {% for touch in touch_quantity %}
+                            '{{touch.name}}',
+                        {% endfor%}
+                    {% endif%} 
+                {% endcomment %}
+
+                //DUMMY VALUES:
+                {% for item in "x"|ljust:"40" %}
+                    'Alumno '+ '{{forloop.counter}}', 
+                {% endfor %}
+                
+
+            ],
+            datasets: [
+                {
+                    label: "Tiempo maximo sin fallar (Minutos)",
+                    backgroundColor: 'rgb(54, 162, 235)',//BLUE
+                    pointBorderColor: "#fff",
+                    data: [
+                        //CONNECT WITH BD:
+                        {% comment %} 
+                            {% if touch_quantity %}
+                                {% for touch in touch_quantity %}
+                                    '{{touch.quantity}}',
+                                {% endfor%}
+                            {% endif%} 
+                        {% endcomment %}
+                        //DUMMY VALUES:
+                        {% for item in "x"|ljust:"40" %}
+                            {{listOf25To42|random}}, 
+                        {% endfor %}
+                    ]
+                }
+            ]
+        };
+        //3.- SCHOOL:
+        //3.1.- MAXIMUM NUMBER OF STUDENTS:
+        var ByC_School_NumberOfEntrances_Data = {
+            labels: [
+                //CONNECT WITH BD:
+                {% if ByC_School_NumberOfEntrances_Dictionary %}
+                    {% for element in ByC_School_NumberOfEntrances_Dictionary %}
+                        '{{element.name}}',
+                    {% endfor%}
+                {% endif%} 
+                
+
+                //DUMMY VALUES:
+                {% comment %} 
+                {% for item in "x"|ljust:"40" %}
+                    'Alumno '+ '{{forloop.counter}}', 
+                {% endfor %} 
+                {% endcomment %}
+                
+
+            ],
+            datasets: [
+                {
+                    label: "Cantidad de ingresos a la Actividad Escuela",
+                    backgroundColor: 'rgb(253,216,53)',
+                    pointBorderColor: "#fff",
+                    data: [
+                        //CONNECT WITH BD:                        
+                        {% if ByC_School_NumberOfEntrances_Dictionary %}
+                            {% for elemento in ByC_School_NumberOfEntrances_Dictionary %}
+                                '{{elemento.numberOfEntrances}}',
+                            {% endfor%}
+                        {% endif%} 
+                        
+                        //DUMMY VALUES:
+                        {% comment %} 
+                        {% for item in "x"|ljust:"40" %}
+                            {{listOf25To42|random}}, 
+                        {% endfor %} 
+                        {% endcomment %}
+                    ]
+                }
+            ]
+        };
+        
+        //3.2.- ACTIVITY COMPLETE V/S INCOMPLETE:
+        var ByC_School_CompleteVsIncomplete_Data = {
+            labels: [
+                //CONNECT WITH BD:
+                
+                {% if ByC_School_CompleteVsIncomplete_Dictionary %}
+                    {% for elemento in ByC_School_CompleteVsIncomplete_Dictionary %}
+                        '{{elemento.name}}',
+                    {% endfor%}
+                {% endif%} 
+                
+
+                //DUMMY VALUES:
+                {% comment %} {% for item in "x"|ljust:"40" %}
+                    'Alumno '+ '{{forloop.counter}}', 
+                {% endfor %} {% endcomment %}
+                
+
+            ],
+            datasets: [
+                {
+                    label: "Actividades Completas",
+                    backgroundColor: 'rgb(75, 192, 192)',//GREEN                   
+                    pointBorderColor: "#fff",
+                    data: [
+                        //CONNECT WITH BD:                       
+                        {% if ByC_School_CompleteVsIncomplete_Dictionary %}
+                            {% for elemento in ByC_School_CompleteVsIncomplete_Dictionary %}
+                                '{{elemento.Complete}}',
+                            {% endfor%}
+                        {% endif%} 
+                        
+                        //DUMMY VALUES:
+                        {% comment %} {% for item in "x"|ljust:"40" %}
+                            {{listOf25To42|random}}, 
+                        {% endfor %} {% endcomment %}
+                    ]
+                },
+                {
+                    label: "Actividades Incompletas",
+                    backgroundColor: 'rgb(255, 99, 132)', //RED                    
+                    pointBorderColor: "#fff",
+                    data: [
+                        //CONNECT WITH BD:                        
+                        {% if ByC_School_CompleteVsIncomplete_Dictionary %}
+                            {% for elemento in ByC_School_CompleteVsIncomplete_Dictionary %}
+                                '{{elemento.Incomplete}}',
+                            {% endfor%}
+                        {% endif%} 
+                        
+                        //DUMMY VALUES:
+                        {% comment %} {% for item in "x"|ljust:"40" %}
+                            {{listOf25To42|random}}, 
+                        {% endfor %} {% endcomment %}
+                    ]
+                }
+            ]
+        };
+        //3.3.- SUCCESS PERCENTAGE:
+        var ByC_School_SuccessPercentage_Data = {
+            labels: [
+                    //CONNECT WITH BD:
+                    
+                    "Porcentaje de Aciertos", "Porcentaje de Errores"
+                    
+
+                    //DUMMY VALUES:
+                    {% comment %} 
+                    {% for activity in activities_ByC %}
+                        '{{activity}}',
+                    {% endfor%} 
+                    {% endcomment %}
+                    
+            ],
+            datasets: 
+            [
+                {
+                    backgroundColor: ['rgb(75, 192, 192)','rgb(236,112,99)'],
+                    pointBorderColor: "#fff",
+                    data: [
+                        //CONNECT WITH BD:
+                        
+                        '{{ByC_School_Average_ParticularSuccess}}' , '{{ByC_School_Average_ParticularFailure}}' 
+                        
+
+                        //DUMMY VALUES:
+                        {% comment %} 
+                        {% for item in "x"|ljust:"4" %}
+                            {{listOfFirst50Numbers|random}}, 
+                        {% endfor %} 
+                        {% endcomment %}
+                    ]
+                }
+            ]
+        };
+        //3.4.- SUCCESS PERCENTAGE IN TIME:
+        var ByC_School_SuccessPercentageInTime_Data = {
+            labels: [
+                    {% if ByC_School_SuccessPercentageInTime_Dictionary %}
+                        {% for elemento in ByC_School_SuccessPercentageInTime_Dictionary %}
+                            '{{elemento.fecha}}',
+                        {% endfor%}
+                    {% endif%}
+                ],
+            datasets: [
+                {
+                    label: "Porcentaje de Aciertos",
+                    backgroundColor: 'rgb(0,188,212)',
+                    borderColor: "rgb(3,155,229)",
+                    pointBorderColor: "#fff",
+                    data: [
+                        {% if ByC_School_SuccessPercentageInTime_Dictionary %}
+                            {% for elemento in ByC_School_SuccessPercentageInTime_Dictionary %}
+                                '{{elemento.percentage}}',
+                            {% endfor%}
+                        {% endif%}
+                        ],
+                    fill: false,
+                    pointRadius:7,
+                    pointHoverRadius:10,
+                    showLine:true
+                }
+            ]
+        };    
+        //3.5.- NUMBER OF SUCCESS V/S FAILURE:
+        var ByC_School_SuccessVsFailure_Data = {
+            labels: [
+                //CONNECT WITH BD:                
+                {% if ByC_School_SuccessVsFailure_Dictionary %}
+                    {% for elemento in ByC_School_SuccessVsFailure_Dictionary %}
+                        '{{elemento.name}}',
+                    {% endfor%}
+                {% endif%} 
+               
+
+                //DUMMY VALUES:
+                {% comment %} {% for item in "x"|ljust:"40" %}
+                    'Alumno '+ '{{forloop.counter}}', 
+                {% endfor %}
+                 {% endcomment %}
+
+            ],
+            datasets: [
+                {
+                    label: "Aciertos",
+                    backgroundColor: 'rgb(75, 192, 192)',//GREEN                   
+                    pointBorderColor: "#fff",
+                    data: [
+                        //CONNECT WITH BD:                        
+                        {% if ByC_School_SuccessVsFailure_Dictionary %}
+                            {% for elemento in ByC_School_SuccessVsFailure_Dictionary %}
+                                '{{elemento.Success}}',
+                            {% endfor%}
+                        {% endif%} 
+                        
+                        //DUMMY VALUES:
+                        {% comment %} {% for item in "x"|ljust:"40" %}
+                            {{listOf25To42|random}}, 
+                        {% endfor %} {% endcomment %}
+                    ]
+                },
+                {
+                    label: "Errores",
+                    backgroundColor: 'rgb(255, 99, 132)', //RED                    
+                    pointBorderColor: "#fff",
+                    data: [
+                        //CONNECT WITH BD:                        
+                        {% if ByC_School_SuccessVsFailure_Dictionary %}
+                            {% for elemento in ByC_School_SuccessVsFailure_Dictionary %}
+                                '{{elemento.Failure}}',
+                            {% endfor%}
+                        {% endif%} 
+
+                        //DUMMY VALUES:
+                        {% comment %} {% for item in "x"|ljust:"40" %}
+                            {{listOf25To42|random}}, 
+                        {% endfor %} {% endcomment %}
+                    ]
+                }
+            ]
+        };
+        //3.6.- NUMBER OF SUCCESS V/S FAILURE (PARTICULAR SEATS):
+        var ByC_School_SuccessVsFailure_ParticularSeats_Data = {
+            labels: [
+                //CONNECT WITH BD:                
+                {% if ByC_School_SuccessVsFailure_ParticularSeats_Dictionary %}
+                    {% for elemento in ByC_School_SuccessVsFailure_ParticularSeats_Dictionary %}
+                        '{{elemento.name_assistant}}',
+                    {% endfor%}
+                {% endif%} 
+               
+
+                //DUMMY VALUES:
+                {% comment %} {% for item in "x"|ljust:"40" %}
+                    'Alumno '+ '{{forloop.counter}}', 
+                {% endfor %}
+                {% endcomment %}
+
+            ],
+            datasets: [
+                {
+                    label: "Aciertos",
+                    backgroundColor: 'rgb(75, 192, 192)',//GREEN                   
+                    pointBorderColor: "#fff",
+                    data: [
+                        //CONNECT WITH BD:                        
+                        {% if ByC_School_SuccessVsFailure_ParticularSeats_Dictionary %}
+                            {% for elemento in ByC_School_SuccessVsFailure_ParticularSeats_Dictionary %}
+                                '{{elemento.Success}}',
+                            {% endfor%}
+                        {% endif%} 
+                        
+                        //DUMMY VALUES:
+                        {% comment %} {% for item in "x"|ljust:"40" %}
+                            {{listOf25To42|random}}, 
+                        {% endfor %} {% endcomment %}
+                    ]
+                },
+                {
+                    label: "Errores",
+                    backgroundColor: 'rgb(255, 99, 132)', //RED                    
+                    pointBorderColor: "#fff",
+                    data: [
+                        //CONNECT WITH BD:                        
+                        {% if ByC_School_SuccessVsFailure_ParticularSeats_Dictionary %}
+                            {% for elemento in ByC_School_SuccessVsFailure_ParticularSeats_Dictionary %}
+                                '{{elemento.Failure}}',
+                            {% endfor%}
+                        {% endif%} 
+
+                        //DUMMY VALUES:
+                        {% comment %} {% for item in "x"|ljust:"40" %}
+                            {{listOf25To42|random}}, 
+                        {% endfor %} {% endcomment %}
+                    ]
+                }
+            ]
+        };
+        //4.- TAXI:
+        //4.1.- MAXIMUM NUMBER OF STUDENTS:
+        var ByC_Taxi_NumberOfEntrances_Data = {
+            labels: [
+                //CONNECT WITH BD:
+                {% if ByC_Taxi_NumberOfEntrances_Dictionary %}
+                    {% for element in ByC_Taxi_NumberOfEntrances_Dictionary %}
+                        '{{element.name}}',
+                    {% endfor%}
+                {% endif%} 
+                
+
+                //DUMMY VALUES:
+                {% comment %} 
+                {% for item in "x"|ljust:"40" %}
+                    'Alumno '+ '{{forloop.counter}}', 
+                {% endfor %} 
+                {% endcomment %}
+                
+
+            ],
+            datasets: [
+                {
+                    label: "Cantidad de ingresos a la Actividad Taxi",
+                    backgroundColor: 'rgb(253,216,53)',
+                    pointBorderColor: "#fff",
+                    data: [
+                        //CONNECT WITH BD:                        
+                        {% if ByC_Taxi_NumberOfEntrances_Dictionary %}
+                            {% for elemento in ByC_Taxi_NumberOfEntrances_Dictionary %}
+                                '{{elemento.numberOfEntrances}}',
+                            {% endfor%}
+                        {% endif%} 
+                        
+                        //DUMMY VALUES:
+                        {% comment %} 
+                        {% for item in "x"|ljust:"40" %}
+                            {{listOf25To42|random}}, 
+                        {% endfor %} 
+                        {% endcomment %}
+                    ]
+                }
+            ]
+        };
+        
+        //4.2.- ACTIVITY COMPLETE V/S INCOMPLETE:
+        var ByC_Taxi_CompleteVsIncomplete_Data = {
+            labels: [
+                //CONNECT WITH BD:
+                
+                {% if ByC_Taxi_CompleteVsIncomplete_Dictionary %}
+                    {% for elemento in ByC_Taxi_CompleteVsIncomplete_Dictionary %}
+                        '{{elemento.name}}',
+                    {% endfor%}
+                {% endif%} 
+                
+
+                //DUMMY VALUES:
+                {% comment %} {% for item in "x"|ljust:"40" %}
+                    'Alumno '+ '{{forloop.counter}}', 
+                {% endfor %} {% endcomment %}
+                
+
+            ],
+            datasets: [
+                {
+                    label: "Actividades Completas",
+                    backgroundColor: 'rgb(75, 192, 192)',//GREEN                   
+                    pointBorderColor: "#fff",
+                    data: [
+                        //CONNECT WITH BD:                       
+                        {% if ByC_Taxi_CompleteVsIncomplete_Dictionary %}
+                            {% for elemento in ByC_Taxi_CompleteVsIncomplete_Dictionary %}
+                                '{{elemento.Complete}}',
+                            {% endfor%}
+                        {% endif%} 
+                        
+                        //DUMMY VALUES:
+                        {% comment %} {% for item in "x"|ljust:"40" %}
+                            {{listOf25To42|random}}, 
+                        {% endfor %} {% endcomment %}
+                    ]
+                },
+                {
+                    label: "Actividades Incompletas",
+                    backgroundColor: 'rgb(255, 99, 132)', //RED                    
+                    pointBorderColor: "#fff",
+                    data: [
+                        //CONNECT WITH BD:                        
+                        {% if ByC_Taxi_CompleteVsIncomplete_Dictionary %}
+                            {% for elemento in ByC_Taxi_CompleteVsIncomplete_Dictionary %}
+                                '{{elemento.Incomplete}}',
+                            {% endfor%}
+                        {% endif%} 
+                        
+                        //DUMMY VALUES:
+                        {% comment %} {% for item in "x"|ljust:"40" %}
+                            {{listOf25To42|random}}, 
+                        {% endfor %} {% endcomment %}
+                    ]
+                }
+            ]
+        };
+        //4.3.- SUCCESS PERCENTAGE:
+        var ByC_Taxi_SuccessPercentage_Data = {
+            labels: [
+                    //CONNECT WITH BD:
+                    
+                    "Porcentaje de Aciertos", "Porcentaje de Errores"
+                    
+
+                    //DUMMY VALUES:
+                    {% comment %} 
+                    {% for activity in activities_ByC %}
+                        '{{activity}}',
+                    {% endfor%} 
+                    {% endcomment %}
+                    
+            ],
+            datasets: 
+            [
+                {
+                    backgroundColor: ['rgb(75, 192, 192)','rgb(236,112,99)'],
+                    pointBorderColor: "#fff",
+                    data: [
+                        //CONNECT WITH BD:
+                        
+                        '{{ByC_Taxi_Average_ParticularSuccess}}' , '{{ByC_Taxi_Average_ParticularFailure}}' 
+                        
+
+                        //DUMMY VALUES:
+                        {% comment %} 
+                        {% for item in "x"|ljust:"4" %}
+                            {{listOfFirst50Numbers|random}}, 
+                        {% endfor %} 
+                        {% endcomment %}
+                    ]
+                }
+            ]
+        };
+        //4.4.- SUCCESS PERCENTAGE IN TIME:
+        var ByC_Taxi_SuccessPercentageInTime_Data = {
+            labels: [
+                    {% if ByC_Taxi_SuccessPercentageInTime_Dictionary %}
+                        {% for elemento in ByC_Taxi_SuccessPercentageInTime_Dictionary %}
+                            '{{elemento.fecha}}',
+                        {% endfor%}
+                    {% endif%}
+                ],
+            datasets: [
+                {
+                    label: "Porcentaje de Aciertos",
+                    backgroundColor: 'rgb(0,188,212)',
+                    borderColor: "rgb(3,155,229)",
+                    pointBorderColor: "#fff",
+                    data: [
+                        {% if ByC_Taxi_SuccessPercentageInTime_Dictionary %}
+                            {% for elemento in ByC_Taxi_SuccessPercentageInTime_Dictionary %}
+                                '{{elemento.percentage}}',
+                            {% endfor%}
+                        {% endif%}
+                        ],
+                    fill: false,
+                    pointRadius:7,
+                    pointHoverRadius:10,
+                    showLine:true
+                }
+            ]
+        };    
+        //4.5.- NUMBER OF SUCCESS V/S FAILURE:
+        var ByC_Taxi_SuccessVsFailure_Data = {
+            labels: [
+                //CONNECT WITH BD:                
+                {% if ByC_Taxi_SuccessVsFailure_Dictionary %}
+                    {% for elemento in ByC_Taxi_SuccessVsFailure_Dictionary %}
+                        '{{elemento.name}}',
+                    {% endfor%}
+                {% endif%} 
+               
+
+                //DUMMY VALUES:
+                {% comment %} {% for item in "x"|ljust:"40" %}
+                    'Alumno '+ '{{forloop.counter}}', 
+                {% endfor %}
+                 {% endcomment %}
+
+            ],
+            datasets: [
+                {
+                    label: "Aciertos",
+                    backgroundColor: 'rgb(75, 192, 192)',//GREEN                   
+                    pointBorderColor: "#fff",
+                    data: [
+                        //CONNECT WITH BD:                        
+                        {% if ByC_Taxi_SuccessVsFailure_Dictionary %}
+                            {% for elemento in ByC_Taxi_SuccessVsFailure_Dictionary %}
+                                '{{elemento.Success}}',
+                            {% endfor%}
+                        {% endif%} 
+                        
+                        //DUMMY VALUES:
+                        {% comment %} {% for item in "x"|ljust:"40" %}
+                            {{listOf25To42|random}}, 
+                        {% endfor %} {% endcomment %}
+                    ]
+                },
+                {
+                    label: "Errores",
+                    backgroundColor: 'rgb(255, 99, 132)', //RED                    
+                    pointBorderColor: "#fff",
+                    data: [
+                        //CONNECT WITH BD:                        
+                        {% if ByC_Taxi_SuccessVsFailure_Dictionary %}
+                            {% for elemento in ByC_Taxi_SuccessVsFailure_Dictionary %}
+                                '{{elemento.Failure}}',
+                            {% endfor%}
+                        {% endif%} 
+
+                        //DUMMY VALUES:
+                        {% comment %} {% for item in "x"|ljust:"40" %}
+                            {{listOf25To42|random}}, 
+                        {% endfor %} {% endcomment %}
+                    ]
+                }
+            ]
+        };
+        //4.6.- NUMBER OF SUCCESS V/S FAILURE (PARTICULAR SEATS):
+        var ByC_Taxi_SuccessVsFailure_ParticularSeats_Data = {
+            labels: [
+                //CONNECT WITH BD:                
+                {% if ByC_Taxi_SuccessVsFailure_ParticularSeats_Dictionary %}
+                    {% for elemento in ByC_Taxi_SuccessVsFailure_ParticularSeats_Dictionary %}
+                        '{{elemento.name_assistant}}',
+                    {% endfor%}
+                {% endif%} 
+               
+
+                //DUMMY VALUES:
+                {% comment %} {% for item in "x"|ljust:"40" %}
+                    'Alumno '+ '{{forloop.counter}}', 
+                {% endfor %}
+                {% endcomment %}
+
+            ],
+            datasets: [
+                {
+                    label: "Aciertos",
+                    backgroundColor: 'rgb(75, 192, 192)',//GREEN                   
+                    pointBorderColor: "#fff",
+                    data: [
+                        //CONNECT WITH BD:                        
+                        {% if ByC_Taxi_SuccessVsFailure_ParticularSeats_Dictionary %}
+                            {% for elemento in ByC_Taxi_SuccessVsFailure_ParticularSeats_Dictionary %}
+                                '{{elemento.Success}}',
+                            {% endfor%}
+                        {% endif%} 
+                        
+                        //DUMMY VALUES:
+                        {% comment %} {% for item in "x"|ljust:"40" %}
+                            {{listOf25To42|random}}, 
+                        {% endfor %} {% endcomment %}
+                    ]
+                },
+                {
+                    label: "Errores",
+                    backgroundColor: 'rgb(255, 99, 132)', //RED                    
+                    pointBorderColor: "#fff",
+                    data: [
+                        //CONNECT WITH BD:                        
+                        {% if ByC_Taxi_SuccessVsFailure_ParticularSeats_Dictionary %}
+                            {% for elemento in ByC_Taxi_SuccessVsFailure_ParticularSeats_Dictionary %}
+                                '{{elemento.Failure}}',
+                            {% endfor%}
+                        {% endif%} 
+
+                        //DUMMY VALUES:
+                        {% comment %} {% for item in "x"|ljust:"40" %}
+                            {{listOf25To42|random}}, 
+                        {% endfor %} {% endcomment %}
+                    ]
+                }
+            ]
+        };
+        
+    
+
+        ////////////////////
+        //GRAPH OPTIONS:
+        ////////////////////
+        var ByC_PieOptions = {      
+            scale: {
+                    angleLines: {
+                        display: false
+                    },
+                    ticks: {
+                        suggestedMin: 0,
+                        suggestedMax: 5
+                    }
+                }
+            };
+        var ByC_HorizontalBarOptions = {
+            animation: false,
+            isFixedWidth:true,
+            barWidth:50,
+            barValueSpacing: 1,
+            scales: {
+                xAxes:[{
+                    ticks: {
+                        min: 0,
+                        callback: function(value, index, values) {
+                            if (Math.floor(value) === value) {
+                                return value;
+                            }
+                        }
+                    },                   
+                }],
+                
+            },
+            display: true,
+        };
+
+        var ByC_HorizontalBarOptionsWithAverage = {
+            animation: false,
+            isFixedWidth:true,
+            barWidth:50,
+            barValueSpacing: 1,
+            lineAtIndex: '{{ByC_Cinema_Average_Success}}',  
+            lineAtIndex1: '{{ByC_Cinema_Average_Failure}}',
+            scales: {
+                xAxes:[{
+                    ticks: {
+                        min: 0,
+                        callback: function(value, index, values) {
+                            if (Math.floor(value) === value) {
+                                return value;
+                            }
+                        }
+                    },                   
+                }],
+                
+            },
+            display: true,
+        };
+
+        var ByC_HorizontalBarOptionsWithAverageSchool = {
+            animation: false,
+            isFixedWidth:true,
+            barWidth:50,
+            barValueSpacing: 1,
+            lineAtIndex: '{{ByC_School_Average_Success}}',  
+            lineAtIndex1: '{{ByC_School_Average_Failure}}',
+            scales: {
+                xAxes:[{
+                    ticks: {
+                        min: 0,
+                        callback: function(value, index, values) {
+                            if (Math.floor(value) === value) {
+                                return value;
+                            }
+                        }
+                    },                   
+                }],
+                
+            },
+            display: true,
+        };
+
+        var ByC_HorizontalBarOptionsWithAverageTaxi = {
+            animation: false,
+            isFixedWidth:true,
+            barWidth:50,
+            barValueSpacing: 1,
+            lineAtIndex: '{{ByC_Taxi_Average_Success}}',  
+            lineAtIndex1: '{{ByC_Taxi_Average_Failure}}',
+            scales: {
+                xAxes:[{
+                    ticks: {
+                        min: 0,
+                        callback: function(value, index, values) {
+                            if (Math.floor(value) === value) {
+                                return value;
+                            }
+                        }
+                    },                   
+                }],
+                
+            },
+            display: true,
+        };
+
+        
+
+        var ByC_HorizontalBarOptionsStacked = {
+            animation: false,
+            isFixedWidth:true,
+            barWidth:50,
+            barValueSpacing: 1,
+            scales: {
+                xAxes:[{
+                    
+                    ticks: {
+                        min: 0,
+                        callback: function(value, index, values) {
+                            if (Math.floor(value) === value) {
+                                return value;
+                            }
+                        }
+                    },                   
+                }],
+
+            },
+            display: true,
+        };
+
+        var ByC_LineOptions = {
+            animation: false,
+            scales: {
+                xAxes:[{
+                    stacked:true,
+                    ticks: {
+                        min: 0
+                    }
+                }],
+                yAxes:[{
+                    stacked:false,
+                    ticks: {
+                        min: 0,
+                        max: 100
+                    }
+                }]
+            },
+            display: true
+
+        };
+
+        
+
+        //APPLY GRAPH SETTINGS:
+        //GENERAL RESULTS:
+        if ($('#ByC_PlayTime').length){
+            var ctx = document.getElementById("ByC_PlayTime").getContext("2d");
+            new Chart(ctx, {type: 'horizontalBar', data: ByC_PlayTime_Data, options: ByC_HorizontalBarOptions } );
+        }
+
+        if ($('#ByC_TouchCountInGame').length){
+            var ctx = document.getElementById("ByC_TouchCountInGame").getContext("2d");
+            new Chart(ctx, {type: 'horizontalBar', data: ByC_TouchCountInGame_Data, options: ByC_HorizontalBarOptions } );
+        }
+
+        if ($('#ByC_NumberOfSessions').length){
+            var ctx = document.getElementById("ByC_NumberOfSessions").getContext("2d");
+            new Chart(ctx, {type: 'horizontalBar', data: ByC_NumberOfSessions_Data, options: ByC_HorizontalBarOptions } );
+        }
+
+        if ($('#ByC_ActivityPreference').length){
+            var ctx28 = document.getElementById("ByC_ActivityPreference").getContext("2d");
+            new Chart(ctx28, {type: 'pie', data: ByC_ActivityPreference_Data, options: ByC_PieOptions});
+        } 
+
+        //ACTIVITY 1: BUILDING MAP:
+        if ($('#ByC_BuildingMap_BuiltElementsCounter').length){
+            var ctx22 = document.getElementById("ByC_BuildingMap_BuiltElementsCounter").getContext("2d");
+            var myChart = new Chart(ctx22, {type: 'horizontalBar', data: ByC_BuildingMap_BuiltElementsCounter_Data, options:ByC_HorizontalBarOptions});
+
+            var colorChangeValue = 50; //set this to whatever is the deciding color change value
+            
+            var labels = myChart.data.labels;
+            var dataset = myChart.data.datasets[0];
+                        
+            for (var i = 0; i < labels.length; i++) {
+                if (labels[i] === "Casa Azul" || labels[i] === "Casa Roja" || labels[i] === "Casa Verde" || labels[i] === "Edificio Azul") {
+                    dataset.backgroundColor[i] = 'rgb(236,112,99)';
+                }
+                else if  (labels[i] === "Taxi" || labels[i] === "Policia" || labels[i] === "Ambulancia" || labels[i] === "Camion de Bomberos"){
+                    dataset.backgroundColor[i] = 'rgb(93,173,226)';
+                }
+                else{
+                    dataset.backgroundColor[i] = 'rgb(175,122,197)';
+                }
+            }
+            myChart.update();
+        }
+
+        if ($('#ByC_BuildingMap_TimeCounter').length){
+            var ctx = document.getElementById("ByC_BuildingMap_TimeCounter").getContext("2d");
+            new Chart(ctx, {type: 'horizontalBar', data: ByC_BuildingMap_TimeCounter_Data, options: ByC_HorizontalBarOptions } );
+        }
+
+        if ($('#ByC_BuildingMap_BuiltElementsCounterPerCategory').length){
+            var ctx17 = document.getElementById("ByC_BuildingMap_BuiltElementsCounterPerCategory").getContext("2d");
+            new Chart(ctx17, {type: 'horizontalBar', data: ByC_BuildingMap_BuiltElementsCounterPerCategory_Data, options:ByC_HorizontalBarOptions})
+        
+        }
+
+        //ACTIVITY 2: CINEMA:
+        
+        if ($('#ByC_Cinema_NumberOfEntrances').length){
+            var ctx17 = document.getElementById("ByC_Cinema_NumberOfEntrances").getContext("2d");
+            new Chart(ctx17, {type: 'horizontalBar', data: ByC_Cinema_NumberOfEntrances_Data, options:ByC_HorizontalBarOptions});
+        }
+
+        if ($('#ByC_Cinema_SuccessPercentage').length){
+            var ctx17 = document.getElementById("ByC_Cinema_SuccessPercentage").getContext("2d");
+            new Chart(ctx17, {type: 'pie', data: ByC_Cinema_SuccessPercentage_Data, options:ByC_PieOptions});
+        }
+        
+        if ($('#ByC_Cinema_SuccessPercentageInTime').length){
+            var ctx17 = document.getElementById("ByC_Cinema_SuccessPercentageInTime").getContext("2d");
+            new Chart(ctx17, {type: 'line', data: ByC_Cinema_SuccessPercentageInTime_Data, options:ByC_LineOptions});
+        }
+
+        if ($('#ByC_Cinema_CompleteVsIncomplete').length){
+            var ctx17 = document.getElementById("ByC_Cinema_CompleteVsIncomplete").getContext("2d");
+            new Chart(ctx17, {type: 'horizontalBar', data: ByC_Cinema_CompleteVsIncomplete_Data, options:ByC_HorizontalBarOptionsStacked});
+        }
+
+        if ($('#ByC_Cinema_SuccessVsFailure').length){
+            var ctx17 = document.getElementById("ByC_Cinema_SuccessVsFailure").getContext("2d");
+            new Chart(ctx17, {type: 'horizontalBar', data: ByC_Cinema_SuccessVsFailure_Data, options:ByC_HorizontalBarOptionsWithAverage});
+        }
+
+        if ($('#ByC_Cinema_SuccessVsFailure_ParticularSeats').length){
+            var ctx17 = document.getElementById("ByC_Cinema_SuccessVsFailure_ParticularSeats").getContext("2d");
+            new Chart(ctx17, {type: 'horizontalBar', data: ByC_Cinema_SuccessVsFailure_ParticularSeats_Data, options:ByC_HorizontalBarOptionsStacked});
+        }
+
+        if ($('#ByC_Cinema_MaxTimeWithoutFail').length){
+            var ctx17 = document.getElementById("ByC_Cinema_MaxTimeWithoutFail").getContext("2d");
+            new Chart(ctx17, {type: 'horizontalBar', data: ByC_Cinema_MaxTimeWithoutFail_Data, options:ByC_HorizontalBarOptions});
+        }
+
+        //ACTIVITY 3: SCHOOL:
+        if ($('#ByC_School_NumberOfEntrances').length){
+            var ctx17 = document.getElementById("ByC_School_NumberOfEntrances").getContext("2d");
+            new Chart(ctx17, {type: 'horizontalBar', data: ByC_School_NumberOfEntrances_Data, options:ByC_HorizontalBarOptions});
+        }
+
+        if ($('#ByC_School_SuccessPercentage').length){
+            var ctx17 = document.getElementById("ByC_School_SuccessPercentage").getContext("2d");
+            new Chart(ctx17, {type: 'pie', data: ByC_School_SuccessPercentage_Data, options:ByC_PieOptions});
+        }
+        
+        if ($('#ByC_School_SuccessPercentageInTime').length){
+            var ctx17 = document.getElementById("ByC_School_SuccessPercentageInTime").getContext("2d");
+            new Chart(ctx17, {type: 'line', data: ByC_School_SuccessPercentageInTime_Data, options:ByC_LineOptions});
+        }
+
+        if ($('#ByC_School_CompleteVsIncomplete').length){
+            var ctx17 = document.getElementById("ByC_School_CompleteVsIncomplete").getContext("2d");
+            new Chart(ctx17, {type: 'horizontalBar', data: ByC_School_CompleteVsIncomplete_Data, options:ByC_HorizontalBarOptionsStacked});
+        }
+
+        if ($('#ByC_School_SuccessVsFailure').length){
+            var ctx17 = document.getElementById("ByC_School_SuccessVsFailure").getContext("2d");
+            new Chart(ctx17, {type: 'horizontalBar', data: ByC_School_SuccessVsFailure_Data, options:ByC_HorizontalBarOptionsWithAverageSchool});
+        }
+
+        if ($('#ByC_School_SuccessVsFailure_ParticularSeats').length){
+            var ctx17 = document.getElementById("ByC_School_SuccessVsFailure_ParticularSeats").getContext("2d");
+            new Chart(ctx17, {type: 'horizontalBar', data: ByC_School_SuccessVsFailure_ParticularSeats_Data, options:ByC_HorizontalBarOptionsStacked});
+        }
+
+        if ($('#ByC_School_MaxTimeWithoutFail').length){
+            var ctx17 = document.getElementById("ByC_School_MaxTimeWithoutFail").getContext("2d");
+            new Chart(ctx17, {type: 'horizontalBar', data: ByC_School_MaxTimeWithoutFail_Data, options:ByC_HorizontalBarOptions});
+        }
+
+        //ACTIVITY 4: TAXI:
+        if ($('#ByC_Taxi_NumberOfEntrances').length){
+            var ctx17 = document.getElementById("ByC_Taxi_NumberOfEntrances").getContext("2d");
+            new Chart(ctx17, {type: 'horizontalBar', data: ByC_Taxi_NumberOfEntrances_Data, options:ByC_HorizontalBarOptions});
+        }
+
+        if ($('#ByC_Taxi_SuccessPercentage').length){
+            var ctx17 = document.getElementById("ByC_Taxi_SuccessPercentage").getContext("2d");
+            new Chart(ctx17, {type: 'pie', data: ByC_Taxi_SuccessPercentage_Data, options:ByC_PieOptions});
+        }
+        
+        if ($('#ByC_Taxi_SuccessPercentageInTime').length){
+            var ctx17 = document.getElementById("ByC_Taxi_SuccessPercentageInTime").getContext("2d");
+            new Chart(ctx17, {type: 'line', data: ByC_Taxi_SuccessPercentageInTime_Data, options:ByC_LineOptions});
+        }
+
+        if ($('#ByC_Taxi_CompleteVsIncomplete').length){
+            var ctx17 = document.getElementById("ByC_Taxi_CompleteVsIncomplete").getContext("2d");
+            new Chart(ctx17, {type: 'horizontalBar', data: ByC_Taxi_CompleteVsIncomplete_Data, options:ByC_HorizontalBarOptionsStacked});
+        }
+
+        if ($('#ByC_Taxi_SuccessVsFailure').length){
+            var ctx17 = document.getElementById("ByC_Taxi_SuccessVsFailure").getContext("2d");
+            new Chart(ctx17, {type: 'horizontalBar', data: ByC_Taxi_SuccessVsFailure_Data, options:ByC_HorizontalBarOptionsWithAverageTaxi});
+        }
+
+        if ($('#ByC_Taxi_SuccessVsFailure_ParticularSeats').length){
+            var ctx17 = document.getElementById("ByC_Taxi_SuccessVsFailure_ParticularSeats").getContext("2d");
+            new Chart(ctx17, {type: 'horizontalBar', data: ByC_Taxi_SuccessVsFailure_ParticularSeats_Data, options:ByC_HorizontalBarOptionsStacked});
+        }
+
+        if ($('#ByC_Taxi_MaxTimeWithoutFail').length){
+            var ctx17 = document.getElementById("ByC_Taxi_MaxTimeWithoutFail").getContext("2d");
+            new Chart(ctx17, {type: 'horizontalBar', data: ByC_Taxi_MaxTimeWithoutFail_Data, options:ByC_HorizontalBarOptions});
+        }
+
+        
+
+
+
+
+        
+
+        
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////FIN BUILD YOUR CITY//////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
         //TIEMPO DE JUEGO GENERAL
         var stackedData = {
             labels:
