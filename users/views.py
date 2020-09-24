@@ -24,7 +24,7 @@ def welcome(request):
 
     # Si estamos identificados devolvemos la portada
     if request.user.is_authenticated:
-        
+
         cursor = get_from_db()
         queries = []
 
@@ -33,13 +33,16 @@ def welcome(request):
         activate_course_filter = False
         if request.GET.get('course') and request.GET.get('course') != "0":
             activate_course_filter = True
-            course_filter = ' AND pertenece.curso_id='+ request.GET.get('course')
-  
-        cursor.execute('SELECT colegio.id, colegio.nombre FROM pertenece INNER JOIN usuario ON pertenece.usuario_id = usuario.id INNER JOIN colegio ON pertenece.colegio_id = colegio.id WHERE usuario.username="' + request.user.username + '" GROUP BY colegio.id')
+            course_filter = ' AND pertenece.curso_id=' + request.GET.get(
+                'course')
+
+        cursor.execute(
+            'SELECT colegio.id, colegio.nombre FROM pertenece INNER JOIN usuario ON pertenece.usuario_id = usuario.id INNER JOIN colegio ON pertenece.colegio_id = colegio.id WHERE usuario.username="'
+            + request.user.username + '" GROUP BY colegio.id')
         schools = cursor.fetchall()
         schools_response = []
         for row in schools:
-            schools_response.append({ 'id': row[0], 'name': row[1] })
+            schools_response.append({'id': row[0], 'name': row[1]})
 
         #Reim selector
         course_filter = ''
@@ -48,51 +51,64 @@ def welcome(request):
         activate_course_filter = False
         if request.GET.get('course') and request.GET.get('course') != "0":
             activate_course_filter = True
-            course_filter = 'where curso_id ='+ request.GET.get('course')
-         
+            course_filter = 'where curso_id =' + request.GET.get('course')
+
         #cursor.execute('SELECT DISTINCT reim.id, reim.nombre from actividad inner join reim on id_reim = reim.id inner join asigna_reim on reim_id = reim_id inner join pertenece on asigna_reim.colegio_id = pertenece.colegio_id  inner join colegio on asigna_reim.colegio_id = colegio.id inner join curso on asigna_reim.curso_id = curso.id  inner join usuario on pertenece.usuario_id = usuario.id where usuario.username ="' + request.user.username + '"' + course_filter +' GROUP BY reim.id')
-        cursor.execute('SELECT DISTINCT reim.id, reim.nombre from asigna_reim inner join reim on reim_id = reim.id '+ course_filter +' GROUP BY reim.id')
+        cursor.execute(
+            'SELECT DISTINCT reim.id, reim.nombre from asigna_reim inner join reim on reim_id = reim.id '
+            + course_filter + ' GROUP BY reim.id')
         reims = cursor.fetchall()
         reims_response = []
         for row in reims:
-            reims_response.append({ 'id': row[0], 'name': row[1] })
+            reims_response.append({'id': row[0], 'name': row[1]})
 
         #Course selector
         school_filter = ''
         activate_school_filter = False
         if request.GET.get('school') and request.GET.get('school') != "0":
             activate_school_filter = True
-            school_filter = ' AND pertenece.colegio_id='+ request.GET.get('school')
-            
-        cursor.execute('SELECT curso.id, concat(nivel.nombre, " ",curso.nombre) as Nivelcurso FROM pertenece INNER JOIN usuario ON pertenece.usuario_id = usuario.id INNER JOIN curso ON pertenece.curso_id = curso.id INNER JOIN nivel ON pertenece.nivel_id = nivel.id WHERE usuario.username ="' + request.user.username + '"' + school_filter +' GROUP BY curso.id')
+            school_filter = ' AND pertenece.colegio_id=' + request.GET.get(
+                'school')
+
+        cursor.execute(
+            'SELECT curso.id, concat(nivel.nombre, " ",curso.nombre) as Nivelcurso FROM pertenece INNER JOIN usuario ON pertenece.usuario_id = usuario.id INNER JOIN curso ON pertenece.curso_id = curso.id INNER JOIN nivel ON pertenece.nivel_id = nivel.id WHERE usuario.username ="'
+            + request.user.username + '"' + school_filter +
+            ' GROUP BY curso.id')
         courses = cursor.fetchall()
         courses_response = []
         for row in courses:
-            courses_response.append({ 'id': row[0], 'name': row[1] })
+            courses_response.append({'id': row[0], 'name': row[1]})
 
         #Activity selector
         reim_filter = ''
         activate_reim_filter = False
         if request.GET.get('reim') and request.GET.get('reim') != "0":
             activate_reim_filter = True
-            reim_filter = ' AND actividad.id_reim='+ request.GET.get('reim')
-         
-        cursor.execute('SELECT DISTINCT actividad.id, actividad.nombre from asigna_reim inner join actividad on reim_id = reim_id inner join pertenece on asigna_reim.colegio_id = pertenece.colegio_id  inner join colegio on asigna_reim.colegio_id = colegio.id inner join curso on asigna_reim.curso_id = curso.id  inner join usuario on pertenece.usuario_id = usuario.id where usuario.username ="' + request.user.username + '"' + reim_filter +' GROUP BY actividad.id')
+            reim_filter = ' AND actividad.id_reim=' + request.GET.get('reim')
+
+        cursor.execute(
+            'SELECT DISTINCT actividad.id, actividad.nombre from asigna_reim inner join actividad on reim_id = reim_id inner join pertenece on asigna_reim.colegio_id = pertenece.colegio_id  inner join colegio on asigna_reim.colegio_id = colegio.id inner join curso on asigna_reim.curso_id = curso.id  inner join usuario on pertenece.usuario_id = usuario.id where usuario.username ="'
+            + request.user.username + '"' + reim_filter +
+            ' GROUP BY actividad.id')
         activities = cursor.fetchall()
         activities_response = []
         for row in activities:
-            activities_response.append({ 'id': row[0], 'name': row[1] })
+            activities_response.append({'id': row[0], 'name': row[1]})
 
         #Game time
         time_query = get_time_query(request)
         #print(time_query)
-        queries.append({"name": 'Time query', "query": time_query })
+        queries.append({"name": 'Time query', "query": time_query})
         cursor.execute(time_query)
         game_time = cursor.fetchall()
         game_time_response = []
         for row in game_time:
-            game_time_response.append({ 'id': row[0], 'name': row[1], 'time': row[2] })
-        game_time_graph = len(game_time)*40+20
+            game_time_response.append({
+                'id': row[0],
+                'name': row[1],
+                'time': row[2]
+            })
+        game_time_graph = len(game_time) * 40 + 20
 
         #Touch
         touch_query = get_touch_query(request)
@@ -101,8 +117,12 @@ def welcome(request):
         touch_quantity = cursor.fetchall()
         touch_quantity_response = []
         for row in touch_quantity:
-            touch_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
-        touch_quantity_graph = len(touch_quantity)*40+20
+            touch_quantity_response.append({
+                'id': row[0],
+                'name': row[1],
+                'quantity': row[2]
+            })
+        touch_quantity_graph = len(touch_quantity) * 40 + 20
 
         #Cantidad de Usuarios
         cant_usuarios = get_alumnos(request)
@@ -115,20 +135,26 @@ def welcome(request):
             activate_activity_filter = False
         #REIM SELECCIONADO
         reim_num = request.GET.get('reim')
-        
+
         student_num = request.GET.get('student')
         students_response = []
         if request.GET.get('school') and request.GET.get('school') != '0':
             if request.GET.get('course') and request.GET.get('course') != '0':
-                cursor.execute('SELECT DISTINCT u.id, concat(u.nombres ," " , u.apellido_paterno ," " , u.apellido_materno) as nombre FROM alumno_respuesta_actividad a, usuario u, pertenece b WHERE a.id_user = u.id && b.usuario_id = a.id_user && b.colegio_id IN (SELECT colegio_id from pertenece INNER JOIN usuario ON usuario.id = pertenece.usuario_id WHERE username="' + request.user.username + '")' + 'AND b.curso_id IN (SELECT curso_id FROM pertenece WHERE usuario_id = (SELECT id FROM usuario WHERE username ="' + request.user.username + '"))' + 'AND a.id_reim="' + request.GET.get('reim') + '"' + 'AND b.curso_id ="' + request.GET.get('course') + '"' + 'AND b.colegio_id ="' + request.GET.get('school') + '";')
+                cursor.execute(
+                    'SELECT DISTINCT u.id, concat(u.nombres ," " , u.apellido_paterno ," " , u.apellido_materno) as nombre FROM alumno_respuesta_actividad a, usuario u, pertenece b WHERE a.id_user = u.id && b.usuario_id = a.id_user && b.colegio_id IN (SELECT colegio_id from pertenece INNER JOIN usuario ON usuario.id = pertenece.usuario_id WHERE username="'
+                    + request.user.username + '")' +
+                    'AND b.curso_id IN (SELECT curso_id FROM pertenece WHERE usuario_id = (SELECT id FROM usuario WHERE username ="'
+                    + request.user.username + '"))' + 'AND a.id_reim="' +
+                    request.GET.get('reim') + '"' + 'AND b.curso_id ="' +
+                    request.GET.get('course') + '"' + 'AND b.colegio_id ="' +
+                    request.GET.get('school') + '";')
                 students = cursor.fetchall()
                 for row in students:
-                    students_response.append({ 'id': row[0], 'name': row[1] })
+                    students_response.append({'id': row[0], 'name': row[1]})
 
-
-		#####BEGIN BUILD YOUR CITY#####
-        #DEFINITIONS:
-        ##DICTIONARYS:
+#####BEGIN BUILD YOUR CITY#####
+#DEFINITIONS:
+##DICTIONARYS:
         ByC_numberOfSessions_Dictionary = []
         ByC_playTime_Dictionary = []
         ByC_touchCount_Dictionary = []
@@ -146,7 +172,7 @@ def welcome(request):
         ByC_Cinema_Count_Failure = 0
         ByC_Cinema_Average_Success = 0
         ByC_Cinema_Average_Failure = 0
-        ByC_Cinema_Count_ParticularAttempts = 0        
+        ByC_Cinema_Count_ParticularAttempts = 0
         ByC_Cinema_Count_ParticularSuccess = 0
         ByC_Cinema_Count_ParticularFailure = 0
         ByC_Cinema_Average_ParticularSuccess = 0
@@ -162,7 +188,7 @@ def welcome(request):
         ByC_School_Count_Failure = 0
         ByC_School_Average_Success = 0
         ByC_School_Average_Failure = 0
-        ByC_School_Count_ParticularAttempts = 0        
+        ByC_School_Count_ParticularAttempts = 0
         ByC_School_Count_ParticularSuccess = 0
         ByC_School_Count_ParticularFailure = 0
         ByC_School_Average_ParticularSuccess = 0
@@ -178,13 +204,12 @@ def welcome(request):
         ByC_Taxi_Count_Failure = 0
         ByC_Taxi_Average_Success = 0
         ByC_Taxi_Average_Failure = 0
-        ByC_Taxi_Count_ParticularAttempts = 0        
+        ByC_Taxi_Count_ParticularAttempts = 0
         ByC_Taxi_Count_ParticularSuccess = 0
         ByC_Taxi_Count_ParticularFailure = 0
         ByC_Taxi_Average_ParticularSuccess = 0
         ByC_Taxi_Average_ParticularFailure = 0
         ByC_Taxi_TotalAttempts = 0
-
 
         ##GRAPHS SIZE:
         ByC_numberOfSessions_GraphSize = 0
@@ -206,29 +231,43 @@ def welcome(request):
         ByC_Taxi_SuccessVsFailure_GraphSize = 0
         ByC_Taxi_SuccessVsFailure_ParticularSeats_GraphSize = 0
         ByC_Taxi_NumberOfEntrances_GraphSize = 0
-        
 
-        if reim_num=="27":
-            
+        if reim_num == "27":
+
             ##GET NUMBER OF SESSIONS##
             getNumberOfSessions_query = get_number_of_sessions(request)
             cursor.execute(getNumberOfSessions_query)
-            queries.append({"name": 'Get Number Of Sessions', "query": getNumberOfSessions_query})
-            numberOfSessions_QueryResponse= cursor.fetchall()
+            queries.append({
+                "name": 'Get Number Of Sessions',
+                "query": getNumberOfSessions_query
+            })
+            numberOfSessions_QueryResponse = cursor.fetchall()
             #print ("analytics1_co_quantity", analytics1_co_quantity)
             for row in numberOfSessions_QueryResponse:
-                ByC_numberOfSessions_Dictionary.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
-            ByC_numberOfSessions_GraphSize = len(numberOfSessions_QueryResponse)*40+20
+                ByC_numberOfSessions_Dictionary.append({
+                    'id': row[0],
+                    'name': row[1],
+                    'quantity': row[2]
+                })
+            ByC_numberOfSessions_GraphSize = len(
+                numberOfSessions_QueryResponse) * 40 + 20
 
             ##PLAYTIME REIM##
             getPlayTime = get_playtime(request)
             cursor.execute(getPlayTime)
-            queries.append({"name": 'Get PlayTime of REIM', "query": getPlayTime})
-            playTime_QueryResponse= cursor.fetchall()
-            print ("playTime_QueryResponse", playTime_QueryResponse)
+            queries.append({
+                "name": 'Get PlayTime of REIM',
+                "query": getPlayTime
+            })
+            playTime_QueryResponse = cursor.fetchall()
+            print("playTime_QueryResponse", playTime_QueryResponse)
             for row in playTime_QueryResponse:
-                ByC_playTime_Dictionary.append({ 'id': row[0], 'name': row[1], 'playTime': row[2] })
-            ByC_playTime_GraphSize = len(playTime_QueryResponse)*40+20
+                ByC_playTime_Dictionary.append({
+                    'id': row[0],
+                    'name': row[1],
+                    'playTime': row[2]
+                })
+            ByC_playTime_GraphSize = len(playTime_QueryResponse) * 40 + 20
 
             ##TOUCH COUNT REIM##
             touch_query = get_touch_count(request)
@@ -236,12 +275,19 @@ def welcome(request):
             cursor.execute(touch_query)
             touchCount_QueryResponse = cursor.fetchall()
             for row in touchCount_QueryResponse:
-                ByC_touchCount_Dictionary.append({ 'id': row[0], 'name': row[1], 'touchCount': row[2] })
-            ByC_touchCount_GraphSize = len(touchCount_QueryResponse)*40+20
+                ByC_touchCount_Dictionary.append({
+                    'id': row[0],
+                    'name': row[1],
+                    'touchCount': row[2]
+                })
+            ByC_touchCount_GraphSize = len(touchCount_QueryResponse) * 40 + 20
 
             ##ACTIVITIES PLAYED COUNTER##
             touch_query = get_activities_played_counter(request)
-            queries.append({"name": 'Activities Played Counter', "query": touch_query})
+            queries.append({
+                "name": 'Activities Played Counter',
+                "query": touch_query
+            })
             cursor.execute(touch_query)
             activitiesPlayedCounter_QueryResponse = cursor.fetchall()
             for row in activitiesPlayedCounter_QueryResponse:
@@ -253,26 +299,44 @@ def welcome(request):
                 elif row[0] == 27103:
                     name = 'Actividad 4: Taxi'
                 ByC_activitiesPlayedCounter_Dictionary.append({
-                    'id': row[0], 
+                    'id': row[0],
                     'name': name,
-                    'counter': row[1] 
-                    }
-                )
-            ByC_activitiesPlayedCounter_GraphSize = len(activitiesPlayedCounter_QueryResponse)*40+20
-            
+                    'counter': row[1]
+                })
+            ByC_activitiesPlayedCounter_GraphSize = len(
+                activitiesPlayedCounter_QueryResponse) * 40 + 20
 
             ##BUILT ELEMENTS COUNTER PER CATEGORY##
-            built_elements_counter_percategory_query = get_built_elements_counter_per_category(request)
-            queries.append({"name": 'BUILT ELEMENTS COUNTER PER CATEGORY', "query": built_elements_counter_percategory_query})
+            built_elements_counter_percategory_query = get_built_elements_counter_per_category(
+                request)
+            queries.append({
+                "name": 'BUILT ELEMENTS COUNTER PER CATEGORY',
+                "query": built_elements_counter_percategory_query
+            })
             cursor.execute(built_elements_counter_percategory_query)
             built_elementsCounter_percategory_QueryResponse = cursor.fetchall()
             for row in built_elementsCounter_percategory_QueryResponse:
-                ByC_built_elementsCounter_perCategory_Dictionary.append({ 'id': row[0], 'name': row[1], 'buildingsCount': row[2], 'ornamentsCount': row[3], 'carsCount': row[4] })
-            ByC_built_elementsCounter_perCategory_GraphSize = len(built_elementsCounter_percategory_QueryResponse)*40+100
+                ByC_built_elementsCounter_perCategory_Dictionary.append({
+                    'id':
+                    row[0],
+                    'name':
+                    row[1],
+                    'buildingsCount':
+                    row[2],
+                    'ornamentsCount':
+                    row[3],
+                    'carsCount':
+                    row[4]
+                })
+            ByC_built_elementsCounter_perCategory_GraphSize = len(
+                built_elementsCounter_percategory_QueryResponse) * 40 + 100
 
             ##BUILT ELEMENTS COUNTER ##
             built_elements_counter_query = get_built_elements_counter(request)
-            queries.append({"name": 'BUILT ELEMENTS COUNTER', "query": built_elements_counter_query})
+            queries.append({
+                "name": 'BUILT ELEMENTS COUNTER',
+                "query": built_elements_counter_query
+            })
             cursor.execute(built_elements_counter_query)
             built_elementsCounter_QueryResponse = cursor.fetchall()
             for row in built_elementsCounter_QueryResponse:
@@ -301,62 +365,119 @@ def welcome(request):
                     name = 'Ambulancia'
                 elif row[0] == 27115:
                     name = 'Camion de Bomberos'
-                ByC_built_elementsCounter_Dictionary.append({ 'id': row[0], 'name': name, 'counter': row[1] })
-            ByC_built_elementsCounter_GraphSize = len(built_elementsCounter_QueryResponse)*40+20
+                ByC_built_elementsCounter_Dictionary.append({
+                    'id': row[0],
+                    'name': name,
+                    'counter': row[1]
+                })
+            ByC_built_elementsCounter_GraphSize = len(
+                built_elementsCounter_QueryResponse) * 40 + 20
 
-        ##CINEMA:
-        
-        ##2.1.- NUMBER OF ENTRANCES:
+            ##CINEMA:
+
+            ##2.1.- NUMBER OF ENTRANCES:
             Cinema_NumberOfEntrances_query = getNumberOfEntrances(request)
-            queries.append({"name": 'NUMBER OF ENTRANCES', "query": Cinema_NumberOfEntrances_query})
+            queries.append({
+                "name": 'NUMBER OF ENTRANCES',
+                "query": Cinema_NumberOfEntrances_query
+            })
             cursor.execute(Cinema_NumberOfEntrances_query)
             Cinema_NumberOfEntrances_QueryResponse = cursor.fetchall()
             for row in Cinema_NumberOfEntrances_QueryResponse:
-                ByC_Cinema_NumberOfEntrances_Dictionary.append({ 'id': row[0], 'name': row[1], 'numberOfEntrances': row[2] })
-            ByC_Cinema_NumberOfEntrances_GraphSize = len(Cinema_NumberOfEntrances_QueryResponse)*40+20
+                ByC_Cinema_NumberOfEntrances_Dictionary.append({
+                    'id':
+                    row[0],
+                    'name':
+                    row[1],
+                    'numberOfEntrances':
+                    row[2]
+                })
+            ByC_Cinema_NumberOfEntrances_GraphSize = len(
+                Cinema_NumberOfEntrances_QueryResponse) * 40 + 20
 
-            
-        ##2.2.- CINEMA: ACTIVITY COMPLETE V/S INCOMPLETE:
-            Cinema_CompleteVsIncomplete_query = getCinema_CompleteVsIncomplete(request)
-            queries.append({"name": 'CINEMA: ACTIVITY COMPLETE V/S INCOMPLETE', "query": Cinema_CompleteVsIncomplete_query})
+            ##2.2.- CINEMA: ACTIVITY COMPLETE V/S INCOMPLETE:
+            Cinema_CompleteVsIncomplete_query = getCinema_CompleteVsIncomplete(
+                request)
+            queries.append({
+                "name": 'CINEMA: ACTIVITY COMPLETE V/S INCOMPLETE',
+                "query": Cinema_CompleteVsIncomplete_query
+            })
             cursor.execute(Cinema_CompleteVsIncomplete_query)
             Cinema_CompleteVsIncomplete_QueryResponse = cursor.fetchall()
             for row in Cinema_CompleteVsIncomplete_QueryResponse:
-                ByC_Cinema_CompleteVsIncomplete_Dictionary.append({ 'id': row[0], 'name': row[1], 'Complete': row[2] , 'Incomplete': row[3]})
-            ByC_Cinema_CompleteVsIncomplete_GraphSize = len(Cinema_CompleteVsIncomplete_QueryResponse)*50+20
-    
-        ##2.3.- CINEMA: NUMBER OF SUCCESS V/S FAILURE:
+                ByC_Cinema_CompleteVsIncomplete_Dictionary.append({
+                    'id':
+                    row[0],
+                    'name':
+                    row[1],
+                    'Complete':
+                    row[2],
+                    'Incomplete':
+                    row[3]
+                })
+            ByC_Cinema_CompleteVsIncomplete_GraphSize = len(
+                Cinema_CompleteVsIncomplete_QueryResponse) * 50 + 20
+
+            ##2.3.- CINEMA: NUMBER OF SUCCESS V/S FAILURE:
             Cinema_SuccessVsFailure_query = getCinema_SuccessVsFailure(request)
-            queries.append({"name": 'CINEMA: NUMBER OF SUCCESS V/S FAILURE', "query": Cinema_SuccessVsFailure_query})
+            queries.append({
+                "name": 'CINEMA: NUMBER OF SUCCESS V/S FAILURE',
+                "query": Cinema_SuccessVsFailure_query
+            })
             cursor.execute(Cinema_SuccessVsFailure_query)
             Cinema_SuccessVsFailure_QueryResponse = cursor.fetchall()
             for row in Cinema_SuccessVsFailure_QueryResponse:
-                ByC_Cinema_SuccessVsFailure_Dictionary.append({ 'id': row[0], 'name': row[1], 'Success': row[2] , 'Failure': row[3],  })
-                ByC_Cinema_Count_ParticularSuccess = ByC_Cinema_Count_Success + row[2] 
-                ByC_Cinema_Count_ParticularFailure = ByC_Cinema_Count_Failure + row[3]
-            ByC_Cinema_TotalAttempts = (ByC_Cinema_Count_ParticularSuccess + ByC_Cinema_Count_ParticularFailure) 
+                ByC_Cinema_SuccessVsFailure_Dictionary.append({
+                    'id':
+                    row[0],
+                    'name':
+                    row[1],
+                    'Success':
+                    row[2],
+                    'Failure':
+                    row[3],
+                    'SuccessPercentage': round(row[2]/(row[2]+row[3])*100),
+                    'FailurePercentage': round(row[3]/(row[2]+row[3])*100)
+                })
+                ByC_Cinema_Count_ParticularSuccess = ByC_Cinema_Count_ParticularSuccess + row[
+                    2]
+                ByC_Cinema_Count_ParticularFailure = ByC_Cinema_Count_ParticularFailure + row[
+                    3]
+            ByC_Cinema_TotalAttempts = (ByC_Cinema_Count_ParticularSuccess +
+                                        ByC_Cinema_Count_ParticularFailure)
             if ByC_Cinema_TotalAttempts == 0:
                 ByC_Cinema_TotalAttempts = 1
-            ByC_Cinema_Average_ParticularSuccess = int((ByC_Cinema_Count_ParticularSuccess/ByC_Cinema_TotalAttempts)*100)
+            ByC_Cinema_Average_ParticularSuccess = int(
+                (ByC_Cinema_Count_ParticularSuccess / ByC_Cinema_TotalAttempts)
+                * 100)
             ByC_Cinema_Average_ParticularFailure = 100 - ByC_Cinema_Average_ParticularSuccess
-            ByC_Cinema_SuccessVsFailure_GraphSize = len(Cinema_SuccessVsFailure_QueryResponse)*50+20
+            ByC_Cinema_SuccessVsFailure_GraphSize = len(
+                Cinema_SuccessVsFailure_QueryResponse) * 50 + 20
 
-            Cinema_SuccessVsFailureGeneral_query = getCinema_SuccessVsFailureGeneral(request)
-            queries.append({"name": 'CINEMA: NUMBER OF SUCCESS V/S FAILURE (GENERAL)', "query": Cinema_SuccessVsFailureGeneral_query})
+            Cinema_SuccessVsFailureGeneral_query = getCinema_SuccessVsFailureGeneral(
+                request)
+            queries.append({
+                "name": 'CINEMA: NUMBER OF SUCCESS V/S FAILURE (GENERAL)',
+                "query": Cinema_SuccessVsFailureGeneral_query
+            })
             cursor.execute(Cinema_SuccessVsFailureGeneral_query)
             Cinema_SuccessVsFailureGeneral_QueryResponse = cursor.fetchall()
             for row in Cinema_SuccessVsFailureGeneral_QueryResponse:
-                ByC_Cinema_Count_Success = ByC_Cinema_Count_Success + row[2] 
+                ByC_Cinema_Count_Success = ByC_Cinema_Count_Success + row[2]
                 ByC_Cinema_Count_Failure = ByC_Cinema_Count_Failure + row[3]
-                ByC_Cinema_Count_Attempts = ByC_Cinema_Count_Attempts + 1
+            ByC_Cinema_Count_Attempts = ByC_Cinema_Count_Success + ByC_Cinema_Count_Failure
             if ByC_Cinema_Count_Attempts == 0:
                 ByC_Cinema_Count_Attempts = 1
-            ByC_Cinema_Average_Success = ByC_Cinema_Count_Success/ByC_Cinema_Count_Attempts
-            ByC_Cinema_Average_Failure = ByC_Cinema_Count_Failure/ByC_Cinema_Count_Attempts
+            ByC_Cinema_Average_Success = round((ByC_Cinema_Count_Success/ByC_Cinema_Count_Attempts)*100)
+            ByC_Cinema_Average_Failure = round((ByC_Cinema_Count_Failure/ByC_Cinema_Count_Attempts)*100)
 
-        ##2.5.- CINEMA: SUCCESS PERCENTAGE IN TIME:
-            Cinema_SuccessPercentageInTime_query = getCinema_SuccessPercentageInTime(request)
-            queries.append({"name": 'CINEMA: NUMBER OF SUCCESS IN TIME', "query": Cinema_SuccessPercentageInTime_query})
+            ##2.5.- CINEMA: SUCCESS PERCENTAGE IN TIME:
+            Cinema_SuccessPercentageInTime_query = getCinema_SuccessPercentageInTime(
+                request)
+            queries.append({
+                "name": 'CINEMA: NUMBER OF SUCCESS IN TIME',
+                "query": Cinema_SuccessPercentageInTime_query
+            })
             cursor.execute(Cinema_SuccessPercentageInTime_query)
             Cinema_SuccessPercentageInTime_QueryResponse = cursor.fetchall()
             for row in Cinema_SuccessPercentageInTime_QueryResponse:
@@ -365,76 +486,152 @@ def welcome(request):
                 success = row[2]
                 failure = row[3]
                 attemps = success + failure
-                if(attemps == 0):
+                if (attemps == 0):
                     attemps = 1
-                percentage = int((success/attemps)*100)
-                ByC_Cinema_SuccessPercentageInTime_Dictionary.append({ 'name': nombre, 'fecha': fecha, 'percentage': percentage })                
-            ByC_Cinema_SuccessPercentageInTime_GraphSize = len(Cinema_SuccessPercentageInTime_QueryResponse)*50+20
-            
-            
+                percentage = int((success / attemps) * 100)
+                ByC_Cinema_SuccessPercentageInTime_Dictionary.append({
+                    'name':
+                    nombre,
+                    'fecha':
+                    fecha,
+                    'percentage':
+                    percentage
+                })
+            ByC_Cinema_SuccessPercentageInTime_GraphSize = len(
+                Cinema_SuccessPercentageInTime_QueryResponse) * 50 + 20
 
-        ##2.6.- CINEMA: NUMBER OF SUCCESS V/S FAILURE PARTICULAR SEATS:
-            Cinema_SuccessVsFailure_ParticularSeats_query = getCinema_SuccessVsFailure_ParticularSeats(request)
-            queries.append({"name": 'CINEMA: NUMBER OF SUCCESS V/S FAILURE (PARTICULAR SEATS)', "query": Cinema_SuccessVsFailure_ParticularSeats_query})
+            ##2.6.- CINEMA: NUMBER OF SUCCESS V/S FAILURE PARTICULAR SEATS:
+            Cinema_SuccessVsFailure_ParticularSeats_query = getCinema_SuccessVsFailure_ParticularSeats(
+                request)
+            queries.append({
+                "name":
+                'CINEMA: NUMBER OF SUCCESS V/S FAILURE (PARTICULAR SEATS)',
+                "query":
+                Cinema_SuccessVsFailure_ParticularSeats_query
+            })
             cursor.execute(Cinema_SuccessVsFailure_ParticularSeats_query)
-            Cinema_SuccessVsFailure_ParticularSeats_QueryResponse = cursor.fetchall()
+            Cinema_SuccessVsFailure_ParticularSeats_QueryResponse = cursor.fetchall(
+            )
             for row in Cinema_SuccessVsFailure_ParticularSeats_QueryResponse:
-                ByC_Cinema_SuccessVsFailure_ParticularSeats_Dictionary.append({ 'id': row[0], 'name_student': row[1], 'name_assistant': row[2], 'Success': row[3] , 'Failure': row[4] })
-            ByC_Cinema_SuccessVsFailure_ParticularSeats_GraphSize = len(Cinema_SuccessVsFailure_ParticularSeats_QueryResponse)*50+20
-    
+                ByC_Cinema_SuccessVsFailure_ParticularSeats_Dictionary.append({
+                    'id':
+                    row[0],
+                    'name_student':
+                    row[1],
+                    'name_assistant':
+                    row[2],
+                    'Success':
+                    row[3],
+                    'Failure':
+                    row[4]
+                })
+            ByC_Cinema_SuccessVsFailure_ParticularSeats_GraphSize = len(
+                Cinema_SuccessVsFailure_ParticularSeats_QueryResponse) * 50 + 20
 
-        ##SCHOOL:
+            ##SCHOOL:
 
-        ##3.1.- SCHOOL: NUMBER OF ENTRANCES:
-            School_NumberOfEntrances_query = getSchoolNumberOfEntrances(request)
-            queries.append({"name": 'NUMBER OF ENTRANCES', "query": School_NumberOfEntrances_query})
+            ##3.1.- SCHOOL: NUMBER OF ENTRANCES:
+            School_NumberOfEntrances_query = getSchoolNumberOfEntrances(
+                request)
+            queries.append({
+                "name": 'NUMBER OF ENTRANCES',
+                "query": School_NumberOfEntrances_query
+            })
             cursor.execute(School_NumberOfEntrances_query)
             School_NumberOfEntrances_QueryResponse = cursor.fetchall()
             for row in School_NumberOfEntrances_QueryResponse:
-                ByC_School_NumberOfEntrances_Dictionary.append({ 'id': row[0], 'name': row[1], 'numberOfEntrances': row[2] })
-            ByC_School_NumberOfEntrances_GraphSize = len(School_NumberOfEntrances_QueryResponse)*40+20
-        
-        ##3.2.- SCHOOL: ACTIVITY COMPLETE V/S INCOMPLETE:
-            School_CompleteVsIncomplete_query = getSchool_CompleteVsIncomplete(request)
-            queries.append({"name": 'School: ACTIVITY COMPLETE V/S INCOMPLETE', "query": School_CompleteVsIncomplete_query})
+                ByC_School_NumberOfEntrances_Dictionary.append({
+                    'id':
+                    row[0],
+                    'name':
+                    row[1],
+                    'numberOfEntrances':
+                    row[2],
+                })
+            ByC_School_NumberOfEntrances_GraphSize = len(
+                School_NumberOfEntrances_QueryResponse) * 40 + 20
+
+            ##3.2.- SCHOOL: ACTIVITY COMPLETE V/S INCOMPLETE:
+            School_CompleteVsIncomplete_query = getSchool_CompleteVsIncomplete(
+                request)
+            queries.append({
+                "name": 'School: ACTIVITY COMPLETE V/S INCOMPLETE',
+                "query": School_CompleteVsIncomplete_query
+            })
             cursor.execute(School_CompleteVsIncomplete_query)
             School_CompleteVsIncomplete_QueryResponse = cursor.fetchall()
             for row in School_CompleteVsIncomplete_QueryResponse:
-                ByC_School_CompleteVsIncomplete_Dictionary.append({ 'id': row[0], 'name': row[1], 'Complete': row[2] , 'Incomplete': row[3]})
-            ByC_School_CompleteVsIncomplete_GraphSize = len(School_CompleteVsIncomplete_QueryResponse)*50+20
-    
-        ##3.3.- SCHOOL: NUMBER OF SUCCESS V/S FAILURE:
+                ByC_School_CompleteVsIncomplete_Dictionary.append({
+                    'id':
+                    row[0],
+                    'name':
+                    row[1],
+                    'Complete':
+                    row[2],
+                    'Incomplete':
+                    row[3]
+                })
+            ByC_School_CompleteVsIncomplete_GraphSize = len(
+                School_CompleteVsIncomplete_QueryResponse) * 50 + 20
+
+            ##3.3.- SCHOOL: NUMBER OF SUCCESS V/S FAILURE:
             School_SuccessVsFailure_query = getSchool_SuccessVsFailure(request)
-            queries.append({"name": 'School: NUMBER OF SUCCESS V/S FAILURE', "query": School_SuccessVsFailure_query})
+            queries.append({
+                "name": 'School: NUMBER OF SUCCESS V/S FAILURE',
+                "query": School_SuccessVsFailure_query
+            })
             cursor.execute(School_SuccessVsFailure_query)
             School_SuccessVsFailure_QueryResponse = cursor.fetchall()
             for row in School_SuccessVsFailure_QueryResponse:
-                ByC_School_SuccessVsFailure_Dictionary.append({ 'id': row[0], 'name': row[1], 'Success': row[2] , 'Failure': row[3],  })
-                ByC_School_Count_ParticularSuccess = ByC_School_Count_Success + row[2] 
-                ByC_School_Count_ParticularFailure = ByC_School_Count_Failure + row[3]
-            ByC_Cinema_TotalAttempts = (ByC_School_Count_ParticularSuccess + ByC_School_Count_ParticularFailure) 
-            if ByC_Cinema_TotalAttempts == 0:
-                ByC_Cinema_TotalAttempts = 1
-            ByC_School_Average_ParticularSuccess = int((ByC_School_Count_ParticularSuccess/ByC_Cinema_TotalAttempts)*100)
+                ByC_School_SuccessVsFailure_Dictionary.append({
+                    'id':
+                    row[0],
+                    'name':
+                    row[1],
+                    'Success':
+                    row[2],
+                    'Failure':
+                    row[3],
+                    'SuccessPercentage': round(row[2]/(row[2]+row[3])*100),
+                    'FailurePercentage': round(row[3]/(row[2]+row[3])*100)
+                })
+                ByC_School_Count_ParticularSuccess = ByC_School_Count_ParticularSuccess + row[2]
+                ByC_School_Count_ParticularFailure = ByC_School_Count_ParticularFailure + row[3]
+            ByC_School_TotalAttempts = (ByC_School_Count_ParticularSuccess +
+                                        ByC_School_Count_ParticularFailure)
+            if ByC_School_TotalAttempts == 0:
+                ByC_School_TotalAttempts = 1
+            ByC_School_Average_ParticularSuccess = int(
+                (ByC_School_Count_ParticularSuccess / ByC_School_TotalAttempts)
+                * 100)
             ByC_School_Average_ParticularFailure = 100 - ByC_School_Average_ParticularSuccess
-            ByC_School_SuccessVsFailure_GraphSize = len(School_SuccessVsFailure_QueryResponse)*50+20
+            ByC_School_SuccessVsFailure_GraphSize = len(
+                School_SuccessVsFailure_QueryResponse) * 50 + 20
 
-            School_SuccessVsFailureGeneral_query = getSchool_SuccessVsFailureGeneral(request)
-            queries.append({"name": 'School: NUMBER OF SUCCESS V/S FAILURE (GENERAL)', "query": School_SuccessVsFailureGeneral_query})
+            School_SuccessVsFailureGeneral_query = getSchool_SuccessVsFailureGeneral(
+                request)
+            queries.append({
+                "name": 'School: NUMBER OF SUCCESS V/S FAILURE (GENERAL)',
+                "query": School_SuccessVsFailureGeneral_query
+            })
             cursor.execute(School_SuccessVsFailureGeneral_query)
             School_SuccessVsFailureGeneral_QueryResponse = cursor.fetchall()
             for row in School_SuccessVsFailureGeneral_QueryResponse:
-                ByC_School_Count_Success = ByC_School_Count_Success + row[2] 
+                ByC_School_Count_Success = ByC_School_Count_Success + row[2]
                 ByC_School_Count_Failure = ByC_School_Count_Failure + row[3]
-                ByC_School_Count_Attempts = ByC_School_Count_Attempts + 1
+            ByC_School_Count_Attempts = ByC_School_Count_Success + ByC_School_Count_Failure
             if ByC_School_Count_Attempts == 0:
                 ByC_School_Count_Attempts = 1
-            ByC_School_Average_Success = ByC_School_Count_Success/ByC_School_Count_Attempts
-            ByC_School_Average_Failure = ByC_School_Count_Failure/ByC_School_Count_Attempts
+            ByC_School_Average_Success = round((ByC_School_Count_Success / ByC_School_Count_Attempts)*100)
+            ByC_School_Average_Failure = round((ByC_School_Count_Failure / ByC_School_Count_Attempts)*100)
 
-        ##3.5.- SCHOOL: SUCCESS PERCENTAGE IN TIME:
-            School_SuccessPercentageInTime_query = getSchool_SuccessPercentageInTime(request)
-            queries.append({"name": 'School: NUMBER OF SUCCESS IN TIME', "query": School_SuccessPercentageInTime_query})
+            ##3.5.- SCHOOL: SUCCESS PERCENTAGE IN TIME:
+            School_SuccessPercentageInTime_query = getSchool_SuccessPercentageInTime(
+                request)
+            queries.append({
+                "name": 'School: NUMBER OF SUCCESS IN TIME',
+                "query": School_SuccessPercentageInTime_query
+            })
             cursor.execute(School_SuccessPercentageInTime_query)
             School_SuccessPercentageInTime_QueryResponse = cursor.fetchall()
             for row in School_SuccessPercentageInTime_QueryResponse:
@@ -443,72 +640,146 @@ def welcome(request):
                 success = row[2]
                 failure = row[3]
                 attemps = success + failure
-                if(attemps == 0):
+                if (attemps == 0):
                     attemps = 1
-                percentage = int((success/attemps)*100)
-                ByC_School_SuccessPercentageInTime_Dictionary.append({ 'name': nombre, 'fecha': fecha, 'percentage': percentage })                
-            ByC_School_SuccessPercentageInTime_GraphSize = len(School_SuccessPercentageInTime_QueryResponse)*50+20            
+                percentage = int((success / attemps) * 100)
+                ByC_School_SuccessPercentageInTime_Dictionary.append({
+                    'name':
+                    nombre,
+                    'fecha':
+                    fecha,
+                    'percentage':
+                    percentage
+                })
+            ByC_School_SuccessPercentageInTime_GraphSize = len(
+                School_SuccessPercentageInTime_QueryResponse) * 50 + 20
 
-        ##3.6.- SCHOOL: NUMBER OF SUCCESS V/S FAILURE PARTICULAR SEATS:
-            School_SuccessVsFailure_ParticularSeats_query = getSchool_SuccessVsFailure_ParticularSeats(request)
-            queries.append({"name": 'School: NUMBER OF SUCCESS V/S FAILURE (PARTICULAR SEATS)', "query": School_SuccessVsFailure_ParticularSeats_query})
+            ##3.6.- SCHOOL: NUMBER OF SUCCESS V/S FAILURE PARTICULAR SEATS:
+            School_SuccessVsFailure_ParticularSeats_query = getSchool_SuccessVsFailure_ParticularSeats(
+                request)
+            queries.append({
+                "name":
+                'School: NUMBER OF SUCCESS V/S FAILURE (PARTICULAR SEATS)',
+                "query":
+                School_SuccessVsFailure_ParticularSeats_query
+            })
             cursor.execute(School_SuccessVsFailure_ParticularSeats_query)
-            School_SuccessVsFailure_ParticularSeats_QueryResponse = cursor.fetchall()
+            School_SuccessVsFailure_ParticularSeats_QueryResponse = cursor.fetchall(
+            )
             for row in School_SuccessVsFailure_ParticularSeats_QueryResponse:
-                ByC_School_SuccessVsFailure_ParticularSeats_Dictionary.append({ 'id': row[0], 'name_student': row[1], 'name_assistant': row[2], 'Success': row[3] , 'Failure': row[4] })
-            ByC_School_SuccessVsFailure_ParticularSeats_GraphSize = len(School_SuccessVsFailure_ParticularSeats_QueryResponse)*50+20
+                ByC_School_SuccessVsFailure_ParticularSeats_Dictionary.append({
+                    'id':
+                    row[0],
+                    'name_student':
+                    row[1],
+                    'name_assistant':
+                    row[2],
+                    'Success':
+                    row[3],
+                    'Failure':
+                    row[4]
+                })
+            ByC_School_SuccessVsFailure_ParticularSeats_GraphSize = len(
+                School_SuccessVsFailure_ParticularSeats_QueryResponse) * 50 + 20
 
-        ##TAXI:
-        ##4.1.- TAXI: NUMBER OF ENTRANCES:
+            ##TAXI:
+            ##4.1.- TAXI: NUMBER OF ENTRANCES:
             Taxi_NumberOfEntrances_query = getTaxiNumberOfEntrances(request)
-            queries.append({"name": 'NUMBER OF ENTRANCES', "query": Taxi_NumberOfEntrances_query})
+            queries.append({
+                "name": 'NUMBER OF ENTRANCES',
+                "query": Taxi_NumberOfEntrances_query
+            })
             cursor.execute(Taxi_NumberOfEntrances_query)
             Taxi_NumberOfEntrances_QueryResponse = cursor.fetchall()
             for row in Taxi_NumberOfEntrances_QueryResponse:
-                ByC_Taxi_NumberOfEntrances_Dictionary.append({ 'id': row[0], 'name': row[1], 'numberOfEntrances': row[2] })
-            ByC_Taxi_NumberOfEntrances_GraphSize = len(Taxi_NumberOfEntrances_QueryResponse)*40+20
-        
-        ##4.2.- TAXI: ACTIVITY COMPLETE V/S INCOMPLETE:
-            Taxi_CompleteVsIncomplete_query = getTaxi_CompleteVsIncomplete(request)
-            queries.append({"name": 'Taxi: ACTIVITY COMPLETE V/S INCOMPLETE', "query": Taxi_CompleteVsIncomplete_query})
+                ByC_Taxi_NumberOfEntrances_Dictionary.append({
+                    'id':
+                    row[0],
+                    'name':
+                    row[1],
+                    'numberOfEntrances':
+                    row[2]
+                })
+            ByC_Taxi_NumberOfEntrances_GraphSize = len(
+                Taxi_NumberOfEntrances_QueryResponse) * 40 + 20
+
+            ##4.2.- TAXI: ACTIVITY COMPLETE V/S INCOMPLETE:
+            Taxi_CompleteVsIncomplete_query = getTaxi_CompleteVsIncomplete(
+                request)
+            queries.append({
+                "name": 'Taxi: ACTIVITY COMPLETE V/S INCOMPLETE',
+                "query": Taxi_CompleteVsIncomplete_query
+            })
             cursor.execute(Taxi_CompleteVsIncomplete_query)
             Taxi_CompleteVsIncomplete_QueryResponse = cursor.fetchall()
             for row in Taxi_CompleteVsIncomplete_QueryResponse:
-                ByC_Taxi_CompleteVsIncomplete_Dictionary.append({ 'id': row[0], 'name': row[1], 'Complete': row[2] , 'Incomplete': row[3]})
-            ByC_Taxi_CompleteVsIncomplete_GraphSize = len(Taxi_CompleteVsIncomplete_QueryResponse)*50+20
-    
-        ##4.3.- TAXI: NUMBER OF SUCCESS V/S FAILURE:
+                ByC_Taxi_CompleteVsIncomplete_Dictionary.append({
+                    'id':
+                    row[0],
+                    'name':
+                    row[1],
+                    'Complete':
+                    row[2],
+                    'Incomplete':
+                    row[3]
+                })
+            ByC_Taxi_CompleteVsIncomplete_GraphSize = len(
+                Taxi_CompleteVsIncomplete_QueryResponse) * 50 + 20
+
+            ##4.3.- TAXI: NUMBER OF SUCCESS V/S FAILURE:
             Taxi_SuccessVsFailure_query = getTaxi_SuccessVsFailure(request)
-            queries.append({"name": 'Taxi: NUMBER OF SUCCESS V/S FAILURE', "query": Taxi_SuccessVsFailure_query})
+            queries.append({
+                "name": 'Taxi: NUMBER OF SUCCESS V/S FAILURE',
+                "query": Taxi_SuccessVsFailure_query
+            })
             cursor.execute(Taxi_SuccessVsFailure_query)
             Taxi_SuccessVsFailure_QueryResponse = cursor.fetchall()
             for row in Taxi_SuccessVsFailure_QueryResponse:
-                ByC_Taxi_SuccessVsFailure_Dictionary.append({ 'id': row[0], 'name': row[1], 'Success': row[2] , 'Failure': row[3],  })
-                ByC_Taxi_Count_ParticularSuccess = ByC_Taxi_Count_Success + row[2] 
-                ByC_Taxi_Count_ParticularFailure = ByC_Taxi_Count_Failure + row[3]
-            ByC_Taxi_TotalAttempts = (ByC_Taxi_Count_ParticularSuccess + ByC_Taxi_Count_ParticularFailure) 
+                ByC_Taxi_SuccessVsFailure_Dictionary.append({
+                    'id': row[0],
+                    'name': row[1],
+                    'Success': row[2],
+                    'Failure': row[3],
+                    'SuccessPercentage': round(row[2]/(row[2]+row[3])*100),
+                    'FailurePercentage': round(row[3]/(row[2]+row[3])*100)
+                })
+                ByC_Taxi_Count_ParticularSuccess = ByC_Taxi_Count_ParticularSuccess + row[2]
+                ByC_Taxi_Count_ParticularFailure = ByC_Taxi_Count_ParticularFailure + row[3]
+            ByC_Taxi_TotalAttempts = (ByC_Taxi_Count_ParticularSuccess +
+                                      ByC_Taxi_Count_ParticularFailure)
             if ByC_Taxi_TotalAttempts == 0:
                 ByC_Taxi_TotalAttempts = 1
-            ByC_Taxi_Average_ParticularSuccess = int((ByC_Taxi_Count_ParticularSuccess/ByC_Taxi_TotalAttempts)*100)
+            ByC_Taxi_Average_ParticularSuccess = round(
+                (ByC_Taxi_Count_ParticularSuccess / ByC_Taxi_TotalAttempts) *
+                100)
             ByC_Taxi_Average_ParticularFailure = 100 - ByC_Taxi_Average_ParticularSuccess
-            ByC_Taxi_SuccessVsFailure_GraphSize = len(Taxi_SuccessVsFailure_QueryResponse)*50+20
+            ByC_Taxi_SuccessVsFailure_GraphSize = len(
+                Taxi_SuccessVsFailure_QueryResponse) * 50 + 20
 
-            Taxi_SuccessVsFailureGeneral_query = getTaxi_SuccessVsFailureGeneral(request)
-            queries.append({"name": 'Taxi: NUMBER OF SUCCESS V/S FAILURE (GENERAL)', "query": Taxi_SuccessVsFailureGeneral_query})
+            Taxi_SuccessVsFailureGeneral_query = getTaxi_SuccessVsFailureGeneral(
+                request)
+            queries.append({
+                "name": 'Taxi: NUMBER OF SUCCESS V/S FAILURE (GENERAL)',
+                "query": Taxi_SuccessVsFailureGeneral_query
+            })
             cursor.execute(Taxi_SuccessVsFailureGeneral_query)
             Taxi_SuccessVsFailureGeneral_QueryResponse = cursor.fetchall()
             for row in Taxi_SuccessVsFailureGeneral_QueryResponse:
-                ByC_Taxi_Count_Success = ByC_Taxi_Count_Success + row[2] 
+                ByC_Taxi_Count_Success = ByC_Taxi_Count_Success + row[2]
                 ByC_Taxi_Count_Failure = ByC_Taxi_Count_Failure + row[3]
-                ByC_Taxi_Count_Attempts = ByC_Taxi_Count_Attempts + 1
+                ByC_Taxi_Count_Attempts = ByC_Taxi_Count_Success + ByC_Taxi_Count_Failure
             if ByC_Taxi_Count_Attempts == 0:
                 ByC_Taxi_Count_Attempts = 1
-            ByC_Taxi_Average_Success = ByC_Taxi_Count_Success/ByC_Taxi_Count_Attempts
-            ByC_Taxi_Average_Failure = ByC_Taxi_Count_Failure/ByC_Taxi_Count_Attempts
+            ByC_Taxi_Average_Success = round((ByC_Taxi_Count_Success / ByC_Taxi_Count_Attempts)*100)
+            ByC_Taxi_Average_Failure = round((ByC_Taxi_Count_Failure / ByC_Taxi_Count_Attempts)*100)
 
-        ##4.5.- TAXI: SUCCESS PERCENTAGE IN TIME:
-            Taxi_SuccessPercentageInTime_query = getTaxi_SuccessPercentageInTime(request)
-            queries.append({"name": 'Taxi: NUMBER OF SUCCESS IN TIME', "query": Taxi_SuccessPercentageInTime_query})
+            ##4.5.- TAXI: SUCCESS PERCENTAGE IN TIME:
+            Taxi_SuccessPercentageInTime_query = getTaxi_SuccessPercentageInTime(
+                request)
+            queries.append({
+                "name": 'Taxi: NUMBER OF SUCCESS IN TIME',
+                "query": Taxi_SuccessPercentageInTime_query
+            })
             cursor.execute(Taxi_SuccessPercentageInTime_query)
             Taxi_SuccessPercentageInTime_QueryResponse = cursor.fetchall()
             for row in Taxi_SuccessPercentageInTime_QueryResponse:
@@ -517,60 +788,99 @@ def welcome(request):
                 success = row[2]
                 failure = row[3]
                 attemps = success + failure
-                if(attemps == 0):
+                if (attemps == 0):
                     attemps = 1
-                percentage = int((success/attemps)*100)
-                ByC_Taxi_SuccessPercentageInTime_Dictionary.append({ 'name': nombre, 'fecha': fecha, 'percentage': percentage })                
-            ByC_Taxi_SuccessPercentageInTime_GraphSize = len(Taxi_SuccessPercentageInTime_QueryResponse)*50+20            
+                percentage = round((success / attemps) * 100)
+                ByC_Taxi_SuccessPercentageInTime_Dictionary.append({
+                    'name':
+                    nombre,
+                    'fecha':
+                    fecha,
+                    'percentage':
+                    percentage
+                })
+            ByC_Taxi_SuccessPercentageInTime_GraphSize = len(
+                Taxi_SuccessPercentageInTime_QueryResponse) * 50 + 20
 
-        ##4.6.- TAXI: NUMBER OF SUCCESS V/S FAILURE PARTICULAR SEATS:
-            Taxi_SuccessVsFailure_ParticularSeats_query = getTaxi_SuccessVsFailure_ParticularSeats(request)
-            queries.append({"name": 'Taxi: NUMBER OF SUCCESS V/S FAILURE (PARTICULAR SEATS)', "query": Taxi_SuccessVsFailure_ParticularSeats_query})
+            ##4.6.- TAXI: NUMBER OF SUCCESS V/S FAILURE PARTICULAR SEATS:
+            Taxi_SuccessVsFailure_ParticularSeats_query = getTaxi_SuccessVsFailure_ParticularSeats(
+                request)
+            queries.append({
+                "name":
+                'Taxi: NUMBER OF SUCCESS V/S FAILURE (PARTICULAR SEATS)',
+                "query": Taxi_SuccessVsFailure_ParticularSeats_query
+            })
             cursor.execute(Taxi_SuccessVsFailure_ParticularSeats_query)
-            Taxi_SuccessVsFailure_ParticularSeats_QueryResponse = cursor.fetchall()
+            Taxi_SuccessVsFailure_ParticularSeats_QueryResponse = cursor.fetchall(
+            )
             for row in Taxi_SuccessVsFailure_ParticularSeats_QueryResponse:
-                ByC_Taxi_SuccessVsFailure_ParticularSeats_Dictionary.append({ 'id': row[0], 'name_student': row[1], 'name_assistant': row[2], 'Success': row[3] , 'Failure': row[4] })
-            ByC_Taxi_SuccessVsFailure_ParticularSeats_GraphSize = len(Taxi_SuccessVsFailure_ParticularSeats_QueryResponse)*50+20
+                ByC_Taxi_SuccessVsFailure_ParticularSeats_Dictionary.append({
+                    'id':
+                    row[0],
+                    'name_student':
+                    row[1],
+                    'name_assistant':
+                    row[2],
+                    'Success':
+                    row[3],
+                    'Failure':
+                    row[4]
+                })
+            ByC_Taxi_SuccessVsFailure_ParticularSeats_GraphSize = len(
+                Taxi_SuccessVsFailure_ParticularSeats_QueryResponse) * 50 + 20
         ######END BUILD YOUR CITY######
-        #INICIO MUNDO ANIMAL 
-        piezas_quantity_response =[]
+        #INICIO MUNDO ANIMAL
+        piezas_quantity_response = []
         malas_quantity_response = []
         animales_quantity_response = []
-        actividades_quantity_response=[]
-        interaccion_quantity_response=[]
-        tiempoact_quantity_response=[]
-        analytics1_co_quantity_response=[]
-        tiempo_total_quantity_response=[]
-        audios_quantity_response=[]
+        actividades_quantity_response = []
+        interaccion_quantity_response = []
+        tiempoact_quantity_response = []
+        analytics1_co_quantity_response = []
+        tiempo_total_quantity_response = []
+        audios_quantity_response = []
         total_correctas = 0
-        count1=1
-        promedio_correctas=0
-        animales_quantity_graph=0
+        count1 = 1
+        promedio_correctas = 0
+        animales_quantity_graph = 0
         total_incorrectas = 0
-        count2=1
-        promedio_incorrectas=0
+        count2 = 1
+        promedio_incorrectas = 0
 
-
-        if reim_num=="1":
+        if reim_num == "1":
 
             analytics1_co_query = get_analytics1_co(request)
             cursor.execute(analytics1_co_query)
-            queries.append({"name": 'Analytics1 co query', "query": analytics1_co_query})
+            queries.append({
+                "name": 'Analytics1 co query',
+                "query": analytics1_co_query
+            })
             analytics1_co_quantity = cursor.fetchall()
             #print ("analytics1_co_quantity", analytics1_co_quantity)
             for row in analytics1_co_quantity:
-                analytics1_co_quantity_response.append({ 'id': row[0], 'name': row[1], 'act1': row[2], 'act2': row[3], 'act3': row[4], 'act4': row[5]  })
-           
+                analytics1_co_quantity_response.append({
+                    'id': row[0],
+                    'name': row[1],
+                    'act1': row[2],
+                    'act2': row[3],
+                    'act3': row[4],
+                    'act4': row[5]
+                })
+
             piezas_query = get_piezas(request)
             cursor.execute(piezas_query)
             queries.append({"name": 'Piezas query', "query": piezas_query})
             piezas_quantity = cursor.fetchall()
             #print ("piezas quantity", piezas_quantity)
             for row in piezas_quantity:
-                piezas_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+                piezas_quantity_response.append({
+                    'id': row[0],
+                    'name': row[1],
+                    'quantity': row[2]
+                })
                 total_correctas += row[2]
-                count1 = count1+1
-            promedio_correctas = total_correctas / count1         
+                count1 = count1 + 1
+            promedio_correctas = total_correctas / count1
 
             malas_query = get_malas(request)
             cursor.execute(malas_query)
@@ -578,9 +888,13 @@ def welcome(request):
             malas_quantity = cursor.fetchall()
             #print("malas quantity", malas_quantity)
             for row in malas_quantity:
-                malas_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+                malas_quantity_response.append({
+                    'id': row[0],
+                    'name': row[1],
+                    'quantity': row[2]
+                })
                 total_incorrectas += row[2]
-                count2 = count2+1
+                count2 = count2 + 1
             promedio_incorrectas = total_incorrectas / count2
 
             animales_query = get_animals(request)
@@ -589,88 +903,122 @@ def welcome(request):
             animales_quantity = cursor.fetchall()
             #print("animales quantity", animales_quantity)
             for row in animales_quantity:
-                animales_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
-            animales_quantity_graph = len(animales_quantity)*40+20    
-            
-            
+                animales_quantity_response.append({
+                    'id': row[0],
+                    'name': row[1],
+                    'quantity': row[2]
+                })
+            animales_quantity_graph = len(animales_quantity) * 40 + 20
+
             interaccion_query = get_interaccion(request)
             cursor.execute(interaccion_query)
-            queries.append({"name": 'Interaccion query', "query": interaccion_query})
+            queries.append({
+                "name": 'Interaccion query',
+                "query": interaccion_query
+            })
             interaccion_quantity = cursor.fetchall()
             #print("interacccion quantity", interaccion_quantity)
             for row in interaccion_quantity:
-                interaccion_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+                interaccion_quantity_response.append({
+                    'id': row[0],
+                    'name': row[1],
+                    'quantity': row[2]
+                })
 
             tiempoact_query = get_tiempoact(request)
             cursor.execute(tiempoact_query)
-            queries.append({"name": 'Tiempoact query', "query": tiempoact_query})
+            queries.append({
+                "name": 'Tiempoact query',
+                "query": tiempoact_query
+            })
             tiempoact_quantity = cursor.fetchall()
             #print("tiempoact quantity", tiempoact_quantity)
             for row in tiempoact_quantity:
-                tiempoact_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+                tiempoact_quantity_response.append({
+                    'id': row[0],
+                    'name': row[1],
+                    'quantity': row[2]
+                })
 
             actividades_query = get_cant_touch(request)
             cursor.execute(actividades_query)
-            queries.append({"name": 'Actividades query', "query": actividades_query})
+            queries.append({
+                "name": 'Actividades query',
+                "query": actividades_query
+            })
             actividades_quantity = cursor.fetchall()
             #print("actividades quantity", actividades_quantity)
             for row in actividades_quantity:
-                actividades_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+                actividades_quantity_response.append({
+                    'id': row[0],
+                    'name': row[1],
+                    'quantity': row[2]
+                })
 
             tiempo_total_query = get_tiempo_total_act(request)
             cursor.execute(tiempo_total_query)
-            queries.append({"name": 'Tiempo total por act query', "query": tiempo_total_query})
+            queries.append({
+                "name": 'Tiempo total por act query',
+                "query": tiempo_total_query
+            })
             tiempo_total_quantity = cursor.fetchall()
             #print("tiempo total por act quantity", tiempo_total_quantity)
             for row in tiempo_total_quantity:
-                tiempo_total_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+                tiempo_total_quantity_response.append({
+                    'id': row[0],
+                    'name': row[1],
+                    'quantity': row[2]
+                })
 
             audios_query = get_audios(request)
             cursor.execute(audios_query)
             queries.append({"name": 'Audios query', "query": audios_query})
             audios_quantity = cursor.fetchall()
             for row in audios_quantity:
-                audios_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+                audios_quantity_response.append({
+                    'id': row[0],
+                    'name': row[1],
+                    'quantity': row[2]
+                })
 
-        #FIN MUNDO ANIMAL 
+        #FIN MUNDO ANIMAL
 
         #filtro estudiente
         activate_student_filter = False
         if request.GET.get('student') and request.GET.get('student') != "0":
             activate_student_filter = True
 
-
         #INICIO DIA MUNDIAL
         #Generales
-        nombre=[]
-        sesiones_PS_quantity_response=[]
-        time_PS_quantity_response=[]
-        tiempoXact_quantity_responseDM=[]##TIEMPO  POR ACTIVIDAD
-        completa_incompleta_inactividad=[]
-        get_ganar_perder_DM_Quest_response=[]
+        nombre = []
+        sesiones_PS_quantity_response = []
+        time_PS_quantity_response = []
+        tiempoXact_quantity_responseDM = []  ##TIEMPO  POR ACTIVIDAD
+        completa_incompleta_inactividad = []
+        get_ganar_perder_DM_Quest_response = []
 
         #QUERYS LAB
-        completa_incompleta_DM_quantity_response=[]
-        fruta_chatarra_DM_quantity_response=[]
-        muro_hoyo_DM_quantity_response=[]
-        col_vs_time=[]
+        completa_incompleta_DM_quantity_response = []
+        fruta_chatarra_DM_quantity_response = []
+        muro_hoyo_DM_quantity_response = []
+        col_vs_time = []
         #QUERYS RIO OCE
-        tipo_basura_DM_quantity_response=[]
-        animales_nivel_DM_quantity_response=[]
+        tipo_basura_DM_quantity_response = []
+        animales_nivel_DM_quantity_response = []
         #QUERYS LUCES
-        touches_luces_DM_quantity_response=[]
+        touches_luces_DM_quantity_response = []
         #QUERYS ABEJA
-        get_miel_cae_choca_DM_quantity_response=[]
+        get_miel_cae_choca_DM_quantity_response = []
         #QUERYS ANIMALES
-        get_animales_salvados_DM_quantity_response=[]
-        get_animales_salvados_pornivel_DM_quantity_response=[]
+        get_animales_salvados_DM_quantity_response = []
+        get_animales_salvados_pornivel_DM_quantity_response = []
         #QUERYS ARBOL
-        correcta_incorrecta_arbol_DM_quantity_response=[]
-        crecimiento_arbol_DM_quantity_response=[]
+        correcta_incorrecta_arbol_DM_quantity_response = []
+        crecimiento_arbol_DM_quantity_response = []
 
         #TAMAÑOS
-        total_completa_incompleta=0
-        time_DM_graf=0
+        total_completa_incompleta = 0
+        time_DM_graf = 0
         colisiones_tiempo_media = -1
         colisiones_muro_media = 0
         colisiones_hoyo_media = 0
@@ -679,8 +1027,7 @@ def welcome(request):
         lista_alumnos_final2 = []
         lista_unico_alumno = []
 
-
-        if reim_num=="4":
+        if reim_num == "4":
 
             #GRAN GRAFICO
             lista_alumnos = get_alumnos_and_id(request)
@@ -700,10 +1047,10 @@ def welcome(request):
                             error_max = sesion_lab[2]
                         else:
                             if a > 2 and error_max > 0:
-                                b = (100 * sesion_lab[2])/error_max
+                                b = (100 * sesion_lab[2]) / error_max
                                 porcent += b
                         a += 1
-                    porcent = porcent / (len(sesiones_lab)-3)
+                    porcent = porcent / (len(sesiones_lab) - 3)
                     alumnoC[1] = porcent
                 sesiones_abejas = get_abejas_porniño(request, alumnoo[0])
                 cursor.execute(sesiones_abejas)
@@ -717,10 +1064,10 @@ def welcome(request):
                             error_max = sesion_lab[2]
                         else:
                             if a > 2 and error_max > 0:
-                                b = (100 * sesion_lab[2])/error_max
+                                b = (100 * sesion_lab[2]) / error_max
                                 porcentt += b
                         a += 1
-                    porcentt = porcentt / (len(sesiones_abejas)-3)
+                    porcentt = porcentt / (len(sesiones_abejas) - 3)
                     alumnoC[2] = porcentt
                 sesiones_luces = get_luces_porniño(request, alumnoo[0])
                 cursor.execute(sesiones_luces)
@@ -734,10 +1081,10 @@ def welcome(request):
                             error_max = sesion_lab[2]
                         else:
                             if a > 2 and error_max > 0:
-                                b = (100 * sesion_lab[2])/error_max
+                                b = (100 * sesion_lab[2]) / error_max
                                 porcenttt += b
                         a += 1
-                    porcenttt = porcenttt / (len(sesiones_luces)-3)
+                    porcenttt = porcenttt / (len(sesiones_luces) - 3)
                     alumnoC[3] = porcenttt
                 sesiones_ocerio = get_oceanorio_porniño(request, alumnoo[0])
                 cursor.execute(sesiones_ocerio)
@@ -745,23 +1092,32 @@ def welcome(request):
                 if len(sesiones_ocerio) > 3:
                     a = 0
                     error_max = 0
-                    porcentttt=0
+                    porcentttt = 0
                     for sesion_lab in sesiones_ocerio:
                         if a == 2:
                             error_max = sesion_lab[2]
                         else:
                             if a > 2 and error_max > 0:
-                                b = (100 * sesion_lab[2])/error_max
+                                b = (100 * sesion_lab[2]) / error_max
                                 porcentttt += b
                         a += 1
-                    porcentttt = porcentttt / (len(sesiones_ocerio)-3)
+                    porcentttt = porcentttt / (len(sesiones_ocerio) - 3)
                     alumnoC[4] = porcentttt
                 lista_alumnos_final.append(alumnoC)
             lista_unico_alumno = []
             for alm in lista_alumnos_final:
                 if int(student_num) == int(alm[5]):
-                    print("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb")
-                    lista_unico_alumno.append({'name': alm[0], 'lab': int(alm[1]), 'abejas': int(alm[2]), 'luces': int(alm[3]), 'ocerio': int(alm[4]), 'id': alm[5]})
+                    print(
+                        "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+                    )
+                    lista_unico_alumno.append({
+                        'name': alm[0],
+                        'lab': int(alm[1]),
+                        'abejas': int(alm[2]),
+                        'luces': int(alm[3]),
+                        'ocerio': int(alm[4]),
+                        'id': alm[5]
+                    })
                 prcentt = 0
                 bb = 0
                 if alm[1] != 0:
@@ -779,81 +1135,141 @@ def welcome(request):
                 if bb > 0:
                     prcentt = int(prcentt / bb)
                     prcentt = 100 - prcentt
-                lista_alumnos_final2.append({'name': alm[0], 'porcent': prcentt})
+                lista_alumnos_final2.append({
+                    'name': alm[0],
+                    'porcent': prcentt
+                })
             print(lista_alumnos_final)
-            print("---------------------------------------------O---------------------------------------------------")
+            print(
+                "---------------------------------------------O---------------------------------------------------"
+            )
             print(lista_alumnos_final2)
 
             #General
             nombre_query = get_name_student(request)
-            queries.append({"name": 'nombre estudiante', "query": nombre_query})
+            queries.append({
+                "name": 'nombre estudiante',
+                "query": nombre_query
+            })
             cursor.execute(nombre_query)
             nombre_quantity = cursor.fetchall()
             for row in nombre_quantity:
-                nombre.append({ 'name': row[0]})
+                nombre.append({'name': row[0]})
 
             sesiones_PS_query = get_time_act_co(request)
-            queries.append({"name": 'Tiempo Actividad sesion query', "query": sesiones_PS_query})
+            queries.append({
+                "name": 'Tiempo Actividad sesion query',
+                "query": sesiones_PS_query
+            })
             cursor.execute(sesiones_PS_query)
             sesiones_PS_quantity = cursor.fetchall()
             for row in sesiones_PS_quantity:
-                sesiones_PS_quantity_response.append({ 'id': row[0]})
-       
+                sesiones_PS_quantity_response.append({'id': row[0]})
+
             time_PS_query = get_time_act_co(request)
-            queries.append({"name": 'Tiempo Actividad query', "query": time_PS_query})
+            queries.append({
+                "name": 'Tiempo Actividad query',
+                "query": time_PS_query
+            })
             cursor.execute(time_PS_query)
             time_PS_quantity = cursor.fetchall()
             for row in time_PS_quantity:
-                time_PS_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
-            
+                time_PS_quantity_response.append({
+                    'id': row[0],
+                    'name': row[1],
+                    'quantity': row[2]
+                })
+
         #tiempo por actividad general
             tiempoXact_query = get_tiempoactDM(request)
             cursor.execute(tiempoXact_query)
-            queries.append({"name": 'TiempoXact query', "query": tiempoXact_query})
+            queries.append({
+                "name": 'TiempoXact query',
+                "query": tiempoXact_query
+            })
             tiempoXact_quantity = cursor.fetchall()
             print("tiempoXact quantity", tiempoXact_quantity)
             for row in tiempoXact_quantity:
-                tiempoXact_quantity_responseDM.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+                tiempoXact_quantity_responseDM.append({
+                    'id': row[0],
+                    'name': row[1],
+                    'quantity': row[2]
+                })
 
         #QUEST DM
             completa_incompleta_PS_query = get_ganar_perder_DM_Quest(request)
-            queries.append({"name": 'Correcta Incorrecta Quest DM query', "query": completa_incompleta_PS_query})
+            queries.append({
+                "name": 'Correcta Incorrecta Quest DM query',
+                "query": completa_incompleta_PS_query
+            })
             cursor.execute(completa_incompleta_PS_query)
             completa_incompleta_PS_quantity = cursor.fetchall()
             for row in completa_incompleta_PS_quantity:
-                get_ganar_perder_DM_Quest_response.append({ 'id': row[0], 'name': row[1], 'correcta': row[2], 'incorrecta': row[3]})
-
+                get_ganar_perder_DM_Quest_response.append({
+                    'id': row[0],
+                    'name': row[1],
+                    'correcta': row[2],
+                    'incorrecta': row[3]
+                })
 
         ##JUEGO LABERINTO
         #Colisiones en el tiempo
             colission_analitica_query = get_colisiones_analitica_DM(request)
-            queries.append({"name": 'colisiones tiempo', "query": colission_analitica_query})
+            queries.append({
+                "name": 'colisiones tiempo',
+                "query": colission_analitica_query
+            })
             cursor.execute(colission_analitica_query)
             colission_analitica_quantity = cursor.fetchall()
             a = 0
             for row in colission_analitica_quantity:
-                col_vs_time.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+                col_vs_time.append({
+                    'id': row[0],
+                    'name': row[1],
+                    'quantity': row[2]
+                })
                 if a == 3:
                     colisiones_tiempo_media += row[2]
                 a += 1
             for row in colission_analitica_quantity:
-                col_vs_time.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+                col_vs_time.append({
+                    'id': row[0],
+                    'name': row[1],
+                    'quantity': row[2]
+                })
 
         #CompletavsIncompleta
             completa_incompleta_PS_query = get_completa_incompleta_PS(request)
-            queries.append({"name": 'Completas incompletas DM query', "query": completa_incompleta_PS_query})
+            queries.append({
+                "name": 'Completas incompletas DM query',
+                "query": completa_incompleta_PS_query
+            })
             cursor.execute(completa_incompleta_PS_query)
             completa_incompleta_PS_quantity = cursor.fetchall()
             for row in completa_incompleta_PS_quantity:
-                completa_incompleta_inactividad.append({ 'id': row[0], 'name': row[1], 'completa': row[2], 'incompleta': row[3], 'inactiva': row[4] })
-            
+                completa_incompleta_inactividad.append({
+                    'id': row[0],
+                    'name': row[1],
+                    'completa': row[2],
+                    'incompleta': row[3],
+                    'inactiva': row[4]
+                })
+
         #Fruta vs Chatarra
             elementos_PS_query = get_ganar_perder_lab(request)
-            queries.append({"name": 'Fruta Chatarra DM query', "query": elementos_PS_query})
+            queries.append({
+                "name": 'Fruta Chatarra DM query',
+                "query": elementos_PS_query
+            })
             cursor.execute(elementos_PS_query)
             elementos_PS_quantity = cursor.fetchall()
             for row in elementos_PS_quantity:
-                fruta_chatarra_DM_quantity_response.append({ 'id': row[0], 'name': row[1], 'fruta': row[2], 'chatarra': row[3],})
+                fruta_chatarra_DM_quantity_response.append({
+                    'id': row[0],
+                    'name': row[1],
+                    'fruta': row[2],
+                    'chatarra': row[3],
+                })
 
         #Muro vs Hoyo
             muro_hoyo = get_colision_muro_hoyo(request)
@@ -861,90 +1277,227 @@ def welcome(request):
             cursor.execute(muro_hoyo)
             muro_hoyo_quantity = cursor.fetchall()
             for row in muro_hoyo_quantity:
-                muro_hoyo_DM_quantity_response.append({ 'id': row[0], 'name': row[1], 'muro': row[2], 'hoyo': row[3]})
+                muro_hoyo_DM_quantity_response.append({
+                    'id': row[0],
+                    'name': row[1],
+                    'muro': row[2],
+                    'hoyo': row[3]
+                })
                 colisiones_muro_media += row[2]
                 colisiones_hoyo_media += row[3]
 
         ##JUEGO RIO OCEANO
         #Tipo basura
             elementos_PS_query = get_tipo_basura(request)
-            queries.append({"name": 'Tipo Basura DM query', "query": elementos_PS_query})
+            queries.append({
+                "name": 'Tipo Basura DM query',
+                "query": elementos_PS_query
+            })
             cursor.execute(elementos_PS_query)
             elementos_PS_quantity = cursor.fetchall()
             for row in elementos_PS_quantity:
-                tipo_basura_DM_quantity_response.append({ 'id': row[0], 'name': row[1], 'bolsa': row[2], 'botella': row[3], 'mancha': row[4], 'red': row[5], 'zapato': row[6],})            
+                tipo_basura_DM_quantity_response.append({
+                    'id': row[0],
+                    'name': row[1],
+                    'bolsa': row[2],
+                    'botella': row[3],
+                    'mancha': row[4],
+                    'red': row[5],
+                    'zapato': row[6],
+                })
 
         #Animal Nivel
             elementos_PS_query = get_animales_nivel(request)
-            queries.append({"name": 'Animales Nivel DM query', "query": elementos_PS_query})
+            queries.append({
+                "name": 'Animales Nivel DM query',
+                "query": elementos_PS_query
+            })
             cursor.execute(elementos_PS_query)
             elementos_PS_quantity = cursor.fetchall()
             for row in elementos_PS_quantity:
-                animales_nivel_DM_quantity_response.append({ 'id': row[0], 'name': row[1], 'animalesoceano': row[2], 'animalesrio': row[3], 'basuraoceano': row[4], 'basurario': row[5],}) 
+                animales_nivel_DM_quantity_response.append({
+                    'id':
+                    row[0],
+                    'name':
+                    row[1],
+                    'animalesoceano':
+                    row[2],
+                    'animalesrio':
+                    row[3],
+                    'basuraoceano':
+                    row[4],
+                    'basurario':
+                    row[5],
+                })
 
         ##JUEGO LUCES
         #Touches Luces
             elementos_PS_query = get_touches_luces(request)
-            queries.append({"name": 'Touches Luces DM query', "query": elementos_PS_query})
+            queries.append({
+                "name": 'Touches Luces DM query',
+                "query": elementos_PS_query
+            })
             cursor.execute(elementos_PS_query)
             elementos_PS_quantity = cursor.fetchall()
             for row in elementos_PS_quantity:
-                touches_luces_DM_quantity_response.append({ 'id': row[0], 'name': row[1], 'touches': row[2], 'lucescorrectas': row[3],})  
+                touches_luces_DM_quantity_response.append({
+                    'id':
+                    row[0],
+                    'name':
+                    row[1],
+                    'touches':
+                    row[2],
+                    'lucescorrectas':
+                    row[3],
+                })
 
         ##JUEGO ABEJA
         #GET MIEL
             elementos_PS_query = get_miel_cae_choca(request)
-            queries.append({"name": 'Get Miel DM query', "query": elementos_PS_query})
+            queries.append({
+                "name": 'Get Miel DM query',
+                "query": elementos_PS_query
+            })
             cursor.execute(elementos_PS_query)
             elementos_PS_quantity = cursor.fetchall()
             for row in elementos_PS_quantity:
-                get_miel_cae_choca_DM_quantity_response.append({ 'id': row[0], 'name': row[1], 'colisionpanal': row[2], 'colisionsuelo': row[3], 'colisionosoavispa': row[4],})
+                get_miel_cae_choca_DM_quantity_response.append({
+                    'id':
+                    row[0],
+                    'name':
+                    row[1],
+                    'colisionpanal':
+                    row[2],
+                    'colisionsuelo':
+                    row[3],
+                    'colisionosoavispa':
+                    row[4],
+                })
 
         ##JUEGO ANIMALES
         #ANIMALES SALVADOS
             elementos_PS_query = get_animales_salvados(request)
-            queries.append({"name": 'Animales Salvados DM query', "query": elementos_PS_query})
+            queries.append({
+                "name": 'Animales Salvados DM query',
+                "query": elementos_PS_query
+            })
             cursor.execute(elementos_PS_query)
             elementos_PS_quantity = cursor.fetchall()
             for row in elementos_PS_quantity:
-                get_animales_salvados_DM_quantity_response.append({ 'id': row[0], 'name': row[1], 'ballena': row[2], 'oso': row[3], 'pinguino': row[4], 'pepino': row[5], 'pajaro': row[6], 'foca': row[7], 'tigre': row[8], 'cocodrilo': row[9], 'mono': row[10], 'serpiente': row[11], 'perezoso': row[12], 'rana': row[13], 'lagartija': row[14], 'lemur': row[15], 'camaleon': row[16], 'tortuga': row[17], 'leon': row[18], 'fosa': row[19]})
+                get_animales_salvados_DM_quantity_response.append({
+                    'id':
+                    row[0],
+                    'name':
+                    row[1],
+                    'ballena':
+                    row[2],
+                    'oso':
+                    row[3],
+                    'pinguino':
+                    row[4],
+                    'pepino':
+                    row[5],
+                    'pajaro':
+                    row[6],
+                    'foca':
+                    row[7],
+                    'tigre':
+                    row[8],
+                    'cocodrilo':
+                    row[9],
+                    'mono':
+                    row[10],
+                    'serpiente':
+                    row[11],
+                    'perezoso':
+                    row[12],
+                    'rana':
+                    row[13],
+                    'lagartija':
+                    row[14],
+                    'lemur':
+                    row[15],
+                    'camaleon':
+                    row[16],
+                    'tortuga':
+                    row[17],
+                    'leon':
+                    row[18],
+                    'fosa':
+                    row[19]
+                })
 
         #ANIMALES SALVADOS POR NIVEL
             elementos_PS_query = get_animales_salvados_pornivel(request)
-            queries.append({"name": 'Animales Salvados Por Nivel DM query', "query": elementos_PS_query})
+            queries.append({
+                "name": 'Animales Salvados Por Nivel DM query',
+                "query": elementos_PS_query
+            })
             cursor.execute(elementos_PS_query)
             elementos_PS_quantity = cursor.fetchall()
             for row in elementos_PS_quantity:
-                get_animales_salvados_pornivel_DM_quantity_response.append({ 'id': row[0], 'name': row[1], 'animalesantartica': row[2], 'animalesselva': row[3], 'animalesmadagascar': row[4],})
+                get_animales_salvados_pornivel_DM_quantity_response.append({
+                    'id':
+                    row[0],
+                    'name':
+                    row[1],
+                    'animalesantartica':
+                    row[2],
+                    'animalesselva':
+                    row[3],
+                    'animalesmadagascar':
+                    row[4],
+                })
 
         ##JUEGO ARBOL
         #Correcta Incorrecta
             elementos_PS_query = get_correcta_incorrecta_arbol(request)
-            queries.append({"name": 'Correcta Incorrecta Arbol DM query', "query": elementos_PS_query})
+            queries.append({
+                "name": 'Correcta Incorrecta Arbol DM query',
+                "query": elementos_PS_query
+            })
             cursor.execute(elementos_PS_query)
             elementos_PS_quantity = cursor.fetchall()
             for row in elementos_PS_quantity:
-                correcta_incorrecta_arbol_DM_quantity_response.append({ 'id': row[0], 'name': row[1], 'perdida': row[2], 'atino': row[3],})
+                correcta_incorrecta_arbol_DM_quantity_response.append({
+                    'id':
+                    row[0],
+                    'name':
+                    row[1],
+                    'perdida':
+                    row[2],
+                    'atino':
+                    row[3],
+                })
 
         #Crecimiento Arbol
             colission_analitica_query = get_crecimiento_arbol(request)
-            queries.append({"name": 'Crecer Árbol en el tiempo', "query": colission_analitica_query})
+            queries.append({
+                "name": 'Crecer Árbol en el tiempo',
+                "query": colission_analitica_query
+            })
             cursor.execute(colission_analitica_query)
             colission_analitica_quantity = cursor.fetchall()
             for row in colission_analitica_quantity:
-                crecimiento_arbol_DM_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+                crecimiento_arbol_DM_quantity_response.append({
+                    'id':
+                    row[0],
+                    'name':
+                    row[1],
+                    'quantity':
+                    row[2]
+                })
 
         #OTROS
-            if len(col_vs_time) > 3 and len(muro_hoyo_DM_quantity_response) > 0:
+            if len(col_vs_time) > 3 and len(
+                    muro_hoyo_DM_quantity_response) > 0:
                 colisiones_tiempo_media = colisiones_tiempo_media * 0.6
-                colisiones_muro_media = (colisiones_muro_media / len(muro_hoyo_DM_quantity_response))
-                colisiones_hoyo_media = (colisiones_hoyo_media / len(muro_hoyo_DM_quantity_response))
-
+                colisiones_muro_media = (colisiones_muro_media /
+                                         len(muro_hoyo_DM_quantity_response))
+                colisiones_hoyo_media = (colisiones_hoyo_media /
+                                         len(muro_hoyo_DM_quantity_response))
 
             lista_alumnos_final2.sort(key=order_list_alm, reverse=True)
-
-
-
 
         #INICIO PLUS SPACE
         #PLUS SPACE-------------------------------------
@@ -961,9 +1514,9 @@ def welcome(request):
         tiempoXact_quantity_response = []
         jumpxalumno_quantity_response = []
         elementosXalum_PS_quantity_response = []
-        element_colission_alum_quantity_response=[]
-        posicionamiento_alu_PS_quantity_response=[]
-        acierto_cuida_alu_quantity_response=[]
+        element_colission_alum_quantity_response = []
+        posicionamiento_alu_PS_quantity_response = []
+        acierto_cuida_alu_quantity_response = []
         time_PS_graf = 0
         correctas_PS_graf = 0
         move_element_graf = 0
@@ -973,147 +1526,278 @@ def welcome(request):
         jump_alternativas_graf = 0
         acierto_cuida_graf = 0
         completa_incompleta_PS_graf = 0
-        sesiones_PS_quantity_response=[]
+        sesiones_PS_quantity_response = []
         #analitica PS
-        elementos_analitica_PS_quantity_response=[]
-        colission_analitica_quantity_response=[]
-        touch_puzzle_quantity_response=[]
-        nombre=[]
+        elementos_analitica_PS_quantity_response = []
+        colission_analitica_quantity_response = []
+        touch_puzzle_quantity_response = []
+        nombre = []
 
- 
-        if reim_num=="2":       
+        if reim_num == "2":
 
-        #General
+            #General
             nombre_query = get_name_student(request)
-            queries.append({"name": 'nombre estudiante', "query": nombre_query})
+            queries.append({
+                "name": 'nombre estudiante',
+                "query": nombre_query
+            })
             cursor.execute(nombre_query)
             nombre_quantity = cursor.fetchall()
             for row in nombre_quantity:
-                nombre.append({ 'name': row[0]})
+                nombre.append({'name': row[0]})
 
             sesiones_PS_query = get_time_act_co(request)
-            queries.append({"name": 'Tiempo Actividad query', "query": sesiones_PS_query})
+            queries.append({
+                "name": 'Tiempo Actividad query',
+                "query": sesiones_PS_query
+            })
             cursor.execute(sesiones_PS_query)
             sesiones_PS_quantity = cursor.fetchall()
             for row in sesiones_PS_quantity:
-                sesiones_PS_quantity_response.append({ 'id': row[0]})
-       
+                sesiones_PS_quantity_response.append({'id': row[0]})
+
             time_PS_query = get_time_act_co(request)
-            queries.append({"name": 'Tiempo Actividad query', "query": time_PS_query})
+            queries.append({
+                "name": 'Tiempo Actividad query',
+                "query": time_PS_query
+            })
             cursor.execute(time_PS_query)
             time_PS_quantity = cursor.fetchall()
             for row in time_PS_quantity:
-                time_PS_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+                time_PS_quantity_response.append({
+                    'id': row[0],
+                    'name': row[1],
+                    'quantity': row[2]
+                })
         #tiempo por actividad general
             tiempoXact_query = get_tiempoact(request)
             cursor.execute(tiempoXact_query)
-            queries.append({"name": 'TiempoXact query', "query": tiempoXact_query})
+            queries.append({
+                "name": 'TiempoXact query',
+                "query": tiempoXact_query
+            })
             tiempoXact_quantity = cursor.fetchall()
             for row in tiempoXact_quantity:
-                tiempoXact_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+                tiempoXact_quantity_response.append({
+                    'id': row[0],
+                    'name': row[1],
+                    'quantity': row[2]
+                })
 
         #CREACION
         #Elemento desplazado
             move_element_query = get_move_element_query(request)
-            queries.append({"name": 'Desplazado query', "query": move_element_query})
+            queries.append({
+                "name": 'Desplazado query',
+                "query": move_element_query
+            })
             cursor.execute(move_element_query)
             move_element_quantity = cursor.fetchall()
             for row in move_element_quantity:
-                move_element_quantity_response.append({ 'id': row[0], 'fila': row[1], 'columna':row[2]})
+                move_element_quantity_response.append({
+                    'id': row[0],
+                    'fila': row[1],
+                    'columna': row[2]
+                })
                 print(row[1])
                 print(row[2])
         #ELEMENTOS creacion
             elementos_PS_query = get_elementos_PS(request)
-            queries.append({"name": 'planet creacion query', "query": elementos_PS_query})
+            queries.append({
+                "name": 'planet creacion query',
+                "query": elementos_PS_query
+            })
             cursor.execute(elementos_PS_query)
             elementos_PS_quantity = cursor.fetchall()
             for row in elementos_PS_quantity:
-                elementos_PS_quantity_response.append({ 'id': row[0], 'name': row[1], 'planeta': row[2], 'planetaCS': row[3], 'planetaCA': row[4], 'estrella': row[5], 'supernova': row[6], 'nebulosa': row[7], 'galaxia': row[8] })
+                elementos_PS_quantity_response.append({
+                    'id': row[0],
+                    'name': row[1],
+                    'planeta': row[2],
+                    'planetaCS': row[3],
+                    'planetaCA': row[4],
+                    'estrella': row[5],
+                    'supernova': row[6],
+                    'nebulosa': row[7],
+                    'galaxia': row[8]
+                })
         #ELEMENTOS creacion analitica
             elementos_analitica_PS_query = get_elementos_alu_PS(request)
-            queries.append({"name": 'creacion analitica query', "query": elementos_analitica_PS_query})
+            queries.append({
+                "name": 'creacion analitica query',
+                "query": elementos_analitica_PS_query
+            })
             cursor.execute(elementos_analitica_PS_query)
             elementos_PS_quantity = cursor.fetchall()
             for row in elementos_PS_quantity:
-                elementos_analitica_PS_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
-       
+                elementos_analitica_PS_quantity_response.append({
+                    'id':
+                    row[0],
+                    'name':
+                    row[1],
+                    'quantity':
+                    row[2]
+                })
+
         #LABERINTO
         #posicionamiento
             posicionamiento_PS_query = get_posicionamiento_PS(request)
-            queries.append({"name": 'posicionamiento_PS query', "query": posicionamiento_PS_query})
+            queries.append({
+                "name": 'posicionamiento_PS query',
+                "query": posicionamiento_PS_query
+            })
             cursor.execute(posicionamiento_PS_query)
             posicionamiento_PS_quantity = cursor.fetchall()
             for row in posicionamiento_PS_quantity:
-                posicionamiento_PS_quantity_response.append({ 'id': row[0], 'name': row[1], 'tierra': row[2], 'neptuno': row[3], 'jupiter': row[4], 'saturno': row[5], 'urano': row[6], 'venus': row[7], 'mercurio': row[8], 'marte': row[9] })
+                posicionamiento_PS_quantity_response.append({
+                    'id': row[0],
+                    'name': row[1],
+                    'tierra': row[2],
+                    'neptuno': row[3],
+                    'jupiter': row[4],
+                    'saturno': row[5],
+                    'urano': row[6],
+                    'venus': row[7],
+                    'mercurio': row[8],
+                    'marte': row[9]
+                })
 
         #colisiones
             element_colission_query = get_element_colission_query(request)
-            queries.append({"name": 'colisiones query', "query": element_colission_query})
+            queries.append({
+                "name": 'colisiones query',
+                "query": element_colission_query
+            })
             cursor.execute(element_colission_query)
             element_colission_quantity = cursor.fetchall()
             for row in element_colission_quantity:
-                element_colission_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+                element_colission_quantity_response.append({
+                    'id': row[0],
+                    'name': row[1],
+                    'quantity': row[2]
+                })
         #colisiones analitica
             colission_analitica_query = get_colisiones_analitica_PS(request)
-            queries.append({"name": 'colisiones analitica query', "query": colission_analitica_query})
+            queries.append({
+                "name": 'colisiones analitica query',
+                "query": colission_analitica_query
+            })
             cursor.execute(colission_analitica_query)
             colission_analitica_quantity = cursor.fetchall()
             for row in colission_analitica_quantity:
-                colission_analitica_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+                colission_analitica_quantity_response.append({
+                    'id': row[0],
+                    'name': row[1],
+                    'quantity': row[2]
+                })
         #ALTERNATIVAS
         #saltos
             jump_alternativas_query = get_jump_alternativas_query(request)
-            queries.append({"name": 'Saltos query', "query": jump_alternativas_query})
+            queries.append({
+                "name": 'Saltos query',
+                "query": jump_alternativas_query
+            })
             cursor.execute(jump_alternativas_query)
             jump_alternativas_quantity = cursor.fetchall()
             for row in jump_alternativas_quantity:
-                jump_alternativas_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+                jump_alternativas_quantity_response.append({
+                    'id': row[0],
+                    'name': row[1],
+                    'quantity': row[2]
+                })
         #saltosxalumno
             jumpxalumno_query = get_jump_alternativas_alu_query(request)
-            queries.append({"name": 'Saltosxalumno query', "query": jumpxalumno_query})
+            queries.append({
+                "name": 'Saltosxalumno query',
+                "query": jumpxalumno_query
+            })
             cursor.execute(jumpxalumno_query)
             jumpxalumno_quantity = cursor.fetchall()
             for row in jumpxalumno_quantity:
-                jumpxalumno_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+                jumpxalumno_quantity_response.append({
+                    'id': row[0],
+                    'name': row[1],
+                    'quantity': row[2]
+                })
         #busca
         #CORRECTAS INCORRECTAS
             correctas_PS_query = get_corrects_incorrects_co(request)
-            queries.append({"name": 'Correctas PS query', "query": correctas_PS_query})
+            queries.append({
+                "name": 'Correctas PS query',
+                "query": correctas_PS_query
+            })
             cursor.execute(correctas_PS_query)
             correctas_PS_quantity = cursor.fetchall()
             for row in correctas_PS_quantity:
-                correctas_PS_quantity_response.append({ 'id': row[0], 'name': row[1], 'correct': row[2], 'incorrect': row[3] })
-       #COMPLETAS INCOMPLETAS
+                correctas_PS_quantity_response.append({
+                    'id': row[0],
+                    'name': row[1],
+                    'correct': row[2],
+                    'incorrect': row[3]
+                })
+    #COMPLETAS INCOMPLETAS
             completa_incompleta_PS_query = get_completa_incompleta_PS(request)
-            queries.append({"name": 'Completas incompletas query', "query": completa_incompleta_PS_query})
+            queries.append({
+                "name": 'Completas incompletas query',
+                "query": completa_incompleta_PS_query
+            })
             cursor.execute(completa_incompleta_PS_query)
             completa_incompleta_PS_quantity = cursor.fetchall()
             for row in completa_incompleta_PS_quantity:
-                completa_incompleta_PS_quantity_response.append({ 'id': row[0], 'name': row[1], 'completa': row[2], 'incompleta': row[3], 'inactiva': row[4] })
-       #cuida
-        #acierto
+                completa_incompleta_PS_quantity_response.append({
+                    'id':
+                    row[0],
+                    'name':
+                    row[1],
+                    'completa':
+                    row[2],
+                    'incompleta':
+                    row[3],
+                    'inactiva':
+                    row[4]
+                })
+    #cuida
+    #acierto
             acierto_cuida_query = get_acierto_cuida_query(request)
-            queries.append({"name": 'Acierto Cuida query', "query": acierto_cuida_query})
+            queries.append({
+                "name": 'Acierto Cuida query',
+                "query": acierto_cuida_query
+            })
             cursor.execute(acierto_cuida_query)
             acierto_cuida_quantity = cursor.fetchall()
             for row in acierto_cuida_quantity:
-                acierto_cuida_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+                acierto_cuida_quantity_response.append({
+                    'id': row[0],
+                    'name': row[1],
+                    'quantity': row[2]
+                })
         #puzzle
             touch_puzzle_query = get_touch_analitica_query(request)
-            queries.append({"name": 'touch puzzle query', "query": touch_puzzle_query})
+            queries.append({
+                "name": 'touch puzzle query',
+                "query": touch_puzzle_query
+            })
             cursor.execute(touch_puzzle_query)
             touch_puzzle_quantity = cursor.fetchall()
             for row in touch_puzzle_quantity:
-                touch_puzzle_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })           
+                touch_puzzle_quantity_response.append({
+                    'id': row[0],
+                    'name': row[1],
+                    'quantity': row[2]
+                })
         #otros
-        time_PS_graf = len(time_PS_quantity_response) * 40+20
-        correctas_PS_graf = len(correctas_PS_quantity_response) * 40+100
-        elementos_PS_graf = len(elementos_PS_quantity_response) * 40+100
-        element_colission_graf = len(element_colission_quantity_response) * 40+20
-        posicionamiento_PS_graf = len(posicionamiento_PS_quantity_response) * 40+100
-        jump_alternativas_graf = len(jump_alternativas_quantity_response) * 40+20
-        acierto_cuida_graf = len(acierto_cuida_quantity_response) * 40+20
-        completa_incompleta_PS_graf = len(completa_incompleta_PS_quantity_response) * 40+100
+        time_PS_graf = len(time_PS_quantity_response) * 40 + 20
+        correctas_PS_graf = len(correctas_PS_quantity_response) * 40 + 100
+        elementos_PS_graf = len(elementos_PS_quantity_response) * 40 + 100
+        element_colission_graf = len(
+            element_colission_quantity_response) * 40 + 20
+        posicionamiento_PS_graf = len(
+            posicionamiento_PS_quantity_response) * 40 + 100
+        jump_alternativas_graf = len(
+            jump_alternativas_quantity_response) * 40 + 20
+        acierto_cuida_graf = len(acierto_cuida_quantity_response) * 40 + 20
+        completa_incompleta_PS_graf = len(
+            completa_incompleta_PS_quantity_response) * 40 + 100
         #FIN PLUS SPACE
 
         #INICIO CLEAN OCEAN
@@ -1166,118 +1850,196 @@ def welcome(request):
         time_act_co_quantity_graph = 0
         # def redondear(int n):
 
-        if reim_num=="3":
-            if activity_num=="3004" or activity_num=="3002" or activity_num=="3006":
+        if reim_num == "3":
+            if activity_num == "3004" or activity_num == "3002" or activity_num == "3006":
                 #actividad 3004, 3002, 3006
                 colision_query = get_colision_co(request)
                 cursor.execute(colision_query)
-                queries.append({"name": 'Colision query', "query": colision_query})
+                queries.append({
+                    "name": 'Colision query',
+                    "query": colision_query
+                })
                 colision_quantity = cursor.fetchall()
                 #print ("colision quantity" , colision_quantity)
                 for row in colision_quantity:
-                    colision_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+                    colision_quantity_response.append({
+                        'id': row[0],
+                        'name': row[1],
+                        'quantity': row[2]
+                    })
                     total_colisions += row[2]
-                    countCO = countCO+1
-                if (countCO!=0):
+                    countCO = countCO + 1
+                if (countCO != 0):
                     promedio_colisions = total_colisions / countCO
                 else:
                     promedio_colisions = total_colisions / 1
-                colision_quantity_graph = len(colision_quantity)*40+20
+                colision_quantity_graph = len(colision_quantity) * 40 + 20
 
-
-            if activity_num=="3005":
+            if activity_num == "3005":
                 #3005
                 corrects_query = get_corrects_co(request)
                 cursor.execute(corrects_query)
-                queries.append({"name": 'Corrects query', "query": corrects_query})
+                queries.append({
+                    "name": 'Corrects query',
+                    "query": corrects_query
+                })
                 corrects_quantity = cursor.fetchall()
                 for row in corrects_quantity:
-                    corrects_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
-                corrects_quantity_graph = len(corrects_quantity)*40+20
+                    corrects_quantity_response.append({
+                        'id': row[0],
+                        'name': row[1],
+                        'quantity': row[2]
+                    })
+                corrects_quantity_graph = len(corrects_quantity) * 40 + 20
 
                 jumps_query = get_jumps_co(request)
                 cursor.execute(jumps_query)
                 queries.append({"name": 'Jumps query', "query": jumps_query})
                 jumps_quantity = cursor.fetchall()
                 for row in jumps_quantity:
-                    jumps_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+                    jumps_quantity_response.append({
+                        'id': row[0],
+                        'name': row[1],
+                        'quantity': row[2]
+                    })
                     total_jumps += row[2]
-                    countCO = countCO+1
-                if (countCO!=0):
+                    countCO = countCO + 1
+                if (countCO != 0):
                     promedio_saltos = total_jumps / countCO
                 else:
                     promedio_saltos = total_jumps / 1
-                jumps_quantity_graph = len(jumps_quantity)*40+20
+                jumps_quantity_graph = len(jumps_quantity) * 40 + 20
 
-            if activity_num=="3002" or activity_num=="3003" or activity_num=="3004" or activity_num=="3006" or activity_num=="3007":
+            if activity_num == "3002" or activity_num == "3003" or activity_num == "3004" or activity_num == "3006" or activity_num == "3007":
                 #3002 3003 3004 3006 3007
                 corrects_incorrects_query = get_corrects_incorrects_co(request)
                 cursor.execute(corrects_incorrects_query)
-                queries.append({"name": 'Correctas e incorrectas query', "query": corrects_incorrects_query})
+                queries.append({
+                    "name": 'Correctas e incorrectas query',
+                    "query": corrects_incorrects_query
+                })
                 corrects_incorrects_quantity = cursor.fetchall()
                 for row in corrects_incorrects_quantity:
-                    corrects_incorrects_quantity_response.append({ 'id': row[0], 'name': row[1], 'corrects': row[2], 'incorrects': row[3] })
+                    corrects_incorrects_quantity_response.append({
+                        'id':
+                        row[0],
+                        'name':
+                        row[1],
+                        'corrects':
+                        row[2],
+                        'incorrects':
+                        row[3]
+                    })
                     total_corrects_co += row[2]
                     total_incorrects_co += row[3]
-                    countCO = countCO+1
-                if (countCO!=0):
+                    countCO = countCO + 1
+                if (countCO != 0):
                     promedio_correctas_co = total_corrects_co / countCO
                     promedio_incorrectas_co = total_incorrects_co / countCO
                 else:
                     promedio_correctas_co = total_corrects_co / 1
                     promedio_incorrectas_co = total_incorrects_co / 1
-                corrects_incorrects_quantity_graph = len(corrects_incorrects_quantity)*40+20
+                corrects_incorrects_quantity_graph = len(
+                    corrects_incorrects_quantity) * 40 + 20
 
-            
-            if activity_num=="0":
+            if activity_num == "0":
                 # act = 0
                 analytics_co_query = get_analytics_co(request)
                 cursor.execute(analytics_co_query)
-                queries.append({"name": 'Analytics co query', "query": analytics_co_query})
+                queries.append({
+                    "name": 'Analytics co query',
+                    "query": analytics_co_query
+                })
                 analytics_co_quantity = cursor.fetchall()
                 #print ("analytics_co_quantity", analytics_co_quantity)
                 for row in analytics_co_quantity:
-                    analytics_co_quantity_response.append({ 'id': row[0], 'name': row[1], 'correctsact1': row[2], 'correctsact2': row[3] })
-                analytics_co_quantity_graph = len(analytics_co_quantity)*40+20
+                    analytics_co_quantity_response.append({
+                        'id':
+                        row[0],
+                        'name':
+                        row[1],
+                        'correctsact1':
+                        row[2],
+                        'correctsact2':
+                        row[3]
+                    })
+                analytics_co_quantity_graph = len(
+                    analytics_co_quantity) * 40 + 20
 
                 actividades_co_query = get_cant_touch_act_co(request)
                 cursor.execute(actividades_co_query)
-                queries.append({"name": 'Actividades CO query', "query": actividades_co_query})
+                queries.append({
+                    "name": 'Actividades CO query',
+                    "query": actividades_co_query
+                })
                 actividades_co_quantity = cursor.fetchall()
                 #print("actividades CO quantity", actividades_co_quantity)
                 for row in actividades_co_quantity:
-                    actividades_co_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
-                actividades_co_quantity_graph = len(actividades_co_quantity)*40+20
+                    actividades_co_quantity_response.append({
+                        'id': row[0],
+                        'name': row[1],
+                        'quantity': row[2]
+                    })
+                actividades_co_quantity_graph = len(
+                    actividades_co_quantity) * 40 + 20
 
-            if student_num!="0":
+            if student_num != "0":
                 #student =!0
                 exit_lab_query = get_exit_lab(request)
                 cursor.execute(exit_lab_query)
-                queries.append({"name": 'Exit lab query', "query": exit_lab_query})
+                queries.append({
+                    "name": 'Exit lab query',
+                    "query": exit_lab_query
+                })
                 exit_lab_quantity = cursor.fetchall()
                 for row in exit_lab_quantity:
-                    exit_lab_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
-                exit_lab_quantity_graph = len(exit_lab_quantity)*40+20
+                    exit_lab_quantity_response.append({
+                        'id': row[0],
+                        'name': row[1],
+                        'quantity': row[2]
+                    })
+                exit_lab_quantity_graph = len(exit_lab_quantity) * 40 + 20
 
                 touch_trash_co_query = get_touch_trash_co(request)
                 cursor.execute(touch_trash_co_query)
-                queries.append({"name": 'Touch trash co query', "query": touch_trash_co_query})
+                queries.append({
+                    "name": 'Touch trash co query',
+                    "query": touch_trash_co_query
+                })
                 touch_trash_co_quantity = cursor.fetchall()
                 #print ("Touch trash co quantity" , touch_trash_co_quantity)
                 for row in touch_trash_co_quantity:
-                    touch_trash_co_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
-                touch_trash_co_quantity_graph = len(touch_trash_co_quantity)*40+20
+                    touch_trash_co_quantity_response.append({
+                        'id': row[0],
+                        'name': row[1],
+                        'quantity': row[2]
+                    })
+                touch_trash_co_quantity_graph = len(
+                    touch_trash_co_quantity) * 40 + 20
 
                 # student=! 0
                 #correctas e incorrectas para c/ alumno x actividad
                 corrects_student_co_query = get_corrects_student_co(request)
                 cursor.execute(corrects_student_co_query)
-                queries.append({"name": 'Corrects students CO query', "query": corrects_student_co_query})
+                queries.append({
+                    "name": 'Corrects students CO query',
+                    "query": corrects_student_co_query
+                })
                 corrects_student_co_quantity = cursor.fetchall()
                 #print ("Corrects students CO quantity" , corrects_student_co_quantity)
                 for row in corrects_student_co_quantity:
-                    corrects_student_co_quantity_response.append({ 'id': row[0], 'name': row[1], 'correct': row[2], 'incorrect': row[3] })
-                corrects_student_co_quantity_graph = len(corrects_student_co_quantity)*40+20
+                    corrects_student_co_quantity_response.append({
+                        'id':
+                        row[0],
+                        'name':
+                        row[1],
+                        'correct':
+                        row[2],
+                        'incorrect':
+                        row[3]
+                    })
+                corrects_student_co_quantity_graph = len(
+                    corrects_student_co_quantity) * 40 + 20
 
             # touch_animals_co_query = get_touch_animals_co(request)
             # cursor.execute(touch_animals_co_query)
@@ -1287,16 +2049,23 @@ def welcome(request):
             # for row in touch_animals_co_quantity:
             #     touch_animals_co_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
 
-            if activity_num=="3002":
+            if activity_num == "3002":
                 colision_trash_query = get_colision_trash(request)
                 cursor.execute(colision_trash_query)
-                queries.append({"name": 'Colision trash query', "query": colision_trash_query})
+                queries.append({
+                    "name": 'Colision trash query',
+                    "query": colision_trash_query
+                })
                 colision_trash_quantity = cursor.fetchall()
                 #print("Colision trash quantity", colision_trash_quantity)
                 for row in colision_trash_quantity:
-                    colision_trash_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
-                colision_trash_quantity_graph = len(colision_trash_quantity)*40+20
-
+                    colision_trash_quantity_response.append({
+                        'id': row[0],
+                        'name': row[1],
+                        'quantity': row[2]
+                    })
+                colision_trash_quantity_graph = len(
+                    colision_trash_quantity) * 40 + 20
 
             # touch_all_animals_query = get_touch_all_animals(request)
             # cursor.execute(touch_all_animals_query)
@@ -1310,59 +2079,98 @@ def welcome(request):
             if activity_num == "3004":
                 exits_lab_co_query = get_exits_lab_co(request)
                 cursor.execute(exits_lab_co_query)
-                queries.append({"name": 'Exits lab co query', "query": exits_lab_co_query})
+                queries.append({
+                    "name": 'Exits lab co query',
+                    "query": exits_lab_co_query
+                })
                 exits_lab_co_quantity = cursor.fetchall()
                 #print ("Exits lab co quantity" , exits_lab_co_quantity)
                 for row in exits_lab_co_quantity:
-                    exits_lab_co_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
-                exits_lab_co_quantity_graph = len(exits_lab_co_quantity)*40+20
+                    exits_lab_co_quantity_response.append({
+                        'id': row[0],
+                        'name': row[1],
+                        'quantity': row[2]
+                    })
+                exits_lab_co_quantity_graph = len(
+                    exits_lab_co_quantity) * 40 + 20
 
-            if activity_num=="3000":
+            if activity_num == "3000":
                 # act 3000
                 touch_all_trash_query = get_touch_all_trash(request)
                 cursor.execute(touch_all_trash_query)
-                queries.append({"name": 'Touch all trash query', "query": touch_all_trash_query})
+                queries.append({
+                    "name": 'Touch all trash query',
+                    "query": touch_all_trash_query
+                })
                 touch_all_trash_quantity = cursor.fetchall()
                 #print ("Touch all trash quantity" , touch_all_trash_quantity)
                 for row in touch_all_trash_quantity:
-                    touch_all_trash_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
-                touch_all_trash_quantity_graph = len(touch_all_trash_quantity)*40+20
-            
-            if activity_num!="0":
+                    touch_all_trash_quantity_response.append({
+                        'id': row[0],
+                        'name': row[1],
+                        'quantity': row[2]
+                    })
+                touch_all_trash_quantity_graph = len(
+                    touch_all_trash_quantity) * 40 + 20
+
+            if activity_num != "0":
                 #3000 3001 3002 3003 3004 3005 3006 3007
                 buttons_co_query = get_buttons_co(request)
                 cursor.execute(buttons_co_query)
-                queries.append({"name": 'Buttons CO query', "query": buttons_co_query})
+                queries.append({
+                    "name": 'Buttons CO query',
+                    "query": buttons_co_query
+                })
                 buttons_co_quantity = cursor.fetchall()
                 #print ("Buttons CO quantity" , buttons_co_quantity)
                 for row in buttons_co_quantity:
-                    buttons_co_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
-                buttons_co_quantity_graph = len(buttons_co_quantity)*40+20
+                    buttons_co_quantity_response.append({
+                        'id': row[0],
+                        'name': row[1],
+                        'quantity': row[2]
+                    })
+                buttons_co_quantity_graph = len(buttons_co_quantity) * 40 + 20
 
-            if activity_num=="3007":
+            if activity_num == "3007":
                 trash_clean_co_query = get_trash_clean_co(request)
                 cursor.execute(trash_clean_co_query)
-                queries.append({"name": 'Trash clean CO query', "query": trash_clean_co_query})
+                queries.append({
+                    "name": 'Trash clean CO query',
+                    "query": trash_clean_co_query
+                })
                 trash_clean_co_quantity = cursor.fetchall()
                 #print ("Trash clean CO quantity" , trash_clean_co_quantity)
                 for row in trash_clean_co_quantity:
-                    trash_clean_co_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
-                trash_clean_co_quantity_graph = len(trash_clean_co_quantity)*40+20
+                    trash_clean_co_quantity_response.append({
+                        'id': row[0],
+                        'name': row[1],
+                        'quantity': row[2]
+                    })
+                trash_clean_co_quantity_graph = len(
+                    trash_clean_co_quantity) * 40 + 20
 
-            if activity_num!="3000" and activity_num!="3001" and activity_num!="0":
+            if activity_num != "3000" and activity_num != "3001" and activity_num != "0":
                 time_act_co_query = get_time_act_co(request)
                 cursor.execute(time_act_co_query)
-                queries.append({"name": 'Time act CO query', "query": time_act_co_query})
+                queries.append({
+                    "name": 'Time act CO query',
+                    "query": time_act_co_query
+                })
                 time_act_co_quantity = cursor.fetchall()
                 #print ("Time act CO quantity" , time_act_co_quantity)
                 for row in time_act_co_quantity:
-                    time_act_co_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
-                time_act_co_quantity_graph = len(time_act_co_quantity)*40+20
+                    time_act_co_quantity_response.append({
+                        'id': row[0],
+                        'name': row[1],
+                        'quantity': row[2]
+                    })
+                time_act_co_quantity_graph = len(
+                    time_act_co_quantity) * 40 + 20
 
         #FIN CLEAN OCEAN
 
 #INICIO REIM ID = 77, NOMBRE = BUSCANDO EL TESORO PERDIDO
-        #-------
+#-------
         nombre_estilo_cognitivo_alumno = ''
         tiempo_x_actividad_response = []
         identificar_estilo_cognitivo_response = []
@@ -1402,7 +2210,7 @@ def welcome(request):
         lista_estudiante = []
         #print("\n\n\n lista: ", lista_estudiante[4])
 
-        if reim_num=="77":
+        if reim_num == "77":
             #-------------------------por curso---------------------------  11
             tipo_grafico = 0
             contador_complejo_1 = 0
@@ -1420,10 +2228,10 @@ def welcome(request):
             nombre_actividad = ''
             contador_tiempo = 0
             Total_Completas_Actividad = 0
-            rango_tiempo = datetime.now() 
+            rango_tiempo = datetime.now()
             fecha_inicial = datetime.now()
-            nombre_alumno = '' 
-#POR CURSOR
+            nombre_alumno = ''
+            #POR CURSOR
             if request.GET.get('student') == '0':
                 #print("\n\n grafico general")
                 lista_estudiante = students_response
@@ -1433,11 +2241,11 @@ def welcome(request):
                     except:
                         tipo_grafico = 1
                     #print("Grafico:", tipo_grafico)
-                    
 
-                    lista_actividad = [[7705, 50], [7706, 50], [7707,50], [7708, 65], [7709, 70], [7710, 80]]
+                    lista_actividad = [[7705, 50], [7706, 50], [7707, 50],
+                                       [7708, 65], [7709, 70], [7710, 80]]
                     for actividad_77 in lista_actividad:
-                        
+
                         contador_complejo_1 = 0
                         contador_complejo_2 = 0
                         contador_complejo_3 = 0
@@ -1454,104 +2262,191 @@ def welcome(request):
                         contador_tiempo = 0
                         queryXactividad = ''
 
-                        if(tipo_grafico == 1 ):
-                            print('\n\nAlumno', alumno["id"], ' nombre: ', alumno["name"])
-                            queryXactividad = get_figura_simple_estandar_por_curso(request, actividad_77, alumno["id"])
+                        if (tipo_grafico == 1):
+                            print('\n\nAlumno', alumno["id"], ' nombre: ',
+                                  alumno["name"])
+                            queryXactividad = get_figura_simple_estandar_por_curso(
+                                request, actividad_77, alumno["id"])
                             #print("ESTANDAR")
-                        if(tipo_grafico == 2 ):
-                            queryXactividad = get_figura_simple_promedio_por_curso(request, actividad_77, alumno["id"])
+                        if (tipo_grafico == 2):
+                            queryXactividad = get_figura_simple_promedio_por_curso(
+                                request, actividad_77, alumno["id"])
                             #print("PROMEDIO")
-                        if(tipo_grafico == 3 ):
-                            queryXactividad = get_figura_simple_ultimos_registros_por_curso(request, actividad_77, alumno["id"])
+                        if (tipo_grafico == 3):
+                            queryXactividad = get_figura_simple_ultimos_registros_por_curso(
+                                request, actividad_77, alumno["id"])
                             #print("FINAL")
                         cursor.execute(queryXactividad)
-                        queries.append({"name": 'TiempoXact query', "query": queryXactividad})
+                        queries.append({
+                            "name": 'TiempoXact query',
+                            "query": queryXactividad
+                        })
                         resultado_query = cursor.fetchall()
                         for row in resultado_query:
 
-                                if(len(row[5]) > 0):
-                                    nombre_alumno = row[5]
-                                    #print("nombre: " + nombre_alumno)
-                                nombre_actividad = row[4]
-                                if(contador_tiempo == 0):
-                                    contador_tiempo+=1
-                                    rango_tiempo = row[2]
-                                    fecha_inicial = rango_tiempo + timedelta(seconds = actividad_77[1])
-                                    try:
-                                        if(int(request.GET.get('rango')) != 0):
-                                            valor = actividad_77[1] + ((actividad_77[1] * int(request.GET.get('rango')))/100)
-                                            #print("VALOR: ", valor)
-                                            fecha_inicial = rango_tiempo + timedelta(seconds = valor)
-                                    except:
-                                            valor = actividad_77[1] + ((actividad_77[1] * int("50"))/100)
-                                            #print("VALOR: ", valor)
-                                            fecha_inicial = rango_tiempo + timedelta(seconds = valor)
-                                #print("\n\n\n\nFECHA INICIAL: ",fecha_inicial, " Nombre: ", actividad_77[0], " Segundos: ", actividad_77[1])
-                                #print("Contador 1: ", contador_complejo_1)
-                                #print(row[1]," == 7728 and ", contador_complejo_1, " == 0 and correcta ", row[3], " == 1 and ", row[2], " <= " , fecha_inicial )
-                                if(row[1] == 7728 and contador_complejo_1 == 0 and row[3] == 1 and row[2] <= fecha_inicial):
-                                    #print("Entro actividad 7728 7705")
-                                    contador_complejo_1+=1
-                                    completada_total+=1
-                                if(row[1] == 7729 and contador_complejo_2 == 0 and row[3] == 1 and row[2] <= fecha_inicial):
-                                    #print("Entro actividad 7729 7705")
-                                    completada_total+=1
-                                    contador_complejo_2+=1
-                                if(row[1] == 7730 and contador_complejo_3 == 0 and row[3] == 1 and row[2] <= fecha_inicial):
-                                    completada_total+=1
-                                    contador_complejo_3+=1
-                                if(row[1] == 7731 and contador_complejo_4 == 0 and row[3] == 1 and row[2] <= fecha_inicial):
-                                    completada_total+=1
-                                    contador_complejo_4+=1
-                                if(row[1] == 7732 and contador_complejo_5 == 0 and row[3] == 1 and row[2] <= fecha_inicial):
-                                    completada_total+=1
-                                    contador_complejo_5+=1
-                                if(row[1] == 7733 and contador_complejo_6 == 0 and row[3] == 1 and row[2] <= fecha_inicial):
-                                    completada_total+=1
-                                    contador_complejo_6+=1
-                                if(row[1] == 7734 and contador_complejo_7 == 0 and row[3] == 1 and row[2] <= fecha_inicial):
-                                    completada_total+=1
-                                    contador_complejo_7+=1
-                                if(row[1] == 7735 and contador_complejo_8 == 0 and row[3] == 1 and row[2] <= fecha_inicial):
-                                    completada_total+=1
-                                    contador_complejo_8+=1
-                                if(row[1] == 7736 and contador_complejo_9 == 0 and row[3] == 1 and row[2] <= fecha_inicial):
-                                    completada_total+=1
-                                    contador_complejo_9+=1
-                                if(row[1] == 7737 and contador_complejo_10 == 0 and row[3] == 1 and row[2] <= fecha_inicial):
-                                    completada_total+=1
-                                    contador_complejo_10+=1      
-                        if(int(completada_total) < 10 and len(nombre_actividad) != 0):               
+                            if (len(row[5]) > 0):
+                                nombre_alumno = row[5]
+                                #print("nombre: " + nombre_alumno)
+                            nombre_actividad = row[4]
+                            if (contador_tiempo == 0):
+                                contador_tiempo += 1
+                                rango_tiempo = row[2]
+                                fecha_inicial = rango_tiempo + timedelta(
+                                    seconds=actividad_77[1])
+                                try:
+                                    if (int(request.GET.get('rango')) != 0):
+                                        valor = actividad_77[1] + (
+                                            (actividad_77[1] *
+                                             int(request.GET.get('rango'))) /
+                                            100)
+                                        #print("VALOR: ", valor)
+                                        fecha_inicial = rango_tiempo + timedelta(
+                                            seconds=valor)
+                                except:
+                                    valor = actividad_77[1] + (
+                                        (actividad_77[1] * int("50")) / 100)
+                                    #print("VALOR: ", valor)
+                                    fecha_inicial = rango_tiempo + timedelta(
+                                        seconds=valor)
+                            #print("\n\n\n\nFECHA INICIAL: ",fecha_inicial, " Nombre: ", actividad_77[0], " Segundos: ", actividad_77[1])
+                            #print("Contador 1: ", contador_complejo_1)
+                            #print(row[1]," == 7728 and ", contador_complejo_1, " == 0 and correcta ", row[3], " == 1 and ", row[2], " <= " , fecha_inicial )
+                            if (row[1] == 7728 and contador_complejo_1 == 0
+                                    and row[3] == 1
+                                    and row[2] <= fecha_inicial):
+                                #print("Entro actividad 7728 7705")
+                                contador_complejo_1 += 1
+                                completada_total += 1
+                            if (row[1] == 7729 and contador_complejo_2 == 0
+                                    and row[3] == 1
+                                    and row[2] <= fecha_inicial):
+                                #print("Entro actividad 7729 7705")
+                                completada_total += 1
+                                contador_complejo_2 += 1
+                            if (row[1] == 7730 and contador_complejo_3 == 0
+                                    and row[3] == 1
+                                    and row[2] <= fecha_inicial):
+                                completada_total += 1
+                                contador_complejo_3 += 1
+                            if (row[1] == 7731 and contador_complejo_4 == 0
+                                    and row[3] == 1
+                                    and row[2] <= fecha_inicial):
+                                completada_total += 1
+                                contador_complejo_4 += 1
+                            if (row[1] == 7732 and contador_complejo_5 == 0
+                                    and row[3] == 1
+                                    and row[2] <= fecha_inicial):
+                                completada_total += 1
+                                contador_complejo_5 += 1
+                            if (row[1] == 7733 and contador_complejo_6 == 0
+                                    and row[3] == 1
+                                    and row[2] <= fecha_inicial):
+                                completada_total += 1
+                                contador_complejo_6 += 1
+                            if (row[1] == 7734 and contador_complejo_7 == 0
+                                    and row[3] == 1
+                                    and row[2] <= fecha_inicial):
+                                completada_total += 1
+                                contador_complejo_7 += 1
+                            if (row[1] == 7735 and contador_complejo_8 == 0
+                                    and row[3] == 1
+                                    and row[2] <= fecha_inicial):
+                                completada_total += 1
+                                contador_complejo_8 += 1
+                            if (row[1] == 7736 and contador_complejo_9 == 0
+                                    and row[3] == 1
+                                    and row[2] <= fecha_inicial):
+                                completada_total += 1
+                                contador_complejo_9 += 1
+                            if (row[1] == 7737 and contador_complejo_10 == 0
+                                    and row[3] == 1
+                                    and row[2] <= fecha_inicial):
+                                completada_total += 1
+                                contador_complejo_10 += 1
+                        if (int(completada_total) < 10
+                                and len(nombre_actividad) != 0):
                             total_incompletas = (10 - completada_total)
-                            actividad_1_volcan.append({'name': nombre_actividad, 'completada': completada_total, 'no_completada': total_incompletas})
-                        
-                        Total_Completas_Actividad +=completada_total
+                            actividad_1_volcan.append({
+                                'name':
+                                nombre_actividad,
+                                'completada':
+                                completada_total,
+                                'no_completada':
+                                total_incompletas
+                            })
+
+                        Total_Completas_Actividad += completada_total
 
                     Nombre_Estilo_Cognitivo = ''
-                    if(Total_Completas_Actividad > 0 and Total_Completas_Actividad < 11):
+                    if (Total_Completas_Actividad > 0
+                            and Total_Completas_Actividad < 11):
                         Nombre_Estilo_Cognitivo = 'Muy Dependiente del Campo'
                         color_base = '(119,170,255)'
-                        lista_alumno_cognitivo_muy_dependiente.append({'alumno': nombre_alumno,'name': Nombre_Estilo_Cognitivo, 'cantidad': Total_Completas_Actividad})
-                    if(Total_Completas_Actividad > 10 and Total_Completas_Actividad < 21):
+                        lista_alumno_cognitivo_muy_dependiente.append({
+                            'alumno':
+                            nombre_alumno,
+                            'name':
+                            Nombre_Estilo_Cognitivo,
+                            'cantidad':
+                            Total_Completas_Actividad
+                        })
+                    if (Total_Completas_Actividad > 10
+                            and Total_Completas_Actividad < 21):
                         Nombre_Estilo_Cognitivo = 'Dependiente del Campo'
                         color_base = '(153,204,255)'
-                        lista_alumno_cognitivo_dependiente.append({'alumno': nombre_alumno,'name': Nombre_Estilo_Cognitivo, 'cantidad': Total_Completas_Actividad})
-                    if(Total_Completas_Actividad > 20 and Total_Completas_Actividad < 31):
+                        lista_alumno_cognitivo_dependiente.append({
+                            'alumno':
+                            nombre_alumno,
+                            'name':
+                            Nombre_Estilo_Cognitivo,
+                            'cantidad':
+                            Total_Completas_Actividad
+                        })
+                    if (Total_Completas_Actividad > 20
+                            and Total_Completas_Actividad < 31):
                         Nombre_Estilo_Cognitivo = 'Intermedio del Campo'
                         color_base = '(187,238,255)'
-                        lista_alumno_cognitivo_intermedio.append({'alumno': nombre_alumno,'name': Nombre_Estilo_Cognitivo, 'cantidad': Total_Completas_Actividad})
-                    if(Total_Completas_Actividad > 30 and Total_Completas_Actividad < 41):
+                        lista_alumno_cognitivo_intermedio.append({
+                            'alumno':
+                            nombre_alumno,
+                            'name':
+                            Nombre_Estilo_Cognitivo,
+                            'cantidad':
+                            Total_Completas_Actividad
+                        })
+                    if (Total_Completas_Actividad > 30
+                            and Total_Completas_Actividad < 41):
                         Nombre_Estilo_Cognitivo = 'Independiente del Campo'
                         color_base = 'rgb(85,136,255)'
-                        lista_alumno_cognitivo_independiente.append({'alumno': nombre_alumno,'name': Nombre_Estilo_Cognitivo, 'cantidad': Total_Completas_Actividad})
-                    if(Total_Completas_Actividad > 40 and Total_Completas_Actividad < 51):
+                        lista_alumno_cognitivo_independiente.append({
+                            'alumno':
+                            nombre_alumno,
+                            'name':
+                            Nombre_Estilo_Cognitivo,
+                            'cantidad':
+                            Total_Completas_Actividad
+                        })
+                    if (Total_Completas_Actividad > 40
+                            and Total_Completas_Actividad < 51):
                         Nombre_Estilo_Cognitivo = 'Muy Dependiente del Campo'
                         color_base = '(51,102,255)'
-                        lista_alumno_cognitivo_muy_independiente.append({'alumno': nombre_alumno,'name': Nombre_Estilo_Cognitivo, 'cantidad': Total_Completas_Actividad})    
+                        lista_alumno_cognitivo_muy_independiente.append({
+                            'alumno':
+                            nombre_alumno,
+                            'name':
+                            Nombre_Estilo_Cognitivo,
+                            'cantidad':
+                            Total_Completas_Actividad
+                        })
                     #print("Nombre: ", nombre_alumno)
-                    
-                    if(len(nombre_alumno) > 0):
-                        lista_alumno_cognitivo.append({'alumno': nombre_alumno,'name': Nombre_Estilo_Cognitivo, 'cantidad': Total_Completas_Actividad, 'color': color_base})
+
+                    if (len(nombre_alumno) > 0):
+                        lista_alumno_cognitivo.append({
+                            'alumno': nombre_alumno,
+                            'name': Nombre_Estilo_Cognitivo,
+                            'cantidad': Total_Completas_Actividad,
+                            'color': color_base
+                        })
 
                     nombre_alumno = ''
                     Nombre_Estilo_Cognitivo = ''
@@ -1559,13 +2454,15 @@ def welcome(request):
                     completada_total = 0
                     #print('\n\nAlumno', nombre_alumno,' Nomnre', Nombre_Estilo_Cognitivo, 'Cantidad: ', Total_Completas_Actividad )
                     #
-            
+
             #----------------------por CURSO----------------------------- 22
-            
+
         #---------------------------------por alumno---------------------------------------------------
-            if request.GET.get('student') and request.GET.get('student') != '0':
+            if request.GET.get(
+                    'student') and request.GET.get('student') != '0':
                 print("\n\n\nPASOS")
-                lista_actividad = [[7705, 50], [7706, 50], [7707,50], [7708, 65], [7709, 70], [7710, 80]]
+                lista_actividad = [[7705, 50], [7706, 50], [7707, 50],
+                                   [7708, 65], [7709, 70], [7710, 80]]
                 for actividad_77 in lista_actividad:
                     tipo_grafico = int(request.GET.get('option'))
                     print("Grafico:", tipo_grafico)
@@ -1585,381 +2482,651 @@ def welcome(request):
                     contador_tiempo = 0
                     queryXactividad = ''
 
-                    if(tipo_grafico == 1 ):
-                        queryXactividad = get_figura_simple_volcan(request, actividad_77)
+                    if (tipo_grafico == 1):
+                        queryXactividad = get_figura_simple_volcan(
+                            request, actividad_77)
                         print("ESTANDAR")
-                    if(tipo_grafico == 2 ):
-                        queryXactividad = get_figura_simple_promedio(request, actividad_77)
+                    if (tipo_grafico == 2):
+                        queryXactividad = get_figura_simple_promedio(
+                            request, actividad_77)
                         print("PROMEDIO")
-                    if(tipo_grafico == 3 ):
-                        queryXactividad = get_figura_simple_ultimos_registros(request, actividad_77)
+                    if (tipo_grafico == 3):
+                        queryXactividad = get_figura_simple_ultimos_registros(
+                            request, actividad_77)
                         print("FINAL")
                     cursor.execute(queryXactividad)
-                    queries.append({"name": 'TiempoXact query', "query": queryXactividad})
+                    queries.append({
+                        "name": 'TiempoXact query',
+                        "query": queryXactividad
+                    })
                     resultado_query = cursor.fetchall()
                     for row in resultado_query:
 
-                            if(len(row[5]) > 0):
-                                nombre_alumno = row[5]
-                            nombre_actividad = row[4]
-                            if(contador_tiempo == 0):
-                                contador_tiempo+=1
-                                rango_tiempo = row[2]
-                                fecha_inicial = rango_tiempo + timedelta(seconds = actividad_77[1])
-                                if(int(request.GET.get('rango')) != 0):
-                                    valor = actividad_77[1] + ((actividad_77[1] * int(request.GET.get('rango')))/100)
-                                    #print("VALOR: ", valor)
-                                    fecha_inicial = rango_tiempo + timedelta(seconds = valor)
-                            print("\n\n\n\nFECHA INICIAL: ",fecha_inicial, " Nombre: ", actividad_77[0], " Segundos: ", actividad_77[1])
-                            #print("Contador 1: ", contador_complejo_1)
-                            #print(row[1]," == 7728 and ", contador_complejo_1, " == 0 and correcta ", row[3], " == 1 and ", row[2], " <= " , fecha_inicial )
-                            if(row[1] == 7728 and contador_complejo_1 == 0 and row[3] == 1 and row[2] <= fecha_inicial):
-                                print("Entro actividad 7728 7705")
-                                contador_complejo_1+=1
-                                completada_total+=1
-                            if(row[1] == 7729 and contador_complejo_2 == 0 and row[3] == 1 and row[2] <= fecha_inicial):
-                                print("Entro actividad 7729 7705")
-                                completada_total+=1
-                                contador_complejo_2+=1
-                            if(row[1] == 7730 and contador_complejo_3 == 0 and row[3] == 1 and row[2] <= fecha_inicial):
-                                completada_total+=1
-                                contador_complejo_3+=1
-                            if(row[1] == 7731 and contador_complejo_4 == 0 and row[3] == 1 and row[2] <= fecha_inicial):
-                                completada_total+=1
-                                contador_complejo_4+=1
-                            if(row[1] == 7732 and contador_complejo_5 == 0 and row[3] == 1 and row[2] <= fecha_inicial):
-                                completada_total+=1
-                                contador_complejo_5+=1
-                            if(row[1] == 7733 and contador_complejo_6 == 0 and row[3] == 1 and row[2] <= fecha_inicial):
-                                completada_total+=1
-                                contador_complejo_6+=1
-                            if(row[1] == 7734 and contador_complejo_7 == 0 and row[3] == 1 and row[2] <= fecha_inicial):
-                                completada_total+=1
-                                contador_complejo_7+=1
-                            if(row[1] == 7735 and contador_complejo_8 == 0 and row[3] == 1 and row[2] <= fecha_inicial):
-                                completada_total+=1
-                                contador_complejo_8+=1
-                            if(row[1] == 7736 and contador_complejo_9 == 0 and row[3] == 1 and row[2] <= fecha_inicial):
-                                completada_total+=1
-                                contador_complejo_9+=1
-                            if(row[1] == 7737 and contador_complejo_10 == 0 and row[3] == 1 and row[2] <= fecha_inicial):
-                                completada_total+=1
-                                contador_complejo_10+=1      
-                    if(int(completada_total) < 10 and len(nombre_actividad) != 0):               
+                        if (len(row[5]) > 0):
+                            nombre_alumno = row[5]
+                        nombre_actividad = row[4]
+                        if (contador_tiempo == 0):
+                            contador_tiempo += 1
+                            rango_tiempo = row[2]
+                            fecha_inicial = rango_tiempo + timedelta(
+                                seconds=actividad_77[1])
+                            if (int(request.GET.get('rango')) != 0):
+                                valor = actividad_77[1] + (
+                                    (actividad_77[1] *
+                                     int(request.GET.get('rango'))) / 100)
+                                #print("VALOR: ", valor)
+                                fecha_inicial = rango_tiempo + timedelta(
+                                    seconds=valor)
+                        print("\n\n\n\nFECHA INICIAL: ", fecha_inicial,
+                              " Nombre: ", actividad_77[0], " Segundos: ",
+                              actividad_77[1])
+                        #print("Contador 1: ", contador_complejo_1)
+                        #print(row[1]," == 7728 and ", contador_complejo_1, " == 0 and correcta ", row[3], " == 1 and ", row[2], " <= " , fecha_inicial )
+                        if (row[1] == 7728 and contador_complejo_1 == 0
+                                and row[3] == 1 and row[2] <= fecha_inicial):
+                            print("Entro actividad 7728 7705")
+                            contador_complejo_1 += 1
+                            completada_total += 1
+                        if (row[1] == 7729 and contador_complejo_2 == 0
+                                and row[3] == 1 and row[2] <= fecha_inicial):
+                            print("Entro actividad 7729 7705")
+                            completada_total += 1
+                            contador_complejo_2 += 1
+                        if (row[1] == 7730 and contador_complejo_3 == 0
+                                and row[3] == 1 and row[2] <= fecha_inicial):
+                            completada_total += 1
+                            contador_complejo_3 += 1
+                        if (row[1] == 7731 and contador_complejo_4 == 0
+                                and row[3] == 1 and row[2] <= fecha_inicial):
+                            completada_total += 1
+                            contador_complejo_4 += 1
+                        if (row[1] == 7732 and contador_complejo_5 == 0
+                                and row[3] == 1 and row[2] <= fecha_inicial):
+                            completada_total += 1
+                            contador_complejo_5 += 1
+                        if (row[1] == 7733 and contador_complejo_6 == 0
+                                and row[3] == 1 and row[2] <= fecha_inicial):
+                            completada_total += 1
+                            contador_complejo_6 += 1
+                        if (row[1] == 7734 and contador_complejo_7 == 0
+                                and row[3] == 1 and row[2] <= fecha_inicial):
+                            completada_total += 1
+                            contador_complejo_7 += 1
+                        if (row[1] == 7735 and contador_complejo_8 == 0
+                                and row[3] == 1 and row[2] <= fecha_inicial):
+                            completada_total += 1
+                            contador_complejo_8 += 1
+                        if (row[1] == 7736 and contador_complejo_9 == 0
+                                and row[3] == 1 and row[2] <= fecha_inicial):
+                            completada_total += 1
+                            contador_complejo_9 += 1
+                        if (row[1] == 7737 and contador_complejo_10 == 0
+                                and row[3] == 1 and row[2] <= fecha_inicial):
+                            completada_total += 1
+                            contador_complejo_10 += 1
+                    if (int(completada_total) < 10
+                            and len(nombre_actividad) != 0):
                         total_incompletas = (10 - completada_total)
-                        actividad_1_volcan.append({'name': nombre_actividad, 'completada': completada_total, 'no_completada': total_incompletas})
-                    
-                    Total_Completas_Actividad +=completada_total
+                        actividad_1_volcan.append({
+                            'name':
+                            nombre_actividad,
+                            'completada':
+                            completada_total,
+                            'no_completada':
+                            total_incompletas
+                        })
+
+                    Total_Completas_Actividad += completada_total
 
                 Nombre_Estilo_Cognitivo = ''
-                if(Total_Completas_Actividad > 0 and Total_Completas_Actividad < 11):
+                if (Total_Completas_Actividad > 0
+                        and Total_Completas_Actividad < 11):
                     Nombre_Estilo_Cognitivo = 'Muy Dependiente'
                     nombre_estilo_cognitivo_alumno = 'Muy Dependiente del Campo'
                     #Estilo_cognitivo_por_niño.append({'alumno': nombre_alumno,'name': Nombre_Estilo_Cognitivo, 'quantity': Total_Completas_Actividad })
-                if(Total_Completas_Actividad > 10 and Total_Completas_Actividad < 21):
+                if (Total_Completas_Actividad > 10
+                        and Total_Completas_Actividad < 21):
                     Nombre_Estilo_Cognitivo = 'Dependiente'
                     nombre_estilo_cognitivo_alumno = 'Dependiente del Campo'
                     #Estilo_cognitivo_por_niño.append({'alumno': nombre_alumno,'name': Nombre_Estilo_Cognitivo, 'quantity': Total_Completas_Actividad })
-                if(Total_Completas_Actividad > 20 and Total_Completas_Actividad < 31):
+                if (Total_Completas_Actividad > 20
+                        and Total_Completas_Actividad < 31):
                     Nombre_Estilo_Cognitivo = 'Intermedio'
                     nombre_estilo_cognitivo_alumno = 'Intermedio del Campo'
                     #Estilo_cognitivo_por_niño.append({'alumno': nombre_alumno,'name': Nombre_Estilo_Cognitivo, 'quantity': Total_Completas_Actividad })
-                if(Total_Completas_Actividad > 30 and Total_Completas_Actividad < 41):
+                if (Total_Completas_Actividad > 30
+                        and Total_Completas_Actividad < 41):
                     Nombre_Estilo_Cognitivo = 'Independiente'
                     nombre_estilo_cognitivo_alumno = 'Independiente del Campo'
                     #Estilo_cognitivo_por_niño.append({'alumno': nombre_alumno,'name': Nombre_Estilo_Cognitivo, 'quantity': Total_Completas_Actividad })
-                if(Total_Completas_Actividad > 40 and Total_Completas_Actividad < 51):
+                if (Total_Completas_Actividad > 40
+                        and Total_Completas_Actividad < 51):
                     Nombre_Estilo_Cognitivo = 'Muy Dependiente'
                     nombre_estilo_cognitivo_alumno = 'Muy Independiente del Campo'
                     #Estilo_cognitivo_por_niño.append({'alumno': nombre_alumno,'name': Nombre_Estilo_Cognitivo, 'quantity': Total_Completas_Actividad })
 
-                Estilo_cognitivo_por_niño.append({'alumno': nombre_alumno,'name': Nombre_Estilo_Cognitivo, 'quantity': Total_Completas_Actividad })
-
-            
+                Estilo_cognitivo_por_niño.append({
+                    'alumno':
+                    nombre_alumno,
+                    'name':
+                    Nombre_Estilo_Cognitivo,
+                    'quantity':
+                    Total_Completas_Actividad
+                })
 
             #----------------------por alumno----------------------------- 22
-            if request.GET.get('student') and request.GET.get('student') != '0':
+            if request.GET.get(
+                    'student') and request.GET.get('student') != '0':
                 buenas_malas = get_Actividad_Buenas_Mala(request)
                 cursor.execute(buenas_malas)
-                queries.append({"name": 'TiempoXact query', "query": buenas_malas})
+                queries.append({
+                    "name": 'TiempoXact query',
+                    "query": buenas_malas
+                })
                 tiempoXact_quantity = cursor.fetchall()
                 for row in tiempoXact_quantity:
                     nombre_actividad = row[7]
-                    nombre_actividad = nombre_actividad.replace("Btn-Aceptar-Figura-","Figura Compleja ")
-                    buenas_malas_x_figura_compleja.append({  'name': nombre_actividad, 'completa': row[4], 'no_completa': row[5] })
-
-
+                    nombre_actividad = nombre_actividad.replace(
+                        "Btn-Aceptar-Figura-", "Figura Compleja ")
+                    buenas_malas_x_figura_compleja.append({
+                        'name': nombre_actividad,
+                        'completa': row[4],
+                        'no_completa': row[5]
+                    })
 
             #--------------------------------------------------- 33
-            if request.GET.get('student') and request.GET.get('student') != '0':
+            if request.GET.get(
+                    'student') and request.GET.get('student') != '0':
                 tiem_acti_sesion = get_tiempoact_sesion(request)
                 cursor.execute(tiem_acti_sesion)
-                queries.append({"name": 'TiempoXact query', "query": tiem_acti_sesion})
+                queries.append({
+                    "name": 'TiempoXact query',
+                    "query": tiem_acti_sesion
+                })
                 tiempoXact_quantity = cursor.fetchall()
                 for row in tiempoXact_quantity:
-                    tiempoxactxsesion.append({  'name': row[1], 'quantity': row[2] })
-            
-            
+                    tiempoxactxsesion.append({
+                        'name': row[1],
+                        'quantity': row[2]
+                    })
+
             #--------------------------------------------------- 33
             #Estilo_cognitivo_por_niño.append({'name': Nombre_Estilo_Cognitivo, 'quantity': Valor_Total_Figuras_complejas })
 
-
         #TAMAÑO GRAFICOS
-        time_ps_query_77= len(tiempo_x_actividad_response) * 40+20
-        identificar_estilo_cognitivo = len(identificar_estilo_cognitivo_response) * 40+20
-        tamaño_curso = len(lista_alumno_cognitivo) * 40+20
+        time_ps_query_77 = len(tiempo_x_actividad_response) * 40 + 20
+        identificar_estilo_cognitivo = len(
+            identificar_estilo_cognitivo_response) * 40 + 20
+        tamaño_curso = len(lista_alumno_cognitivo) * 40 + 20
         tamaña_grafico_por_alumno = len(actividad_1_volcan) * 40 + 20
-        tamaña_grafico_por_actividad = len(buenas_malas_x_figura_compleja) * 40 + 20
-        
+        tamaña_grafico_por_actividad = len(
+            buenas_malas_x_figura_compleja) * 40 + 20
+
         print("Tamaño: ", tamaño_curso)
         for item in lista_alumno_cognitivo:
-                print("Nombre: ", item["alumno"], "item: ", item["cantidad"], "Estilo del campo: ", item["name"])
-
+            print("Nombre: ", item["alumno"], "item: ", item["cantidad"],
+                  "Estilo del campo: ", item["name"])
 
 
 #FIN REIM ID = 77, NOMBRE = BUSCANDO EL TESORO PERDIDO
-        
-        #Cantidad de Sesiones
+
+#Cantidad de Sesiones
         session_query = get_session_query(request)
         cursor.execute(session_query)
         queries.append({"name": 'Session query', "query": session_query})
         sesion_quantity = cursor.fetchall()
         sesion_quantity_response = []
         for row in sesion_quantity:
-            sesion_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
-        sesion_quantity_graph = len(sesion_quantity)*40+20
+            sesion_quantity_response.append({
+                'id': row[0],
+                'name': row[1],
+                'quantity': row[2]
+            })
+        sesion_quantity_graph = len(sesion_quantity) * 40 + 20
 
         activate_graphics = activate_course_filter and activate_school_filter and activate_reim_filter
         activate_graphics_general = activate_activity_filter and activate_course_filter and activate_school_filter and activate_reim_filter
         activate_graphics_student = activate_course_filter and activate_school_filter and activate_reim_filter and activate_student_filter
-       
+
         return render(
             request,
             "users/welcome.html",
             {
                 # Show graphics at the init
-                'activate_graphics': activate_graphics,
-                'activate_graphics_general':activate_graphics_general,
-                'activate_graphics_student':activate_graphics_student,
+                'activate_graphics':
+                activate_graphics,
+                'activate_graphics_general':
+                activate_graphics_general,
+                'activate_graphics_student':
+                activate_graphics_student,
                 # Other context var
-                'queries': queries,
-                'schools': schools_response,
-                'reims': reims_response,
-                'game_time': game_time_response,
-                'courses': courses_response,
-                'activities': activities_response,
-                'students': students_response,
-                'touch_quantity': touch_quantity_response,
-                'touch_quantity_len': len(touch_quantity_response),
-                'sesion_quantity': sesion_quantity_response,
-                'cant_usuarios':cant_usuarios,
-                'activity_num':activity_num,
-                'student_num':student_num,
-                'reim_num':reim_num,
+                'queries':
+                queries,
+                'schools':
+                schools_response,
+                'reims':
+                reims_response,
+                'game_time':
+                game_time_response,
+                'courses':
+                courses_response,
+                'activities':
+                activities_response,
+                'students':
+                students_response,
+                'touch_quantity':
+                touch_quantity_response,
+                'touch_quantity_len':
+                len(touch_quantity_response),
+                'sesion_quantity':
+                sesion_quantity_response,
+                'cant_usuarios':
+                cant_usuarios,
+                'activity_num':
+                activity_num,
+                'student_num':
+                student_num,
+                'reim_num':
+                reim_num,
                 #size graphs
-                'sesion_quantity_graph':sesion_quantity_graph,
-                'touch_quantity_graph':touch_quantity_graph,
-                'game_time_graph':game_time_graph,
+                'sesion_quantity_graph':
+                sesion_quantity_graph,
+                'touch_quantity_graph':
+                touch_quantity_graph,
+                'game_time_graph':
+                game_time_graph,
                 #CLEAN OCEAN
-                'colision_quantity':colision_quantity_response,
-                'corrects_quantity':corrects_quantity_response,
-                'incorrects_quantity':incorrects_quantity_response,
-                'corrects_incorrects_quantity':corrects_incorrects_quantity_response,
-                'jumps_quantity':jumps_quantity_response,
-                'analytics_co_quantity':analytics_co_quantity_response,
-                'exit_lab_quantity': exit_lab_quantity_response,
-                'touch_animals_co_quantity':touch_animals_co_quantity_response,
-                'touch_trash_co_quantity':touch_trash_co_quantity_response,
-                'actividades_co_quantity':actividades_co_quantity_response,
-                'colision_trash_quantity' :colision_trash_quantity_response,
-                'touch_all_animals_quantity':touch_all_animals_quantity_response,
-                'exits_lab_co_quantity':exits_lab_co_quantity_response,
-                'touch_all_trash_quantity':touch_all_trash_quantity_response,
-                'buttons_co_quantity':buttons_co_quantity_response,
-                'trash_clean_co_quantity':trash_clean_co_quantity_response,
-                'corrects_student_co_quantity':corrects_student_co_quantity_response,
-                'time_act_co_quantity':time_act_co_quantity_response,
+                'colision_quantity':
+                colision_quantity_response,
+                'corrects_quantity':
+                corrects_quantity_response,
+                'incorrects_quantity':
+                incorrects_quantity_response,
+                'corrects_incorrects_quantity':
+                corrects_incorrects_quantity_response,
+                'jumps_quantity':
+                jumps_quantity_response,
+                'analytics_co_quantity':
+                analytics_co_quantity_response,
+                'exit_lab_quantity':
+                exit_lab_quantity_response,
+                'touch_animals_co_quantity':
+                touch_animals_co_quantity_response,
+                'touch_trash_co_quantity':
+                touch_trash_co_quantity_response,
+                'actividades_co_quantity':
+                actividades_co_quantity_response,
+                'colision_trash_quantity':
+                colision_trash_quantity_response,
+                'touch_all_animals_quantity':
+                touch_all_animals_quantity_response,
+                'exits_lab_co_quantity':
+                exits_lab_co_quantity_response,
+                'touch_all_trash_quantity':
+                touch_all_trash_quantity_response,
+                'buttons_co_quantity':
+                buttons_co_quantity_response,
+                'trash_clean_co_quantity':
+                trash_clean_co_quantity_response,
+                'corrects_student_co_quantity':
+                corrects_student_co_quantity_response,
+                'time_act_co_quantity':
+                time_act_co_quantity_response,
                 #height graphs
-                'colision_quantity_graph':colision_quantity_graph,
-                'corrects_quantity_graph':corrects_quantity_graph,
-                'corrects_incorrects_quantity_graph':corrects_incorrects_quantity_graph,
-                'jumps_quantity_graph':jumps_quantity_graph,
-                'analytics_co_quantity_graph':analytics_co_quantity_graph,
-                'actividades_co_quantity_graph':actividades_co_quantity_graph,
-                'exit_lab_quantity_graph':exit_lab_quantity_graph,
-                'touch_trash_co_quantity_graph':touch_trash_co_quantity_graph,
-                'corrects_student_co_quantity_graph':corrects_student_co_quantity_graph,
-                'colision_trash_quantity_graph':colision_trash_quantity_graph,
-                'exits_lab_co_quantity_graph':exits_lab_co_quantity_graph,
-                'touch_all_trash_quantity_graph':touch_all_trash_quantity_graph,
-                'buttons_co_quantity_graph':buttons_co_quantity_graph,
-                'trash_clean_co_quantity_graph':trash_clean_co_quantity_graph,
-                'time_act_co_quantity_graph':time_act_co_quantity_graph,
+                'colision_quantity_graph':
+                colision_quantity_graph,
+                'corrects_quantity_graph':
+                corrects_quantity_graph,
+                'corrects_incorrects_quantity_graph':
+                corrects_incorrects_quantity_graph,
+                'jumps_quantity_graph':
+                jumps_quantity_graph,
+                'analytics_co_quantity_graph':
+                analytics_co_quantity_graph,
+                'actividades_co_quantity_graph':
+                actividades_co_quantity_graph,
+                'exit_lab_quantity_graph':
+                exit_lab_quantity_graph,
+                'touch_trash_co_quantity_graph':
+                touch_trash_co_quantity_graph,
+                'corrects_student_co_quantity_graph':
+                corrects_student_co_quantity_graph,
+                'colision_trash_quantity_graph':
+                colision_trash_quantity_graph,
+                'exits_lab_co_quantity_graph':
+                exits_lab_co_quantity_graph,
+                'touch_all_trash_quantity_graph':
+                touch_all_trash_quantity_graph,
+                'buttons_co_quantity_graph':
+                buttons_co_quantity_graph,
+                'trash_clean_co_quantity_graph':
+                trash_clean_co_quantity_graph,
+                'time_act_co_quantity_graph':
+                time_act_co_quantity_graph,
                 #promedios
-                'promedio_correctas_co':int(promedio_correctas_co-0.5)+1,
-                'promedio_incorrectas_co':int(promedio_incorrectas_co-0.5)+1,
-                'promedio_saltos':int(promedio_saltos-0.5)+1,
-                'promedio_colisions':int(promedio_colisions-0.5)+1,
+                'promedio_correctas_co':
+                int(promedio_correctas_co - 0.5) + 1,
+                'promedio_incorrectas_co':
+                int(promedio_incorrectas_co - 0.5) + 1,
+                'promedio_saltos':
+                int(promedio_saltos - 0.5) + 1,
+                'promedio_colisions':
+                int(promedio_colisions - 0.5) + 1,
                 #MUNDO ANIMAL
-                'piezas_quantity':piezas_quantity_response,
-                'malas_quantity':malas_quantity_response,
-                'animales_quantity':animales_quantity_response,
-                'actividades_quantity':actividades_quantity_response,
-                'interaccion_quantity':interaccion_quantity_response,
-                'tiempoact_quantity':tiempoact_quantity_response,
-                'promedio_correctas':int(promedio_correctas),
-                'promedio_incorrectas':int(promedio_incorrectas),
-                'analytics1_co_quantity':analytics1_co_quantity_response,
-                'tiempo_total_quantity':tiempo_total_quantity_response,
-                'audios_quantity':audios_quantity_response,
-                'animales_quantity_graph':animales_quantity_graph,
+                'piezas_quantity':
+                piezas_quantity_response,
+                'malas_quantity':
+                malas_quantity_response,
+                'animales_quantity':
+                animales_quantity_response,
+                'actividades_quantity':
+                actividades_quantity_response,
+                'interaccion_quantity':
+                interaccion_quantity_response,
+                'tiempoact_quantity':
+                tiempoact_quantity_response,
+                'promedio_correctas':
+                int(promedio_correctas),
+                'promedio_incorrectas':
+                int(promedio_incorrectas),
+                'analytics1_co_quantity':
+                analytics1_co_quantity_response,
+                'tiempo_total_quantity':
+                tiempo_total_quantity_response,
+                'audios_quantity':
+                audios_quantity_response,
+                'animales_quantity_graph':
+                animales_quantity_graph,
                 #Día Mundial
-                'time_DM_quantity':time_PS_quantity_response,
-                'completa_incompleta_DM_quantity':completa_incompleta_DM_quantity_response,
-                'fruta_chatarra_DM_quantity_response':fruta_chatarra_DM_quantity_response,
-                'muro_hoyo_DM_quantity_response':muro_hoyo_DM_quantity_response,
-                'tipo_basura_DM_quantity_response': tipo_basura_DM_quantity_response,
-                'animales_nivel_DM_quantity_response':animales_nivel_DM_quantity_response,
-                'touches_luces_DM_quantity_response': touches_luces_DM_quantity_response,
-                'get_miel_cae_choca_DM_quantity_response':get_miel_cae_choca_DM_quantity_response,
-                'get_animales_salvados_DM_quantity_response':get_animales_salvados_DM_quantity_response,
-                'get_animales_salvados_pornivel_DM_quantity_response':get_animales_salvados_pornivel_DM_quantity_response,
-                'correcta_incorrecta_arbol_DM_quantity_response':correcta_incorrecta_arbol_DM_quantity_response,
-                'crecimiento_arbol_DM_quantity_response':crecimiento_arbol_DM_quantity_response,
-                'completa_incompleta_inactividad':completa_incompleta_inactividad,
-                'col_vs_time':col_vs_time,
-                'tiempoXact_quantity_responseDM': tiempoXact_quantity_responseDM,
-                'get_ganar_perder_DM_Quest_response': get_ganar_perder_DM_Quest_response,
-                'colisiones_tiempo_media': colisiones_tiempo_media,
-                'colisiones_muro_media' : colisiones_muro_media,
-                'colisiones_hoyo_media' : colisiones_hoyo_media,
-                'lista_alumnos_final2': lista_alumnos_final2,
-                'lista_unico_alumno': lista_unico_alumno,
+                'time_DM_quantity':
+                time_PS_quantity_response,
+                'completa_incompleta_DM_quantity':
+                completa_incompleta_DM_quantity_response,
+                'fruta_chatarra_DM_quantity_response':
+                fruta_chatarra_DM_quantity_response,
+                'muro_hoyo_DM_quantity_response':
+                muro_hoyo_DM_quantity_response,
+                'tipo_basura_DM_quantity_response':
+                tipo_basura_DM_quantity_response,
+                'animales_nivel_DM_quantity_response':
+                animales_nivel_DM_quantity_response,
+                'touches_luces_DM_quantity_response':
+                touches_luces_DM_quantity_response,
+                'get_miel_cae_choca_DM_quantity_response':
+                get_miel_cae_choca_DM_quantity_response,
+                'get_animales_salvados_DM_quantity_response':
+                get_animales_salvados_DM_quantity_response,
+                'get_animales_salvados_pornivel_DM_quantity_response':
+                get_animales_salvados_pornivel_DM_quantity_response,
+                'correcta_incorrecta_arbol_DM_quantity_response':
+                correcta_incorrecta_arbol_DM_quantity_response,
+                'crecimiento_arbol_DM_quantity_response':
+                crecimiento_arbol_DM_quantity_response,
+                'completa_incompleta_inactividad':
+                completa_incompleta_inactividad,
+                'col_vs_time':
+                col_vs_time,
+                'tiempoXact_quantity_responseDM':
+                tiempoXact_quantity_responseDM,
+                'get_ganar_perder_DM_Quest_response':
+                get_ganar_perder_DM_Quest_response,
+                'colisiones_tiempo_media':
+                colisiones_tiempo_media,
+                'colisiones_muro_media':
+                colisiones_muro_media,
+                'colisiones_hoyo_media':
+                colisiones_hoyo_media,
+                'lista_alumnos_final2':
+                lista_alumnos_final2,
+                'lista_unico_alumno':
+                lista_unico_alumno,
                 #PLUSSPACE
-                'move_element_quantity':move_element_quantity_response,
-                'elementos_PS_quantity':elementos_PS_quantity_response,
-                'posicionamiento_PS_quantity':posicionamiento_PS_quantity_response,
-                'element_colission_quantity':element_colission_quantity_response,
-                'jump_alternativas_quantity':jump_alternativas_quantity_response,
-                'acierto_cuida_quantity':acierto_cuida_quantity_response,
-                'completa_incompleta_PS_quantity':completa_incompleta_PS_quantity_response,
-                'correctas_PS_quantity':correctas_PS_quantity_response,
-                'time_PS_quantity':time_PS_quantity_response,
+                'move_element_quantity':
+                move_element_quantity_response,
+                'elementos_PS_quantity':
+                elementos_PS_quantity_response,
+                'posicionamiento_PS_quantity':
+                posicionamiento_PS_quantity_response,
+                'element_colission_quantity':
+                element_colission_quantity_response,
+                'jump_alternativas_quantity':
+                jump_alternativas_quantity_response,
+                'acierto_cuida_quantity':
+                acierto_cuida_quantity_response,
+                'completa_incompleta_PS_quantity':
+                completa_incompleta_PS_quantity_response,
+                'correctas_PS_quantity':
+                correctas_PS_quantity_response,
+                'time_PS_quantity':
+                time_PS_quantity_response,
                 #por alumno
-                'jumpxalumno_quantity':jumpxalumno_quantity_response,
-                'elementosXalum_PS_quantity':elementosXalum_PS_quantity_response,
-                'element_colission_alum_quantity':element_colission_alum_quantity_response,
-                'posicionamiento_alu_PS_quantity':posicionamiento_alu_PS_quantity_response,
-                'acierto_cuida_alu_quantity':acierto_cuida_alu_quantity_response,
+                'jumpxalumno_quantity':
+                jumpxalumno_quantity_response,
+                'elementosXalum_PS_quantity':
+                elementosXalum_PS_quantity_response,
+                'element_colission_alum_quantity':
+                element_colission_alum_quantity_response,
+                'posicionamiento_alu_PS_quantity':
+                posicionamiento_alu_PS_quantity_response,
+                'acierto_cuida_alu_quantity':
+                acierto_cuida_alu_quantity_response,
                 #tamaño de graficos
-
-                'time_PS_graf':time_PS_graf,
-                'correctas_PS_graf':correctas_PS_graf,
-                'move_element_graf':move_element_graf,
-                'elementos_PS_graf':elementos_PS_graf,
-                'element_colission_graf':element_colission_graf,
-                'posicionamiento_PS_graf':posicionamiento_PS_graf,
-                'jump_alternativas_graf':jump_alternativas_graf,
-                'acierto_cuida_graf':acierto_cuida_graf,
-                'completa_incompleta_PS_graf':completa_incompleta_PS_graf,
-                'tiempoXact_quantity':tiempoXact_quantity_response,
+                'time_PS_graf':
+                time_PS_graf,
+                'correctas_PS_graf':
+                correctas_PS_graf,
+                'move_element_graf':
+                move_element_graf,
+                'elementos_PS_graf':
+                elementos_PS_graf,
+                'element_colission_graf':
+                element_colission_graf,
+                'posicionamiento_PS_graf':
+                posicionamiento_PS_graf,
+                'jump_alternativas_graf':
+                jump_alternativas_graf,
+                'acierto_cuida_graf':
+                acierto_cuida_graf,
+                'completa_incompleta_PS_graf':
+                completa_incompleta_PS_graf,
+                'tiempoXact_quantity':
+                tiempoXact_quantity_response,
                 #analitica
-                'elementos_analitica_PS_quantity':elementos_analitica_PS_quantity_response,
-                'colission_analitica_quantity':colission_analitica_quantity_response,
-                'touch_puzzle_quantity':touch_puzzle_quantity_response,
-                'nombre':nombre,
+                'elementos_analitica_PS_quantity':
+                elementos_analitica_PS_quantity_response,
+                'colission_analitica_quantity':
+                colission_analitica_quantity_response,
+                'touch_puzzle_quantity':
+                touch_puzzle_quantity_response,
+                'nombre':
+                nombre,
                 #INICIO REIM ID = 77, NOMBRE = BUSCANDO EL TESORO PERDIDO
-                'tiempo_x_actividad': tiempo_x_actividad_response,
-                'respuesta_x_estilo': identificar_estilo_cognitivo_response,
-                'estilo_x_cognitivo': Estilo_cognitivo_por_niño,
-                'actividad_1_volcan_response': actividad_1_volcan,
-                'figura_compleja_x_actividad': buenas_malas_x_figura_compleja,
-                'tiempo_acti_sesion':  tiempoxactxsesion,
-                'grafico_curso_77': lista_alumno_cognitivo,
-                'grafico_muy_dependiente': lista_alumno_cognitivo_muy_dependiente,
-                'grafico_dependiente': lista_alumno_cognitivo_dependiente,
-                'grafico_intermedio': lista_alumno_cognitivo_intermedio,
-                'grafico_independiente': lista_alumno_cognitivo_independiente,
-                'grafico_muy_independiente': lista_alumno_cognitivo_muy_independiente,
-                'Reconocimiento_Alumno': nombre_estilo_cognitivo_alumno,
+                'tiempo_x_actividad':
+                tiempo_x_actividad_response,
+                'respuesta_x_estilo':
+                identificar_estilo_cognitivo_response,
+                'estilo_x_cognitivo':
+                Estilo_cognitivo_por_niño,
+                'actividad_1_volcan_response':
+                actividad_1_volcan,
+                'figura_compleja_x_actividad':
+                buenas_malas_x_figura_compleja,
+                'tiempo_acti_sesion':
+                tiempoxactxsesion,
+                'grafico_curso_77':
+                lista_alumno_cognitivo,
+                'grafico_muy_dependiente':
+                lista_alumno_cognitivo_muy_dependiente,
+                'grafico_dependiente':
+                lista_alumno_cognitivo_dependiente,
+                'grafico_intermedio':
+                lista_alumno_cognitivo_intermedio,
+                'grafico_independiente':
+                lista_alumno_cognitivo_independiente,
+                'grafico_muy_independiente':
+                lista_alumno_cognitivo_muy_independiente,
+                'Reconocimiento_Alumno':
+                nombre_estilo_cognitivo_alumno,
                 #Tamaño Grafico
-                'time_PS_graf_1': time_ps_query_77,
-                'estilo_cognitivo': identificar_estilo_cognitivo,
-                'tamaño_curso': tamaño_curso,
-                'tamaña_grafico_por_alumno': tamaña_grafico_por_alumno,
-                'tamaño_actividad_alumno': tamaña_grafico_por_actividad,
+                'time_PS_graf_1':
+                time_ps_query_77,
+                'estilo_cognitivo':
+                identificar_estilo_cognitivo,
+                'tamaño_curso':
+                tamaño_curso,
+                'tamaña_grafico_por_alumno':
+                tamaña_grafico_por_alumno,
+                'tamaño_actividad_alumno':
+                tamaña_grafico_por_actividad,
                 #FIN REIM ID = 77, NOMBRE = BUSCANDO EL TESORO PERDIDO
-				#####BEGIN BUILD YOUR CITY#####
+                #####BEGIN BUILD YOUR CITY#####
                 #LISTS OF DUMMY VALUES (FRONTEND TEST):
-                'listOfFirst50Numbers': ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45', '46', '47', '48', '49', '50'],
-                'listOf100to2000by100': [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900, 2000],
-                'listOf25To42': [25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42],
-                'listOfFirst10Numbers': ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
-                'listOfDates': ['10/05/2020', '11/05/2020', '12/05/2020', '13/05/2020', '14/05/2020', '15/05/2020', '16/05/2020' ,'17/05/2020', '18/05/2020'],
-                'activities_ByC': ["Actividad 1: Mapa de Construccion", "Actividad 2: Cine", "Actividad 3: Escuela", "Actividad 4: Taxi"],
-                'ByC_UrbanElements': ['Casa Azul', 'Casa Roja', 'Casa Verde', 'Edificio Azul', 'Fuente de Agua', 'Semaforo', 'Arbol', 'Obelisco', 'Taxi', 'Policia', 'Ambulancia', 'Camion de Bomberos'],
+                'listOfFirst50Numbers': [
+                    '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11',
+                    '12', '13', '14', '15', '16', '17', '18', '19', '20', '21',
+                    '22', '23', '24', '25', '26', '27', '28', '29', '30', '31',
+                    '32', '33', '34', '35', '36', '37', '38', '39', '40', '41',
+                    '42', '43', '44', '45', '46', '47', '48', '49', '50'
+                ],
+                'listOf100to2000by100': [
+                    100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1100,
+                    1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900, 2000
+                ],
+                'listOf25To42': [
+                    25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39,
+                    40, 41, 42
+                ],
+                'listOfFirst10Numbers':
+                ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
+                'listOfDates': [
+                    '10/05/2020', '11/05/2020', '12/05/2020', '13/05/2020',
+                    '14/05/2020', '15/05/2020', '16/05/2020', '17/05/2020',
+                    '18/05/2020'
+                ],
+                'activities_ByC': [
+                    "Actividad 1: Mapa de Construccion", "Actividad 2: Cine",
+                    "Actividad 3: Escuela", "Actividad 4: Taxi"
+                ],
+                'ByC_UrbanElements': [
+                    'Casa Azul', 'Casa Roja', 'Casa Verde', 'Edificio Azul',
+                    'Fuente de Agua', 'Semaforo', 'Arbol', 'Obelisco', 'Taxi',
+                    'Policia', 'Ambulancia', 'Camion de Bomberos'
+                ],
 
                 #GRAPHS SIZE:
-                'ByC_numberOfSessions_GraphSize': ByC_numberOfSessions_GraphSize,
-                'ByC_playTime_GraphSize': ByC_playTime_GraphSize,
-                'ByC_touchCount_GraphSize': ByC_touchCount_GraphSize,
-                'ByC_activitiesPlayedCounter_GraphSize': ByC_activitiesPlayedCounter_GraphSize,
-                'ByC_built_elementsCounter_GraphSize': ByC_built_elementsCounter_GraphSize,
-                'ByC_built_elementsCounter_perCategory_GraphSize': ByC_built_elementsCounter_perCategory_GraphSize,
-                'ByC_maxNumberOfAssistants_GraphSize': ByC_maxNumberOfAssistants_GraphSize,
-                'ByC_Cinema_CompleteVsIncomplete_GraphSize': ByC_Cinema_CompleteVsIncomplete_GraphSize,
-                'ByC_Cinema_SuccessVsFailure_GraphSize': ByC_Cinema_SuccessVsFailure_GraphSize,
-                'ByC_Cinema_SuccessVsFailure_ParticularSeats_GraphSize': ByC_Cinema_SuccessVsFailure_ParticularSeats_GraphSize,
-                'ByC_Cinema_NumberOfEntrances_GraphSize': ByC_Cinema_NumberOfEntrances_GraphSize,
-                'ByC_School_CompleteVsIncomplete_GraphSize': ByC_School_CompleteVsIncomplete_GraphSize,
-                'ByC_School_SuccessVsFailure_GraphSize': ByC_School_SuccessVsFailure_GraphSize,
-                'ByC_School_SuccessVsFailure_ParticularSeats_GraphSize': ByC_School_SuccessVsFailure_ParticularSeats_GraphSize,
-                'ByC_School_NumberOfEntrances_GraphSize': ByC_School_NumberOfEntrances_GraphSize,
-                'ByC_Taxi_CompleteVsIncomplete_GraphSize': ByC_Taxi_CompleteVsIncomplete_GraphSize,
-                'ByC_Taxi_SuccessVsFailure_GraphSize': ByC_Taxi_SuccessVsFailure_GraphSize,
-                'ByC_Taxi_SuccessVsFailure_ParticularSeats_GraphSize': ByC_Taxi_SuccessVsFailure_ParticularSeats_GraphSize,
-                'ByC_Taxi_NumberOfEntrances_GraphSize': ByC_Taxi_NumberOfEntrances_GraphSize,
-                
+                'ByC_numberOfSessions_GraphSize':
+                ByC_numberOfSessions_GraphSize,
+                'ByC_playTime_GraphSize':
+                ByC_playTime_GraphSize,
+                'ByC_touchCount_GraphSize':
+                ByC_touchCount_GraphSize,
+                'ByC_activitiesPlayedCounter_GraphSize':
+                ByC_activitiesPlayedCounter_GraphSize,
+                'ByC_built_elementsCounter_GraphSize':
+                ByC_built_elementsCounter_GraphSize,
+                'ByC_built_elementsCounter_perCategory_GraphSize':
+                ByC_built_elementsCounter_perCategory_GraphSize,
+                'ByC_maxNumberOfAssistants_GraphSize':
+                ByC_maxNumberOfAssistants_GraphSize,
+                'ByC_Cinema_CompleteVsIncomplete_GraphSize':
+                ByC_Cinema_CompleteVsIncomplete_GraphSize,
+                'ByC_Cinema_SuccessVsFailure_GraphSize':
+                ByC_Cinema_SuccessVsFailure_GraphSize,
+                'ByC_Cinema_SuccessVsFailure_ParticularSeats_GraphSize':
+                ByC_Cinema_SuccessVsFailure_ParticularSeats_GraphSize,
+                'ByC_Cinema_NumberOfEntrances_GraphSize':
+                ByC_Cinema_NumberOfEntrances_GraphSize,
+                'ByC_School_CompleteVsIncomplete_GraphSize':
+                ByC_School_CompleteVsIncomplete_GraphSize,
+                'ByC_School_SuccessVsFailure_GraphSize':
+                ByC_School_SuccessVsFailure_GraphSize,
+                'ByC_School_SuccessVsFailure_ParticularSeats_GraphSize':
+                ByC_School_SuccessVsFailure_ParticularSeats_GraphSize,
+                'ByC_School_NumberOfEntrances_GraphSize':
+                ByC_School_NumberOfEntrances_GraphSize,
+                'ByC_Taxi_CompleteVsIncomplete_GraphSize':
+                ByC_Taxi_CompleteVsIncomplete_GraphSize,
+                'ByC_Taxi_SuccessVsFailure_GraphSize':
+                ByC_Taxi_SuccessVsFailure_GraphSize,
+                'ByC_Taxi_SuccessVsFailure_ParticularSeats_GraphSize':
+                ByC_Taxi_SuccessVsFailure_ParticularSeats_GraphSize,
+                'ByC_Taxi_NumberOfEntrances_GraphSize':
+                ByC_Taxi_NumberOfEntrances_GraphSize,
+
                 #RESPONSE TO QUERYS:
-                'ByC_numberOfSessions_Dictionary': ByC_numberOfSessions_Dictionary,
-                'ByC_playTime_Dictionary': ByC_playTime_Dictionary,
-                'ByC_touchCount_Dictionary': ByC_touchCount_Dictionary,
-                'ByC_activitiesPlayedCounter_Dictionary': ByC_activitiesPlayedCounter_Dictionary,
-                'ByC_built_elementsCounter_Dictionary': ByC_built_elementsCounter_Dictionary,
-                'ByC_built_elementsCounter_perCategory_Dictionary': ByC_built_elementsCounter_perCategory_Dictionary,
-                'ByC_maxNumberOfAssistants_Dictionary': ByC_maxNumberOfAssistants_Dictionary,
-                'ByC_Cinema_CompleteVsIncomplete_Dictionary': ByC_Cinema_CompleteVsIncomplete_Dictionary,
-                'ByC_Cinema_SuccessVsFailure_Dictionary': ByC_Cinema_SuccessVsFailure_Dictionary,
-                'ByC_Cinema_SuccessVsFailure_ParticularSeats_Dictionary': ByC_Cinema_SuccessVsFailure_ParticularSeats_Dictionary,
-                'ByC_Cinema_NumberOfEntrances_Dictionary': ByC_Cinema_NumberOfEntrances_Dictionary,
-                'ByC_Cinema_Average_Success': int(ByC_Cinema_Average_Success),
-                'ByC_Cinema_Average_Failure': int(ByC_Cinema_Average_Failure),
-                'ByC_Cinema_Average_ParticularSuccess': int(ByC_Cinema_Average_ParticularSuccess),
-                'ByC_Cinema_Average_ParticularFailure': int(ByC_Cinema_Average_ParticularFailure),
-                'ByC_Cinema_SuccessPercentageInTime_Dictionary': ByC_Cinema_SuccessPercentageInTime_Dictionary,
-                'ByC_School_CompleteVsIncomplete_Dictionary': ByC_School_CompleteVsIncomplete_Dictionary,
-                'ByC_School_SuccessVsFailure_Dictionary': ByC_School_SuccessVsFailure_Dictionary,
-                'ByC_School_SuccessVsFailure_ParticularSeats_Dictionary': ByC_School_SuccessVsFailure_ParticularSeats_Dictionary,
-                'ByC_School_NumberOfEntrances_Dictionary': ByC_School_NumberOfEntrances_Dictionary,
-                'ByC_School_Average_Success': int(ByC_School_Average_Success),
-                'ByC_School_Average_Failure': int(ByC_School_Average_Failure),
-                'ByC_School_Average_ParticularSuccess': int(ByC_School_Average_ParticularSuccess),
-                'ByC_School_Average_ParticularFailure': int(ByC_School_Average_ParticularFailure),
-                'ByC_School_SuccessPercentageInTime_Dictionary': ByC_School_SuccessPercentageInTime_Dictionary,
-                'ByC_Taxi_CompleteVsIncomplete_Dictionary': ByC_Taxi_CompleteVsIncomplete_Dictionary,
-                'ByC_Taxi_SuccessVsFailure_Dictionary': ByC_Taxi_SuccessVsFailure_Dictionary,
-                'ByC_Taxi_SuccessVsFailure_ParticularSeats_Dictionary': ByC_Taxi_SuccessVsFailure_ParticularSeats_Dictionary,
-                'ByC_Taxi_NumberOfEntrances_Dictionary': ByC_Taxi_NumberOfEntrances_Dictionary,
-                'ByC_Taxi_Average_Success': int(ByC_Taxi_Average_Success),
-                'ByC_Taxi_Average_Failure': int(ByC_Taxi_Average_Failure),
-                'ByC_Taxi_Average_ParticularSuccess': int(ByC_Taxi_Average_ParticularSuccess),
-                'ByC_Taxi_Average_ParticularFailure': int(ByC_Taxi_Average_ParticularFailure),
-                'ByC_Taxi_SuccessPercentageInTime_Dictionary': ByC_Taxi_SuccessPercentageInTime_Dictionary,
+                'ByC_numberOfSessions_Dictionary':
+                ByC_numberOfSessions_Dictionary,
+                'ByC_playTime_Dictionary':
+                ByC_playTime_Dictionary,
+                'ByC_touchCount_Dictionary':
+                ByC_touchCount_Dictionary,
+                'ByC_activitiesPlayedCounter_Dictionary':
+                ByC_activitiesPlayedCounter_Dictionary,
+                'ByC_built_elementsCounter_Dictionary':
+                ByC_built_elementsCounter_Dictionary,
+                'ByC_built_elementsCounter_perCategory_Dictionary':
+                ByC_built_elementsCounter_perCategory_Dictionary,
+                'ByC_maxNumberOfAssistants_Dictionary':
+                ByC_maxNumberOfAssistants_Dictionary,
+                'ByC_Cinema_CompleteVsIncomplete_Dictionary':
+                ByC_Cinema_CompleteVsIncomplete_Dictionary,
+                'ByC_Cinema_SuccessVsFailure_Dictionary':
+                ByC_Cinema_SuccessVsFailure_Dictionary,
+                'ByC_Cinema_SuccessVsFailure_ParticularSeats_Dictionary':
+                ByC_Cinema_SuccessVsFailure_ParticularSeats_Dictionary,
+                'ByC_Cinema_NumberOfEntrances_Dictionary':
+                ByC_Cinema_NumberOfEntrances_Dictionary,
+                'ByC_Cinema_Average_Success':
+                int(ByC_Cinema_Average_Success),
+                'ByC_Cinema_Average_Failure':
+                int(ByC_Cinema_Average_Failure),
+                'ByC_Cinema_Average_ParticularSuccess':
+                int(ByC_Cinema_Average_ParticularSuccess),
+                'ByC_Cinema_Average_ParticularFailure':
+                int(ByC_Cinema_Average_ParticularFailure),
+                'ByC_Cinema_SuccessPercentageInTime_Dictionary':
+                ByC_Cinema_SuccessPercentageInTime_Dictionary,
+                'ByC_School_CompleteVsIncomplete_Dictionary':
+                ByC_School_CompleteVsIncomplete_Dictionary,
+                'ByC_School_SuccessVsFailure_Dictionary':
+                ByC_School_SuccessVsFailure_Dictionary,
+                'ByC_School_SuccessVsFailure_ParticularSeats_Dictionary':
+                ByC_School_SuccessVsFailure_ParticularSeats_Dictionary,
+                'ByC_School_NumberOfEntrances_Dictionary':
+                ByC_School_NumberOfEntrances_Dictionary,
+                'ByC_School_Average_Success':
+                int(ByC_School_Average_Success),
+                'ByC_School_Average_Failure':
+                int(ByC_School_Average_Failure),
+                'ByC_School_Average_ParticularSuccess':
+                int(ByC_School_Average_ParticularSuccess),
+                'ByC_School_Average_ParticularFailure':
+                int(ByC_School_Average_ParticularFailure),
+                'ByC_School_SuccessPercentageInTime_Dictionary':
+                ByC_School_SuccessPercentageInTime_Dictionary,
+                'ByC_Taxi_CompleteVsIncomplete_Dictionary':
+                ByC_Taxi_CompleteVsIncomplete_Dictionary,
+                'ByC_Taxi_SuccessVsFailure_Dictionary':
+                ByC_Taxi_SuccessVsFailure_Dictionary,
+                'ByC_Taxi_SuccessVsFailure_ParticularSeats_Dictionary':
+                ByC_Taxi_SuccessVsFailure_ParticularSeats_Dictionary,
+                'ByC_Taxi_NumberOfEntrances_Dictionary':
+                ByC_Taxi_NumberOfEntrances_Dictionary,
+                'ByC_Taxi_Average_Success':
+                int(ByC_Taxi_Average_Success),
+                'ByC_Taxi_Average_Failure':
+                int(ByC_Taxi_Average_Failure),
+                'ByC_Taxi_Average_ParticularSuccess':
+                int(ByC_Taxi_Average_ParticularSuccess),
+                'ByC_Taxi_Average_ParticularFailure':
+                int(ByC_Taxi_Average_ParticularFailure),
+                'ByC_Taxi_SuccessPercentageInTime_Dictionary':
+                ByC_Taxi_SuccessPercentageInTime_Dictionary,
                 ######END BUILD YOUR CITY#####
-                
             })
     # En otro caso redireccionamos al login
     return redirect('/login')
+
 
 def register(request):
     # Creamos el formulario de autenticación vacío
@@ -1973,7 +3140,7 @@ def register(request):
             # Creamos la nueva cuenta de usuario
             user = form.save()
 
-            # Si el usuario se crea correctamente 
+            # Si el usuario se crea correctamente
             if user is not None:
                 # Hacemos el login manualmente
                 do_login(request, user)
@@ -1987,20 +3154,25 @@ def register(request):
     # Si llegamos al final renderizamos el formulario
     return render(request, "users/register.html", {'form': form})
 
+
 def login(request):
     # Creamos el formulario de autenticación vacío
     form = AuthenticationForm()
     if request.method == "POST":
         # Añadimos los datos recibidos al formulario
         form = AuthenticationForm(data=request.POST)
-             #Conectamos con la db de ulearnet][_h]
+        #Conectamos con la db de ulearnet][_h]
         cursor = get_from_db()
-        query = 'SELECT username, email, password, nombres FROM usuario WHERE (tipo_usuario_id = 1 OR tipo_usuario_id = 2) AND (username="' + request.POST.get('username') +'" AND password="' + request.POST.get('password') + '")'
+        query = 'SELECT username, email, password, nombres FROM usuario WHERE (tipo_usuario_id = 1 OR tipo_usuario_id = 2) AND (username="' + request.POST.get(
+            'username') + '" AND password="' + request.POST.get(
+                'password') + '")'
         cursor.execute(query)
         data = cursor.fetchone()
-        
+
         if data:
-            user, created = User.objects.get_or_create(username=data[0], email=data[1], first_name=data[3])
+            user, created = User.objects.get_or_create(username=data[0],
+                                                       email=data[1],
+                                                       first_name=data[3])
             if created:
                 user.set_password(data[2])
                 user.save()
@@ -2026,6 +3198,7 @@ def login(request):
 
     # Si llegamos al final renderizamos el formulario
     return render(request, "users/login.html", {'form': form})
+
 
 def logout(request):
     # Finalizamos la sesión

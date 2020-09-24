@@ -2295,7 +2295,7 @@ def getCinema_SuccessVsFailureGeneral(request):
     date = get_date_param_alumno_respuesta_actividad(request)
 
     start_base = ' SELECT u.id, concat(u.nombres ," ", u.apellido_paterno ," ", u.apellido_materno) as nombre,  COUNT(if(a.correcta = 1 ,1,NULL)) AS Success, COUNT(if(a.correcta = 0 ,1,NULL)) AS Failure FROM alumno_respuesta_actividad a, usuario u, pertenece b WHERE ' + date
-    final_base = '  a.id_user= u.id && b.usuario_id = a.id_user' + query_params + ' AND a.id_elemento IN (27201, 27202, 27203, 27204, 27205, 27206, 27207, 27208, 27209, 27210, 27211, 27212, 27213, 27214, 27215, 27216, 27217, 27218, 27219, 27220, 27221, 27222, 27223, 27224, 27225, 27226, 27227, 27228, 27229, 27230, 27231, 27232, 27233, 27234, 27235, 27236, 27237, 27238, 27239, 27240, 27241, 27242) ' + ' GROUP BY u.id'
+    final_base = '  a.id_user= u.id && b.usuario_id = a.id_user' + query_params + ' AND a.id_elemento IN (27201, 27202, 27203, 27204, 27205, 27206, 27207, 27208, 27209, 27210, 27211, 27212, 27213, 27214, 27215, 27216, 27217, 27218, 27219, 27220, 27221, 27222, 27223, 27224, 27225, 27226, 27227, 27228, 27229, 27230, 27231, 27232, 27233, 27234, 27235, 27236, 27237, 27238, 27239, 27240, 27241, 27242) ' 
     
     return start_base + final_base
 
@@ -2317,6 +2317,7 @@ def getCinema_SuccessPercentageInTime(request):
     date = get_date_param_alumno_respuesta_actividad(request)
     start_base = ' SELECT concat(u.nombres ," ", u.apellido_paterno ," ", u.apellido_materno) as nombre, concat(day(datetime_touch),"/",month(datetime_touch),"/", year(datetime_touch)) AS Fecha, COUNT(if(a.correcta = 1 ,1,NULL)) AS Success, COUNT(if(a.correcta = 0 ,1,NULL)) AS Failure FROM alumno_respuesta_actividad a, usuario u, pertenece b WHERE ' + date
     final_base = '  a.id_user= u.id && b.usuario_id = a.id_user ' + query_params + ' AND a.id_elemento IN (27201, 27202, 27203, 27204, 27205, 27206, 27207, 27208, 27209, 27210, 27211, 27212, 27213, 27214, 27215, 27216, 27217, 27218, 27219, 27220, 27221, 27222, 27223, 27224, 27225, 27226, 27227, 27228, 27229, 27230, 27231, 27232, 27233, 27234, 27235, 27236, 27237, 27238, 27239, 27240, 27241, 27242) GROUP BY day(a.datetime_touch) ORDER BY a.datetime_touch ASC'
+		
     
     return start_base + final_base
 
@@ -2335,7 +2336,7 @@ def getCinema_SuccessVsFailureGeneral(request):
     date = get_date_param_alumno_respuesta_actividad(request)
 
     start_base = ' SELECT u.id, concat(u.nombres ," ", u.apellido_paterno ," ", u.apellido_materno) as nombre,  COUNT(if(a.correcta = 1 ,1,NULL)) AS Success, COUNT(if(a.correcta = 0 ,1,NULL)) AS Failure FROM alumno_respuesta_actividad a, usuario u, pertenece b WHERE ' + date
-    final_base = '  a.id_user= u.id && b.usuario_id = a.id_user' + query_params + ' AND a.id_elemento IN (27201, 27202, 27203, 27204, 27205, 27206, 27207, 27208, 27209, 27210, 27211, 27212, 27213, 27214, 27215, 27216, 27217, 27218, 27219, 27220, 27221, 27222, 27223, 27224, 27225, 27226, 27227, 27228, 27229, 27230, 27231, 27232, 27233, 27234, 27235, 27236, 27237, 27238, 27239, 27240, 27241, 27242) ' + ' GROUP BY u.id'
+    final_base = '  a.id_user= u.id && b.usuario_id = a.id_user' + query_params + ' AND a.id_elemento IN (27201, 27202, 27203, 27204, 27205, 27206, 27207, 27208, 27209, 27210, 27211, 27212, 27213, 27214, 27215, 27216, 27217, 27218, 27219, 27220, 27221, 27222, 27223, 27224, 27225, 27226, 27227, 27228, 27229, 27230, 27231, 27232, 27233, 27234, 27235, 27236, 27237, 27238, 27239, 27240, 27241, 27242) ' 
     
     return start_base + final_base
 
@@ -2448,7 +2449,7 @@ def getSchool_SuccessVsFailureGeneral(request):
     date = get_date_param_alumno_respuesta_actividad(request)
 
     start_base = ' SELECT u.id, concat(u.nombres ," ", u.apellido_paterno ," ", u.apellido_materno) as nombre,  COUNT(if(a.correcta = 1 ,1,NULL)) AS Success, COUNT(if(a.correcta = 0 ,1,NULL)) AS Failure FROM alumno_respuesta_actividad a, usuario u, pertenece b WHERE ' + date
-    final_base = '  a.id_user= u.id && b.usuario_id = a.id_user' + query_params + ' AND a.id_elemento IN (27301, 27302, 27303, 27304) ' + ' GROUP BY u.id'
+    final_base = '  a.id_user= u.id && b.usuario_id = a.id_user' + query_params + ' AND a.id_elemento IN (27301, 27302, 27303, 27304) '
     
     return start_base + final_base
 
@@ -2488,7 +2489,7 @@ def getSchool_SuccessVsFailureGeneral(request):
     date = get_date_param_alumno_respuesta_actividad(request)
 
     start_base = ' SELECT u.id, concat(u.nombres ," ", u.apellido_paterno ," ", u.apellido_materno) as nombre,  COUNT(if(a.correcta = 1 ,1,NULL)) AS Success, COUNT(if(a.correcta = 0 ,1,NULL)) AS Failure FROM alumno_respuesta_actividad a, usuario u, pertenece b WHERE ' + date
-    final_base = '  a.id_user= u.id && b.usuario_id = a.id_user' + query_params + ' AND a.id_elemento IN (27301, 27302, 27303, 27304) ' + ' GROUP BY u.id'
+    final_base = '  a.id_user= u.id && b.usuario_id = a.id_user' + query_params + ' AND a.id_elemento IN (27301, 27302, 27303, 27304) '
     
     return start_base + final_base
 
@@ -2601,7 +2602,7 @@ def getTaxi_SuccessVsFailureGeneral(request):
     date = get_date_param_alumno_respuesta_actividad(request)
 
     start_base = ' SELECT u.id, concat(u.nombres ," ", u.apellido_paterno ," ", u.apellido_materno) as nombre,  COUNT(if(a.correcta = 1 ,1,NULL)) AS Success, COUNT(if(a.correcta = 0 ,1,NULL)) AS Failure FROM alumno_respuesta_actividad a, usuario u, pertenece b WHERE ' + date
-    final_base = '  a.id_user= u.id && b.usuario_id = a.id_user' + query_params + ' AND a.id_elemento IN (27401, 27402, 27403, 27404, 27405, 27406, 27407, 27408) ' + ' GROUP BY u.id'
+    final_base = '  a.id_user= u.id && b.usuario_id = a.id_user' + query_params + ' AND a.id_elemento IN (27401, 27402, 27403, 27404, 27405, 27406, 27407, 27408) '
     
     return start_base + final_base
 
@@ -2641,7 +2642,7 @@ def getTaxi_SuccessVsFailureGeneral(request):
     date = get_date_param_alumno_respuesta_actividad(request)
 
     start_base = ' SELECT u.id, concat(u.nombres ," ", u.apellido_paterno ," ", u.apellido_materno) as nombre,  COUNT(if(a.correcta = 1 ,1,NULL)) AS Success, COUNT(if(a.correcta = 0 ,1,NULL)) AS Failure FROM alumno_respuesta_actividad a, usuario u, pertenece b WHERE ' + date
-    final_base = '  a.id_user= u.id && b.usuario_id = a.id_user' + query_params + ' AND a.id_elemento IN (27401, 27402, 27403, 27404, 27405, 27406, 27407, 27408) ' + ' GROUP BY u.id'
+    final_base = '  a.id_user= u.id && b.usuario_id = a.id_user' + query_params + ' AND a.id_elemento IN (27401, 27402, 27403, 27404, 27405, 27406, 27407, 27408) ' 
     
     return start_base + final_base
 

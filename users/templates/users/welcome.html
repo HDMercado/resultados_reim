@@ -2768,7 +2768,7 @@
                                         <div class="col-lg-6">
                                             <div class="ibox ">
                                                 <div class="ibox-title">
-                                                    <h5>Comparación del rendimiento del estudiante versus el promedio general </h5><span class="  glyphicon glyphicon-info-sign" title="Gráfico referente a la cantidad de aciertos y errores al posicionar los asistentes del Cine, adicionalmente se muestra el promedio de cada ITEM, para así distinguir si el alumno esta por debajo o sobre el promedio."></span>
+                                                    <h5>Comparación del rendimiento del estudiante versus el promedio general </h5><span class="  glyphicon glyphicon-info-sign" title="Gráfico referente al porcentaje de aciertos y errores al posicionar los asistentes del Cine, adicionalmente se muestra el promedio del curso, para así distinguir si el alumno esta por debajo o sobre el promedio."></span>
                                                     <div class="ibox-tools"></div>
                                                 </div>
                                                 <div class="ibox-content">
@@ -2875,7 +2875,7 @@
                                         <div class="col-lg-6">
                                             <div class="ibox ">
                                                 <div class="ibox-title">
-                                                    <h5>Comparación del rendimiento del estudiante versus el promedio general </h5><span class="  glyphicon glyphicon-info-sign" title="Gráfico referente a la cantidad de aciertos y errores al identificar la posicion de los alumnos de la Escuela, adicionalmente se muestra el promedio de cada ITEM, para así distinguir si el alumno esta por debajo o sobre el promedio."></span>
+                                                    <h5>Comparación del rendimiento del estudiante versus el promedio general </h5><span class="  glyphicon glyphicon-info-sign" title="Gráfico referente al porcentaje de aciertos y errores al identificar la posicion de los alumnos de la Escuela, adicionalmente se muestra el promedio del curso, para así distinguir si el alumno esta por debajo o sobre el promedio."></span>
                                                     <div class="ibox-tools"></div>
                                                 </div>
                                                 <div class="ibox-content">
@@ -2982,7 +2982,7 @@
                                         <div class="col-lg-6">
                                             <div class="ibox ">
                                                 <div class="ibox-title">
-                                                    <h5>Comparación del rendimiento del estudiante versus el promedio general </h5><span class="  glyphicon glyphicon-info-sign" title="Gráfico referente a la cantidad de aciertos y errores al identificar la posicion de las cuadras en la ciudad, adicionalmente se muestra el promedio de cada ITEM, para así distinguir si el alumno esta por debajo o sobre el promedio."></span>
+                                                    <h5>Comparación del rendimiento del estudiante versus el promedio general </h5><span class="  glyphicon glyphicon-info-sign" title="Gráfico referente al porcentaje de aciertos y errores al identificar la posicion de las cuadras en la ciudad, adicionalmente se muestra el promedio del curso, para así distinguir si el alumno esta por debajo o sobre el promedio."></span>
                                                     <div class="ibox-tools"></div>
                                                 </div>
                                                 <div class="ibox-content">
@@ -3022,10 +3022,10 @@
 
 
                 <div>
-                    <strong>Copyright</strong>  &copy; 2019
+                    <strong>Copyright</strong>  &copy; 2020
 
 
-                    <button type="button" class="btn btn-link btn-sm" data-toggle="modal" data-target="#queriesModal">
+                    <!-- <button type="button" class="btn btn-link btn-sm" data-toggle="modal" data-target="#queriesModal">
                         queries
                     </button>
 
@@ -3047,7 +3047,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -3223,7 +3223,7 @@
       }
   });
 
-  //////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////BUILD YOUR CITY//////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
         //GRAPHS SETTINGS:
@@ -3824,7 +3824,7 @@
                         //CONNECT WITH BD:                        
                         {% if ByC_Cinema_SuccessVsFailure_Dictionary %}
                             {% for elemento in ByC_Cinema_SuccessVsFailure_Dictionary %}
-                                '{{elemento.Success}}',
+                                '{{elemento.SuccessPercentage}}',
                             {% endfor%}
                         {% endif%} 
                         
@@ -3842,7 +3842,7 @@
                         //CONNECT WITH BD:                        
                         {% if ByC_Cinema_SuccessVsFailure_Dictionary %}
                             {% for elemento in ByC_Cinema_SuccessVsFailure_Dictionary %}
-                                '{{elemento.Failure}}',
+                                '{{elemento.FailurePercentage}}',
                             {% endfor%}
                         {% endif%} 
 
@@ -4148,7 +4148,7 @@
                         //CONNECT WITH BD:                        
                         {% if ByC_School_SuccessVsFailure_Dictionary %}
                             {% for elemento in ByC_School_SuccessVsFailure_Dictionary %}
-                                '{{elemento.Success}}',
+                                '{{elemento.SuccessPercentage}}',
                             {% endfor%}
                         {% endif%} 
                         
@@ -4166,7 +4166,7 @@
                         //CONNECT WITH BD:                        
                         {% if ByC_School_SuccessVsFailure_Dictionary %}
                             {% for elemento in ByC_School_SuccessVsFailure_Dictionary %}
-                                '{{elemento.Failure}}',
+                                '{{elemento.FailurePercentage}}',
                             {% endfor%}
                         {% endif%} 
 
@@ -4431,7 +4431,7 @@
                         //CONNECT WITH BD:                        
                         {% if ByC_Taxi_SuccessVsFailure_Dictionary %}
                             {% for elemento in ByC_Taxi_SuccessVsFailure_Dictionary %}
-                                '{{elemento.Success}}',
+                                '{{elemento.SuccessPercentage}}',
                             {% endfor%}
                         {% endif%} 
                         
@@ -4449,7 +4449,7 @@
                         //CONNECT WITH BD:                        
                         {% if ByC_Taxi_SuccessVsFailure_Dictionary %}
                             {% for elemento in ByC_Taxi_SuccessVsFailure_Dictionary %}
-                                '{{elemento.Failure}}',
+                                '{{elemento.FailurePercentage}}',
                             {% endfor%}
                         {% endif%} 
 
