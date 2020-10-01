@@ -2148,18 +2148,18 @@ def get_activities_played_counter(request):
     query_params = ''
 
     if request.GET.get('reim') and request.GET.get('reim') != '0':
-        query_params += " AND ara.id_reim = " + request.GET.get('reim')
+        query_params += " AND a.id_reim = " + request.GET.get('reim')
     if request.GET.get('course') and request.GET.get('course') != '0':
         query_params += " AND b.curso_id = " + request.GET.get('course')
     if request.GET.get('school') and request.GET.get('school') != '0':
         query_params += " AND b.colegio_id = " + request.GET.get('school')
     if request.GET.get('student') and request.GET.get('student') != '0':
-        query_params += ' AND ara.id_user=' + request.GET.get('student')
+        query_params += ' AND a.id_user=' + request.GET.get('student')
         
     date = get_date_param_alumno_respuesta_actividad(request)
 
-    start_base = 'SELECT ara.id_elemento as idElemento, count(1) as counter FROM alumno_respuesta_actividad ara, usuario u, pertenece b WHERE' + date
-    final_base = ' ara.id_user = u.id && b.usuario_id = ara.id_user && b.colegio_id IN (SELECT colegio_id from pertenece INNER JOIN usuario ON usuario.id = pertenece.usuario_id WHERE username="' + request.user.username + '") AND b.curso_id IN (SELECT curso_id FROM pertenece WHERE usuario_id = (SELECT id FROM usuario WHERE username = "' + request.user.username + '"))' + ' AND ara.id_elemento IN (27101,27102,27103)' + query_params + ' GROUP BY ara.id_elemento;'
+    start_base = 'SELECT a.id_elemento as idElemento, count(1) as counter FROM alumno_respuesta_actividad a, usuario u, pertenece b WHERE' + date
+    final_base = ' a.id_user = u.id && b.usuario_id = a.id_user && b.colegio_id IN (SELECT colegio_id from pertenece INNER JOIN usuario ON usuario.id = pertenece.usuario_id WHERE username="' + request.user.username + '") AND b.curso_id IN (SELECT curso_id FROM pertenece WHERE usuario_id = (SELECT id FROM usuario WHERE username = "' + request.user.username + '"))' + ' AND a.id_elemento IN (27101,27102,27103)' + query_params + ' GROUP BY a.id_elemento;'
 
     return start_base + final_base
 
