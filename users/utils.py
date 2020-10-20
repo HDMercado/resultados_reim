@@ -2673,4 +2673,429 @@ def getTaxi_SuccessVsFailure_ParticularSeats(request):
 
 ######END BUILD YOUR CITY######
 
+######START RECICLANDO CONSTRUYO######
+def get_porcentaje_llave(request):
+    query_params = ''
+    date = ''
+    query_params2 = ''
+
+    if request.GET.get('reim') and request.GET.get('reim') != '0':
+        query_params = ' AND alumno_respuesta_actividad.id_reim=' + request.GET.get('reim')
+    if request.GET.get('course') and request.GET.get('course') != '0':
+        query_params += " AND pertenece.curso_id = " + request.GET.get('course')
+    if request.GET.get('school') and request.GET.get('school') != '0':
+        query_params += " AND pertenece.colegio_id = " + request.GET.get('school')
+    if request.GET.get('student') and request.GET.get('student') != '0':
+        query_params += ' AND alumno_respuesta_actividad.id_user=' + request.GET.get('student')
+    if request.GET.get('activity') and request.GET.get('activity') != '0':
+        query_params += " AND alumno_respuesta_actividad.id_actividad = " + request.GET.get('activity')
+
+    if request.GET.get('reim') and request.GET.get('reim') != '0':
+        query_params2 = ' AND alumno_respuesta_actividad.id_reim=' + request.GET.get('reim')
+    if request.GET.get('activity') and request.GET.get('activity') != '0':
+        query_params2 += " AND alumno_respuesta_actividad.id_actividad = " + request.GET.get('activity')
+    if request.GET.get('student') and request.GET.get('student') != '0':
+        query_params2 += ' AND alumno_respuesta_actividad.id_user=' + request.GET.get('student')
+
+    if request.GET.get('start') and (request.GET.get('start') != 'dd/mm/aaaa') and request.GET.get('end') and (
+            request.GET.get('end') != 'dd/mm/aaaa'):
+        start = str(datetime.strptime(request.GET.get('start'), '%d/%m/%Y').date())
+        end = str(datetime.strptime(request.GET.get('end'), '%d/%m/%Y').date())
+        start += " 00:00:00.000000"
+        end += " 23:59:59.000000"
+        date = ' (a.datetime_touch >= TIMESTAMP("' + start + '") && a.datetime_touch <= TIMESTAMP("' + end + '")) &&'
+
+    start_base = ' SELECT  concat(u.nombres ," ", u.apellido_paterno ," ", u.apellido_materno) as nombre, concat(day(datetime_touch),"/",month(datetime_touch),"/", year(datetime_touch)) AS fecha, COALESCE(round(count((if(a.id_elemento=2128,1,null)))/count((if (a.id_elemento=2031,1,null)))),0) AS CantidadTouch, b.colegio_id, b.curso_id FROM alumno_respuesta_actividad a, usuario u, pertenece b WHERE' + date
+    final_base = ' a.id_user = u.id && b.usuario_id = a.id_user ' + query_params + ' GROUP BY day(a.datetime_touch) ORDER BY a.datetime_touch ASC'
+    hi = "  SELECT  CONCAT(usuario.nombres,  " + "         ' ', " + "         usuario.apellido_paterno, " + "         ' ', " + "         usuario.apellido_materno) AS nombre, " + " round(COUNT( alumno_respuesta_actividad.correcta) * 100 / (SELECT  " + "         COUNT(alumno_respuesta_actividad.correcta) AS s " + "     FROM " + "         alumno_respuesta_actividad " + "     WHERE " + "         (correcta = 0 OR correcta = 1) AND alumno_respuesta_actividad.id_elemento = 290013 " + query_params2 + "             ), 0) AS `Porcentaje`, " + "             pertenece.colegio_id, " + "             pertenece.curso_id " + " FROM " + "     usuario  " + " INNER JOIN alumno_respuesta_actividad " + " ON usuario.id = alumno_respuesta_actividad.id_user " + " INNER JOIN pertenece " + " ON pertenece.usuario_id = alumno_respuesta_actividad.id_user " + " WHERE " + " 		correcta = 1 AND alumno_respuesta_actividad.id_elemento = 290013 " + query_params
+    return hi
+
+
+def get_promedio_intentos(request):
+    query_params = ''
+    date = ''
+    query_params2 = ''
+
+    if request.GET.get('reim') and request.GET.get('reim') != '0':
+        query_params = ' AND alumno_respuesta_actividad.id_reim=' + request.GET.get('reim')
+    if request.GET.get('course') and request.GET.get('course') != '0':
+        query_params += " AND pertenece.curso_id = " + request.GET.get('course')
+    if request.GET.get('school') and request.GET.get('school') != '0':
+        query_params += " AND pertenece.colegio_id = " + request.GET.get('school')
+    if request.GET.get('student') and request.GET.get('student') != '0':
+        query_params += ' AND alumno_respuesta_actividad.id_user=' + request.GET.get('student')
+    if request.GET.get('activity') and request.GET.get('activity') != '0':
+        query_params += ' AND alumno_respuesta_actividad.id_actividad=' + request.GET.get('activity')
+
+    if request.GET.get('reim') and request.GET.get('reim') != '0':
+        query_params2 = ' AND alumno_respuesta_actividad.id_reim=' + request.GET.get('reim')
+    if request.GET.get('activity') and request.GET.get('activity') != '0':
+        query_params2 += " AND alumno_respuesta_actividad.id_actividad = " + request.GET.get('activity')
+    if request.GET.get('student') and request.GET.get('student') != '0':
+        query_params2 += ' AND alumno_respuesta_actividad.id_user=' + request.GET.get('student')
+
+    if request.GET.get('start') and (request.GET.get('start') != 'dd/mm/aaaa') and request.GET.get('end') and (
+            request.GET.get('end') != 'dd/mm/aaaa'):
+        start = str(datetime.strptime(request.GET.get('start'), '%d/%m/%Y').date())
+        end = str(datetime.strptime(request.GET.get('end'), '%d/%m/%Y').date())
+        start += " 00:00:00.000000"
+        end += " 23:59:59.000000"
+        date = ' (a.datetime_touch >= TIMESTAMP("' + start + '") && a.datetime_touch <= TIMESTAMP("' + end + '")) &&'
+
+    hi = "SELECT CONCAT(usuario.nombres, ' ',usuario.apellido_paterno, ' ',usuario.apellido_materno) AS nombre, ROUND(COUNT(alumno_respuesta_actividad.correcta) / (SELECT COUNT(alumno_respuesta_actividad.correcta) AS s FROM alumno_respuesta_actividad WHERE (correcta = 1) AND (alumno_respuesta_actividad.id_elemento = 290013 or alumno_respuesta_actividad.id_elemento = 290014 or alumno_respuesta_actividad.id_elemento = 290015 or alumno_respuesta_actividad.id_elemento = 290016)" + query_params2 + " ), 0) AS `Promedio movimientos por intento satisfactorio`, pertenece.colegio_id, pertenece.curso_id FROM usuario INNER JOIN alumno_respuesta_actividad ON usuario.id = alumno_respuesta_actividad.id_user INNER JOIN pertenece ON pertenece.usuario_id = alumno_respuesta_actividad.id_user WHERE correcta = 2 AND (alumno_respuesta_actividad.id_elemento = 290013 or alumno_respuesta_actividad.id_elemento = 290014 or alumno_respuesta_actividad.id_elemento = 290015 or alumno_respuesta_actividad.id_elemento = 290016)" + query_params
+    #print(hi)
+    return hi
+
+
+def get_promedio_intentos_totales(request):
+    query_params = ''
+    date = ''
+    query_params2 = ''
+
+    if request.GET.get('reim') and request.GET.get('reim') != '0':
+        query_params = ' AND alumno_respuesta_actividad.id_reim=' + request.GET.get('reim')
+    if request.GET.get('course') and request.GET.get('course') != '0':
+        query_params += " AND pertenece.curso_id = " + request.GET.get('course')
+    if request.GET.get('school') and request.GET.get('school') != '0':
+        query_params += " AND pertenece.colegio_id = " + request.GET.get('school')
+    if request.GET.get('student') and request.GET.get('student') != '0':
+        query_params += ' AND alumno_respuesta_actividad.id_user=' + request.GET.get('student')
+    if request.GET.get('activity') and request.GET.get('activity') != '0':
+        query_params += ' AND alumno_respuesta_actividad.id_actividad=' + request.GET.get('activity')
+
+    if request.GET.get('reim') and request.GET.get('reim') != '0':
+        query_params2 = ' AND alumno_respuesta_actividad.id_reim=' + request.GET.get('reim')
+    if request.GET.get('activity') and request.GET.get('activity') != '0':
+        query_params2 += " AND alumno_respuesta_actividad.id_actividad = " + request.GET.get('activity')
+    if request.GET.get('student') and request.GET.get('student') != '0':
+        query_params2 += ' AND alumno_respuesta_actividad.id_user=' + request.GET.get('student')
+
+    if request.GET.get('start') and (request.GET.get('start') != 'dd/mm/aaaa') and request.GET.get('end') and (
+            request.GET.get('end') != 'dd/mm/aaaa'):
+        start = str(datetime.strptime(request.GET.get('start'), '%d/%m/%Y').date())
+        end = str(datetime.strptime(request.GET.get('end'), '%d/%m/%Y').date())
+        start += " 00:00:00.000000"
+        end += " 23:59:59.000000"
+        date = ' (a.datetime_touch >= TIMESTAMP("' + start + '") && a.datetime_touch <= TIMESTAMP("' + end + '")) &&'
+
+    hi = "SELECT CONCAT(usuario.nombres, ' ',usuario.apellido_paterno, ' ',usuario.apellido_materno) AS nombre, ROUND(COUNT(alumno_respuesta_actividad.correcta) / (SELECT COUNT(alumno_respuesta_actividad.correcta) AS s FROM alumno_respuesta_actividad WHERE (correcta = 1 OR correcta = 0) AND (alumno_respuesta_actividad.id_elemento = 290013 OR alumno_respuesta_actividad.id_elemento = 290014 OR alumno_respuesta_actividad.id_elemento = 290015 OR alumno_respuesta_actividad.id_elemento = 290016)" + query_params2 + " ), 0) AS `Promedio movimientos por intento satisfactorio`, pertenece.colegio_id, pertenece.curso_id FROM usuario INNER JOIN alumno_respuesta_actividad ON usuario.id = alumno_respuesta_actividad.id_user INNER JOIN pertenece ON pertenece.usuario_id = alumno_respuesta_actividad.id_user WHERE correcta = 2 AND (alumno_respuesta_actividad.id_elemento = 290013 OR alumno_respuesta_actividad.id_elemento = 290014 OR alumno_respuesta_actividad.id_elemento = 290015 OR alumno_respuesta_actividad.id_elemento = 290016)" + query_params
+    #print(hi)
+    return hi
+
+
+def get_elementos_reciclados_usuario(request):
+    query_params = ''
+    date = ''
+    query_params2 = ''
+
+    if request.GET.get('reim') and request.GET.get('reim') != '0':
+        query_params = ' AND alumno_respuesta_actividad.id_reim=' + request.GET.get('reim')
+    if request.GET.get('course') and request.GET.get('course') != '0':
+        query_params += " AND pertenece.curso_id = " + request.GET.get('course')
+    if request.GET.get('school') and request.GET.get('school') != '0':
+        query_params += " AND pertenece.colegio_id = " + request.GET.get('school')
+    if request.GET.get('student') and request.GET.get('student') != '0':
+        query_params += ' AND alumno_respuesta_actividad.id_user=' + request.GET.get('student')
+    if request.GET.get('activity') and request.GET.get('activity') != '0':
+        query_params += ' AND alumno_respuesta_actividad.id_actividad=' + request.GET.get('activity')
+
+    if request.GET.get('reim') and request.GET.get('reim') != '0':
+        query_params2 = ' AND alumno_respuesta_actividad.id_reim=' + request.GET.get('reim')
+    if request.GET.get('activity') and request.GET.get('activity') != '0':
+        query_params2 += " AND alumno_respuesta_actividad.id_actividad = " + request.GET.get('activity')
+    if request.GET.get('student') and request.GET.get('student') != '0':
+        query_params2 += ' AND alumno_respuesta_actividad.id_user=' + request.GET.get('student')
+
+    if request.GET.get('start') and (request.GET.get('start') != 'dd/mm/aaaa') and request.GET.get('end') and (
+            request.GET.get('end') != 'dd/mm/aaaa'):
+        start = str(datetime.strptime(request.GET.get('start'), '%d/%m/%Y').date())
+        end = str(datetime.strptime(request.GET.get('end'), '%d/%m/%Y').date())
+        start += " 00:00:00.000000"
+        end += " 23:59:59.000000"
+        date = ' (a.datetime_touch >= TIMESTAMP("' + start + '") && a.datetime_touch <= TIMESTAMP("' + end + '")) &&'
+
+    hi = "SELECT CONCAT(usuario.nombres, ' ',usuario.apellido_paterno, ' ',usuario.apellido_materno) AS nombre, count(id_elemento), elemento.nombre, pertenece.colegio_id, pertenece.curso_id FROM usuario INNER JOIN alumno_respuesta_actividad ON usuario.id = alumno_respuesta_actividad.id_user INNER JOIN pertenece ON pertenece.usuario_id = alumno_respuesta_actividad.id_user INNER JOIN elemento ON alumno_respuesta_actividad.id_elemento = elemento.id WHERE correcta = 1" + query_params + " GROUP BY elemento.id"
+    #print(hi)
+    return hi
+
+def get_elementos_reciclados_incorrecto_usuario(request):
+    query_params = ''
+    date = ''
+    query_params2 = ''
+
+    if request.GET.get('reim') and request.GET.get('reim') != '0':
+        query_params = ' AND alumno_respuesta_actividad.id_reim=' + request.GET.get('reim')
+    if request.GET.get('course') and request.GET.get('course') != '0':
+        query_params += " AND pertenece.curso_id = " + request.GET.get('course')
+    if request.GET.get('school') and request.GET.get('school') != '0':
+        query_params += " AND pertenece.colegio_id = " + request.GET.get('school')
+    if request.GET.get('student') and request.GET.get('student') != '0':
+        query_params += ' AND alumno_respuesta_actividad.id_user=' + request.GET.get('student')
+    if request.GET.get('activity') and request.GET.get('activity') != '0':
+        query_params += ' AND alumno_respuesta_actividad.id_actividad=' + request.GET.get('activity')
+
+    if request.GET.get('reim') and request.GET.get('reim') != '0':
+        query_params2 = ' AND alumno_respuesta_actividad.id_reim=' + request.GET.get('reim')
+    if request.GET.get('activity') and request.GET.get('activity') != '0':
+        query_params2 += " AND alumno_respuesta_actividad.id_actividad = " + request.GET.get('activity')
+    if request.GET.get('student') and request.GET.get('student') != '0':
+        query_params2 += ' AND alumno_respuesta_actividad.id_user=' + request.GET.get('student')
+
+    if request.GET.get('start') and (request.GET.get('start') != 'dd/mm/aaaa') and request.GET.get('end') and (
+            request.GET.get('end') != 'dd/mm/aaaa'):
+        start = str(datetime.strptime(request.GET.get('start'), '%d/%m/%Y').date())
+        end = str(datetime.strptime(request.GET.get('end'), '%d/%m/%Y').date())
+        start += " 00:00:00.000000"
+        end += " 23:59:59.000000"
+        date = ' (a.datetime_touch >= TIMESTAMP("' + start + '") && a.datetime_touch <= TIMESTAMP("' + end + '")) &&'
+
+    hi = "SELECT CONCAT(usuario.nombres, ' ',usuario.apellido_paterno, ' ',usuario.apellido_materno) AS nombre, count(id_elemento), elemento.nombre, pertenece.colegio_id, pertenece.curso_id FROM usuario INNER JOIN alumno_respuesta_actividad ON usuario.id = alumno_respuesta_actividad.id_user INNER JOIN pertenece ON pertenece.usuario_id = alumno_respuesta_actividad.id_user INNER JOIN elemento ON alumno_respuesta_actividad.id_elemento = elemento.id WHERE correcta = 0" + query_params + " GROUP BY elemento.id"
+    #print(hi)
+    return hi
+
+def get_Respuestas_Usuario_VencerAlConstructor(request):
+    query_params = ''
+    date = ''
+    query_params2 = ''
+
+    if request.GET.get('reim') and request.GET.get('reim') != '0':
+        query_params = ' AND alumno_respuesta_actividad.id_reim=' + request.GET.get('reim')
+    if request.GET.get('course') and request.GET.get('course') != '0':
+        query_params += " AND pertenece.curso_id = " + request.GET.get('course')
+    if request.GET.get('school') and request.GET.get('school') != '0':
+        query_params += " AND pertenece.colegio_id = " + request.GET.get('school')
+    if request.GET.get('student') and request.GET.get('student') != '0':
+        query_params += ' AND alumno_respuesta_actividad.id_user=' + request.GET.get('student')
+    if request.GET.get('activity') and request.GET.get('activity') != '0':
+        query_params += ' AND alumno_respuesta_actividad.id_actividad=' + request.GET.get('activity')
+
+    if request.GET.get('reim') and request.GET.get('reim') != '0':
+        query_params2 = ' AND alumno_respuesta_actividad.id_reim=' + request.GET.get('reim')
+    if request.GET.get('activity') and request.GET.get('activity') != '0':
+        query_params2 += " AND alumno_respuesta_actividad.id_actividad = " + request.GET.get('activity')
+    if request.GET.get('student') and request.GET.get('student') != '0':
+        query_params2 += ' AND alumno_respuesta_actividad.id_user=' + request.GET.get('student')
+
+    if request.GET.get('start') and (request.GET.get('start') != 'dd/mm/aaaa') and request.GET.get('end') and (
+            request.GET.get('end') != 'dd/mm/aaaa'):
+        start = str(datetime.strptime(request.GET.get('start'), '%d/%m/%Y').date())
+        end = str(datetime.strptime(request.GET.get('end'), '%d/%m/%Y').date())
+        start += " 00:00:00.000000"
+        end += " 23:59:59.000000"
+        date = ' (a.datetime_touch >= TIMESTAMP("' + start + '") && a.datetime_touch <= TIMESTAMP("' + end + '")) &&'
+
+    hi = "SELECT elemento.id, alumno_respuesta_actividad.fila, COUNT(elemento.id) AS cantidad, SUM(alumno_respuesta_actividad.correcta = 0) AS incorrectas, SUM(alumno_respuesta_actividad.correcta = 1) AS Correctas FROM usuario INNER JOIN alumno_respuesta_actividad ON usuario.id = alumno_respuesta_actividad.id_user INNER JOIN pertenece ON pertenece.usuario_id = alumno_respuesta_actividad.id_user INNER JOIN elemento ON alumno_respuesta_actividad.id_elemento = elemento.id WHERE ( alumno_respuesta_actividad.fila = 1000 OR  alumno_respuesta_actividad.fila = 2000)" + query_params + " GROUP BY alumno_respuesta_actividad.fila"
+    #print(hi)
+    return hi
+
+def get_ElementosRecicladosCorrectamente_Tipo(request):
+    query_params = ''
+    date = ''
+    query_params2 = ''
+
+    if request.GET.get('reim') and request.GET.get('reim') != '0':
+        query_params = ' AND alumno_respuesta_actividad.id_reim=' + request.GET.get('reim')
+    if request.GET.get('course') and request.GET.get('course') != '0':
+        query_params += " AND pertenece.curso_id = " + request.GET.get('course')
+    if request.GET.get('school') and request.GET.get('school') != '0':
+        query_params += " AND pertenece.colegio_id = " + request.GET.get('school')
+    if request.GET.get('student') and request.GET.get('student') != '0':
+        query_params += ' AND alumno_respuesta_actividad.id_user=' + request.GET.get('student')
+    if request.GET.get('activity') and request.GET.get('activity') != '0':
+        query_params += ' AND alumno_respuesta_actividad.id_actividad=' + request.GET.get('activity')
+
+    if request.GET.get('reim') and request.GET.get('reim') != '0':
+        query_params2 = ' AND alumno_respuesta_actividad.id_reim=' + request.GET.get('reim')
+    if request.GET.get('activity') and request.GET.get('activity') != '0':
+        query_params2 += " AND alumno_respuesta_actividad.id_actividad = " + request.GET.get('activity')
+    if request.GET.get('student') and request.GET.get('student') != '0':
+        query_params2 += ' AND alumno_respuesta_actividad.id_user=' + request.GET.get('student')
+
+    if request.GET.get('start') and (request.GET.get('start') != 'dd/mm/aaaa') and request.GET.get('end') and (
+            request.GET.get('end') != 'dd/mm/aaaa'):
+        start = str(datetime.strptime(request.GET.get('start'), '%d/%m/%Y').date())
+        end = str(datetime.strptime(request.GET.get('end'), '%d/%m/%Y').date())
+        start += " 00:00:00.000000"
+        end += " 23:59:59.000000"
+        date = ' (a.datetime_touch >= TIMESTAMP("' + start + '") && a.datetime_touch <= TIMESTAMP("' + end + '")) &&'
+
+    hi = "SELECT elemento.id, alumno_respuesta_actividad.columna, count(elemento.id) as cantidad FROM usuario INNER JOIN alumno_respuesta_actividad ON usuario.id = alumno_respuesta_actividad.id_user INNER JOIN pertenece ON pertenece.usuario_id = alumno_respuesta_actividad.id_user INNER JOIN elemento ON alumno_respuesta_actividad.id_elemento = elemento.id WHERE alumno_respuesta_actividad.correcta = 0" + query_params + " GROUP BY alumno_respuesta_actividad.columna"
+    #print(hi)
+    return hi
+
+def get_ElementosRecicladosIncorrectamente_Tipo(request):
+    query_params = ''
+    date = ''
+    query_params2 = ''
+
+    if request.GET.get('reim') and request.GET.get('reim') != '0':
+        query_params = ' AND alumno_respuesta_actividad.id_reim=' + request.GET.get('reim')
+    if request.GET.get('course') and request.GET.get('course') != '0':
+        query_params += " AND pertenece.curso_id = " + request.GET.get('course')
+    if request.GET.get('school') and request.GET.get('school') != '0':
+        query_params += " AND pertenece.colegio_id = " + request.GET.get('school')
+    if request.GET.get('student') and request.GET.get('student') != '0':
+        query_params += ' AND alumno_respuesta_actividad.id_user=' + request.GET.get('student')
+    if request.GET.get('activity') and request.GET.get('activity') != '0':
+        query_params += ' AND alumno_respuesta_actividad.id_actividad=' + request.GET.get('activity')
+
+    if request.GET.get('reim') and request.GET.get('reim') != '0':
+        query_params2 = ' AND alumno_respuesta_actividad.id_reim=' + request.GET.get('reim')
+    if request.GET.get('activity') and request.GET.get('activity') != '0':
+        query_params2 += " AND alumno_respuesta_actividad.id_actividad = " + request.GET.get('activity')
+    if request.GET.get('student') and request.GET.get('student') != '0':
+        query_params2 += ' AND alumno_respuesta_actividad.id_user=' + request.GET.get('student')
+
+    if request.GET.get('start') and (request.GET.get('start') != 'dd/mm/aaaa') and request.GET.get('end') and (
+            request.GET.get('end') != 'dd/mm/aaaa'):
+        start = str(datetime.strptime(request.GET.get('start'), '%d/%m/%Y').date())
+        end = str(datetime.strptime(request.GET.get('end'), '%d/%m/%Y').date())
+        start += " 00:00:00.000000"
+        end += " 23:59:59.000000"
+        date = ' (a.datetime_touch >= TIMESTAMP("' + start + '") && a.datetime_touch <= TIMESTAMP("' + end + '")) &&'
+
+    hi = "SELECT elemento.id, alumno_respuesta_actividad.columna, count(elemento.id) as cantidad FROM usuario INNER JOIN alumno_respuesta_actividad ON usuario.id = alumno_respuesta_actividad.id_user INNER JOIN pertenece ON pertenece.usuario_id = alumno_respuesta_actividad.id_user INNER JOIN elemento ON alumno_respuesta_actividad.id_elemento = elemento.id WHERE alumno_respuesta_actividad.correcta = 1" + query_params + " GROUP BY alumno_respuesta_actividad.columna"
+    #print(hi)
+    return hi
+
+def get_llave_Tipo(request):
+    query_params = ''
+    date = ''
+    query_params2 = ''
+
+    if request.GET.get('reim') and request.GET.get('reim') != '0':
+        query_params = ' AND alumno_respuesta_actividad.id_reim=' + request.GET.get('reim')
+    if request.GET.get('course') and request.GET.get('course') != '0':
+        query_params += " AND pertenece.curso_id = " + request.GET.get('course')
+    if request.GET.get('school') and request.GET.get('school') != '0':
+        query_params += " AND pertenece.colegio_id = " + request.GET.get('school')
+    if request.GET.get('student') and request.GET.get('student') != '0':
+        query_params += ' AND alumno_respuesta_actividad.id_user=' + request.GET.get('student')
+    if request.GET.get('activity') and request.GET.get('activity') != '0':
+        query_params += ' AND alumno_respuesta_actividad.id_actividad=' + request.GET.get('activity')
+
+    if request.GET.get('reim') and request.GET.get('reim') != '0':
+        query_params2 = ' AND alumno_respuesta_actividad.id_reim=' + request.GET.get('reim')
+    if request.GET.get('activity') and request.GET.get('activity') != '0':
+        query_params2 += " AND alumno_respuesta_actividad.id_actividad = " + request.GET.get('activity')
+    if request.GET.get('student') and request.GET.get('student') != '0':
+        query_params2 += ' AND alumno_respuesta_actividad.id_user=' + request.GET.get('student')
+
+    if request.GET.get('start') and (request.GET.get('start') != 'dd/mm/aaaa') and request.GET.get('end') and (
+            request.GET.get('end') != 'dd/mm/aaaa'):
+        start = str(datetime.strptime(request.GET.get('start'), '%d/%m/%Y').date())
+        end = str(datetime.strptime(request.GET.get('end'), '%d/%m/%Y').date())
+        start += " 00:00:00.000000"
+        end += " 23:59:59.000000"
+        date = ' (a.datetime_touch >= TIMESTAMP("' + start + '") && a.datetime_touch <= TIMESTAMP("' + end + '")) &&'
+
+    hi = "SELECT elemento.nombre, count(alumno_respuesta_actividad.id_elemento), sum(alumno_respuesta_actividad.correcta = 0) AS incorrectas, sum(alumno_respuesta_actividad.correcta = 1) AS Correctas FROM usuario INNER JOIN alumno_respuesta_actividad ON usuario.id = alumno_respuesta_actividad.id_user INNER JOIN pertenece ON pertenece.usuario_id = alumno_respuesta_actividad.id_user INNER JOIN elemento ON alumno_respuesta_actividad.id_elemento = elemento.id WHERE 1 = 1 AND (alumno_respuesta_actividad.id_elemento = 290013 or alumno_respuesta_actividad.id_elemento = 290014 or alumno_respuesta_actividad.id_elemento = 290015 or alumno_respuesta_actividad.id_elemento = 290016) AND alumno_respuesta_actividad.correcta != 2" + query_params + " GROUP BY alumno_respuesta_actividad.id_elemento"
+    #print(hi)
+    return hi
+
+def get_Respuestas_General_VencerAlConstructor(request):
+    query_params = ''
+    date = ''
+    query_params2 = ''
+
+    if request.GET.get('reim') and request.GET.get('reim') != '0':
+        query_params = ' AND alumno_respuesta_actividad.id_reim=' + request.GET.get('reim')
+    if request.GET.get('course') and request.GET.get('course') != '0':
+        query_params += " AND pertenece.curso_id = " + request.GET.get('course')
+    if request.GET.get('school') and request.GET.get('school') != '0':
+        query_params += " AND pertenece.colegio_id = " + request.GET.get('school')
+    if request.GET.get('student') and request.GET.get('student') != '0':
+        query_params += ' AND alumno_respuesta_actividad.id_user=' + request.GET.get('student')
+    if request.GET.get('activity') and request.GET.get('activity') != '0':
+        query_params += ' AND alumno_respuesta_actividad.id_actividad=' + request.GET.get('activity')
+
+    if request.GET.get('reim') and request.GET.get('reim') != '0':
+        query_params2 = ' AND alumno_respuesta_actividad.id_reim=' + request.GET.get('reim')
+    if request.GET.get('activity') and request.GET.get('activity') != '0':
+        query_params2 += " AND alumno_respuesta_actividad.id_actividad = " + request.GET.get('activity')
+    if request.GET.get('student') and request.GET.get('student') != '0':
+        query_params2 += ' AND alumno_respuesta_actividad.id_user=' + request.GET.get('student')
+
+    if request.GET.get('start') and (request.GET.get('start') != 'dd/mm/aaaa') and request.GET.get('end') and (
+            request.GET.get('end') != 'dd/mm/aaaa'):
+        start = str(datetime.strptime(request.GET.get('start'), '%d/%m/%Y').date())
+        end = str(datetime.strptime(request.GET.get('end'), '%d/%m/%Y').date())
+        start += " 00:00:00.000000"
+        end += " 23:59:59.000000"
+        date = ' (a.datetime_touch >= TIMESTAMP("' + start + '") && a.datetime_touch <= TIMESTAMP("' + end + '")) &&'
+
+    hi = "SELECT CONCAT(usuario.nombres,' ',usuario.apellido_paterno,' ',usuario.apellido_materno) AS nombre,pertenece.colegio_id,pertenece.curso_id,alumno_respuesta_actividad.correcta,count(alumno_respuesta_actividad.correcta) as Totales,SUM(alumno_respuesta_actividad.correcta = 0) AS incorrectas,SUM(alumno_respuesta_actividad.correcta = 1) AS Correctas FROM usuario INNER JOIN alumno_respuesta_actividad ON usuario.id = alumno_respuesta_actividad.id_user INNER JOIN pertenece ON pertenece.usuario_id = alumno_respuesta_actividad.id_user INNER JOIN elemento ON alumno_respuesta_actividad.id_elemento = elemento.id WHERE 1=1" + query_params + " group by usuario_id"
+    #print(hi)
+    return hi
+
+def get_Historial_Respuestas(request):
+    query_params = ''
+    date = ''
+    query_params2 = ''
+
+    if request.GET.get('reim') and request.GET.get('reim') != '0':
+        query_params = ' AND alumno_respuesta_actividad.id_reim=' + request.GET.get('reim')
+    if request.GET.get('course') and request.GET.get('course') != '0':
+        query_params += " AND pertenece.curso_id = " + request.GET.get('course')
+    if request.GET.get('school') and request.GET.get('school') != '0':
+        query_params += " AND pertenece.colegio_id = " + request.GET.get('school')
+    if request.GET.get('student') and request.GET.get('student') != '0':
+        query_params += ' AND alumno_respuesta_actividad.id_user=' + request.GET.get('student')
+    if request.GET.get('activity') and request.GET.get('activity') != '0':
+        query_params += ' AND alumno_respuesta_actividad.id_actividad=' + request.GET.get('activity')
+
+    if request.GET.get('reim') and request.GET.get('reim') != '0':
+        query_params2 = ' AND alumno_respuesta_actividad.id_reim=' + request.GET.get('reim')
+    if request.GET.get('activity') and request.GET.get('activity') != '0':
+        query_params2 += " AND alumno_respuesta_actividad.id_actividad = " + request.GET.get('activity')
+    if request.GET.get('student') and request.GET.get('student') != '0':
+        query_params2 += ' AND alumno_respuesta_actividad.id_user=' + request.GET.get('student')
+
+    if request.GET.get('start') and (request.GET.get('start') != 'dd/mm/aaaa') and request.GET.get('end') and (
+            request.GET.get('end') != 'dd/mm/aaaa'):
+        start = str(datetime.strptime(request.GET.get('start'), '%d/%m/%Y').date())
+        end = str(datetime.strptime(request.GET.get('end'), '%d/%m/%Y').date())
+        start += " 00:00:00.000000"
+        end += " 23:59:59.000000"
+        date = ' (a.datetime_touch >= TIMESTAMP("' + start + '") && a.datetime_touch <= TIMESTAMP("' + end + '")) &&'
+
+    hi = "SELECT CONCAT(usuario.nombres,' ',usuario.apellido_paterno,' ',usuario.apellido_materno) AS nombre,pertenece.colegio_id,pertenece.curso_id,alumno_respuesta_actividad.correcta,COUNT(alumno_respuesta_actividad.correcta) AS Totales,SUM(alumno_respuesta_actividad.correcta = 0) AS incorrectas,SUM(alumno_respuesta_actividad.correcta = 1) AS Correctas,DATE(datetime_touch) as Fecha FROM usuario INNER JOIN alumno_respuesta_actividad ON usuario.id = alumno_respuesta_actividad.id_user INNER JOIN pertenece ON pertenece.usuario_id = alumno_respuesta_actividad.id_user INNER JOIN elemento ON alumno_respuesta_actividad.id_elemento = elemento.id WHERE 1=1" + query_params + " GROUP BY DAY(datetime_touch) ORDER BY datetime_touch ASC"
+    #print(hi)
+    return hi
+
+def get_Historial_movimientos(request):
+    query_params = ''
+    date = ''
+    query_params2 = ''
+
+    if request.GET.get('reim') and request.GET.get('reim') != '0':
+        query_params = ' AND alumno_respuesta_actividad.id_reim=' + request.GET.get('reim')
+    if request.GET.get('course') and request.GET.get('course') != '0':
+        query_params += " AND pertenece.curso_id = " + request.GET.get('course')
+    if request.GET.get('school') and request.GET.get('school') != '0':
+        query_params += " AND pertenece.colegio_id = " + request.GET.get('school')
+    if request.GET.get('student') and request.GET.get('student') != '0':
+        query_params += ' AND alumno_respuesta_actividad.id_user=' + request.GET.get('student')
+    if request.GET.get('activity') and request.GET.get('activity') != '0':
+        query_params += ' AND alumno_respuesta_actividad.id_actividad=' + request.GET.get('activity')
+
+    if request.GET.get('reim') and request.GET.get('reim') != '0':
+        query_params2 = ' AND alumno_respuesta_actividad.id_reim=' + request.GET.get('reim')
+    if request.GET.get('activity') and request.GET.get('activity') != '0':
+        query_params2 += " AND alumno_respuesta_actividad.id_actividad = " + request.GET.get('activity')
+    if request.GET.get('student') and request.GET.get('student') != '0':
+        query_params2 += ' AND alumno_respuesta_actividad.id_user=' + request.GET.get('student')
+
+    if request.GET.get('start') and (request.GET.get('start') != 'dd/mm/aaaa') and request.GET.get('end') and (
+            request.GET.get('end') != 'dd/mm/aaaa'):
+        start = str(datetime.strptime(request.GET.get('start'), '%d/%m/%Y').date())
+        end = str(datetime.strptime(request.GET.get('end'), '%d/%m/%Y').date())
+        start += " 00:00:00.000000"
+        end += " 23:59:59.000000"
+        date = ' (a.datetime_touch >= TIMESTAMP("' + start + '") && a.datetime_touch <= TIMESTAMP("' + end + '")) &&'
+
+    hi = "SELECT CONCAT(usuario.nombres,' ',usuario.apellido_paterno,' ',usuario.apellido_materno) AS nombre,pertenece.colegio_id,pertenece.curso_id,alumno_respuesta_actividad.correcta,COUNT(alumno_respuesta_actividad.correcta) AS Totales,SUM(alumno_respuesta_actividad.correcta = 0) AS incorrectas,SUM(alumno_respuesta_actividad.correcta = 1) AS Correctas,DATE(datetime_touch) as Fecha FROM usuario INNER JOIN alumno_respuesta_actividad ON usuario.id = alumno_respuesta_actividad.id_user INNER JOIN pertenece ON pertenece.usuario_id = alumno_respuesta_actividad.id_user INNER JOIN elemento ON alumno_respuesta_actividad.id_elemento = elemento.id WHERE 1=1 AND alumno_respuesta_actividad.correcta != 2 AND (alumno_respuesta_actividad.id_elemento = 290013 OR alumno_respuesta_actividad.id_elemento = 290014 OR alumno_respuesta_actividad.id_elemento = 290015 OR alumno_respuesta_actividad.id_elemento = 290016) " + query_params + " GROUP BY DAY(datetime_touch) ORDER BY datetime_touch ASC"
+    #print(hi)
+    return hi
+
 

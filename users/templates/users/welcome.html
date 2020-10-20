@@ -2552,8 +2552,327 @@
                     {% endif %}
                 <!--77 GRAFICO POR CURSO Y SIN ACTIVIDAD-->
                 <!-- #FIN REIM ID = 77, NOMBRE = BUSCANDO EL TESORO PERDIDO-->
+                        <!--Inicio Reciclando Construyo -->
+                        {% if reim_num == '201' %}
+
+                        <div class="wrapper wrapper-content">
+                            {% if activity_num == '9006' %}
+                            <div class="row" >
+                                <div class="col-lg-12">
+                                    {%if student_num != '0'%}
+
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="ibox ">
+                                                <div class="ibox-title">
+                                                    <h5>Cantidad de preguntas respondidas en porcentaje</h5><span class="  glyphicon glyphicon-info-sign" title="Indica la cantidad de touch dividido las veces que se ingreso a la actividad Puzzle en cada dia para poder evaluar el desarrollo de la habilidad de persistencia en los/las alumnos/as"></span>
+                                                    <div class="ibox-tools"></div>
+                                                </div>
+                                                <div class="ibox-content">
+                                                    {%if student_num == '0'%}
+                                                    <canvas id="porcentaje_alumnos_totales" height=100>{% load staticfiles %}</canvas>
+                                                    {% endif %}
+                                                    {%if student_num != '0'%}
+                                                    <canvas id="porcentaje_alumnos_totales" height=100>{% load staticfiles %}</canvas>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-6">
+                                            <div class="ibox ">
+                                                <div class="ibox-title">
+                                                    <h5>Cantidad de preguntas respondidas</h5><span class="  glyphicon glyphicon-info-sign" title="Indica la cantidad de touch dividido las veces que se ingreso a la actividad Puzzle en cada dia para poder evaluar el desarrollo de la habilidad de persistencia en los/las alumnos/as"></span>
+                                                    <div class="ibox-tools"></div>
+                                                </div>
+                                                <div class="ibox-content">
+                                                    {%if student_num == '0'%}
+                                                    <canvas id="preguntas_respondidas" height=70>{% load staticfiles %}</canvas>
+                                                    {% endif %}
+                                                    {%if student_num != '0'%}
+                                                    <canvas id="preguntas_respondidas" height=70>{% load staticfiles %}</canvas>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                    {%if student_num == '0'%}
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="ibox ">
+                                                <div class="ibox-title">
+                                                    <h5>Respuestas Generales Cantidad</h5><span class="  glyphicon glyphicon-info-sign" title="Indica la cantidad de touch dividido las veces que se ingreso a la actividad Puzzle en cada dia para poder evaluar el desarrollo de la habilidad de persistencia en los/las alumnos/as"></span>
+                                                    <div class="ibox-tools"></div>
+                                                </div>
+                                                <div class="ibox-content">
+                                                    <canvas id="respuestas_generales_cantidad" height=100>{% load staticfiles %}</canvas>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="ibox ">
+                                                <div class="ibox-title">
+                                                    <h5>Respuestas Generales Porcentaje</h5><span class="  glyphicon glyphicon-info-sign" title="Indica la cantidad de touch dividido las veces que se ingreso a la actividad Puzzle en cada dia para poder evaluar el desarrollo de la habilidad de persistencia en los/las alumnos/as"></span>
+                                                    <div class="ibox-tools"></div>
+                                                </div>
+                                                <div class="ibox-content">
+                                                    <canvas id="respuestas_generales_porcentaje" height=70>{% load staticfiles %}</canvas>
 
 
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                    <div class="row">
+                                        {%if student_num != '0'%}
+                                        <div class="col-lg-6">
+                                            <div class="ibox ">
+                                                <div class="ibox-title">
+                                                    <h5>Historial de Respuestas</h5><span class="  glyphicon glyphicon-info-sign" title="Indica la cantidad de touch dividido las veces que se ingreso a la actividad Puzzle en cada dia para poder evaluar el desarrollo de la habilidad de persistencia en los/las alumnos/as"></span>
+                                                    <div class="ibox-tools"></div>
+                                                </div>
+                                                <div class="ibox-content">
+                                                    <canvas id="historial_Respuestas" height=200>{% load staticfiles %}</canvas>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {% endif %}
+                                        <div class="col-lg-6">
+                                            <div class="ibox">
+                                                <div class="ibox-title">
+                                                    <h5>Tiempo de juego total de la actividad Encuentra la Llave</h5><span class="  glyphicon glyphicon-info-sign" title="Indica la cantidad de tiempo (en minutos) en que los/las alumnos/as han permanecido en la actividad Encuentra la Llave."></span>
+                                                    <div class="ibox-tools"></div>
+                                                </div>
+                                                <div class="ibox-content">
+                                                    <div class="scroll_content">
+                                                        <canvas id="tiempoActividad" height={{time_PS_graf}}>{% load staticfiles %}</canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            {% endif %}
+
+                            <!--LABERINTO -->
+                            {% if activity_num == '9007' %}
+                            <div class="row" >
+                                <div class="col-lg-12">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="ibox">
+                                                <div class="ibox-title">
+                                                    <h5>Tiempo de juego total de la actividad Encuentra la Llave</h5><span class="  glyphicon glyphicon-info-sign" title="Indica la cantidad de tiempo (en minutos) en que los/las alumnos/as han permanecido en la actividad Encuentra la Llave."></span>
+                                                    <div class="ibox-tools"></div>
+                                                </div>
+                                                <div class="ibox-content">
+                                                    <div class="scroll_content">
+                                                        <canvas id="tiempoActividad" height={{time_PS_graf}}>{% load staticfiles %}</canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="ibox ">
+                                                <div class="ibox-title">
+                                                    <h5>Porcentaje por tipo de llave</h5><span class="  glyphicon glyphicon-info-sign" title="Indica la cantidad de touch dividido las veces que se ingreso a la actividad Puzzle en cada dia para poder evaluar el desarrollo de la habilidad de persistencia en los/las alumnos/as"></span>
+                                                    <div class="ibox-tools"></div>
+                                                </div>
+                                                <div class="ibox-content">
+                                                    {%if student_num == '0'%}
+                                                    <canvas id="tipo_llave" height=70>{% load staticfiles %}</canvas>
+                                                    {% endif %}
+                                                    {%if student_num != '0'%}
+                                                    <canvas id="tipo_llave" height=70>{% load staticfiles %}</canvas>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                    {%if student_num == '0'%}
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="ibox ">
+                                                <div class="ibox-title">
+                                                    <h5>Cantidad de movimientos en promedio para completar la actividad</h5><span class="  glyphicon glyphicon-info-sign" title="Indica la cantidad de touch dividido las veces que se ingreso a la actividad Puzzle en cada dia para poder evaluar el desarrollo de la habilidad de persistencia en los/las alumnos/as"></span>
+                                                    <div class="ibox-tools"></div>
+                                                </div>
+                                                <div class="ibox-content">
+                                                    {%if student_num == '0'%}
+                                                    <canvas id="llave_promedio_intentos" height={{time_PS_graf}}>{% load staticfiles %}</canvas>
+                                                    {% endif %}
+                                                    {%if student_num != '0'%}
+                                                    <canvas id="llave_promedio_intentos" height={{time_PS_graf}}>{% load staticfiles %}</canvas>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="ibox ">
+                                                <div class="ibox-title">
+                                                    <h5>Cantidad de movimientos en promedio en la actividad</h5><span class="  glyphicon glyphicon-info-sign" title="Indica la cantidad de touch dividido las veces que se ingreso a la actividad Puzzle en cada dia para poder evaluar el desarrollo de la habilidad de persistencia en los/las alumnos/as"></span>
+                                                    <div class="ibox-tools"></div>
+                                                </div>
+                                                <div class="ibox-content">
+                                                    {%if student_num == '0'%}
+                                                    <canvas id="llave_promedio_intentos_totales" height={{time_PS_graf}}>{% load staticfiles %}</canvas>
+                                                    {% endif %}
+                                                    {%if student_num != '0'%}
+                                                    <canvas id="llave_promedio_intentos_totales" height={{time_PS_graf}}>{% load staticfiles %}</canvas>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                    {% endif %}
+                                    {%if student_num != '0'%}
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="ibox ">
+                                                <div class="ibox-title">
+                                                    <h5>Linea de tiempo por intentos</h5><span class="  glyphicon glyphicon-info-sign" title="Indica la cantidad de touch dividido las veces que se ingreso a la actividad Puzzle en cada dia para poder evaluar el desarrollo de la habilidad de persistencia en los/las alumnos/as"></span>
+                                                    <div class="ibox-tools"></div>
+                                                </div>
+                                                <div class="ibox-content">
+                                                    {%if student_num == '0'%}
+                                                    <canvas id="Tiempo_llave" height=200>{% load staticfiles %}</canvas>
+                                                    {% endif %}
+                                                    {%if student_num != '0'%}
+                                                    <canvas id="Tiempo_llave" height=200>{% load staticfiles %}</canvas>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-6">
+                                            <div class="ibox ">
+                                                <div class="ibox-title">
+                                                    <h5>Intentos por tipo de llave</h5><span class="  glyphicon glyphicon-info-sign" title="Indica la cantidad de touch dividido las veces que se ingreso a la actividad Puzzle en cada dia para poder evaluar el desarrollo de la habilidad de persistencia en los/las alumnos/as"></span>
+                                                    <div class="ibox-tools"></div>
+                                                </div>
+                                                <div class="ibox-content">
+                                                    {%if student_num == '0'%}
+                                                    <canvas id="intentos_tipo_llave" height=70>{% load staticfiles %}</canvas>
+                                                    {% endif %}
+                                                    {%if student_num != '0'%}
+                                                    <canvas id="intentos_tipo_llave" height=70>{% load staticfiles %}</canvas>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    {% endif %}
+                                    {% comment %}
+
+                                    {% endcomment %}
+                                </div>
+
+                            </div>
+
+
+                            {% endif %}
+
+                            {% if activity_num == '9008' %}
+                            <div class="row" >
+                                <div class="col-lg-12">
+
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="ibox">
+                                                <div class="ibox-title">
+                                                    <h5>Tiempo de juego total de la actividad Encuentra la Llave</h5><span class="  glyphicon glyphicon-info-sign" title="Indica la cantidad de tiempo (en minutos) en que los/las alumnos/as han permanecido en la actividad Encuentra la Llave."></span>
+                                                    <div class="ibox-tools"></div>
+                                                </div>
+                                                <div class="ibox-content">
+                                                    <div class="scroll_content">
+                                                        <canvas id="tiempoActividad" height={{time_PS_graf}}>{% load staticfiles %}</canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="ibox ">
+                                                <div class="ibox-title">
+                                                    <h5>Cantidad de elementos reciclados</h5><span class="  glyphicon glyphicon-info-sign" title="Indica la cantidad de touch dividido las veces que se ingreso a la actividad Puzzle en cada dia para poder evaluar el desarrollo de la habilidad de persistencia en los/las alumnos/as"></span>
+                                                    <div class="ibox-tools"></div>
+                                                </div>
+                                                <div class="ibox-content">
+                                                    {%if student_num == '0'%}
+                                                    <canvas id="elementos_reciclados_usuarios" height={{elementos_PS_graf}}>{% load staticfiles %}</canvas>
+                                                    {% endif %}
+                                                    {%if student_num != '0'%}
+                                                    <canvas id="elementos_reciclados_usuarios" height={{elementos_PS_graf}}>{% load staticfiles %}</canvas>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="ibox ">
+                                                <div class="ibox-title">
+                                                    <h5>Cantidad de elementos por tipo reciclados correctamente</h5><span class="  glyphicon glyphicon-info-sign" title="Indica la cantidad de touch dividido las veces que se ingreso a la actividad Puzzle en cada dia para poder evaluar el desarrollo de la habilidad de persistencia en los/las alumnos/as"></span>
+                                                    <div class="ibox-tools"></div>
+                                                </div>
+                                                <div class="ibox-content">
+                                                    {%if student_num == '0'%}
+                                                    <canvas id="elementos_reciclados_general" height=150>{% load staticfiles %}</canvas>
+                                                    {% endif %}
+                                                    {%if student_num != '0'%}
+                                                    <canvas id="elementos_reciclados_general" height=150>{% load staticfiles %}</canvas>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-6">
+                                            <div class="ibox ">
+                                                <div class="ibox-title">
+                                                    <h5>Cantidad de elementos por tipo reciclados Incorrectamente</h5><span class="  glyphicon glyphicon-info-sign" title="Indica la cantidad de touch dividido las veces que se ingreso a la actividad Puzzle en cada dia para poder evaluar el desarrollo de la habilidad de persistencia en los/las alumnos/as"></span>
+                                                    <div class="ibox-tools"></div>
+                                                </div>
+                                                <div class="ibox-content">
+                                                    {%if student_num == '0'%}
+                                                    <canvas id="elementos_reciclados_zona" height=150>{% load staticfiles %}</canvas>
+                                                    {% endif %}
+                                                    {%if student_num != '0'%}
+                                                    <canvas id="elementos_reciclados_zona" height=150>{% load staticfiles %}</canvas>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            {% endif %}
+                            {% endif %}
+
+                            <!--FIN Reciclando Construyo -->
                 <!-- BUILD YOUR CITY -->
                 {% if reim_num == '27' %}
                             
@@ -8692,7 +9011,763 @@ var CreacionData = {
                 new Chart(ctx, {type: 'horizontalBar', data: MuyIndependienteCampo, options:barOptions});
             }            
     //#FIN REIM ID = 77, NOMBRE = BUSCANDO EL TESORO PERDIDO
+    // # Inicio Reclicando Construyo
+        var Porcentaje_llave_data = {
+            labels:
+                [
+                    {% if Porcentaje_llave %}
+        {% for time_PS in Porcentaje_llave %}
+        '{{time_PS.name}}',
+        {% endfor%}
+        {% endif%}
+        ],
+        datasets: [
+            {
+                label: "Porcentaje",
+                backgroundColor: 'rgb(38,198,218)',
+                borderColor: "rgb(0,172,193)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if Porcentaje_llave %}
+            {% for time_PS in Porcentaje_llave %}
+        '{{time_PS.porcentaje}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        }
+        ]
+        };
 
+        if ($('#llave_porcentaje').length){
+            var ctx = document.getElementById("llave_porcentaje").getContext("2d");
+            new Chart(ctx, {type: 'horizontalBar', data: Porcentaje_llave_data, options:barOptions});
+        }
+
+        var Promedio_intentos_data = {
+            labels:
+                [
+                    {% if Promedio_intentos_llave %}
+        {% for time_PS in Promedio_intentos_llave %}
+        '{{time_PS.name}}',
+        {% endfor%}
+        {% endif%}
+        ],
+        datasets: [
+            {
+                label: "Cantidad de movimientos en promedio",
+                backgroundColor: 'rgb(38,198,218)',
+                borderColor: "rgb(0,172,193)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if Promedio_intentos_llave %}
+            {% for time_PS in Promedio_intentos_llave %}
+        '{{time_PS.promedio}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        }
+        ]
+        };
+
+        if ($('#llave_promedio_intentos').length){
+            var ctx = document.getElementById("llave_promedio_intentos").getContext("2d");
+            new Chart(ctx, {type: 'horizontalBar', data: Promedio_intentos_data, options:barOptions});
+        }
+
+        var Promedio_intentos_totales_data = {
+            labels:
+                [
+                    {% if Promedio_intentos_totales_llave %}
+        {% for time_PS in Promedio_intentos_totales_llave %}
+        '{{time_PS.name}}',
+        {% endfor%}
+        {% endif%}
+        ],
+        datasets: [
+            {
+                label: "Cantidad de movimientos en promedio",
+                backgroundColor: 'rgb(38,198,218)',
+                borderColor: "rgb(0,172,193)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if Promedio_intentos_totales_llave %}
+            {% for time_PS in Promedio_intentos_totales_llave %}
+        '{{time_PS.promedio}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        }
+        ]
+        };
+
+        if ($('#llave_promedio_intentos_totales').length){
+            var ctx = document.getElementById("llave_promedio_intentos_totales").getContext("2d");
+            new Chart(ctx, {type: 'horizontalBar', data: Promedio_intentos_totales_data, options:barOptions});
+        }
+
+        var Elementos_reciclados_usuario_data = {
+            labels:
+                [
+                    {% if Elementos_reciclados_usuario %}
+        {% for time_PS in Elementos_reciclados_usuario %}
+        '{{time_PS.nombreElemento}}',
+        {% endfor%}
+        {% endif%}
+        ],
+        datasets: [
+            {
+                label: "Correctos",
+                backgroundColor: 'rgb(38,198,218)',
+                borderColor: "rgb(0,172,193)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if Elementos_reciclados_usuario %}
+            {% for time_PS in Elementos_reciclados_usuario %}
+        {{time_PS.cantidad}},
+        {% endfor%}
+        {% endif%}
+        ]
+        },
+        {
+            label: "Incorrectos",
+                backgroundColor: 'rgb(255,0,0)',
+            borderColor: "rgb(253,4,61)",
+            pointBorderColor: "#fff",
+            data: [
+            {% if Elementos_reciclados_usuario_incorrecto %}
+            {% for time_PS in Elementos_reciclados_usuario_incorrecto %}
+            {{time_PS.cantidad}},
+            {% endfor%}
+            {% endif%}
+        ]
+        },
+
+        ]
+        };
+
+        if ($('#elementos_reciclados_usuarios').length){
+            var ctx = document.getElementById("elementos_reciclados_usuarios").getContext("2d");
+            new Chart(ctx, {type: 'horizontalBar', data: Elementos_reciclados_usuario_data, options: {
+                    scales: {
+                        xAxes: [{ stacked: true }],
+                        yAxes: [{ stacked: true }]
+                    }
+                }});
+        }
+
+        var Preguntas_Respondidas_usuario_data = {
+            labels:
+                [
+                    'Anexar Ceros','Doblar y Dividir'
+
+                ],
+            datasets: [
+                {
+                    label: "Correctas",
+                    backgroundColor: 'rgb(38,198,218)',
+                    borderColor: "rgb(38,198,218)",
+                    pointBorderColor: "#fff",
+                    data: [
+                        {% if Respuestas_Usuario_VencerAlConstructor %}
+                {% for time_PS in Respuestas_Usuario_VencerAlConstructor %}
+        {{time_PS.Correctas}},
+
+        {% endfor%}
+        {% endif%}
+        ]
+        },
+        {
+            label: "Incorrectas",
+                backgroundColor: 'rgb(255,89,0)',
+            borderColor: "rgb(255,89,0)",
+            pointBorderColor: "#fff",
+            data: [
+            {% if Respuestas_Usuario_VencerAlConstructor %}
+            {% for time_PS in Respuestas_Usuario_VencerAlConstructor %}
+            {{time_PS.Incorrectas}},
+
+            {% endfor%}
+            {% endif%}
+        ]
+        },
+
+        ]
+        };
+
+        if ($('#preguntas_respondidas').length){
+            var ctx = document.getElementById("preguntas_respondidas").getContext("2d");
+            new Chart(ctx, {type: 'horizontalBar', data: Preguntas_Respondidas_usuario_data, options: {
+                    scales: {
+                        xAxes: [{ stacked: true }],
+                        yAxes: [{ stacked: true }]
+
+                    }
+                }});
+        }
+
+        var Preguntas_Respondidas_circular_usuario_data = {
+            labels:
+                [
+                    'Correctas',
+                    'Incorrectas',
+                ],
+            datasets: [
+                {
+                    data: [10, 20],
+                    backgroundColor: ['rgb(0,34,255)','rgb(98,255,0)']
+                },
+
+
+
+            ]
+        };
+
+        if ($('#Preguntas_Respondidas_circular').length){
+            var ctx = document.getElementById("Preguntas_Respondidas_circular").getContext("2d");
+            new Chart(ctx, {type: 'doughnut', data: Preguntas_Respondidas_circular_usuario_data, options: {
+                    scales: {
+                        /*xAxes: [{ stacked: true }],
+                        yAxes: [{ stacked: true }]*/
+                    }
+                }});
+        }
+
+        var Preguntas_Respondidas_porcantaje_usuario_data = {
+            labels:
+                [
+                    'Anexar Ceros','Doblar y Dividir'
+                ],
+            datasets: [
+                {
+                    label: "Porcentaje Correctas",
+                    backgroundColor: 'rgb(38,198,218)',
+                    borderColor: "rgb(38,198,218)",
+                    pointBorderColor: "#fff",
+                    data: [
+                        {% if Respuestas_Usuario_VencerAlConstructor %}
+                {% for time_PS in Respuestas_Usuario_VencerAlConstructor %}
+        ({{time_PS.Correctas}}/({{time_PS.Incorrectas}}+{{time_PS.Correctas}}))*100,
+
+        {% endfor%}
+        {% endif%}
+        ]
+        },
+        {
+            label: "Porcentaje Incorrectos",
+                backgroundColor: 'rgb(255,89,0)',
+            borderColor: "rgb(255,89,0)",
+            pointBorderColor: "#fff",
+            data: [
+            {% if Respuestas_Usuario_VencerAlConstructor %}
+            {% for time_PS in Respuestas_Usuario_VencerAlConstructor %}
+            ({{time_PS.Incorrectas}}/({{time_PS.Incorrectas}}+{{time_PS.Correctas}}))*100,
+
+            {% endfor%}
+            {% endif%}
+        ]
+        },
+
+        ]
+        };
+
+        if ($('#porcentaje_alumnos_totales').length){
+            var ctx = document.getElementById("porcentaje_alumnos_totales").getContext("2d");
+            new Chart(ctx, {type: 'horizontalBar', data: Preguntas_Respondidas_porcantaje_usuario_data, options: {
+                    scales: {
+                        xAxes: [{ stacked: true }],
+                        yAxes: [{ stacked: true }]
+                    }
+                }});
+        }
+
+        var tipo_llave_data = {
+            labels:
+                [
+                    {% if Llave_tipo %}
+        {% for time_PS in Llave_tipo %}
+        '{{ time_PS.name }}',
+
+        {% endfor%}
+        {% endif%}
+        ],
+        datasets: [
+            {
+                label: "Porcentaje Correctas",
+                backgroundColor: 'rgb(38,198,218)',
+                borderColor: "rgb(38,198,218)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if Llave_tipo %}
+            {% for time_PS in Llave_tipo %}
+        ({{time_PS.Correctas}}/({{time_PS.Incorrectas}}+{{time_PS.Correctas}}))*100,
+
+        {% endfor%}
+        {% endif%}
+        ]
+        },
+        {
+            label: "Porcentaje Incorrectos",
+                backgroundColor: 'rgb(255,89,0)',
+            borderColor: "rgb(255,89,0)",
+            pointBorderColor: "#fff",
+            data: [
+            {% if Llave_tipo %}
+            {% for time_PS in Llave_tipo %}
+            ({{time_PS.Incorrectas}}/({{time_PS.Incorrectas}}+{{time_PS.Correctas}}))*100,
+
+            {% endfor%}
+            {% endif%}
+        ]
+        },
+
+        ]
+        };
+
+        if ($('#tipo_llave').length){
+            var ctx = document.getElementById("tipo_llave").getContext("2d");
+            new Chart(ctx, {type: 'horizontalBar', data: tipo_llave_data, options: {
+                    scales: {
+                        xAxes: [{ stacked: true }],
+                        yAxes: [{ stacked: true }]
+                    }
+                }});
+        }
+
+        var intentos_tipo_llave_data = {
+            labels:
+                [
+                    {% if Llave_tipo %}
+        {% for time_PS in Llave_tipo %}
+        '{{ time_PS.name }}',
+
+        {% endfor%}
+        {% endif%}
+        ],
+        datasets: [
+            {
+                label: "Correctas",
+                backgroundColor: 'rgb(38,198,218)',
+                borderColor: "rgb(38,198,218)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if Llave_tipo %}
+            {% for time_PS in Llave_tipo %}
+        {{time_PS.Correctas}},
+
+        {% endfor%}
+        {% endif%}
+        ]
+        },
+        {
+            label: "Incorrectos",
+                backgroundColor: 'rgb(255,89,0)',
+            borderColor: "rgb(255,89,0)",
+            pointBorderColor: "#fff",
+            data: [
+            {% if Llave_tipo %}
+            {% for time_PS in Llave_tipo %}
+            {{time_PS.Incorrectas}},
+
+            {% endfor%}
+            {% endif%}
+        ]
+        },
+
+        ]
+        };
+
+        if ($('#intentos_tipo_llave').length){
+            var ctx = document.getElementById("intentos_tipo_llave").getContext("2d");
+            new Chart(ctx, {type: 'horizontalBar', data: intentos_tipo_llave_data, options: {
+                    scales: {
+                        xAxes: [{ stacked: true }],
+                        yAxes: [{ stacked: true }]
+                    }
+                }});
+        }
+
+        var respuestas_generales_cantidad_data = {
+            labels:
+                [
+                    {% if Respuestas_General_VencerAlConstructor %}
+        {% for time_PS in Respuestas_General_VencerAlConstructor %}
+        '{{ time_PS.name }}',
+
+        {% endfor%}
+        {% endif%}
+        ],
+        datasets: [
+            {
+                label: "Correctas",
+                backgroundColor: 'rgb(38,198,218)',
+                borderColor: "rgb(38,198,218)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if Respuestas_General_VencerAlConstructor %}
+            {% for time_PS in Respuestas_General_VencerAlConstructor %}
+        {{time_PS.Correctas}},
+
+        {% endfor%}
+        {% endif%}
+        ]
+        },
+        {
+            label: "Incorrectos",
+                backgroundColor: 'rgb(255,89,0)',
+            borderColor: "rgb(255,89,0)",
+            pointBorderColor: "#fff",
+            data: [
+            {% if Respuestas_General_VencerAlConstructor %}
+            {% for time_PS in Respuestas_General_VencerAlConstructor %}
+            {{time_PS.Incorrectas}},
+
+            {% endfor%}
+            {% endif%}
+        ]
+        },
+
+        ]
+        };
+
+        if ($('#respuestas_generales_cantidad').length){
+            var ctx = document.getElementById("respuestas_generales_cantidad").getContext("2d");
+            new Chart(ctx, {type: 'horizontalBar', data: respuestas_generales_cantidad_data, options: {
+                    scales: {
+                        xAxes: [{ stacked: true }],
+                        yAxes: [{ stacked: true }]
+                    }
+                }});
+        }
+
+        var respuestas_generales_porcentaje_data = {
+            labels:
+                [
+                    {% if Respuestas_General_VencerAlConstructor %}
+        {% for time_PS in Respuestas_General_VencerAlConstructor %}
+        '{{ time_PS.name }}',
+
+        {% endfor%}
+        {% endif%}
+        ],
+        datasets: [
+            {
+                label: "Correctas",
+                backgroundColor: 'rgb(38,198,218)',
+                borderColor: "rgb(38,198,218)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if Respuestas_General_VencerAlConstructor %}
+            {% for time_PS in Respuestas_General_VencerAlConstructor %}
+        (({{time_PS.Correctas}}/{{time_PS.Total}})*100),
+
+        {% endfor%}
+        {% endif%}
+        ]
+        },
+        {
+            label: "Incorrectos",
+                backgroundColor: 'rgb(255,89,0)',
+            borderColor: "rgb(255,89,0)",
+            pointBorderColor: "#fff",
+            data: [
+            {% if Respuestas_General_VencerAlConstructor %}
+            {% for time_PS in Respuestas_General_VencerAlConstructor %}
+            (({{time_PS.Incorrectas}}/{{time_PS.Total}})*100),
+
+
+            {% endfor%}
+            {% endif%}
+        ]
+        },
+
+        ]
+        };
+
+        if ($('#respuestas_generales_porcentaje').length){
+            var ctx = document.getElementById("respuestas_generales_porcentaje").getContext("2d");
+            new Chart(ctx, {type: 'horizontalBar', data: respuestas_generales_porcentaje_data, options: {
+                    scales: {
+                        xAxes: [{ stacked: true }],
+                        yAxes: [{ stacked: true }]
+                    }
+                }});
+        }
+
+        var historial_Respuestas_data = {
+            labels: [
+                {% if Historial_Respuestas %}
+        {% for time_PS in Historial_Respuestas %}
+        "{{time_PS.Fecha}}",
+
+
+
+
+        {% endfor%}
+        {% endif%}
+        ],
+
+
+        datasets: [
+            {
+                label: "Correctas",
+                backgroundColor: 'rgb(38,198,218)',
+                borderColor: "rgb(38,198,218)",
+                pointBorderColor: "#fff",
+                fill: false,
+                lineTension: 0,
+                data: [
+                    {% if Historial_Respuestas %}
+            {% for time_PS in Historial_Respuestas %}
+
+        {{time_PS.Correctas}},
+
+
+        {% endfor%}
+        {% endif%}
+
+        ]
+        },
+        {
+            label: "Incorrectas",
+                backgroundColor: 'rgb(218,95,38)',
+            borderColor: "rgb(218,95,38)",
+            pointBorderColor: "#fff",
+            fill: false,
+            lineTension: 0,
+            data: [
+            {% if Historial_Respuestas %}
+            {% for time_PS in Historial_Respuestas %}
+
+            {{time_PS.Incorrectas}},
+
+
+            {% endfor%}
+            {% endif%}
+
+        ]
+        },
+
+        ]
+        };
+
+        if ($('#historial_Respuestas').length){
+            var ctx = document.getElementById("historial_Respuestas").getContext("2d");
+            new Chart(ctx, {type: 'line', data: historial_Respuestas_data, options: {
+                    scales: {
+                        xAxes: [{
+                            ticks: {
+                                autoSkip: false,
+                                maxRotation: 90,
+                                minRotation: 90
+                            }
+                        }]
+                    }
+                }});
+        }
+
+        var Tiempo_llave_data = {
+            labels: [
+                {% if Historial_movimientos %}
+        {% for time_PS in Historial_movimientos %}
+        "{{time_PS.Fecha}}",
+
+
+
+
+        {% endfor%}
+        {% endif%}
+        ],
+
+
+        datasets: [
+            {
+                label: "Correctas",
+                backgroundColor: 'rgb(38,198,218)',
+                borderColor: "rgb(38,198,218)",
+                pointBorderColor: "#fff",
+                fill: false,
+                lineTension: 0,
+                data: [
+                    {% if Historial_movimientos %}
+            {% for time_PS in Historial_movimientos %}
+
+        {{time_PS.Correctas}},
+
+
+        {% endfor%}
+        {% endif%}
+
+        ]
+        },
+        {
+            label: "Incorrectas",
+                backgroundColor: 'rgb(218,95,38)',
+            borderColor: "rgb(218,95,38)",
+            pointBorderColor: "#fff",
+            fill: false,
+            lineTension: 0,
+            data: [
+            {% if Historial_movimientos %}
+            {% for time_PS in Historial_movimientos %}
+
+            {{time_PS.Incorrectas}},
+
+
+            {% endfor%}
+            {% endif%}
+
+        ]
+        },
+
+        ]
+        };
+
+        if ($('#Tiempo_llave').length){
+            var ctx = document.getElementById("Tiempo_llave").getContext("2d");
+            new Chart(ctx, {type: 'line', data: Tiempo_llave_data, options: {
+                    scales: {
+                        xAxes: [{
+                            ticks: {
+                                autoSkip: false,
+                                maxRotation: 90,
+                                minRotation: 90
+                            }
+                        }]
+                    }
+                }});
+        }
+
+        var Cantidad_elementos_reciclados_general_data = {
+            labels:
+                [
+
+                    {% if ElementosRecicladosGeneral_tipo %}
+        {% for time_PS in ElementosRecicladosGeneral_tipo %}
+        {%  if time_PS.Tipo == 1 %}
+        'Plastico',
+        {% endif%}
+        {%  if time_PS.Tipo == 2 %}
+        'Cartón',
+        {% endif%}
+        {%  if time_PS.Tipo == 3 %}
+        'Vidrio',
+        {% endif%}
+        {%  if time_PS.Tipo == 4 %}
+        'Metal',
+        {% endif%}
+        {% endfor%}
+        {% endif%}
+
+        ],
+        datasets: [
+            {
+                data: [{% if ElementosRecicladosGeneral_tipo %}
+            {% for time_PS in ElementosRecicladosGeneral_tipo %}
+        {{time_PS.cantidad}},
+        {% endfor%}
+        {% endif%}],
+        backgroundColor: ['rgb(0,34,255)','rgb(98,255,0)', 'rgb(255,230,0)','rgb(255,0,0)'
+            ,'rgb(113,0,125)']
+        },
+
+
+
+        ]
+        };
+
+        if ($('#elementos_reciclados_general').length){
+            var ctx = document.getElementById("elementos_reciclados_general").getContext("2d");
+            new Chart(ctx, {type: 'pie', data: Cantidad_elementos_reciclados_general_data, options: {
+                    scales: {
+                        /*xAxes: [{ stacked: true }],
+                        yAxes: [{ stacked: true }]*/
+                    }
+                }});
+        }
+
+        var Cantidad_elementos_reciclados_zona_data = {
+
+            labels:
+                [
+                    {% if ElementosRecicladosGeneralIncorrectamente_tipo %}
+        {% for time_PS in ElementosRecicladosGeneralIncorrectamente_tipo %}
+        {%  if time_PS.Tipo == 1 %}
+        'Plastico',
+        {% endif%}
+        {%  if time_PS.Tipo == 2 %}
+        'Cartón',
+        {% endif%}
+        {%  if time_PS.Tipo == 3 %}
+        'Vidrio',
+        {% endif%}
+        {%  if time_PS.Tipo == 4 %}
+        'Metal',
+        {% endif%}
+        {% endfor%}
+        {% endif%}
+        ],
+        datasets: [
+            {
+                data: [
+
+
+                    {% if ElementosRecicladosGeneralIncorrectamente_tipo %}
+            {% for time_PS in ElementosRecicladosGeneralIncorrectamente_tipo %}
+        {{time_PS.cantidad}},
+        {% endfor%}
+        {% endif%}
+        ],
+        backgroundColor: ['rgb(0,34,255)','rgb(98,255,0)', 'rgb(255,230,0)','rgb(255,0,0)'
+            ,'rgb(113,0,125)']
+        },
+
+
+
+        ]
+        };
+
+        if ($('#elementos_reciclados_zona').length){
+            var ctx = document.getElementById("elementos_reciclados_zona").getContext("2d");
+            new Chart(ctx, {type: 'pie', data: Cantidad_elementos_reciclados_zona_data, options: {
+                    scales: {
+                        /*xAxes: [{ stacked: true }],
+                        yAxes: [{ stacked: true }]*/
+                    }
+                }});
+        }
+        /*var touchAnaliticaPSData = {
+            labels: [
+                {% if Porcentaje_llave %}
+                {% for touch_puzzle in Porcentaje_llave %}
+                '{{touch_puzzle.name}}',
+                {% endfor%}
+                {% endif%}
+                ],
+            datasets: [
+            {
+                label:[{% if nombre %}
+                {% for n in nombre %}
+                'Porcentaje  de {{n.name}}',
+                {% endfor %}
+                {% endif %}],
+                backgroundColor: 'rgb(0,188,212)',
+                borderColor: "rgb(3,155,229)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if Porcentaje_llave %}
+                    {% for touch_puzzle in Porcentaje_llave %}
+                    '{{touch_puzzle.porcentaje}}',
+                    {% endfor%}
+                    {% endif%}
+                    ],
+        }
+        ]
+        };
+        if ($('#llave_porcentaje').length){
+            var ctx22 = document.getElementById("llave_porcentaje").getContext("2d");
+            new Chart(ctx22, {type: 'horizontalBar', data: touchAnaliticaPSData, options: barOptions});
+        }*/
+    // # Fin Reciclando Construyo
     </script>
 
     <script>
