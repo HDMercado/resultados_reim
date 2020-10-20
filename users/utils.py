@@ -2989,8 +2989,8 @@ def get_llave_Tipo(request):
         end += " 23:59:59.000000"
         date = ' (a.datetime_touch >= TIMESTAMP("' + start + '") && a.datetime_touch <= TIMESTAMP("' + end + '")) &&'
 
-    hi = "SELECT elemento.nombre, count(alumno_respuesta_actividad.id_elemento), sum(alumno_respuesta_actividad.correcta = 0) AS incorrectas, sum(alumno_respuesta_actividad.correcta = 1) AS Correctas FROM usuario INNER JOIN alumno_respuesta_actividad ON usuario.id = alumno_respuesta_actividad.id_user INNER JOIN pertenece ON pertenece.usuario_id = alumno_respuesta_actividad.id_user INNER JOIN elemento ON alumno_respuesta_actividad.id_elemento = elemento.id WHERE 1 = 1 AND (alumno_respuesta_actividad.id_elemento = 290013 or alumno_respuesta_actividad.id_elemento = 290014 or alumno_respuesta_actividad.id_elemento = 290015 or alumno_respuesta_actividad.id_elemento = 290016) AND alumno_respuesta_actividad.correcta != 2" + query_params + " GROUP BY alumno_respuesta_actividad.id_elemento"
-    #print(hi)
+    hi = "SELECT elemento.nombre, count(alumno_respuesta_actividad.id_elemento), sum(alumno_respuesta_actividad.correcta = 0) AS incorrectas, sum(alumno_respuesta_actividad.correcta = 1) AS Correctas FROM usuario INNER JOIN alumno_respuesta_actividad ON usuario.id = alumno_respuesta_actividad.id_user INNER JOIN pertenece ON pertenece.usuario_id = alumno_respuesta_actividad.id_user INNER JOIN elemento ON alumno_respuesta_actividad.id_elemento = elemento.id WHERE 1 = 1 AND (alumno_respuesta_actividad.id_elemento = 290014 or alumno_respuesta_actividad.id_elemento = 290015 or alumno_respuesta_actividad.id_elemento = 290016) AND alumno_respuesta_actividad.correcta != 2" + query_params + " GROUP BY alumno_respuesta_actividad.id_elemento"
+    print(hi)
     return hi
 
 def get_Respuestas_General_VencerAlConstructor(request):
