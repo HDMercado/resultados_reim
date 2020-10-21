@@ -2827,6 +2827,288 @@ def welcome(request):
 
 
         # FIN Reciclando Construyo ---
+
+        ################################################################
+        ############################RECICLANDO##########################
+        #################################################################
+        
+
+        #List Querys
+        touch_all_act206_quantity_response = []
+        time_act_RCO_quantity_response = []
+        corrects_incorrects_quantity_response = []
+        corrects_quantity_response = []
+        incorrects_quantity_response = []
+        corrects_student_RCO_quantity_response = []
+        completa_incompleta_RCO_quantity_response = []
+        analytics1_1_co_quantity_act_3_response=[]
+        analytics1_co_quantity_act_3_response=[]
+        posicionamiento_RCO_quantity_response = []
+        get_OA_Desafios_RCO_quantity_response = []
+        get_OA2_Desafios_RCO_quantity_response = []
+        get_OA2_2_Desafios_RCO_quantity_response = []
+        get_OA3_Desafios_RCO_quantity_response = []
+        get_OA3_2_Desafios_RCO_quantity_response = []
+        get_OA4_Desafios_RCO_quantity_response = []
+        get_OA4_2_Desafios_RCO_quantity_response = []
+        get_OA5_Desafios_RCO_quantity_response = []
+        get_OA5_2_Desafios_RCO_quantity_response = []
+        get_victorias_Desafios_RCO_quantity_response = []
+        get_derrotas_Desafios_RCO_quantity_response = []
+        get_mov_multi_RCO_quantity_response = []
+        touch_all_OA1Bien_quantity_response = []
+        elementos_analitica_RCO_quantity_response = []
+        #Promedios
+        countRCO = 0
+        promedio_correctas_RCO = 0
+        promedio_incorrectas_RCO = 0
+        total_corrects_RCO = 0
+        total_incorrects_RCO = 0
+        #Size Graphs
+        touch_all_act206_quantity_graph = 0
+        time_act_RCO_quantity_graph = 0
+        corrects_quantity_graph = 0
+        corrects_incorrects_quantity_graph = 0
+        posicionamiento_RCO_graf = 0
+        get_OA_Desafios_RCO_graf = 0
+        get_OA2_Desafios_RCO_graf = 0
+        get_OA2_2_Desafios_RCO_graf = 0
+        get_OA3_Desafios_RCO_graf = 0
+        get_OA3_2_Desafios_RCO_graf = 0
+        get_OA4_Desafios_RCO_graf = 0
+        get_OA4_2_Desafios_RCO_graf = 0
+        get_OA5_Desafios_RCO_graf = 0
+        get_OA5_2_Desafios_RCO_graf = 0
+        get_victorias_Desafios_RCO_graf = 0
+        get_derrotas_Desafios_RCO_graf = 0
+        get_mov_multi_RCO_graf = 0        
+        touch_all_OA1Bien_quantity_graph = 0
+
+        if reim_num=="206":
+            if activity_num=="9004":
+                # act 3000
+                touch_all_act206_query = get_touch_all_act206(request)
+                cursor.execute(touch_all_act206_query)
+                queries.append({"name": 'Touch all act206 query', "query": touch_all_act206_query})
+                touch_all_act206_quantity = cursor.fetchall()
+                #print ("Touch all trash quantity" , touch_all_trash_quantity)
+                for row in touch_all_act206_quantity:
+                    touch_all_act206_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+                touch_all_act206_quantity_graph = len(touch_all_act206_quantity)*40+20
+            
+            if activity_num!="3000" and activity_num!="3001" and activity_num!="0":
+                time_act_RCO_query = get_time_act_RCO(request)
+                cursor.execute(time_act_RCO_query)
+                queries.append({"name": 'Time act RCO query', "query": time_act_RCO_query})
+                time_act_RCO_quantity = cursor.fetchall()
+                #print ("Time act RCO quantity" , time_act_RCO_quantity)
+                for row in time_act_RCO_quantity:
+                    time_act_RCO_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+                time_act_RCO_quantity_graph = len(time_act_RCO_quantity)*40+20
+
+            if activity_num=="9000" or activity_num=="9001" or activity_num=="9002" or activity_num=="9009" or activity_num=="9010":
+                #9000 9001 9002 9009 9010
+                corrects_incorrects_query = get_corrects_incorrects_RCO(request)
+                cursor.execute(corrects_incorrects_query)
+                queries.append({"name": 'Correctas e incorrectas query', "query": corrects_incorrects_query})
+                corrects_incorrects_quantity = cursor.fetchall()
+                for row in corrects_incorrects_quantity:
+                    corrects_incorrects_quantity_response.append({ 'id': row[0], 'name': row[1], 'corrects': row[2], 'incorrects': row[3] })
+                    total_corrects_RCO += row[2]
+                    total_incorrects_RCO += row[3]
+                    countRCO = countRCO+1
+                if (countRCO!=0):
+                    promedio_correctas_RCO = total_corrects_RCO / countRCO
+                    promedio_incorrectas_RCO = total_incorrects_RCO / countRCO
+                else:
+                    promedio_correctas_RCO = total_corrects_RCO / 1
+                    promedio_incorrectas_RCO = total_incorrects_RCO / 1
+                corrects_incorrects_quantity_graph = len(corrects_incorrects_quantity)*40+20
+            
+            #COMPLETAS INCOMPLETAS
+            completa_incompleta_RCO_query = get_completa_incompleta_RCO(request)
+            queries.append({"name": 'Completas incompletas query', "query": completa_incompleta_RCO_query})
+            cursor.execute(completa_incompleta_RCO_query)
+            completa_incompleta_RCO_quantity = cursor.fetchall()
+            for row in completa_incompleta_RCO_quantity:
+                completa_incompleta_RCO_quantity_response.append({ 'id': row[0], 'name': row[1], 'completa': row[2], 'incompleta': row[3], 'inactiva': row[4] })
+
+            analytics1_1_co_query = get_analytics1_1_co_act_3(request)
+            cursor.execute(analytics1_1_co_query)
+            queries.append({"name": 'Analytics1_1 co query', "query": analytics1_1_co_query})
+            analytics1_1_co_quantity_act_3 = cursor.fetchall()
+            #print ("analytics1_co_quantity_act_3", analytics1_co_quantity_act_3)
+            for row in analytics1_1_co_quantity_act_3:
+                analytics1_1_co_quantity_act_3_response.append({ 'id': row[0], 'name': row[1], 'act1': row[2], 'act2': row[3], 'act3': row[4], 'act4': row[5]  })
+            
+            analytics1_co_query = get_analytics1_co_act_3(request)
+            cursor.execute(analytics1_co_query)
+            queries.append({"name": 'Analytics1 co query', "query": analytics1_co_query})
+            analytics1_co_quantity_act_3 = cursor.fetchall()
+            #print ("analytics1_co_quantity_act_3", analytics1_co_quantity_act_3)
+            for row in analytics1_co_quantity_act_3:
+                analytics1_co_quantity_act_3_response.append({ 'id': row[0], 'name': row[1], 'act1': row[2], 'act2': row[3], 'act3': row[4], 'act4': row[5]  })
+            
+            #LABERINTO
+            #posicionamiento
+            posicionamiento_RCO_query = get_posicionamiento_RCO(request)
+            queries.append({"name": 'posicionamiento_RCO query', "query": posicionamiento_RCO_query})
+            cursor.execute(posicionamiento_RCO_query)
+            posicionamiento_RCO_quantity = cursor.fetchall()
+            for row in posicionamiento_RCO_quantity:
+                posicionamiento_RCO_quantity_response.append({ 'id': row[0], 'name': row[1], 'a_metal': row[2], 'desa_metal': row[3], 'a_carton': row[4], 'desa_carton': row[5], 'a_plastico': row[6], 'desa_plastico': row[7], 'a_vidrio': row[8], 'desa_vidrio': row[9] })
+
+            #otros
+            posicionamiento_RCO_graf = len(posicionamiento_RCO_quantity_response) * 40+100
+
+            #get_OA_Desafios22
+            get_OA_Desafios_RCO_query = get_OA_Desafios_RCO(request)
+            queries.append({"name": 'get_OA_Desafios_RCO query', "query": get_OA_Desafios_RCO_query})
+            cursor.execute(get_OA_Desafios_RCO_query)
+            get_OA_Desafios_RCO_quantity = cursor.fetchall()
+            for row in get_OA_Desafios_RCO_quantity:
+                get_OA_Desafios_RCO_quantity_response.append({ 'id': row[0], 'name': row[1], 'bn_total': row[2], 'ml_total': row[3], 'bn_CN05OAAC': row[4], 'ml_CN05OAAC': row[5], 'bn_MA04OA17': row[6], 'ml_MA04OA17': row[7], 'bn_MA04OA18': row[8], 'ml_MA04OA18': row[9], 'bn_MA04OAH': row[10], 'ml_MA04OAH': row[11] })
+
+
+            #get_OA_2_bien
+            get_OA2_Desafios_RCO_query = get_OA2_Desafios_RCO(request)
+            queries.append({"name": 'get_OA2_Desafios_RCO query', "query": get_OA2_Desafios_RCO_query})
+            cursor.execute(get_OA2_Desafios_RCO_query)
+            get_OA2_Desafios_RCO_quantity = cursor.fetchall()
+            for row in get_OA2_Desafios_RCO_quantity:
+                get_OA2_Desafios_RCO_quantity_response.append({ 'id': row[0], 'name': row[1], 'bn_CN05OAAC': row[2] })
+
+            #get_OA_2_mal
+            get_OA2_2_Desafios_RCO_query = get_OA2_2_Desafios_RCO(request)
+            queries.append({"name": 'get_OA2_2_Desafios_RCO query', "query": get_OA2_2_Desafios_RCO_query})
+            cursor.execute(get_OA2_2_Desafios_RCO_query)
+            get_OA2_2_Desafios_RCO_quantity = cursor.fetchall()
+            for row in get_OA2_2_Desafios_RCO_quantity:
+                get_OA2_2_Desafios_RCO_quantity_response.append({ 'id': row[0], 'name': row[1], 'ml_CN05OAAC': row[2] })
+
+            #get_OA_3_bien
+            get_OA3_Desafios_RCO_query = get_OA3_Desafios_RCO(request)
+            queries.append({"name": 'get_OA3_Desafios_RCO query', "query": get_OA3_Desafios_RCO_query})
+            cursor.execute(get_OA3_Desafios_RCO_query)
+            get_OA3_Desafios_RCO_quantity = cursor.fetchall()
+            for row in get_OA3_Desafios_RCO_quantity:
+                get_OA3_Desafios_RCO_quantity_response.append({ 'id': row[0], 'name': row[1], 'bn_MA04OA17': row[2] })
+
+            #get_OA_3_mal
+            get_OA3_2_Desafios_RCO_query = get_OA3_2_Desafios_RCO(request)
+            queries.append({"name": 'get_OA3_2_Desafios_RCO query', "query": get_OA3_2_Desafios_RCO_query})
+            cursor.execute(get_OA3_2_Desafios_RCO_query)
+            get_OA3_2_Desafios_RCO_quantity = cursor.fetchall()
+            for row in get_OA3_2_Desafios_RCO_quantity:
+                get_OA3_2_Desafios_RCO_quantity_response.append({ 'id': row[0], 'name': row[1], 'ml_MA04OA17': row[2] })
+            
+            #get_OA_4_bien
+            get_OA4_Desafios_RCO_query = get_OA4_Desafios_RCO(request)
+            queries.append({"name": 'get_OA4_Desafios_RCO query', "query": get_OA4_Desafios_RCO_query})
+            cursor.execute(get_OA4_Desafios_RCO_query)
+            get_OA4_Desafios_RCO_quantity = cursor.fetchall()
+            for row in get_OA4_Desafios_RCO_quantity:
+                get_OA4_Desafios_RCO_quantity_response.append({ 'id': row[0], 'name': row[1], 'bn_MA04OA18': row[2] })
+
+            #get_OA_4_mal
+            get_OA4_2_Desafios_RCO_query = get_OA4_2_Desafios_RCO(request)
+            queries.append({"name": 'get_OA4_2_Desafios_RCO query', "query": get_OA4_2_Desafios_RCO_query})
+            cursor.execute(get_OA4_2_Desafios_RCO_query)
+            get_OA4_2_Desafios_RCO_quantity = cursor.fetchall()
+            for row in get_OA4_2_Desafios_RCO_quantity:
+                get_OA4_2_Desafios_RCO_quantity_response.append({ 'id': row[0], 'name': row[1], 'ml_MA04OA18': row[2] })
+
+            #get_OA_5_bien
+            get_OA5_Desafios_RCO_query = get_OA5_Desafios_RCO(request)
+            queries.append({"name": 'get_OA5_Desafios_RCO query', "query": get_OA5_Desafios_RCO_query})
+            cursor.execute(get_OA5_Desafios_RCO_query)
+            get_OA5_Desafios_RCO_quantity = cursor.fetchall()
+            for row in get_OA5_Desafios_RCO_quantity:
+                get_OA5_Desafios_RCO_quantity_response.append({ 'id': row[0], 'name': row[1], 'bn_MA04OAHA': row[2] })
+
+            #get_OA_5_mal
+            get_OA5_2_Desafios_RCO_query = get_OA5_2_Desafios_RCO(request)
+            queries.append({"name": 'get_OA5_2_Desafios_RCO query', "query": get_OA5_2_Desafios_RCO_query})
+            cursor.execute(get_OA5_2_Desafios_RCO_query)
+            get_OA5_2_Desafios_RCO_quantity = cursor.fetchall()
+            for row in get_OA5_2_Desafios_RCO_quantity:
+                get_OA5_2_Desafios_RCO_quantity_response.append({ 'id': row[0], 'name': row[1], 'ml_MA04OAHA': row[2] })
+
+            #get_victorias
+            get_victorias_Desafios_RCO_query = get_victorias_Desafios_RCO(request)
+            queries.append({"name": 'get_victorias_Desafios_RCO query', "query": get_victorias_Desafios_RCO_query})
+            cursor.execute(get_victorias_Desafios_RCO_query)
+            get_victorias_Desafios_RCO_quantity = cursor.fetchall()
+            for row in get_victorias_Desafios_RCO_quantity:
+                get_victorias_Desafios_RCO_quantity_response.append({ 'id': row[0], 'name': row[1], 'victorias': row[2] })
+
+            #get_derrotas
+            get_derrotas_Desafios_RCO_query = get_derrotas_Desafios_RCO(request)
+            queries.append({"name": 'get_derrotas_Desafios_RCO query', "query": get_derrotas_Desafios_RCO_query})
+            cursor.execute(get_derrotas_Desafios_RCO_query)
+            get_derrotas_Desafios_RCO_quantity = cursor.fetchall()
+            for row in get_derrotas_Desafios_RCO_quantity:
+                get_derrotas_Desafios_RCO_quantity_response.append({ 'id': row[0], 'name': row[1], 'derrotas': row[2] })
+
+            #get_movimientos
+            get_mov_multi_RCO_query = get_mov_multi_RCO(request)
+            queries.append({"name": 'get_mov_multi_RCO query', "query": get_mov_multi_RCO_query})
+            cursor.execute(get_mov_multi_RCO_query)
+            get_mov_multi_RCO_quantity = cursor.fetchall()
+            for row in get_mov_multi_RCO_quantity:
+                get_mov_multi_RCO_quantity_response.append({ 'id': row[0], 'name': row[1], 'movimientos': row[2] })
+
+
+            #ELEMENTOS creacion analitica
+            elementos_analitica_RCO_query = get_elementos_alu_RCO(request)
+            queries.append({
+                "name": 'creacion analitica query',
+                "query": elementos_analitica_RCO_query
+            })
+            cursor.execute(elementos_analitica_RCO_query)
+            elementos_RCO_quantity = cursor.fetchall()
+            for row in elementos_RCO_quantity:
+                elementos_analitica_RCO_quantity_response.append({
+                    'id':
+                    row[0],
+                    'name':
+                    row[1],
+                    'quantity':
+                    row[2]
+                })
+
+            #otros
+            #posicionamiento_RCO_graf = len(posicionamiento_RCO_quantity_response) * 40+100
+            get_OA_Desafios_RCO_graf = len(get_OA_Desafios_RCO_quantity_response) * 40+100
+            get_OA2_Desafios_RCO_graf = len(get_OA2_Desafios_RCO_quantity_response) * 40+100
+            get_OA2_2_Desafios_RCO_graf = len(get_OA2_2_Desafios_RCO_quantity_response) * 40+100
+            get_OA3_Desafios_RCO_graf = len(get_OA3_Desafios_RCO_quantity_response) * 40+100
+            get_OA3_2_Desafios_RCO_graf = len(get_OA3_2_Desafios_RCO_quantity_response) * 40+100
+            get_OA4_Desafios_RCO_graf = len(get_OA4_Desafios_RCO_quantity_response) * 40+100
+            get_OA4_2_Desafios_RCO_graf = len(get_OA4_2_Desafios_RCO_quantity_response) * 40+100
+            get_OA5_Desafios_RCO_graf = len(get_OA5_Desafios_RCO_quantity_response) * 40+100
+            get_OA5_2_Desafios_RCO_graf = len(get_OA5_2_Desafios_RCO_quantity_response) * 40+100
+            get_victorias_Desafios_RCO_graf = len(get_victorias_Desafios_RCO_quantity_response) * 40+100
+            get_derrotas_Desafios_RCO_graf = len(get_derrotas_Desafios_RCO_quantity_response) * 40+100
+            get_mov_multi_RCO_graf = len(get_mov_multi_RCO_quantity_response) * 40+100
+            
+            if activity_num=="9009":
+                # act 9009
+                touch_all_OA1Bien_query = get_touch_all_OA1Bien(request)
+                cursor.execute(touch_all_OA1Bien_query)
+                queries.append({"name": 'Touch all OA1Bien query', "query": touch_all_OA1Bien_query})
+                touch_all_OA1Bien_quantity = cursor.fetchall()
+                #print ("Touch all OA1Bien quantity" , touch_all_OA1Bien_quantity)
+                for row in touch_all_OA1Bien_quantity:
+                    touch_all_OA1Bien_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+                touch_all_OA1Bien_quantity_graph = len(touch_all_OA1Bien_quantity)*40+20
+
+            
+            
+        ################################################################
+        ############################RECICLANDO##########################
+        #################################################################
+
 #Cantidad de Sesiones
         session_query = get_session_query(request)
         cursor.execute(session_query)
@@ -3150,6 +3432,33 @@ def welcome(request):
                 'Historial_Respuestas': Historial_Respuestas_response,
                 'Historial_movimientos': Historial_movimientos_response,
                 # FIN RECICLANDO CONSTRUYO
+                #########################Inicio Reciclando cuido el oceano###############################
+                'touch_all_act206_quantity':touch_all_act206_quantity_response,
+                'time_act_RCO_quantity':time_act_RCO_quantity_response,
+                'corrects_incorrects_quantity':corrects_incorrects_quantity_response,
+                'corrects_quantity':corrects_quantity_response,
+                'incorrects_quantity':incorrects_quantity_response,
+                'completa_incompleta_RCO_quantity':completa_incompleta_RCO_quantity_response,
+                'analytics1_1_co_quantity_act_3':analytics1_1_co_quantity_act_3_response,
+                'analytics1_co_quantity_act_3':analytics1_co_quantity_act_3_response,
+                'posicionamiento_RCO_quantity':posicionamiento_RCO_quantity_response,
+                'get_OA_Desafios_RCO_quantity':get_OA_Desafios_RCO_quantity_response,
+                'get_OA2_Desafios_RCO_quantity':get_OA2_Desafios_RCO_quantity_response,
+                'get_OA2_2_Desafios_RCO_quantity':get_OA2_2_Desafios_RCO_quantity_response,
+                'get_OA3_Desafios_RCO_quantity':get_OA3_Desafios_RCO_quantity_response,
+                'get_OA3_2_Desafios_RCO_quantity':get_OA3_2_Desafios_RCO_quantity_response,
+                'get_OA4_Desafios_RCO_quantity':get_OA4_Desafios_RCO_quantity_response,
+                'get_OA4_2_Desafios_RCO_quantity':get_OA4_2_Desafios_RCO_quantity_response,
+                'get_OA5_Desafios_RCO_quantity':get_OA5_Desafios_RCO_quantity_response,
+                'get_OA5_2_Desafios_RCO_quantity':get_OA5_2_Desafios_RCO_quantity_response,
+                'get_victorias_Desafios_RCO_quantity':get_victorias_Desafios_RCO_quantity_response,
+                'get_derrotas_Desafios_RCO_quantity':get_derrotas_Desafios_RCO_quantity_response,
+                'get_mov_multi_RCO_quantity':get_mov_multi_RCO_quantity_response,
+                'touch_all_OA1Bien_quantity':touch_all_OA1Bien_quantity_response,
+                'elementos_analitica_RCO_quantity':elementos_analitica_RCO_quantity_response,
+                'time_act_RCO_quantity_graph':time_act_RCO_quantity_graph,
+                'touch_all_OA1Bien_quantity_graph':touch_all_OA1Bien_quantity_graph,
+                ########################FinReciclando###############################
                 #####BEGIN BUILD YOUR CITY#####
                 #LISTS OF DUMMY VALUES (FRONTEND TEST):
                 'listOfFirst50Numbers': [
