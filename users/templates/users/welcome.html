@@ -2873,6 +2873,857 @@
                             {% endif %}
 
                             <!--FIN Reciclando Construyo -->
+                            <!-- INICIO Rec Cuido el Oceano -->
+
+        {% if reim_num == '206' %}
+        <div class="wrapper wrapper-content">
+                {% if activity_num == '0' and student_num == '0' %}
+                <h1>Gráficos Generales <strong></strong></h1>
+                            <hr><br>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
+                                <div class="col-lg-6">
+                                    <div class="ibox ">
+                                        <div class="ibox-title">
+                                            <h5>Minutos de juego</h5><span class="glyphicon glyphicon-info-sign" title="Gráfico que muestra el tiempo de juego por alumno en el REIM 'Clean Ocean'."></span>
+                                            <div class="ibox-tools"></div>
+                                        </div>
+                                        <div class="ibox-content">
+                                            <div class="scroll_content">
+                                                <canvas id="stacked" height={{game_time_graph}}>{% load staticfiles %}</canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="ibox">
+                                        <div class="ibox-title">
+                                            <h5>Cantidad de interacciones por alumno</h5><span class="glyphicon glyphicon-info-sign" title="Gráfico que muestra la cantidad de interacción por alumno en todo el REIM 'Clean Ocean'."></span>
+                                            <div class="ibox-tools"></div>
+                                        </div>
+                                        <div class="ibox-content">
+                                            <div class="scroll_content">
+                                                <canvas id="horizontalBar" height={{touch_quantity_graph}}>{% load staticfiles %}</canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="ibox ">
+                                        <div class="ibox-title">
+                                            <h5>Sesiones por alumno</h5><span class="glyphicon glyphicon-info-sign" title="Gráfico que muestra la cantidad de inicios de sesión por alumno en el REIM 'Clean Ocean'."></span>
+                                            <div class="ibox-tools"></div>
+                                        </div>
+                                        <div class="ibox-content">
+                                            <div class="scroll_content">
+                                                <canvas id="stacked2" height={{sesion_quantity_graph}}>{% load staticfiles %}</canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            <!-- Pantalla Actividades  -->
+                {% if activity_num == '9004' and student_num == '0' %}
+                <h1>Prefencia por Actividad <strong></strong></h1>
+                            <hr><br>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
+                                <div class="col-lg-6">
+                                    <div class="ibox ">
+                                        <div class="ibox-title">
+                                            <h5>Botones tocados por curso en Menu Actividades</h5><span class="glyphicon glyphicon-info-sign" title="Grafico que muestra los botones tocados por todo el curso en la pantalla de progreso."></span>
+                                            <div class="ibox-tools"></div>
+                                        </div>
+                                        <div class="ibox-content">
+                                            <div class="scroll_content">
+                                                <canvas id="touchalltrashRCO" height={{touch_all_act206_quantity_graph}}>{% load staticfiles %}</canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>            
+                    </div>
+                {% endif %}
+            <!-- MENU  -->
+                {% if activity_num == '9003' and student_num == '0' %}
+
+                    
+                {% endif %}
+            <!--Actividad Oceano -->
+                {% if activity_num == '9000' and student_num == '0' %}
+                <h1>Resultados Actividad 1: <strong>Océano</strong></h1>
+                            <hr><br>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
+                                <div class="col-lg-6">
+                                    <div class="ibox ">
+                                        <div class="ibox-title">
+                                            <h5>Tiempo total en actividad "Limpiar el Océano" por alumno</h5><span class="glyphicon glyphicon-info-sign" title="Gráfico que muestra el tiempo de juego por alumno de la actividad OCÉANO."></span>
+                                            <div class="ibox-tools"></div>
+                                        </div>
+                                        <div class="ibox-content">
+                                            <div class="scroll_content">
+                                                <canvas id="totaltimeRCO" height={{time_act_RCO_quantity_graph}}>{% load staticfiles %}</canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="ibox ">
+                                        <div class="ibox-title">
+                                            <h5>Diferencia de elementos recolectados vs elementos perdidos en actividad "Limpiar el Océano"</h5><span class="glyphicon glyphicon-info-sign" title="Gráfico que muestra la diferencia de la cantidad de elementos recolectados y no recolectados por el alumn@ en la actividad OCÉANO."></span>
+                                            <div class="ibox-tools"></div>
+                                        </div>
+                                        <div class="ibox-content">
+                                            <div class="scroll_content">
+                                                <canvas id="prueba_RCO_2" height={{corrects_incorrects_quantity_graph}} >{% load staticfiles %}</canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>            
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
+                                <div class="col-lg-6">
+                                    <div class="ibox ">
+                                        <div class="ibox-title">
+                                            <h5>Porcentaje de elementos recolectados vs elementos perdidos en actividad "Limpiar el Océano"</h5><span class="glyphicon glyphicon-info-sign" title="Gráfico que muestra el porcentaje de elementos recolectados y no recolectados en la actividad OCÉANO."></span>
+                                            <div class="ibox-tools"></div>
+                                        </div>
+                                        <div class="ibox-content">
+                                            <div class="scroll_content">
+                                                <canvas id="prueba_RCO" height={{corrects_incorrects_quantity_graph}} >{% load staticfiles %}</canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>                               
+                            </div>
+                        </div>            
+                    </div>
+                {% endif %}
+            <!-- Simetrix -->
+                {% if activity_num == '9001' and student_num == '0' %}
+                <h1>Resultados Actividad 2: <strong>Simetrix</strong></h1>
+                            <hr><br>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
+                                <div class="col-lg-6">
+                                    <div class="ibox ">
+                                        <div class="ibox-title">
+                                            <h5>Tiempo total en actividad "Simetrix" por alumno</h5><span class="glyphicon glyphicon-info-sign" title="Gráfico que muestra el tiempo de juego por alumno de la actividad SIMETRIX."></span>
+                                            <div class="ibox-tools"></div>
+                                        </div>
+                                        <div class="ibox-content">
+                                            <div class="scroll_content">
+                                                <canvas id="totaltimeRCO" height={{time_act_RCO_quantity_graph}}>{% load staticfiles %}</canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="ibox ">
+                                        <div class="ibox-title">
+                                            <h5>Porcentaje de figuras reconocidas segÚn eje de simetrÍa por alumno en actividad "Simetrix"</h5><span class="glyphicon glyphicon-info-sign" title="Gráfico que muestra la cantidad de veces que el alumno reconoció elementos por eje de simetría."></span>
+                                            <div class="ibox-tools"></div>
+                                        </div>
+                                        <div class="ibox-content">
+                                            <div class="scroll_content">
+                                                <canvas id="prueba_0" height={{corrects_incorrects_quantity_graph}}>{% load staticfiles %}</canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>            
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
+                                <div class="col-lg-6">
+                                    <div class="ibox ">
+                                        <div class="ibox-title">
+                                            <h5>Cantidad de veces que el alumno logra trasladar la figura a su posición, rotando y moviento la figura gométrica representada en elementos reciclables 2D.</h5><span class="  glyphicon glyphicon-info-sign" title="Indica la cantidad de veces que los/as alumnos/as completaron la actividad de juntar la figura geométrica utilizando habilidades motrices (En esta parte de la actividad el alumno cuenta con 1 minuto para completar la actividad)"></span>
+                                            <div class="ibox-tools"></div>
+                                        </div>
+                                        <div class="ibox-content">
+                                            <div class="scroll_content">
+                                                <canvas id="CI_RCO" height={{completa_incompleta_RCO_graf}}>{% load staticfiles %}</canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="ibox ">
+                                        <div class="ibox-title">
+                                            <h5>Porcentaje de cumplimiento que el alumno logra trasladandar la figura a su posición, rotando y moviento la figura gométrica representada en elementos reciclables 2D.</h5><span class="  glyphicon glyphicon-info-sign" title="Indica la cantidad de veces que los/as alumnos/as completaron la actividad de juntar la figura geométrica utilizando habilidades motrices (En esta parte de la actividad el alumno cuenta con 1 minuto para completar la actividad)"></span>
+                                            <div class="ibox-tools"></div>
+                                        </div>
+                                        <div class="ibox-content">
+                                            <div class="scroll_content">
+                                                <canvas id="CI_RCO_2" height={{completa_incompleta_RCO_graf}}>{% load staticfiles %}</canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>    
+            </div>               
+                {% endif %}
+            <!--Agrupados -->
+                {% if activity_num == '9002' and student_num == '0' %}
+                <h1>Resultados Actividad 2: <strong>Agrupados</strong></h1>
+                            <hr><br>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
+                                <div class="col-lg-6">
+                                    <div class="ibox ">
+                                        <div class="ibox-title">
+                                            <h5>Tiempo total en actividad Agrupados por alumno en la actividad Agrupados</h5><span class="glyphicon glyphicon-info-sign" title="Gráfico que muestra el tiempo de juego por alumno de la actividad laberinto."></span>
+                                            <div class="ibox-tools"></div>
+                                        </div>
+                                        <div class="ibox-content">
+                                            <div class="scroll_content">
+                                                <canvas id="totaltimeRCO" height={{time_act_RCO_quantity_graph}}>{% load staticfiles %}</canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="ibox ">
+                                        <div class="ibox-title">
+                                            <h5>Elementos agrupados en la actividad "Agrupados" durante el tiempo</h5><span class="  glyphicon glyphicon-info-sign" title="Indica la cantidad de elementos Agrupaods en su contenedor en cada dia para poder evaluar el desarrollo de la habilidad de agrupar en los/las alumnos/as"></span>
+                                            <div class="ibox-tools"></div>
+                                        </div>
+                                        <div class="ibox-content"><div class="scroll_content">
+                                                <canvas id="agrupadosAnaliticaRCO">{% load staticfiles %}</canvas></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
+                                <div class="col-lg-6">
+                                    <div class="ibox ">
+                                        <div class="ibox-title">
+                                            <h5>Porcentaje de elementos metal agrupados correcta e incorrectamente</h5><span class="  glyphicon glyphicon-info-sign" title="Indica la cantidad de veces que los/las alumnos/as han podido agrupar de forma correcta los elementos correspondientes al Metal."></span>
+                                            <div class="ibox-tools"></div>
+                                        </div>
+                                        <div class="ibox-content">
+                                            <div class="scroll_content">
+                                                <canvas id="RCO" height={{posicionamiento_RCO_graf}}>{% load staticfiles %}</canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="ibox ">
+                                        <div class="ibox-title">
+                                            <h5>Porcentaje de elementos cartón agrupados correcta e incorrectamente</h5><span class="  glyphicon glyphicon-info-sign" title="Indica la cantidad de veces que los/las alumnos/as han podido agrupar de forma correcta los elementos correspondientes al Cartón."></span>
+                                            <div class="ibox-tools"></div>
+                                        </div>
+                                        <div class="ibox-content">
+                                            <div class="scroll_content">
+                                                <canvas id="RCO_1" height={{posicionamiento_RCO_graf}}>{% load staticfiles %}</canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> 
+                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
+                                <div class="col-lg-6">
+                                    <div class="ibox ">
+                                        <div class="ibox-title">
+                                            <h5>Porcentaje de elementos Plástico agrupados correcta e incorrectamente</h5><span class="  glyphicon glyphicon-info-sign" title="Indica la cantidad de veces que los/las alumnos/as han podido agrupar de forma correcta los elementos correspondientes al Plástico."></span>
+                                            <div class="ibox-tools"></div>
+                                        </div>
+                                        <div class="ibox-content">
+                                            <div class="scroll_content">
+                                                <canvas id="RCO_2" height={{posicionamiento_RCO_graf}}>{% load staticfiles %}</canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="ibox ">
+                                        <div class="ibox-title">
+                                            <h5>Porcentaje de elementos Vidrio agrupados correcta e incorrectamente</h5><span class="  glyphicon glyphicon-info-sign" title="Indica la cantidad de veces que los/las alumnos/as han podido agrupar de forma correcta los elementos correspondientes al Vidrio."></span>
+                                            <div class="ibox-tools"></div>
+                                        </div>
+                                        <div class="ibox-content">
+                                            <div class="scroll_content">
+                                                <canvas id="RCO_3" height={{posicionamiento_RCO_graf}}>{% load staticfiles %}</canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> 
+                            </div>
+                        </div>            
+                    </div>
+                    
+                {% endif %}
+            <!--Desafios -->
+            {% if activity_num == '9009' and student_num == '0' %}
+            <h1>Resultados Actividad 5: <strong>Desafíos</strong></h1>
+                            <hr><br>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
+                        <div class="col-lg-6">
+                            <div class="ibox ">
+                                <div class="ibox-title">
+                                    <h5>Tiempo total en actividad "Desafíos" por alumno</h5><span class="glyphicon glyphicon-info-sign" title="Gráfico que muestra el tiempo de juego por alumno de la actividad DESAFÍOS."></span>
+                                    <div class="ibox-tools"></div>
+                                </div>
+                                <div class="ibox-content">
+                                    <div class="scroll_content">
+                                        <canvas id="totaltimeRCO" height={{time_act_RCO_quantity_graph}}>{% load staticfiles %}</canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="ibox ">
+                                <div class="ibox-title">
+                                    <h5>Porcentaje Respuestas correctas y incorrectas totales</h5><span class="  glyphicon glyphicon-info-sign" title="Indica la cantidad de veces que los/las alumnos/as respondieron de forma correcta o incorrecta la actividad."></span>
+                                    <div class="ibox-tools"></div>
+                                </div>
+                                <div class="ibox-content">
+                                    <div class="scroll_content">
+                                        <canvas id="RCO1" height={{get_OA_Desafios_RCO_graf}}>{% load staticfiles %}</canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <div class="col-lg-12">
+                    <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
+                        <div class="col-lg-6">
+                            <div class="ibox ">
+                                <div class="ibox-title">
+                                    <h5>Respuestas correctas y incorrectas de OA CN05 OAA C</h5><span class="  glyphicon glyphicon-info-sign" title="Reconocer la importancia del entorno natural y sus recursos, desarrollando conductas de cuidado y protección del ambiente."></span>
+                                    <div class="ibox-tools"></div>
+                                </div>
+                                <div class="ibox-content">
+                                    <div class="scroll_content">
+                                        <canvas id="RCO2" height={{get_OA2_Desafios_RCO_graf}}>{% load staticfiles %}</canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="ibox ">
+                                <div class="ibox-title">
+                                    <h5>Respuestas correctas y incorrectas de OA MA04OA17</h5><span class="  glyphicon glyphicon-info-sign" title="Demostrar que comprenden una línea de simetría: identificando figuras simétricas 2D."></span>
+                                    <div class="ibox-tools"></div>
+                                </div>
+                                <div class="ibox-content">
+                                    <div class="scroll_content">
+                                        <canvas id="RCO23" height={{get_OA3_Desafios_RCO_graf}}>{% load staticfiles %}</canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
+                                <div class="col-lg-6">
+                                    <div class="ibox ">
+                                        <div class="ibox-title">
+                                            <h5>Respuestas correctas y incorrectas de OA MA04OA18</h5><span class="  glyphicon glyphicon-info-sign" title="Trasladar, rotar y reflejar figuras 2D."></span>
+                                            <div class="ibox-tools"></div>
+                                        </div>
+                                        <div class="ibox-content">
+                                            <div class="scroll_content">
+                                                <canvas id="RCO24" height={{get_OA4_Desafios_RCO_graf}}>{% load staticfiles %}</canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="ibox ">
+                                        <div class="ibox-title">
+                                            <h5>Respuestas correctas y incorrectas de OA MA04OAH</h5><span class="  glyphicon glyphicon-info-sign" title="Resolver problemas dados y creados"></span>
+                                            <div class="ibox-tools"></div>
+                                        </div>
+                                        <div class="ibox-content">
+                                            <div class="scroll_content">
+                                                <canvas id="RCO25" height={{get_OA5_Desafios_RCO_graf}}>{% load staticfiles %}</canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>    
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+                {% if activity_num == '9010' and student_num == '0' %}
+                <h1>Resultados Actividad 4: <strong>Colaborativa</strong></h1>
+                            <hr><br>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
+                                <div class="col-lg-6">
+                                    <div class="ibox ">
+                                        <div class="ibox-title">
+                                            <h5>Tiempo total en actividad "Colaborativa" por alumno</h5><span class="glyphicon glyphicon-info-sign" title="Gráfico que muestra el tiempo de juego por alumno de la actividad Colavorativa."></span>
+                                            <div class="ibox-tools"></div>
+                                        </div>
+                                        <div class="ibox-content">
+                                            <div class="scroll_content">
+                                                <canvas id="totaltimeRCO" height={{time_act_RCO_quantity_graph}}>{% load staticfiles %}</canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="ibox ">
+                                        <div class="ibox-title">
+                                            <h5>Victorias vs derrotas en actividad Colaborativa</h5><span class="  glyphicon glyphicon-info-sign" title="Indica la cantidad de Victorias vs derrotas en actividad Multijugador."></span>
+                                            <div class="ibox-tools"></div>
+                                        </div>
+                                        <div class="ibox-content">
+                                            <div class="scroll_content">
+                                                <canvas id="RCO26" height={{get_victorias_Desafios_RCO_graf}}>{% load staticfiles %}</canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>            
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
+                                <div class="col-lg-6">
+                                    <div class="ibox ">
+                                        <div class="ibox-title">
+                                            <h5>Catidad de movimientos por alumno en actividad Colaborativa</h5><span class="  glyphicon glyphicon-info-sign" title="Indica la cantidad de movimientos por alumno en actividad Colaborativa"></span>
+                                            <div class="ibox-tools"></div>
+                                        </div>
+                                        <div class="ibox-content">
+                                            <div class="scroll_content">
+                                                <canvas id="RCO27" height={{get_mov_multi_RCO_graf}}>{% load staticfiles %}</canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>                               
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+        {% endif %}
+        {% if student_num != '0' and reim_num == '206' and activity_num == '9000' %}
+        <h1>Resultados Actividad 1: <strong>Océano</strong></h1>
+                            <hr><br>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
+                                <div class="col-lg-6">
+                                    <div class="ibox ">
+                                        <div class="ibox-title">
+                                            <h5>Tiempo total en actividad "Limpiar el Océano" por alumno</h5><span class="glyphicon glyphicon-info-sign" title="Gráfico que muestra el tiempo de juego por alumno de la actividad OCÉANO."></span>
+                                            <div class="ibox-tools"></div>
+                                        </div>
+                                        <div class="ibox-content">
+                                            <div class="scroll_content">
+                                                <canvas id="totaltimeRCO" height={{time_act_RCO_quantity_graph}}>{% load staticfiles %}</canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="ibox ">
+                                        <div class="ibox-title">
+                                            <h5>Diferencia de elementos recolectados vs elementos perdidos en actividad "Limpiar el Océano"</h5><span class="glyphicon glyphicon-info-sign" title="Gráfico que muestra la diferencia de la cantidad de elementos recolectados y no recolectados por el alumn@ en la actividad OCÉANO."></span>
+                                            <div class="ibox-tools"></div>
+                                        </div>
+                                        <div class="ibox-content">
+                                            <div class="scroll_content">
+                                                <canvas id="prueba_RCO_2" height={{corrects_incorrects_quantity_graph}} >{% load staticfiles %}</canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>            
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
+                                <div class="col-lg-6">
+                                    <div class="ibox ">
+                                        <div class="ibox-title">
+                                            <h5>Porcentaje de elementos recolectados vs elementos perdidos en actividad "Limpiar el Océano"</h5><span class="glyphicon glyphicon-info-sign" title="Gráfico que muestra el porcentaje de elementos recolectados y no recolectados en la actividad OCÉANO."></span>
+                                            <div class="ibox-tools"></div>
+                                        </div>
+                                        <div class="ibox-content">
+                                            <div class="scroll_content">
+                                                <canvas id="prueba_RCO" height={{corrects_incorrects_quantity_graph}} >{% load staticfiles %}</canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>                               
+                            </div>
+                        </div>            
+                    </div>
+        {% endif %}
+
+        {% if student_num != '0' and reim_num == '206' and activity_num == '9001' %}
+        <h1>Resultados Actividad 2: <strong>Simetrix</strong></h1>
+                            <hr><br>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
+                                <div class="col-lg-6">
+                                    <div class="ibox ">
+                                        <div class="ibox-title">
+                                            <h5>Tiempo total en actividad "Simetrix" por alumno</h5><span class="glyphicon glyphicon-info-sign" title="Gráfico que muestra el tiempo de juego por alumno de la actividad SIMETRIX."></span>
+                                            <div class="ibox-tools"></div>
+                                        </div>
+                                        <div class="ibox-content">
+                                            <div class="scroll_content">
+                                                <canvas id="totaltimeRCO" height={{time_act_RCO_quantity_graph}}>{% load staticfiles %}</canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="ibox ">
+                                        <div class="ibox-title">
+                                            <h5>Porcentaje de figuras reconocidas segÚn eje de simetrÍa por alumno en actividad "Simetrix"</h5><span class="glyphicon glyphicon-info-sign" title="Gráfico que muestra la cantidad de veces que el alumno reconoció elementos por eje de simetría."></span>
+                                            <div class="ibox-tools"></div>
+                                        </div>
+                                        <div class="ibox-content">
+                                            <div class="scroll_content">
+                                                <canvas id="prueba_0" height={{corrects_incorrects_quantity_graph}}>{% load staticfiles %}</canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>            
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
+                                <div class="col-lg-6">
+                                    <div class="ibox ">
+                                        <div class="ibox-title">
+                                            <h5>Cantidad de veces que el alumno logra trasladar la figura a su posición, rotando y moviento la figura gométrica representada en elementos reciclables 2D.</h5><span class="  glyphicon glyphicon-info-sign" title="Indica la cantidad de veces que los/as alumnos/as completaron la actividad de juntar la figura geométrica utilizando habilidades motrices (En esta parte de la actividad el alumno cuenta con 1 minuto para completar la actividad)"></span>
+                                            <div class="ibox-tools"></div>
+                                        </div>
+                                        <div class="ibox-content">
+                                            <div class="scroll_content">
+                                                <canvas id="CI_RCO" height={{completa_incompleta_RCO_graf}}>{% load staticfiles %}</canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="ibox ">
+                                        <div class="ibox-title">
+                                            <h5>Porcentaje de cumplimiento que el alumno logra trasladandar la figura a su posición, rotando y moviento la figura gométrica representada en elementos reciclables 2D.</h5><span class="  glyphicon glyphicon-info-sign" title="Indica la cantidad de veces que los/as alumnos/as completaron la actividad de juntar la figura geométrica utilizando habilidades motrices (En esta parte de la actividad el alumno cuenta con 1 minuto para completar la actividad)"></span>
+                                            <div class="ibox-tools"></div>
+                                        </div>
+                                        <div class="ibox-content">
+                                            <div class="scroll_content">
+                                                <canvas id="CI_RCO_2" height={{completa_incompleta_RCO_graf}}>{% load staticfiles %}</canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>    
+            </div> 
+        {% endif %}
+        {% if student_num != '0' and reim_num == '206' and activity_num == '9002' %}
+        <h1>Resultados Actividad 2: <strong>Agrupados</strong></h1>
+                            <hr><br>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
+                                <div class="col-lg-6">
+                                    <div class="ibox ">
+                                        <div class="ibox-title">
+                                            <h5>Tiempo total en actividad Agrupados por alumno en la actividad Agrupados</h5><span class="glyphicon glyphicon-info-sign" title="Gráfico que muestra el tiempo de juego por alumno de la actividad laberinto."></span>
+                                            <div class="ibox-tools"></div>
+                                        </div>
+                                        <div class="ibox-content">
+                                            <div class="scroll_content">
+                                                <canvas id="totaltimeRCO" height={{time_act_RCO_quantity_graph}}>{% load staticfiles %}</canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="ibox ">
+                                        <div class="ibox-title">
+                                            <h5>Elementos agrupados en la actividad "Agrupados" durante el tiempo</h5><span class="  glyphicon glyphicon-info-sign" title="Indica la cantidad de elementos Agrupaods en su contenedor en cada dia para poder evaluar el desarrollo de la habilidad de agrupar en los/las alumnos/as"></span>
+                                            <div class="ibox-tools"></div>
+                                        </div>
+                                        <div class="ibox-content"><div class="scroll_content">
+                                                <canvas id="agrupadosAnaliticaRCO">{% load staticfiles %}</canvas></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
+                                <div class="col-lg-6">
+                                    <div class="ibox ">
+                                        <div class="ibox-title">
+                                            <h5>Porcentaje de elementos metal agrupados correcta e incorrectamente</h5><span class="  glyphicon glyphicon-info-sign" title="Indica la cantidad de veces que los/las alumnos/as han podido agrupar de forma correcta los elementos correspondientes al Metal."></span>
+                                            <div class="ibox-tools"></div>
+                                        </div>
+                                        <div class="ibox-content">
+                                            <div class="scroll_content">
+                                                <canvas id="RCO" height={{posicionamiento_RCO_graf}}>{% load staticfiles %}</canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="ibox ">
+                                        <div class="ibox-title">
+                                            <h5>Porcentaje de elementos cartón agrupados correcta e incorrectamente</h5><span class="  glyphicon glyphicon-info-sign" title="Indica la cantidad de veces que los/las alumnos/as han podido agrupar de forma correcta los elementos correspondientes al Cartón."></span>
+                                            <div class="ibox-tools"></div>
+                                        </div>
+                                        <div class="ibox-content">
+                                            <div class="scroll_content">
+                                                <canvas id="RCO_1" height={{posicionamiento_RCO_graf}}>{% load staticfiles %}</canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> 
+                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
+                                <div class="col-lg-6">
+                                    <div class="ibox ">
+                                        <div class="ibox-title">
+                                            <h5>Porcentaje de elementos Plástico agrupados correcta e incorrectamente</h5><span class="  glyphicon glyphicon-info-sign" title="Indica la cantidad de veces que los/las alumnos/as han podido agrupar de forma correcta los elementos correspondientes al Plástico."></span>
+                                            <div class="ibox-tools"></div>
+                                        </div>
+                                        <div class="ibox-content">
+                                            <div class="scroll_content">
+                                                <canvas id="RCO_2" height={{posicionamiento_RCO_graf}}>{% load staticfiles %}</canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="ibox ">
+                                        <div class="ibox-title">
+                                            <h5>Porcentaje de elementos Vidrio agrupados correcta e incorrectamente</h5><span class="  glyphicon glyphicon-info-sign" title="Indica la cantidad de veces que los/las alumnos/as han podido agrupar de forma correcta los elementos correspondientes al Vidrio."></span>
+                                            <div class="ibox-tools"></div>
+                                        </div>
+                                        <div class="ibox-content">
+                                            <div class="scroll_content">
+                                                <canvas id="RCO_3" height={{posicionamiento_RCO_graf}}>{% load staticfiles %}</canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> 
+                            </div>
+                        </div>            
+                    </div>
+        {% endif %}
+        {% if student_num != '0' and reim_num == '206' and activity_num == '9010' %}
+        <h1>Resultados Actividad 4: <strong>Colaborativa</strong></h1>
+        <hr><br>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
+            <div class="col-lg-6">
+                <div class="ibox ">
+                    <div class="ibox-title">
+                        <h5>Tiempo total en actividad "Colaborativa" por alumno</h5><span class="glyphicon glyphicon-info-sign" title="Gráfico que muestra el tiempo de juego por alumno de la actividad Colavorativa."></span>
+                        <div class="ibox-tools"></div>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="scroll_content">
+                            <canvas id="totaltimeRCO" height={{time_act_RCO_quantity_graph}}>{% load staticfiles %}</canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="ibox ">
+                    <div class="ibox-title">
+                        <h5>Victorias vs derrotas en actividad Colaborativa</h5><span class="  glyphicon glyphicon-info-sign" title="Indica la cantidad de Victorias vs derrotas en actividad Multijugador."></span>
+                        <div class="ibox-tools"></div>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="scroll_content">
+                            <canvas id="RCO26" height={{get_victorias_Desafios_RCO_graf}}>{% load staticfiles %}</canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>            
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
+            <div class="col-lg-6">
+                <div class="ibox ">
+                    <div class="ibox-title">
+                        <h5>Catidad de movimientos por alumno en actividad Colaborativa</h5><span class="  glyphicon glyphicon-info-sign" title="Indica la cantidad de movimientos por alumno en actividad Colaborativa"></span>
+                        <div class="ibox-tools"></div>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="scroll_content">
+                            <canvas id="RCO27" height={{get_mov_multi_RCO_graf}}>{% load staticfiles %}</canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>                               
+        </div>
+    </div>
+</div>
+        {% endif %}
+        {% if student_num != '0' and reim_num == '206' and activity_num == '9009' %}
+        <h1>Resultados Actividad 5: <strong>Desafíos</strong></h1>
+                            <hr><br>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
+                        <div class="col-lg-6">
+                            <div class="ibox ">
+                                <div class="ibox-title">
+                                    <h5>Tiempo total en actividad "Desafíos" por alumno</h5><span class="glyphicon glyphicon-info-sign" title="Gráfico que muestra el tiempo de juego por alumno de la actividad DESAFÍOS."></span>
+                                    <div class="ibox-tools"></div>
+                                </div>
+                                <div class="ibox-content">
+                                    <div class="scroll_content">
+                                        <canvas id="totaltimeRCO" height={{time_act_RCO_quantity_graph}}>{% load staticfiles %}</canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="ibox ">
+                                <div class="ibox-title">
+                                    <h5>Porcentaje Respuestas correctas y incorrectas totales</h5><span class="  glyphicon glyphicon-info-sign" title="Indica la cantidad de veces que los/las alumnos/as respondieron de forma correcta o incorrecta la actividad."></span>
+                                    <div class="ibox-tools"></div>
+                                </div>
+                                <div class="ibox-content">
+                                    <div class="scroll_content">
+                                        <canvas id="RCO1" height={{get_OA_Desafios_RCO_graf}}>{% load staticfiles %}</canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <div class="col-lg-12">
+                    <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
+                        <div class="col-lg-6">
+                            <div class="ibox ">
+                                <div class="ibox-title">
+                                    <h5>Respuestas correctas y incorrectas de OA CN05 OAA C</h5><span class="  glyphicon glyphicon-info-sign" title="Reconocer la importancia del entorno natural y sus recursos, desarrollando conductas de cuidado y protección del ambiente."></span>
+                                    <div class="ibox-tools"></div>
+                                </div>
+                                <div class="ibox-content">
+                                    <div class="scroll_content">
+                                        <canvas id="RCO2" height={{get_OA2_Desafios_RCO_graf}}>{% load staticfiles %}</canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="ibox ">
+                                <div class="ibox-title">
+                                    <h5>Respuestas correctas y incorrectas de OA MA04OA17</h5><span class="  glyphicon glyphicon-info-sign" title="Demostrar que comprenden una línea de simetría: identificando figuras simétricas 2D."></span>
+                                    <div class="ibox-tools"></div>
+                                </div>
+                                <div class="ibox-content">
+                                    <div class="scroll_content">
+                                        <canvas id="RCO23" height={{get_OA3_Desafios_RCO_graf}}>{% load staticfiles %}</canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
+                                <div class="col-lg-6">
+                                    <div class="ibox ">
+                                        <div class="ibox-title">
+                                            <h5>Respuestas correctas y incorrectas de OA MA04OA18</h5><span class="  glyphicon glyphicon-info-sign" title="Trasladar, rotar y reflejar figuras 2D."></span>
+                                            <div class="ibox-tools"></div>
+                                        </div>
+                                        <div class="ibox-content">
+                                            <div class="scroll_content">
+                                                <canvas id="RCO24" height={{get_OA4_Desafios_RCO_graf}}>{% load staticfiles %}</canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="ibox ">
+                                        <div class="ibox-title">
+                                            <h5>Respuestas correctas y incorrectas de OA MA04OAH</h5><span class="  glyphicon glyphicon-info-sign" title="Resolver problemas dados y creados"></span>
+                                            <div class="ibox-tools"></div>
+                                        </div>
+                                        <div class="ibox-content">
+                                            <div class="scroll_content">
+                                                <canvas id="RCO25" height={{get_OA5_Desafios_RCO_graf}}>{% load staticfiles %}</canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>    
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+        <!-- Fin Rec Cuido el Oceano -->
                 <!-- BUILD YOUR CITY -->
                 {% if reim_num == '27' %}
                             
@@ -9768,6 +10619,1178 @@ var CreacionData = {
             new Chart(ctx22, {type: 'horizontalBar', data: touchAnaliticaPSData, options: barOptions});
         }*/
     // # Fin Reciclando Construyo
+
+    ////////////Inicio Reciclando cuido el Océano/////////////////////////
+
+    var ctx34data = {
+            labels:
+            [
+                {% if touch_all_act206_quantity %}
+                    {% for touch_all_act206 in touch_all_act206_quantity %}
+                        '{{touch_all_act206.name}}',
+                    {% endfor%}
+                {% endif%}
+            ],
+            datasets:
+            [
+                {
+                label: "Cantidad de botones tocados",
+                backgroundColor: ['#7CFC00', '#00FFFF', '#DCDCDC', '#FF1493', '#FF8C00'],
+                borderColor: ['#7CFC00', '#00FFFF', '#DCDCDC', '#FF1493', '#FF8C00'],
+                pointBorderColor: "#fff",
+                data:
+                [
+                    {% if touch_all_act206_quantity %}
+                        {% for touch_all_act206 in touch_all_act206_quantity %}
+                            '{{touch_all_act206.quantity}}',
+                        {% endfor%}
+                    {% endif%}
+                ]
+                }
+            ]
+            };
+
+        if ($('#touchalltrashRCO').length){
+            var ctx34 = document.getElementById("touchalltrashRCO");
+            new Chart(ctx34, {type: 'pie', data: ctx34data, options:barOptions});
+        }
+
+        //Tiempo Actividad
+        var ctx38data = {
+            labels:
+            [
+                {% if time_act_RCO_quantity %}
+                    {% for time_act_RCO in time_act_RCO_quantity %}
+                        '{{time_act_RCO.name}}',
+                    {% endfor%}
+                {% endif%}
+            ],
+            datasets:
+            [
+                {
+                label: "Minutos de juego",
+                backgroundColor: 'rgb(0, 255, 255)',
+                borderColor: "rgb(0, 255, 255)",
+                pointBorderColor: "#fff",
+                data:
+                [
+                    {% if time_act_RCO_quantity %}
+                        {% for time_act_RCO in time_act_RCO_quantity %}
+                            '{{time_act_RCO.quantity}}',
+                        {% endfor%}
+                    {% endif%}
+                ]
+                },
+            ]
+            };
+
+        if ($('#totaltimeRCO').length){
+            var ctx38 = document.getElementById("totaltimeRCO");
+            new Chart(ctx38, {type: 'horizontalBar', data: ctx38data, options:barOptions});
+        }
+
+        ///////Corectas Incorrectas////////////
+        if ($('#prueba_RCO_2').length){
+            var ctx7 = document.getElementById('prueba_RCO_2');
+            new Chart(ctx7, {
+            type: 'horizontalBar',
+            data: {
+                labels:
+                [
+                    {% if corrects_incorrects_quantity %}
+                        {% for corrects_incorrects in corrects_incorrects_quantity %}
+                            '{{corrects_incorrects.name}}',
+                        {% endfor%}
+                    {% endif%}
+                ],
+                datasets:
+                [
+                    
+                    {
+                        label: "Diferencia",
+                        backgroundColor: '	rgb(255, 182, 193)',
+                        borderColor: "	rgb(255, 182, 193)",
+                        pointBorderColor: "#fff",
+                        data:
+                        [
+                            {% if corrects_incorrects_quantity %}
+                                {% for corrects_incorrects in corrects_incorrects_quantity %}
+                                '{{corrects_incorrects.corrects}}'-'{{corrects_incorrects.incorrects}}',
+                                {% endfor%}
+                            {% endif%}
+                        ]
+                    },
+                   
+                ]
+            },
+    
+            });
+        };
+        ///////Corectas Incorrectas////////////
+        if ($('#prueba_RCO').length){
+            var ctx7 = document.getElementById('prueba_RCO');
+            new Chart(ctx7, {
+            type: 'horizontalBar',
+            data: {
+                labels:
+                [
+                    {% if corrects_incorrects_quantity %}
+                        {% for corrects_incorrects in corrects_incorrects_quantity %}
+                            '{{corrects_incorrects.name}}',
+                        {% endfor%}
+                    {% endif%}
+                ],
+                datasets:
+                [
+                    {
+                        label: "Elementos recolectados",
+                        backgroundColor: 'rgb(0, 255, 255)',
+                        borderColor: "rgb(0, 255, 255)",
+                        pointBorderColor: "#fff",
+                        data:
+                        [
+                            {% if corrects_incorrects_quantity %}
+                                {% for corrects_incorrects in corrects_incorrects_quantity %}
+                                    (({{corrects_incorrects.corrects}}*100)/({{corrects_incorrects.corrects}}+{{corrects_incorrects.incorrects}})),
+                                {% endfor%}
+                            {% endif%}
+                        ]
+                    },
+                    {
+                        label: "Elementos perdidos",
+                        backgroundColor: 'rgb(255, 182, 193)',
+                        borderColor: "rgb(255, 182, 193)",
+                        pointBorderColor: "#fff",
+                        data:
+                        [
+                            {% if corrects_incorrects_quantity %}
+                                {% for corrects_incorrects in corrects_incorrects_quantity %}
+                                (({{corrects_incorrects.incorrects}}*100)/({{corrects_incorrects.corrects}}+{{corrects_incorrects.incorrects}})),
+                                {% endfor%}
+                            {% endif%}
+                        ]
+                    }
+                ]
+            },
+            options: {
+                    scales: {
+                        xAxes: [{ stacked: true }],
+                        yAxes: [{ stacked: true }]
+                    }
+                }
+    
+            });
+        };
+        ///////Corectas Incorrectas////////////
+        if ($('#prueba_0').length){
+            var ctx7 = document.getElementById('prueba_0');
+            new Chart(ctx7, {
+            type: 'horizontalBar',
+            data: {
+                labels:
+                [
+                    {% if corrects_incorrects_quantity %}
+                        {% for corrects_incorrects in corrects_incorrects_quantity %}
+                            '{{corrects_incorrects.name}}',
+                        {% endfor%}
+                    {% endif%}
+                ],
+                datasets:
+                [
+                    {
+                        label: "Correctas totales",
+                        backgroundColor: '	rgb(0, 255, 255)',
+                        borderColor: "	rgb(0, 255, 255)",
+                        pointBorderColor: "#fff",
+                        data:
+                        [
+                            {% if corrects_incorrects_quantity %}
+                                {% for corrects_incorrects in corrects_incorrects_quantity %}
+                                    (({{corrects_incorrects.corrects}}*100)/({{corrects_incorrects.corrects}}+{{corrects_incorrects.incorrects}})),
+                                {% endfor%}
+                            {% endif%}
+                        ]
+                    },
+                    {
+                        label: "Incorrectas totales",
+                        backgroundColor: '	rgb(255, 182, 193)',
+                        borderColor: "	rgb(255, 182, 193)",
+                        pointBorderColor: "rgb(255, 182, 193)",
+                        data:
+                        [
+                            {% if corrects_incorrects_quantity %}
+                                {% for corrects_incorrects in corrects_incorrects_quantity %}
+                                (({{corrects_incorrects.incorrects}}*100)/({{corrects_incorrects.corrects}}+{{corrects_incorrects.incorrects}})),
+                                {% endfor%}
+                            {% endif%}
+                        ]
+                    }
+                ]
+            },
+
+            });
+        };
+
+        if ($('#prueba_dif').length){
+            var ctx7 = document.getElementById('prueba_dif');
+            new Chart(ctx7, {
+            type: 'horizontalBar',
+            data: {
+                labels:
+                [
+                    {% if corrects_incorrects_quantity %}
+                        {% for corrects_incorrects in corrects_incorrects_quantity %}
+                            '{{corrects_incorrects.name}}',
+                        {% endfor%}
+                    {% endif%}
+                ],
+                datasets:
+                [
+                    {
+                        label: "Correctas totales",
+                        backgroundColor: '	rgb(218, 131, 112)',
+                        borderColor: "	rgb(218, 131, 112)",
+                        pointBorderColor: "#fff",
+                        data:
+                        [
+                            {% if corrects_incorrects_quantity %}
+                                {% for corrects_incorrects in corrects_incorrects_quantity %}
+                                    '{{corrects_incorrects.corrects}}'-'{{corrects_incorrects.incorrects}}',
+                                {% endfor%}
+                            {% endif%}
+                        ]
+                    }
+                ]
+            },
+            });
+        };
+
+        //Completas Incompletas
+        var CI_RCOData = {
+            labels: [
+                {% if completa_incompleta_RCO_quantity %}
+        {% for completa_incompleta_RCO in completa_incompleta_RCO_quantity %}
+        '{{completa_incompleta_RCO.name}}',
+        {% endfor%}
+        {% endif%}
+        ],
+        datasets: [
+            {
+                label: "Completas",
+                backgroundColor: '	rgb(0, 255, 255)',
+                borderColor: "	rgb(0, 255, 255)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if completa_incompleta_RCO_quantity %}
+            {% for completa_incompleta_RCO in completa_incompleta_RCO_quantity %}
+        '{{completa_incompleta_RCO.completa}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        },
+        {
+                label: "Incompletas (Regresó al menú principal)",
+                backgroundColor: 'rgb(255, 182, 193)',
+                borderColor: "rgb(255, 182, 193)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if completa_incompleta_RCO_quantity %}
+            {% for completa_incompleta_RCO in completa_incompleta_RCO_quantity %}
+        '{{completa_incompleta_RCO.incompleta}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        },
+        {
+                label: "Incompletas (No logro concretar el desafio en el tiempo estimado)",
+                backgroundColor: 'rgb(221, 160, 221)',
+                borderColor: "rgb(221, 160, 221)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if completa_incompleta_RCO_quantity %}
+            {% for completa_incompleta_RCO in completa_incompleta_RCO_quantity %}
+        '{{completa_incompleta_RCO.inactiva}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        }
+        ]
+        };
+        
+        if ($('#CI_RCO').length){
+            var ctx21 = document.getElementById("CI_RCO").getContext("2d");
+            new Chart(ctx21, {type: 'horizontalBar', data: CI_RCOData, options: BarstackedOptions});
+        }
+
+        //Completas Incompletas
+        var CI_RCO_2Data = {
+            labels: [
+                {% if completa_incompleta_RCO_quantity %}
+        {% for completa_incompleta_RCO in completa_incompleta_RCO_quantity %}
+        '{{completa_incompleta_RCO.name}}',
+        {% endfor%}
+        {% endif%}
+        ],
+        datasets: [
+            {
+                label: "Completa actividad",
+                backgroundColor: '	rgb(0, 255, 255)',
+                borderColor: "	rgb(0, 255, 255)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if completa_incompleta_RCO_quantity %}
+            {% for completa_incompleta_RCO in completa_incompleta_RCO_quantity %}
+        (({{completa_incompleta_RCO.completa}}*100)/(({{completa_incompleta_RCO.completa}}+{{completa_incompleta_RCO.incompleta}})+{{completa_incompleta_RCO.inactiva}})),
+        {% endfor%}
+        {% endif%}
+        ]
+        },
+        {
+                label: "No completa actividad",
+                backgroundColor: '	rgb(255, 182, 193)',
+                borderColor: "	rgb(255, 182, 193)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if completa_incompleta_RCO_quantity %}
+            {% for completa_incompleta_RCO in completa_incompleta_RCO_quantity %}
+        ((({{completa_incompleta_RCO.incompleta}}+{{completa_incompleta_RCO.inactiva}})*100)/(({{completa_incompleta_RCO.completa}}+{{completa_incompleta_RCO.incompleta}})+{{completa_incompleta_RCO.inactiva}})),
+        {% endfor%}
+        {% endif%}
+        ]
+        }
+        ]
+        };
+
+        if ($('#CI_RCO_2').length){
+            var ctx21 = document.getElementById("CI_RCO_2").getContext("2d");
+            new Chart(ctx21, {type: 'horizontalBar', data: CI_RCO_2Data, options: {
+                    scales: {
+                        xAxes: [{ stacked: true }],
+                        yAxes: [{ stacked: true }]
+                    }
+                }});
+        }
+        ////Correctas e incorrectas
+        if ($('#analitics1_1').length){
+            var ctx52 = document.getElementById('analitics1_1');
+            new Chart(ctx52, {
+            type: 'horizontalBar',
+            data: {
+                labels:
+                [
+                    {% if analytics1_1_co_quantity_act_3 %}
+                        {% for analytics1_1_co in analytics1_1_co_quantity_act_3 %}
+                            '{{analytics1_1_co.name}}',
+                        {% endfor%}
+                    {% endif%}
+                ],
+                datasets:
+                [
+                    {
+                        label: "Acierto Metal",
+                        backgroundColor: 'rgb(255, 0, 0)',
+                        borderColor: "rgb(255, 0, 0)",
+                        pointBorderColor: "#fff",
+                        data:
+                        [
+                            {% if analytics1_1_co_quantity_act_3 %}
+                                {% for analytics1_1_co in analytics1_1_co_quantity_act_3 %}
+                                    '{{analytics1_1_co.act1}}',
+                                {% endfor%}
+                            {% endif%}
+                        ]
+                    },
+                    {
+                        label: "Acierto cartón",
+                        backgroundColor: '	rgb(255, 215, 0)',
+                        borderColor: "	rgb(255, 215, 0)",
+                        pointBorderColor: "#fff",
+                        data:
+                        [
+                            {% if analytics1_1_co_quantity_act_3 %}
+                                {% for analytics1_1_co in analytics1_1_co_quantity_act_3 %}
+                                    '{{analytics1_1_co.act2}}',
+                                {% endfor%}
+                            {% endif%}
+                        ]
+                    },
+                    {
+                        label: "Acierto Plástico",
+                        backgroundColor: '	rgb(0, 0, 255)',
+                        borderColor: "	rgb(0, 0, 255)",
+                        pointBorderColor: "#fff",
+                        data:
+                        [
+                            {% if analytics1_1_co_quantity_act_3 %}
+                                {% for analytics1_1_co in analytics1_1_co_quantity_act_3 %}
+                                    '{{analytics1_1_co.act3}}',
+                                {% endfor%}
+                            {% endif%}
+                        ]
+                    },
+                    {
+                        label: "Acierto Vidrio",
+                        backgroundColor: '	rgb(50, 205, 50)',
+                        borderColor: "	rgb(50, 205, 50)",
+                        pointBorderColor: "#fff",
+                        data:
+                        [
+                            {% if analytics1_1_co_quantity_act_3 %}
+                                {% for analytics1_1_co in analytics1_1_co_quantity_act_3 %}
+                                    '{{analytics1_1_co.act4}}',
+                                {% endfor%}
+                            {% endif%}
+                        ]
+                    },
+                   
+                ]
+            },
+                options: {
+                    scales: {
+                    xAxes: [{ 
+                        stacked: false, 
+                        }],
+                    yAxes: [{ 
+                        stacked: false}],
+                    },
+                }
+                });
+        }
+        ////Incorrectas
+        if ($('#analitics1_2').length){
+            var ctx52 = document.getElementById('analitics1_2');
+            new Chart(ctx52, {
+            type: 'horizontalBar',
+            data: {
+                labels:
+                [
+                    {% if analytics1_co_quantity_act_3 %}
+                        {% for analytics1_co in analytics1_co_quantity_act_3 %}
+                            '{{analytics1_co.name}}',
+                        {% endfor%}
+                    {% endif%}
+                ],
+                datasets:
+                [
+                    {
+                        label: "Desacierto Metal",
+                        backgroundColor: 'rgb(255, 0, 0)',
+                        borderColor: "rgb(255, 0, 0)",
+                        pointBorderColor: "#fff",
+                        data:
+                        [
+                            {% if analytics1_co_quantity_act_3 %}
+                                {% for analytics1_co in analytics1_co_quantity_act_3 %}
+                                    '{{analytics1_co.act1}}',
+                                {% endfor%}
+                            {% endif%}
+                        ]
+                    },
+                    {
+                        label: "Desacierto cartón",
+                        backgroundColor: '	rgb(255, 215, 0)',
+                        borderColor: "	rgb(255, 215, 0)",
+                        pointBorderColor: "#fff",
+                        data:
+                        [
+                            {% if analytics1_co_quantity_act_3 %}
+                                {% for analytics1_co in analytics1_co_quantity_act_3 %}
+                                    '{{analytics1_co.act2}}',
+                                {% endfor%}
+                            {% endif%}
+                        ]
+                    },
+                    {
+                        label: "Desacierto Plástico",
+                        backgroundColor: '	rgb(0, 0, 255)',
+                        borderColor: "	rgb(0, 0, 255)",
+                        pointBorderColor: "#fff",
+                        data:
+                        [
+                            {% if analytics1_co_quantity_act_3 %}
+                                {% for analytics1_co in analytics1_co_quantity_act_3 %}
+                                    '{{analytics1_co.act3}}',
+                                {% endfor%}
+                            {% endif%}
+                        ]
+                    },
+                    {
+                        label: "Desacierto Vidrio",
+                        backgroundColor: '	rgb(50, 205, 50)',
+                        borderColor: "	rgb(50, 205, 50)",
+                        pointBorderColor: "#fff",
+                        data:
+                        [
+                            {% if analytics1_co_quantity_act_3 %}
+                                {% for analytics1_co in analytics1_co_quantity_act_3 %}
+                                    '{{analytics1_co.act4}}',
+                                {% endfor%}
+                            {% endif%}
+                        ]
+                    },
+                   
+                ]
+            },
+                options: {
+                    scales: {
+                    xAxes: [{ 
+                        stacked: false, 
+                        }],
+                    yAxes: [{ 
+                        stacked: false}],
+                    },
+                }
+                });
+        }
+
+        //Aciertos metal
+        var RCOData = {
+            labels: [
+                {% if posicionamiento_RCO_quantity %}
+        {% for posicionamiento_RCO in posicionamiento_RCO_quantity %}
+        '{{posicionamiento_RCO.name}}',
+        {% endfor%}
+        {% endif%}
+        ],
+        datasets: [
+            {
+                label: "Acierto metal",
+                backgroundColor: 'rgb(234, 105, 105)',
+                borderColor: "rgb(234, 105, 105)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if posicionamiento_RCO_quantity %}
+            {% for posicionamiento_RCO in posicionamiento_RCO_quantity %}
+        (({{posicionamiento_RCO.a_metal}}*100)/({{posicionamiento_RCO.a_metal}}+{{posicionamiento_RCO.desa_metal}})),
+        {% endfor%}
+        {% endif%}
+        ]
+        },
+        {
+                label: "Desacierto metal",
+                backgroundColor: 'rgb(185, 35, 35)',
+                borderColor: "rgb(185, 35, 35)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if posicionamiento_RCO_quantity %}
+            {% for posicionamiento_RCO in posicionamiento_RCO_quantity %}
+            (({{posicionamiento_RCO.desa_metal}}*100)/({{posicionamiento_RCO.a_metal}}+{{posicionamiento_RCO.desa_metal}})),
+        {% endfor%}
+        {% endif%}
+        ]
+        }
+        ]
+        };
+        if ($('#RCO').length){
+            var ctx20 = document.getElementById("RCO").getContext("2d");
+            new Chart(ctx20, {type: 'horizontalBar', data: RCOData, options: {
+                    scales: {
+                        xAxes: [{ stacked: true }],
+                        yAxes: [{ stacked: true }]
+                    }
+                }});
+        }
+
+        //Aciertos carton
+        var RCO_1Data = {
+            labels: [
+                {% if posicionamiento_RCO_quantity %}
+        {% for posicionamiento_RCO in posicionamiento_RCO_quantity %}
+        '{{posicionamiento_RCO.name}}',
+        {% endfor%}
+        {% endif%}
+        ],
+        datasets: [
+        {
+                label: "Acierto cartón",
+                backgroundColor: 'rgb(212, 204, 109 )',
+                borderColor: "rgb(212, 204, 109 )",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if posicionamiento_RCO_quantity %}
+            {% for posicionamiento_RCO in posicionamiento_RCO_quantity %}
+            (({{posicionamiento_RCO.a_carton}}*100)/({{posicionamiento_RCO.a_carton}}+{{posicionamiento_RCO.desa_carton}})),
+        {% endfor%}
+        {% endif%}
+        ]
+        },
+        {
+                label: "Acierto cartón",
+                backgroundColor: 'rgb(176, 167, 46)',
+                borderColor: "rgb(176, 167, 46)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if posicionamiento_RCO_quantity %}
+            {% for posicionamiento_RCO in posicionamiento_RCO_quantity %}
+            (({{posicionamiento_RCO.desa_carton}}*100)/({{posicionamiento_RCO.a_carton}}+{{posicionamiento_RCO.desa_carton}})),
+        {% endfor%}
+        {% endif%}
+        ]
+        }
+        ]
+        };
+        if ($('#RCO_1').length){
+            var ctx20 = document.getElementById("RCO_1").getContext("2d");
+            new Chart(ctx20, {type: 'horizontalBar', data: RCO_1Data, options: {
+                    scales: {
+                        xAxes: [{ stacked: true }],
+                        yAxes: [{ stacked: true }]
+                    }
+                }});
+        }
+        //Aciertos plastico
+        var RCO_2Data = {
+            labels: [
+                {% if posicionamiento_RCO_quantity %}
+        {% for posicionamiento_RCO in posicionamiento_RCO_quantity %}
+        '{{posicionamiento_RCO.name}}',
+        {% endfor%}
+        {% endif%}
+        ],
+        datasets: [
+        {
+                label: "Acierto Plástico",
+                backgroundColor: 'rgb(82, 100, 211 )',
+                borderColor: "rgb(82, 100, 211 )",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if posicionamiento_RCO_quantity %}
+            {% for posicionamiento_RCO in posicionamiento_RCO_quantity %}
+            (({{posicionamiento_RCO.a_plastico}}*100)/({{posicionamiento_RCO.a_plastico}}+{{posicionamiento_RCO.desa_plastico}})),
+        {% endfor%}
+        {% endif%}
+        ]
+        },
+        {
+                label: "Desacierto Plástico",
+                backgroundColor: 'rgb( 42, 53, 125)',
+                borderColor: "rgb(176, 167, 46)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if posicionamiento_RCO_quantity %}
+            {% for posicionamiento_RCO in posicionamiento_RCO_quantity %}
+            (({{posicionamiento_RCO.desa_plastico}}*100)/({{posicionamiento_RCO.a_plastico}}+{{posicionamiento_RCO.desa_plastico}})),
+        {% endfor%}
+        {% endif%}
+        ]
+        }
+        ]
+        };
+        if ($('#RCO_2').length){
+            var ctx20 = document.getElementById("RCO_2").getContext("2d");
+            new Chart(ctx20, {type: 'horizontalBar', data: RCO_2Data, options: {
+                    scales: {
+                        xAxes: [{ stacked: true }],
+                        yAxes: [{ stacked: true }]
+                    }
+                }});
+        }
+        //Aciertos vidrio
+        var RCO_3Data = {
+            labels: [
+                {% if posicionamiento_RCO_quantity %}
+        {% for posicionamiento_RCO in posicionamiento_RCO_quantity %}
+        '{{posicionamiento_RCO.name}}',
+        {% endfor%}
+        {% endif%}
+        ],
+        datasets: [
+        {
+                label: "Acierto vidrio",
+                backgroundColor: 'rgb(109, 220, 112)',
+                borderColor: "rgb(109, 220, 112)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if posicionamiento_RCO_quantity %}
+            {% for posicionamiento_RCO in posicionamiento_RCO_quantity %}
+            (({{posicionamiento_RCO.a_vidrio}}*100)/({{posicionamiento_RCO.a_vidrio}}+{{posicionamiento_RCO.desa_vidrio}})),
+        {% endfor%}
+        {% endif%}
+        ]
+        },
+        {
+                label: "Desacierto vidrio",
+                backgroundColor: 'rgb(89, 160, 91)',
+                borderColor: "rgb(89, 160, 91)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if posicionamiento_RCO_quantity %}
+            {% for posicionamiento_RCO in posicionamiento_RCO_quantity %}
+            (({{posicionamiento_RCO.desa_vidrio}}*100)/({{posicionamiento_RCO.a_vidrio}}+{{posicionamiento_RCO.desa_vidrio}})),
+        {% endfor%}
+        {% endif%}
+        ]
+        }
+        ]
+        };
+        if ($('#RCO_3').length){
+            var ctx20 = document.getElementById("RCO_3").getContext("2d");
+            new Chart(ctx20, {type: 'horizontalBar', data: RCO_3Data, options: {
+                    scales: {
+                        xAxes: [{ stacked: true }],
+                        yAxes: [{ stacked: true }]
+                    }
+                }});
+        }
+
+
+        ///////////////////////Desafios//////////////////
+        var RCOData1 = {
+            labels: [
+                {% if get_OA_Desafios_RCO_quantity %}
+        {% for get_OA_Desafios_RCO in get_OA_Desafios_RCO_quantity %}
+        '{{get_OA_Desafios_RCO.name}}',
+        {% endfor%}
+        {% endif%}
+        ],
+        datasets: [
+            {
+                label: "Respuestas correctas totales",
+                backgroundColor: 'rgb(53, 185, 177 )',
+                borderColor: "rgb(53, 185, 177 )",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if get_OA_Desafios_RCO_quantity %}
+            {% for get_OA_Desafios_RCO in get_OA_Desafios_RCO_quantity %}
+        (({{get_OA_Desafios_RCO.bn_total}}*100)/({{get_OA_Desafios_RCO.bn_total}}+{{get_OA_Desafios_RCO.ml_total}})),
+        {% endfor%}
+        {% endif%}
+        ]
+        },
+        {
+                label: "Respuestas incorrectas totales",
+                backgroundColor: 'rgb(182, 88, 88)',
+                borderColor: "rgb(182, 88, 88)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if get_OA_Desafios_RCO_quantity %}
+            {% for get_OA_Desafios_RCO in get_OA_Desafios_RCO_quantity %}
+            (({{get_OA_Desafios_RCO.ml_total}}*100)/({{get_OA_Desafios_RCO.bn_total}}+{{get_OA_Desafios_RCO.ml_total}})),
+        {% endfor%}
+        {% endif%}
+        ]
+        }
+        ]
+        };
+
+        if ($('#RCO1').length){
+            var ctx20 = document.getElementById("RCO1").getContext("2d");
+            new Chart(ctx20, {type: 'horizontalBar', data: RCOData1, options: {scales: {
+                        xAxes: [{ stacked: true }],
+                        yAxes: [{ stacked: true }]
+                    }}});
+        }
+/////////////////////////////////////////////////////////////
+var RCOData2 = {
+            labels: [
+                {% if get_OA2_Desafios_RCO_quantity %}
+        {% for get_OA2_Desafios_RCO in get_OA2_Desafios_RCO_quantity %}
+        '{{get_OA2_Desafios_RCO.name}}',
+        {% endfor%}
+        {% endif%}
+        ],
+        datasets: [
+            {
+                label: "Respuestas correctas CN05OAAC",
+                backgroundColor: 'rgb(77, 208, 225 )',
+                borderColor: "rgb(77, 208, 225)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if get_OA2_Desafios_RCO_quantity %}
+            {% for get_OA2_Desafios_RCO in get_OA2_Desafios_RCO_quantity %}
+        '{{get_OA2_Desafios_RCO.bn_CN05OAAC}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        },
+        {
+                label: "Respuestas incorrectas CN05OAAC",
+                backgroundColor: 'rgb(230, 176, 170 )',
+                borderColor: "rgb(230, 176, 170 )",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if get_OA2_2_Desafios_RCO_quantity %}
+            {% for get_OA2_2_Desafios_RCO in get_OA2_2_Desafios_RCO_quantity %}
+        '{{get_OA2_2_Desafios_RCO.ml_CN05OAAC}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        }
+        ]
+        };
+
+        if ($('#RCO2').length){
+            var ctx20 = document.getElementById("RCO2").getContext("2d");
+            new Chart(ctx20, {type: 'horizontalBar', data: RCOData2, options: {
+                scales: {
+                        xAxes: [{ stacked: true }],
+                        yAxes: [{ stacked: true }]
+                    }
+                }});
+        }
+
+
+        //////////////////////////////
+        var RCOData23 = {
+            labels: [
+                {% if get_OA3_Desafios_RCO_quantity %}
+        {% for get_OA3_Desafios_RCO in get_OA3_Desafios_RCO_quantity %}
+        '{{get_OA3_Desafios_RCO.name}}',
+        {% endfor%}
+        {% endif%}
+        ],
+        datasets: [
+            {
+                label: "Respuestas correctas MA04OA17",
+                backgroundColor: 'rgb(77, 208, 225 )',
+                borderColor: "rgb(77, 208, 225)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if get_OA3_Desafios_RCO_quantity %}
+            {% for get_OA3_Desafios_RCO in get_OA3_Desafios_RCO_quantity %}
+        '{{get_OA3_Desafios_RCO.bn_MA04OA17}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        },
+        {
+                label: "Respuestas incorrectas MA04OA17",
+                backgroundColor: 'rgb(230, 176, 170 )',
+                borderColor: "rgb(230, 176, 170 )",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if get_OA3_2_Desafios_RCO_quantity %}
+            {% for get_OA3_2_Desafios_RCO in get_OA3_2_Desafios_RCO_quantity %}
+        '{{get_OA3_2_Desafios_RCO.ml_MA04OA17}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        }
+        ]
+        };
+
+        if ($('#RCO23').length){
+            var ctx20 = document.getElementById("RCO23").getContext("2d");
+            new Chart(ctx20, {type: 'horizontalBar', data: RCOData23, options: {
+                scales: {
+                        xAxes: [{ stacked: true }],
+                        yAxes: [{ stacked: true }]
+                    }
+                }});
+        }
+
+        var RCOData24 = {
+            labels: [
+                {% if get_OA4_Desafios_RCO_quantity %}
+        {% for get_OA4_Desafios_RCO in get_OA4_Desafios_RCO_quantity %}
+        '{{get_OA4_Desafios_RCO.name}}',
+        {% endfor%}
+        {% endif%}
+        ],
+        datasets: [
+            {
+                label: "Respuestas correctas MA04OA18",
+                backgroundColor: 'rgb(77, 208, 225 )',
+                borderColor: "rgb(77, 208, 225)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if get_OA4_Desafios_RCO_quantity %}
+            {% for get_OA4_Desafios_RCO in get_OA4_Desafios_RCO_quantity %}
+        '{{get_OA4_Desafios_RCO.bn_MA04OA18}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        },
+        {
+                label: "Respuestas incorrectas MA04OA18",
+                backgroundColor: 'rgb(230, 176, 170 )',
+                borderColor: "rgb(230, 176, 170 )",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if get_OA4_2_Desafios_RCO_quantity %}
+            {% for get_OA4_2_Desafios_RCO in get_OA4_2_Desafios_RCO_quantity %}
+        '{{get_OA4_2_Desafios_RCO.ml_MA04OA18}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        }
+        ]
+        };
+
+        if ($('#RCO24').length){
+            var ctx20 = document.getElementById("RCO24").getContext("2d");
+            new Chart(ctx20, {type: 'horizontalBar', data: RCOData24, options: {
+                scales: {
+                        xAxes: [{ stacked: true }],
+                        yAxes: [{ stacked: true }]
+                    }
+                }});
+        }
+
+        var RCOData25 = {
+            labels: [
+                {% if get_OA5_Desafios_RCO_quantity %}
+        {% for get_OA5_Desafios_RCO in get_OA5_Desafios_RCO_quantity %}
+        '{{get_OA5_Desafios_RCO.name}}',
+        {% endfor%}
+        {% endif%}
+        ],
+        datasets: [
+            {
+                label: "Respuestas correctas MA04OAHA",
+                backgroundColor: 'rgb(77, 208, 225 )',
+                borderColor: "rgb(77, 208, 225)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if get_OA5_Desafios_RCO_quantity %}
+            {% for get_OA5_Desafios_RCO in get_OA5_Desafios_RCO_quantity %}
+        '{{get_OA5_Desafios_RCO.bn_MA04OAHA}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        },
+        {
+                label: "Respuestas incorrectas MA04OAHA",
+                backgroundColor: 'rgb(230, 176, 170 )',
+                borderColor: "rgb(230, 176, 170 )",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if get_OA5_2_Desafios_RCO_quantity %}
+            {% for get_OA5_2_Desafios_RCO in get_OA5_2_Desafios_RCO_quantity %}
+        '{{get_OA5_2_Desafios_RCO.ml_MA04OAHA}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        }
+        ]
+        };
+
+        if ($('#RCO25').length){
+            var ctx20 = document.getElementById("RCO25").getContext("2d");
+            new Chart(ctx20, {type: 'horizontalBar', data: RCOData25, options: {
+                scales: {
+                        xAxes: [{ stacked: true }],
+                        yAxes: [{ stacked: true }]
+                    }
+                }});
+        }
+
+
+        var RCOData26 = {
+            labels: [
+                {% if get_victorias_Desafios_RCO_quantity %}
+        {% for get_victorias_Desafios_RCO in get_victorias_Desafios_RCO_quantity %}
+        '{{get_victorias_Desafios_RCO.name}}',
+        {% endfor%}
+        {% endif%}
+        ],
+        datasets: [
+            {
+                label: "Victorias",
+                backgroundColor: 'rgb(77, 208, 225 )',
+                borderColor: "rgb(77, 208, 225)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if get_victorias_Desafios_RCO_quantity %}
+            {% for get_victorias_Desafios_RCO in get_victorias_Desafios_RCO_quantity %}
+        '{{get_victorias_Desafios_RCO.victorias}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        },
+        {
+                label: "Derrotas",
+                backgroundColor: 'rgb(230, 176, 170 )',
+                borderColor: "rgb(230, 176, 170)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if get_derrotas_Desafios_RCO_quantity %}
+            {% for get_derrotas_Desafios_RCO in get_derrotas_Desafios_RCO_quantity %}
+        '{{get_derrotas_Desafios_RCO.derrotas}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        }
+        ]
+        };
+
+        if ($('#RCO26').length){
+            var ctx20 = document.getElementById("RCO26").getContext("2d");
+            new Chart(ctx20, {type: 'horizontalBar', data: RCOData26, options: {
+                scales: {
+                        xAxes: [{ stacked: true }],
+                        yAxes: [{ stacked: true }]
+                    }
+                }});
+        }
+
+        
+
+        var RCOData27 = {
+            labels: [
+                {% if get_mov_multi_RCO_quantity %}
+        {% for get_mov_multi_RCO in get_mov_multi_RCO_quantity %}
+        '{{get_mov_multi_RCO.name}}',
+        {% endfor%}
+        {% endif%}
+        ],
+        datasets: [
+            {
+                label: "Cantidad de movimientos",
+                backgroundColor: 'rgb(207, 200, 198)',
+                borderColor: "rgb(207, 200, 198)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if get_mov_multi_RCO_quantity %}
+            {% for get_mov_multi_RCO in get_mov_multi_RCO_quantity %}
+        '{{get_mov_multi_RCO.movimientos}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        }
+        ]
+        };
+
+        if ($('#RCO27').length){
+            var ctx20 = document.getElementById("RCO27").getContext("2d");
+            new Chart(ctx20, {type: 'horizontalBar', data: RCOData27, options: barOptions});
+        }
+
+
+        ///////////////////////////////
+
+        var RCOData3 = {
+            labels: [
+                {% if get_OA_Desafios_RCO_quantity %}
+        {% for get_OA_Desafios_RCO in get_OA_Desafios_RCO_quantity %}
+        '{{get_OA_Desafios_RCO.name}}',
+        {% endfor%}
+        {% endif%}
+        ],
+        datasets: [
+        {
+                label: "b3",
+                backgroundColor: 'rgb(110, 153, 230)',
+                borderColor: "rgb(110, 153, 230)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if get_OA_Desafios_RCO_quantity %}
+            {% for get_OA_Desafios_RCO in get_OA_Desafios_RCO_quantity %}
+        '{{get_OA_Desafios_RCO.bn_MA04OA17}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        },
+        {
+                label: "m3",
+                backgroundColor: 'rgb(33, 71, 136 )',
+                borderColor: "rgb(33, 71, 136 )",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if get_OA_Desafios_RCO_quantity %}
+            {% for get_OA_Desafios_RCO in get_OA_Desafios_RCO_quantity %}
+        '{{get_OA_Desafios_RCO.ml_MA04OA17}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        }
+        ]
+        };
+        if ($('#RCO3').length){
+            var ctx20 = document.getElementById("RCO3").getContext("2d");
+            new Chart(ctx20, {type: 'horizontalBar', data: RCOData3, options: barOptions});
+        }
+
+        var ctx34data = {
+            labels:
+            [
+                {% if touch_all_OA1Bien_quantity %}
+                    {% for touch_all_OA1Bien in touch_all_OA1Bien_quantity %}
+                        '{{touch_all_OA1Bien.name}}',
+                    {% endfor%}
+                {% endif%}
+            ],
+            datasets:
+            [
+                {
+                label: "Cantidad de basura tocada",
+                backgroundColor: '#01bfa5',
+                borderColor: "#01bfa5",
+                pointBorderColor: "#fff",
+                data:
+                [
+                    {% if touch_all_OA1Bien_quantity %}
+                        {% for touch_all_OA1Bien in touch_all_OA1Bien_quantity %}
+                            '{{touch_all_OA1Bien.quantity}}',
+                        {% endfor%}
+                    {% endif%}
+                ]
+                }
+            ]
+            };
+
+        if ($('#OA1Bien').length){
+            var ctx34 = document.getElementById("OA1Bien");
+            new Chart(ctx34, {type: 'horizontalBar', data: ctx34data, options:barOptions});
+        }
+
+        //Analicis RCO
+var agrupadosAnaliticaRCOData = {
+            labels: [
+                {% if elementos_analitica_RCO_quantity %}
+                {% for elementos_analitica_RCO in elementos_analitica_RCO_quantity %}
+                '{{elementos_analitica_RCO.name}}',
+                {% endfor%}
+                {% endif%}
+                ],
+            datasets: [
+            {
+                label: "Elementos Agrupados en el tiempo",
+                backgroundColor: 'rgb(0,188,212)',
+                borderColor: "rgb(3,155,229)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if elementos_analitica_RCO_quantity %}
+                    {% for elementos_analitica_RCO in elementos_analitica_RCO_quantity %}
+                    '{{elementos_analitica_RCO.quantity}}',
+                    {% endfor%}
+                    {% endif%}
+                    ],
+                fill: false,
+                pointRadius:7,
+                pointHoverRadius:10,
+                showLine:true
+        }
+        ]
+        };       
+        var lineOptions = {
+            animation: false,
+            scales: {
+                xAxes:[{
+                    stacked:true,
+                    ticks: {
+                        min: 0
+                    }
+                }],
+                yAxes:[{
+                    stacked:false,
+                    ticks: {
+                        min: 0
+                    }
+                }]
+
+            },
+            display: true
+
+        };
+        if ($('#agrupadosAnaliticaRCO').length){
+            var ctx22 = document.getElementById("agrupadosAnaliticaRCO").getContext("2d");
+            new Chart(ctx22, {type: 'line', data: agrupadosAnaliticaRCOData, options:lineOptions});
+        }
+
+        //////////// Fin Reciclando cuido el oceano /////////////////////////
+
+        
     </script>
 
     <script>
