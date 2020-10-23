@@ -1922,7 +1922,7 @@
             
             <!-- Fin Clean Ocean -->
 
-            {% if student_num == '0' and reim_num != '0' and reim_num != '1' and activity_num == '0' and reim_num != '3' and reim_num != '2' and reim_num != '4' and reim_num != '27' %}
+            {% if student_num == '0' and reim_num != '0' and reim_num != '1' and activity_num == '0' and reim_num != '3' and reim_num != '2' and reim_num != '4' and reim_num != '27' and reim_num != '202'%}
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
@@ -4185,12 +4185,229 @@
                 {% endif %}
 
 
-
-
-
                 <!-- FIN BUILD YOUR CITY -->
 
+                <!-- INICIO PROTECT YOUR LAND -->
+                {% if reim_num == '202' %}
+                <div class="wrapper wrapper-content">
+                    <!-- GENERAL RESULTS-->
+                    {% if activity_num == '0' %}
+                        <h1>Resultados Generales REIM: <strong>PROTECT YOUR LAND</strong></h1>
+                        <hr><br>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="row" >
+                                    <div class="col-lg-6">
+                                        <div class="ibox ">
+                                            <div class="ibox-title">
+                                                <h5>Sesiones por Estudiante </h5><span class="  glyphicon glyphicon-info-sign" title="Cantidad de sesiones que cada niño/a realizó al jugar con BuildYourCity entre las fechas seleccionadas"></span>
+                                                <div class="ibox-tools"></div>
+                                            </div>
+                                            <div class="ibox-content">
+                                                <div class="scroll_content">
+                                                    {% comment %} <canvas id="ByC_NumberOfSessions" height=1620>{% load staticfiles %}</canvas> {% endcomment %}
+                                                    <canvas id="PyL_NumberOfSessions" height={{PyL_numberOfSessions_GraphSize}}>{% load staticfiles %}</canvas>
 
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="ibox ">
+                                            <div class="ibox-title">
+                                                <h5>Tiempo de juego por Estudiante </h5><span class="  glyphicon glyphicon-info-sign" title="Cantidad de tiempo (min) que cada niño/a ha jugado con BuildYourCity entre las fechas seleccionadas"></span>
+                                                <div class="ibox-tools"></div>
+                                            </div>
+                                            <div class="ibox-content">
+                                                <div class="scroll_content">
+                                                    {% comment %} <canvas id="ByC_GameTime" height={{game_time_graph}}>{% load staticfiles %}</canvas> {% endcomment %}
+                                                    <canvas id="PyL_PlayTime" height={{PYL_playTime_GraphSize}}>{% load staticfiles %}</canvas>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="ibox">
+                                            <div class="ibox-title">
+                                                <h5>Cantidad de toques a la pantalla por Estudiante </h5><span class="  glyphicon glyphicon-info-sign" title="Cantidad de toques a la pantalla que cada niño/a realizó al jugar con BuildYourCity entre las fechas seleccionadas"></span>
+                                                <div class="ibox-tools"></div>
+                                            </div>
+                                            <div class="ibox-content">
+                                                <div class="scroll_content">
+                                                    {% comment %} <canvas id="horizontalBar" height={{game_time_graph}}>{% load staticfiles %}</canvas> {% endcomment %}
+                                                    <canvas id="PyL_TouchCountInGame" height={{ByC_touchCount_GraphSize}}>{% load staticfiles %}</canvas>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                        <div class="col-lg-6">
+                                            <div class="ibox ">
+                                                <div class="ibox-title">
+                                                    <h5>Preferencia de Actividades </h5><span class="  glyphicon glyphicon-info-sign" title="Numero de ingresos a cada actividad de BuildYourCity entre las fechas seleccionadas"></span>
+                                                    <div class="ibox-tools"></div>
+                                                </div>
+                                                <div class="ibox-content">
+                                                    <div class="scroll_content">
+                                                        <canvas id="PYL_ActivityPreference">{% load staticfiles %}</canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                        {% endif %}
+                        <!-- ACTIVITY 1:FOOTPRINTS - RESULTS: -->
+                         {% if activity_num == '8000' %}
+                           <h1>Resultados Actividad 1 : <strong>FOOTPRINTS</strong></h1>
+                        <hr><br>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="row" >
+                                    <div class="col-lg-6">
+                                        <div class="ibox ">
+                                            <div class="ibox-title">
+                                                <h5>Elementos recolectados durante la locomoción y manipulación del juego </h5><span class="  glyphicon glyphicon-info-sign" title="Cantidad elementos recolectados durante la manipulación - OA: EF04 OA01"></span>
+                                                <div class="ibox-tools"></div>
+                                            </div>
+                                            <div class="ibox-content">
+                                                <div class="scroll_content">
+                                                    {% comment %} <canvas id="ByC_NumberOfSessions" height=1620>{% load staticfiles %}</canvas> {% endcomment %}
+                                                    <canvas id="PYL_NumberOfElement" height={{PyL_numberOfSessions_GraphSize}}>{% load staticfiles %}</canvas>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                        <!-- ACTIVITY 2: DRAW SOLUTIONS - RESULTS: -->
+                        {% if activity_num == '8001' %}
+                            <h1>Resultados Actividad 2: <strong>Draw Solutions</strong></h1>
+                            <hr><br>
+                         <div class="row">
+                            <div class="col-lg-12">
+                                <div class="row" >
+                                    <div class="col-lg-6">
+                                        <div class="ibox ">
+                                            <div class="ibox-title">
+                                                <h5>Colores utilizados para realizar el dibujo </h5><span class="  glyphicon glyphicon-info-sign" title="Cantidad elementos recolectados durante la manipulación - OA: EF04 OA01"></span>
+                                                <div class="ibox-tools"></div>
+                                            </div>
+                                            <div class="ibox-content">
+                                                <div class="scroll_content">
+                                                    {% comment %} <canvas id="ByC_NumberOfSessions" height=1620>{% load staticfiles %}</canvas> {% endcomment %}
+                                                    <canvas id="PYL_Color" height={{PyL_numberOfSessions_GraphSize}}>{% load staticfiles %}</canvas>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="ibox ">
+                                            <div class="ibox-title">
+                                                <h5>Colores utilizados para realizar el dibujo </h5><span class="  glyphicon glyphicon-info-sign" title="Cantidad elementos recolectados durante la manipulación - OA: EF04 OA01"></span>
+                                                <div class="ibox-tools"></div>
+                                            </div>
+                                            <div class="ibox-content">
+                                                <div class="scroll_content">
+                                                    {% comment %} <canvas id="ByC_NumberOfSessions" height=1620>{% load staticfiles %}</canvas> {% endcomment %}
+                                                    <canvas id="PYL_Color" height={{PyL_numberOfSessions_GraphSize}}>{% load staticfiles %}</canvas>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {% endif %}
+                                        <!-- ACTIVIDAD GALLERY-->
+                    {% if activity_num == '8002' %}
+                        <h1>Resultados Actividad 3: <strong>Art Gallery</strong></h1>
+                        <hr><br>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="row" >
+                                    <div class="col-lg-6">
+                                        <div class="ibox ">
+                                            <div class="ibox-title">
+                                                <h5>Reacciones ingresadas por estudiantes en la galeria de arte</h5><span class="  glyphicon glyphicon-info-sign" title="Reacciones realizadas por estudiante"></span>
+                                                <div class="ibox-tools"></div>
+                                            </div>
+                                            <div class="ibox-content">
+                                                <div class="scroll_content">
+                                                    {% comment %} <canvas id="ByC_NumberOfSessions" height=1620>{% load staticfiles %}</canvas> {% endcomment %}
+                                                    <canvas id="PYL_emociones" height={{PyL_numberOfSessions_GraphSize}}>{% load staticfiles %}</canvas>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        {% endif %}
+                                      <!-- ACTIVIDAD 4 BUILD YOUR LAND-->
+                    {% if activity_num == '8004' %}
+                        <h1>Resultados Actividad 4: <strong>BUILD YOUR LAND </strong></h1>
+                        <hr><br>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="row" >
+                                    <div class="col-lg-6">
+                                        <div class="ibox ">
+                                            <div class="ibox-title">
+                                                <h5>Respuestas correctas e incorrectas por pregunta </h5><span class="  glyphicon glyphicon-info-sign" title="Cantidad de respuestas correctas e incorrectas por pregunta"></span>
+                                                <div class="ibox-tools"></div>
+                                            </div>
+                                            <div class="ibox-content">
+                                                <div class="scroll_content">
+                                                    {% comment %} <canvas id="ByC_NumberOfSessions" height=1620>{% load staticfiles %}</canvas> {% endcomment %}
+                                                    <canvas id="PyL_Answer" height={{PyL_numberOfSessions_GraphSize}}>{% load staticfiles %}</canvas>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="ibox ">
+                                            <div class="ibox-title">
+                                                <h5>Respuestas correctas e incorrectas por objetivo de aprendizaje </h5><span class="  glyphicon glyphicon-info-sign" title="Cantidad de respuestas correctas e incorrectas por objetivo de aprendizaje"></span>
+                                                <div class="ibox-tools"></div>
+                                            </div>
+                                            <div class="ibox-content">
+                                                <div class="scroll_content">
+                                                    {% comment %} <canvas id="ByC_GameTime" height={{game_time_graph}}>{% load staticfiles %}</canvas> {% endcomment %}
+                                                    <canvas id="PyL_AnswerOA" height={{PYL_answerOA_GraphSize}}>{% load staticfiles %}</canvas>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="row">
+
+                        {% endif %}
+
+
+
+                                </div>
+                            </div>
+                        </div>
+                </div>
+
+
+
+                {% endif %}
                 <div>
                     <strong>Copyright</strong>  &copy; 2020
 
@@ -6020,6 +6237,548 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////FIN BUILD YOUR CITY//////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////PROTECT YOUR LAND////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //GRAPHS SETTINGS:
+        //0.- REIM:
+        //0.1.- SESSIONS COUNTER:
+        var PyL_NumberOfSessions_Data = {
+            labels: [
+                //CONNECT WITH BD:
+                {% if PYL_numberOfSessions_Dictionary %}
+                    {% for session in PYL_numberOfSessions_Dictionary %}
+                        '{{session.name}}',
+                    {% endfor%}
+                {% endif%}
+
+                //DUMMY VALUES:
+                {% comment %}
+                {% for item in "x"|ljust:"40" %}
+                    'Alumno '+ '{{forloop.counter}}',
+                {% endfor %}
+                'Alumno 1', 'Alumno 2', 'Alumno 3'
+                {% endcomment %}
+
+            ],
+            datasets: [
+                {
+                    label: "Numero de sesiones iniciadas",
+                    backgroundColor: 'rgb(255,152,0)',
+                    borderColor: "rgb(251,104,0)",
+                    pointBorderColor: "#fff",
+                    data: [
+                        //CONNECT WITH BD:
+                        {% if PYL_numberOfSessions_Dictionary %}
+                            {% for session in PYL_numberOfSessions_Dictionary %}
+                                '{{session.quantity}}',
+                            {% endfor%}
+                        {% endif%}
+
+                        //DUMMY VALUES:
+                        {% comment %}
+                        {% for item in "x"|ljust:"40" %}
+                            {{listOfFirst50Numbers|random}},
+                        {% endfor %}
+                        {% endcomment %}
+                    ]
+                }
+            ]
+        };
+
+        //0.2.- PLAY TIME:
+        var PyL_PlayTime_Data = {
+            labels:
+                    [
+                        //CONNECT WITH BD:
+                        {% if PYL_playTime_Dictionary %}
+                            {% for user in PYL_playTime_Dictionary %}
+                                '{{user.name}}',
+                            {% endfor%}
+                        {% endif%}
+
+                        //DUMMY VALUES:
+                        {% comment %}
+                        {% for item in "x"|ljust:"40" %}
+                           'Alumno '+ '{{forloop.counter}}',
+                        {% endfor %}
+                        {% endcomment %}
+                    ],
+
+            datasets: [
+                {
+                    label: "Tiempo de juego en minutos",
+                    backgroundColor: 'rgb(33,143,192)',
+                    borderColor: "rgb(33,143,92)",
+                    pointBorderColor: "#fff",
+                    data:
+                        [
+                            //CONNECT WITH BD:
+                            {% if PYL_playTime_Dictionary %}
+                                {% for user in PYL_playTime_Dictionary %}
+                                    '{{user.playTime}}',
+                                {% endfor%}
+                            {% endif%}
+
+                            //DUMMY VALUES:
+                            {% comment %} {% for item in "x"|ljust:"40" %}
+                                 {{listOfFirst50Numbers|random}},
+                            {% endfor %} {% endcomment %}
+                        ]
+                }
+            ]
+        };
+
+
+        //0.3.- TOUCH COUNT:
+        var PyL_TouchCountInGame_Data = {
+            labels: [
+                //CONNECT WITH BD:
+
+                {% if PYL_touchCount_Dictionary %}
+                    {% for touch in PYL_touchCount_Dictionary %}
+                        '{{touch.name}}',
+                    {% endfor%}
+                {% endif%}
+
+
+                //DUMMY VALUES:
+                {% comment %}
+                {% for item in "x"|ljust:"40" %}
+                    'Alumno '+ '{{forloop.counter}}',
+                {% endfor %}
+                {% endcomment %}
+
+
+            ],
+            datasets: [
+                {
+                    label: "Numero de toques en pantalla",
+                    backgroundColor: 'rgb(92,107,192)',
+                    borderColor: "rgb(63,81,181)",
+                    pointBorderColor: "#fff",
+                    data: [
+                        //CONNECT WITH BD:
+                        {% if PYL_touchCount_Dictionary %}
+                            {% for touch in PYL_touchCount_Dictionary %}
+                                '{{touch.touchCount}}',
+                            {% endfor%}
+                        {% endif%}
+
+                        //DUMMY VALUES:
+                        {% comment %}
+                        {% for item in "x"|ljust:"40" %}
+                            {{listOf100to2000by100|random}},
+                        {% endfor %}
+                        {% endcomment %}
+                    ]
+                }
+            ]
+        };
+                //0.4.- ACTIVITY PREFERENCE:
+        var PYL_ActivityPreference_Data = {
+            labels: [
+                    //CONNECT WITH BD:
+
+                    {% if PYL_activitiesPlayedCounter_Dictionary %}
+                        {% for actividad in PYL_activitiesPlayedCounter_Dictionary %}
+                            '{{actividad.name}}',
+                        {% endfor%}
+                    {% endif%}
+
+
+            ],
+            datasets:
+            [
+                {
+                    backgroundColor: ['rgb(236,112,99)','rgb(175,122,197)','rgb(93,173,226)','rgb(245,176,65)','rgb(253,216,53)','rgb(72,201,176)'],
+                    pointBorderColor: "#fff",
+                    data: [
+                        //CONNECT WITH BD:
+
+                        {% if PYL_activitiesPlayedCounter_Dictionary %}
+                            {% for actividad in PYL_activitiesPlayedCounter_Dictionary %}
+                                '{{actividad.counter}}',
+                            {% endfor%}
+                        {% endif%}
+
+
+                        //DUMMY VALUES:
+                        {% comment %}
+                        {% for item in "x"|ljust:"4" %}
+                            {{listOfFirst50Numbers|random}},
+                        {% endfor %}
+                        {% endcomment %}
+                    ]
+                }
+            ]
+        };
+        // ACTIVIDAD FOOTPRINTS
+
+        var PYL_NumberOfElement_Data = {
+            labels: [
+                //CONNECT WITH BD:
+                {% if PYLcorrects_quantity_Dictionary %}
+                    {% for session in PYLcorrects_quantity_Dictionary %}
+                        '{{session.name}}',
+                    {% endfor%}
+                {% endif%}
+
+            ],
+            datasets: [
+                {
+                    label: "Elementos recolectados",
+                    backgroundColor: 'rgb(255,152,0)',
+                    borderColor: "rgb(251,104,0)",
+                    pointBorderColor: "#fff",
+                    data: [
+                        //CONNECT WITH BD:
+                        {% if PYLcorrects_quantity_Dictionary %}
+                            {% for session in PYLcorrects_quantity_Dictionary %}
+                                '{{session.quantity}}',
+                            {% endfor%}
+                        {% endif%}
+                    ]
+                }
+            ]
+        };
+
+        var PyL_ElementsxSession_Data = {
+            labels: [
+                    {% if PYL_correctsxsession_Dictionary %}
+                        {% for elemento in PYL_correctsxsession_Dictionary %}
+                            '{{elemento.fecha}}',
+                        {% endfor%}
+                    {% endif%}
+                ],
+            datasets: [
+                {
+                    label: "Elementos recolectados",
+                    backgroundColor: 'rgb(0,188,212)',
+                    borderColor: "rgb(3,155,229)",
+                    pointBorderColor: "#fff",
+                    data: [
+                        {% if PYL_correctsxsession_Dictionary %}
+                            {% for elemento in PYL_correctsxsession_Dictionary %}
+                                '{{elemento.quantity}}',
+                            {% endfor%}
+                        {% endif%}
+                        ],
+                    fill: false,
+                    pointRadius:7,
+                    pointHoverRadius:10,
+                    showLine:true
+                }
+            ]
+        };
+
+
+        // ACTIVIDAD DRAW SOLUTIONS
+         //2.1.- ACTIVITY PREFERENCE:
+        var PYL_Color_Data = {
+            labels: [
+                    //CONNECT WITH BD:
+
+                    {% if PYL_color_Dictionary %}
+                        {% for actividad in PYL_color_Dictionary %}
+                            '{{actividad.name}}',
+                        {% endfor%}
+                    {% endif%}
+
+            ],
+            datasets:
+            [
+                {
+                    backgroundColor: ['rgb(231,112,99)','rgb(17,10,220)','rgb(45,213,3)','rgb(245,176,65)','rgb(3,68,68)','rgb(12,11,11)'],
+                    pointBorderColor: "#fff",
+                    data: [
+                        //CONNECT WITH BD:
+
+                        {% if PYL_color_Dictionary %}
+                            {% for actividad in PYL_color_Dictionary %}
+                                '{{actividad.counter}}',
+                            {% endfor%}
+                        {% endif%}
+
+
+                    ]
+                }
+            ]
+        };
+
+
+        // ACTIVIDAD ART GALLERY
+
+        var PYL_emociones_data = {
+            labels: [
+                {% if PYL_emociones_Dictionary %}
+        {% for posicionamiento_PS in PYL_emociones_Dictionary %}
+        '{{posicionamiento_PS.nombre}}',
+        {% endfor%}
+        {% endif%}
+        ],
+        datasets: [
+            {
+                label: "Sorprendido",
+                backgroundColor: 'rgb(236,64,122)',
+                borderColor: "rgb(233,30,99)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if PYL_emociones_Dictionary %}
+            {% for posicionamiento_PS in PYL_emociones_Dictionary %}
+        '{{posicionamiento_PS.Sorprendido}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        },
+        {
+                label: "Triste",
+                backgroundColor: 'rgb(171,71,188)',
+                borderColor: "rgb(156,39,176)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if PYL_emociones_Dictionary %}
+            {% for posicionamiento_PS in PYL_emociones_Dictionary %}
+        '{{posicionamiento_PS.Triste}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        },
+        {
+                label: "Encantado",
+                backgroundColor: 'rgb(92,107,192)',
+                borderColor: "rgb(63,81,181)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if PYL_emociones_Dictionary %}
+            {% for posicionamiento_PS in PYL_emociones_Dictionary %}
+        '{{posicionamiento_PS.Encantado}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        },
+        {
+                label: "Feliz",
+                backgroundColor: 'rgb(41,182,246)',
+                borderColor: "rgb(3,169,244)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if PYL_emociones_Dictionary %}
+            {% for posicionamiento_PS in PYL_emociones_Dictionary %}
+        '{{posicionamiento_PS.Feliz}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        },
+        ]
+        };
+
+        // ACTIVIDAD BUILD YOUR LAND
+
+        var PyL_Answer_Data = {
+            labels: [
+                //CONNECT WITH BD:
+
+                {% if PYL_answer_Dictionary %}
+                    {% for elemento in PYL_answer_Dictionary %}
+                        '{{elemento.Pregunta}}',
+                    {% endfor%}
+                {% endif%}
+
+            ],
+            datasets: [
+                {
+                    label: "Respuestas correctas",
+                    backgroundColor: 'rgb(75, 192, 192)',//GREEN
+                    pointBorderColor: "#fff",
+                    data: [
+                        //CONNECT WITH BD:
+                        {% if PYL_answer_Dictionary %}
+                            {% for elemento in PYL_answer_Dictionary %}
+                                '{{elemento.Correcta}}',
+                            {% endfor%}
+                        {% endif%}
+
+                    ]
+                },
+                {
+                    label: "Respuestas Incorrectas",
+                    backgroundColor: 'rgb(255, 99, 132)', //RED
+                    pointBorderColor: "#fff",
+                    data: [
+                        //CONNECT WITH BD:
+                        {% if PYL_answer_Dictionary %}
+                            {% for elemento in PYL_answer_Dictionary %}
+                                '{{elemento.Incorrecta}}',
+                            {% endfor%}
+                        {% endif%}
+                    ]
+                }
+            ]
+        };
+
+        var PyL_AnswerOA_Data = {
+            labels: [
+                //CONNECT WITH BD:
+
+                {% if PYL_answerOA_Dictionary %}
+                    {% for elemento in PYL_answerOA_Dictionary %}
+                        '{{elemento.OA}}',
+                    {% endfor%}
+                {% endif%}
+
+            ],
+            datasets: [
+                {
+                    label: "Respuestas correctas",
+                    backgroundColor: 'rgb(10, 192, 192)',//GREEN
+                    pointBorderColor: "#fff",
+                    data: [
+                        //CONNECT WITH BD:
+                        {% if PYL_answerOA_Dictionary %}
+                            {% for elemento in PYL_answerOA_Dictionary %}
+                                '{{elemento.Correcta}}',
+                            {% endfor%}
+                        {% endif%}
+
+                    ]
+                },
+                {
+                    label: "Respuestas Incorrectas",
+                    backgroundColor: 'rgb(255, 99, 132)', //RED
+                    pointBorderColor: "#fff",
+                    data: [
+                        //CONNECT WITH BD:
+                        {% if PYL_answerOA_Dictionary %}
+                            {% for elemento in PYL_answerOA_Dictionary %}
+                                '{{elemento.Incorrecta}}',
+                            {% endfor%}
+                        {% endif%}
+                    ]
+                }
+            ]
+        };
+
+        ////////////////////
+        //GRAPH OPTIONS:
+        ////////////////////
+        var PyL_PieOptions = {
+            scale: {
+                    angleLines: {
+                        display: false
+                    },
+                    ticks: {
+                        suggestedMin: 0,
+                        suggestedMax: 5
+                    }
+                }
+            };
+        var PyL_HorizontalBarOptions = {
+            animation: false,
+            isFixedWidth:true,
+            barWidth:50,
+            barValueSpacing: 1,
+            scales: {
+                xAxes:[{
+                    ticks: {
+                        min: 0,
+                        callback: function(value, index, values) {
+                            if (Math.floor(value) === value) {
+                                return value;
+                            }
+                        }
+                    },
+                }],
+            },
+            display: true,
+        };
+
+        var PyL_LineOptions = {
+            animation: false,
+            scales: {
+                xAxes:[{
+                    stacked:true,
+                    ticks: {
+                        min: 0
+                    }
+                }],
+                yAxes:[{
+                    stacked:false,
+                    ticks: {
+                        min: 0,
+                        max: 100
+                    }
+                }]
+            },
+            display: true
+
+        };
+        //GENERAL RESULTS:
+        if ($('#PyL_PlayTime').length){
+            var ctx = document.getElementById("PyL_PlayTime").getContext("2d");
+            new Chart(ctx, {type: 'horizontalBar', data: PyL_PlayTime_Data, options: PyL_HorizontalBarOptions } );
+        }
+
+        if ($('#PyL_TouchCountInGame').length){
+            var ctx = document.getElementById("PyL_TouchCountInGame").getContext("2d");
+            new Chart(ctx, {type: 'horizontalBar', data: PyL_TouchCountInGame_Data, options: PyL_HorizontalBarOptions } );
+        }
+
+        if ($('#PyL_NumberOfSessions').length){
+            var ctx = document.getElementById("PyL_NumberOfSessions").getContext("2d");
+            new Chart(ctx, {type: 'horizontalBar', data: PyL_NumberOfSessions_Data, options: PyL_HorizontalBarOptions } );
+        }
+
+        if ($('#PYL_ActivityPreference').length){
+            var ctx = document.getElementById("PYL_ActivityPreference").getContext("2d");
+            new Chart(ctx, {type: 'pie', data: PYL_ActivityPreference_Data, options: PyL_PieOptions});
+        }
+
+        // FOOTPRINTS
+
+        if ($('#PYL_NumberOfElement').length){
+            var ctx = document.getElementById("PYL_NumberOfElement").getContext("2d");
+            new Chart(ctx, {type: 'horizontalBar', data: PYL_NumberOfElement_Data, options: PyL_HorizontalBarOptions });
+            }
+        if ($('#PyL_ElementsxSession').length){
+            var ctx17 = document.getElementById("PyL_ElementsxSession").getContext("2d");
+            new Chart(ctx17, {type: 'line', data: PyL_ElementsxSession_Data, options:PyL_LineOptions});
+        }
+
+        //DRAW SOLUTIONS
+
+        if ($('#PYL_Color').length){
+            var ctx = document.getElementById("PYL_Color").getContext("2d");
+            new Chart(ctx, {type: 'pie', data: PYL_Color_Data, options: PyL_PieOptions});
+        }
+
+        //GALLERY
+
+        if ($('#PYL_emociones').length){
+            var ctx = document.getElementById("PYL_emociones").getContext("2d");
+            new Chart(ctx, {type: 'horizontalBar', data: PYL_emociones_data, options: PyL_HorizontalBarOptions});
+        }
+
+        //BUILD YOUR LAND
+
+        if ($('#PyL_Answer').length){
+            var ctx = document.getElementById("PyL_Answer").getContext("2d");
+            new Chart(ctx, {type: 'horizontalBar', data: PyL_Answer_Data, options: PyL_HorizontalBarOptions } );
+        }
+
+        if ($('#PyL_AnswerOA').length){
+            var ctx = document.getElementById("PyL_AnswerOA").getContext("2d");
+            new Chart(ctx, {type: 'horizontalBar', data: PyL_AnswerOA_Data, options: PyL_HorizontalBarOptions } );
+        }
+
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////// FIN PROTECT YOUR LAND////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
         //TIEMPO DE JUEGO GENERAL
         var stackedData = {

@@ -829,6 +829,220 @@ def welcome(request):
             ByC_Taxi_SuccessVsFailure_ParticularSeats_GraphSize = len(
                 Taxi_SuccessVsFailure_ParticularSeats_QueryResponse) * 50 + 20
         ######END BUILD YOUR CITY######
+            ##### INICIO PROTECT YOUR LAND
+
+        PYL_numberOfSessions_Dictionary = []
+        PYL_playTime_Dictionary = []
+        PYL_touchCount_Dictionary = []
+        PYL_activitiesPlayedCounter_Dictionary = []
+        PYL_color_Dictionary = []
+        PYLcorrects_quantity_Dictionary = []
+        PYL_correctsxsession_Dictionary = []
+        PYL_answer_Dictionary = []
+        PYL_answerOA_Dictionary = []
+        PYL_emociones_Dictionary = []
+
+        PYL_playTime_GraphSize = 0
+        PYL_touchCount_GraphSize = 0
+        PYL_activitiesPlayedCounter_GraphSize = 0
+        PYL_numberOfSessions_GraphSize = 0
+        PYL_color_GraphSize = 0
+        PYL_correctsxsession_GraphSize = 0
+        PYLcorrects_quantity_graph = 0
+        PYL_answer_GraphSize = 0
+        PYL_answerOA_GraphSize = 0
+        PYL_emociones_GraphSize = 0
+
+        if reim_num == "202":
+
+            ##GET NUMBER OF SESSIONS##
+            PYLgetNumberOfSessions_query = get_number_of_sessionsPYL(request)
+            cursor.execute(PYLgetNumberOfSessions_query)
+            queries.append({
+                "name": 'Get Number Of Sessions',
+                "query": PYLgetNumberOfSessions_query
+            })
+            PYLnumberOfSessions_QueryResponse = cursor.fetchall()
+            # print ("analytics1_co_quantity", analytics1_co_quantity)
+            for row in PYLnumberOfSessions_QueryResponse:
+                PYL_numberOfSessions_Dictionary.append({
+                    'id': row[0],
+                    'name': row[1],
+                    'quantity': row[2]
+                })
+            PYL_numberOfSessions_GraphSize = len(PYLnumberOfSessions_QueryResponse) * 40 + 20
+
+            ##PLAYTIME REIM##
+            getPlayTimePYL = get_playtimePYL(request)
+            cursor.execute(getPlayTimePYL)
+            queries.append({
+                "name": 'Get PlayTime of REIM',
+                "query": getPlayTimePYL
+            })
+            PYLplayTime_QueryResponse = cursor.fetchall()
+            print("playTime_QueryResponse", PYLplayTime_QueryResponse)
+            for row in PYLplayTime_QueryResponse:
+                PYL_playTime_Dictionary.append({
+                    'id': row[0],
+                    'name': row[1],
+                    'playTime': row[2]
+                })
+            PYL_playTime_GraphSize = len(PYLplayTime_QueryResponse) * 40 + 20
+
+            ##TOUCH COUNT REIM##
+            PYLtouch_query = get_touch_count(request)
+            queries.append({"name": 'Get Touch Count', "query": PYLtouch_query})
+            cursor.execute(touch_query)
+            PYLtouchCount_QueryResponse = cursor.fetchall()
+            for row in PYLtouchCount_QueryResponse:
+                PYL_touchCount_Dictionary.append({
+                    'id': row[0],
+                    'name': row[1],
+                    'touchCount': row[2]
+                })
+            PYL_touchCount_GraphSize = len(PYLtouchCount_QueryResponse) * 40 + 20
+
+            ##ACTIVITIES PLAYED COUNTER##
+            PYLtouch_query = get_activities_played_counterPYL(request)
+            queries.append({
+                "name": 'Activities Played Counter',
+                "query": PYLtouch_query
+            })
+            cursor.execute(PYLtouch_query)
+            PYLactivitiesPlayedCounter_QueryResponse = cursor.fetchall()
+            for row in PYLactivitiesPlayedCounter_QueryResponse:
+                name = ''
+                if row[0] == 280000:
+                    name = 'Actividad 1: FootPrints'
+                elif row[0] == 280001:
+                    name = 'Actividad 2: Draw Solutions'
+                elif row[0] == 280002:
+                    name = 'Actividad 3: Art Gallery'
+                elif row[0] == 280004:
+                    name = 'Actividad 4: Build Your Land'
+                PYL_activitiesPlayedCounter_Dictionary.append({
+                    'id': row[0],
+                    'name': name,
+                    'counter': row[1]
+                })
+            PYL_activitiesPlayedCounter_GraphSize = len(
+                PYLactivitiesPlayedCounter_QueryResponse) * 40 + 20
+            ##ACTIVIDAD FOOT PRINTS
+
+            correctsPYL_query = get_corrects_PYL(request)
+            cursor.execute(correctsPYL_query)
+            queries.append({
+                "name": 'Corrects query',
+                "query": correctsPYL_query
+            })
+            PYLcorrects_quantity = cursor.fetchall()
+            for row in PYLcorrects_quantity:
+                PYLcorrects_quantity_Dictionary.append({
+                    'id': row[0],
+                    'name': row[1],
+                    'quantity': row[2]
+                })
+            PYLcorrects_quantity_graph = len(PYLcorrects_quantity) * 40 + 20
+
+            ##CORRECTAS CAPTURADAS FOOTPRINTS
+            get_correctsxsession_PYL_query = get_correctsxsession_PYL(request)
+            cursor.execute(get_correctsxsession_PYL_query)
+            queries.append({
+                "name": 'Get Number Of Sessions',
+                "query": get_correctsxsession_PYL_query
+            })
+            get_correctsxsession_PYLResponse = cursor.fetchall()
+            for row in get_correctsxsession_PYLResponse:
+                PYL_correctsxsession_Dictionary.append({
+                    'name': row[0],
+                    'fecha': row[1],
+                    'quantity': row[2]
+                })
+            PYL_correctsxsession_GraphSize = len(get_correctsxsession_PYLResponse) * 40 + 20
+
+            ##ACTIVIDAD DRAW SOLUTIONS
+            PYLcolor_query = get_activities_colorPYL(request)
+            queries.append({
+                "name": 'Activities Played Counter',
+                "query": PYLcolor_query
+            })
+            cursor.execute(PYLcolor_query)
+            PYLcolor_QueryResponse = cursor.fetchall()
+            for row in PYLcolor_QueryResponse:
+                name = ''
+                if row[0] == 280100:
+                    name = 'Rojo'
+                elif row[0] == 280101:
+                    name = 'Azúl'
+                elif row[0] == 280102:
+                    name = 'Verde'
+                elif row[0] == 280103:
+                    name = 'Amarillo'
+                elif row[0] == 280104:
+                    name = 'Negro'
+                PYL_color_Dictionary.append({
+                    'id': row[0],
+                    'name': name,
+                    'counter': row[1]
+                })
+            PYL_color_GraphSize = len(
+                PYLcolor_QueryResponse) * 40 + 20
+
+            ### ACTIVIDAD GALLERY
+
+            PYL_emociones_query = PYL_Get_Emociones(request)
+            cursor.execute(PYL_emociones_query)
+            queries.append({
+                "name": 'Get Number Of reaccion',
+                "query": PYL_emociones_query
+            })
+            PYL_emociones_query_Response = cursor.fetchall()
+            for row in PYL_emociones_query_Response:
+                PYL_emociones_Dictionary.append({
+                    'id': row[0],
+                    'nombre': row[1],
+                    'Sorprendido': row[2],
+                    'Triste': row[3],
+                    'Encantado': row[4],
+                    'Feliz': row[5],
+                })
+            PYL_emociones_GraphSize = len(PYL_emociones_query_Response) * 40 + 20
+
+            ##ACTIVIDAD BUILD YOUR LAND
+
+            PYL_answer_query = PYL_Get_Answer(request)
+            cursor.execute(PYL_answer_query)
+            queries.append({
+                "name": 'Get Number Of Sessions',
+                "query": PYL_answer_query
+            })
+            PYL_answer_query_Response = cursor.fetchall()
+            for row in PYL_answer_query_Response:
+                PYL_answer_Dictionary.append({
+                    'id': row[0],
+                    'nombre': row[1],
+                    'Correcta': row[2],
+                    'Incorrecta': row[3],
+                    'Pregunta': row[4]
+                })
+            PYL_answer_GraphSize = len(PYL_answer_query_Response) * 40 + 20
+
+            PYL_answerOA_query = PYL_Get_AnswerxOA(request)
+            cursor.execute(PYL_answerOA_query)
+            queries.append({
+                "name": 'GetAnswerxOA',
+                "query": PYL_answerOA_query
+            })
+            PYL_answerOA_query_Response = cursor.fetchall()
+            for row in PYL_answerOA_query_Response:
+                PYL_answerOA_Dictionary.append({
+                    'Correcta': row[0],
+                    'Incorrecta': row[1],
+                    'id': row[2],
+                    'OA': row[3]
+                })
+            PYL_answerOA_GraphSize = len(PYL_answerOA_query_Response) * 40 + 20
+
         #INICIO MUNDO ANIMAL
         piezas_quantity_response = []
         malas_quantity_response = []
@@ -3603,6 +3817,51 @@ def welcome(request):
                 'ByC_Taxi_SuccessPercentageInTime_Dictionary':
                 ByC_Taxi_SuccessPercentageInTime_Dictionary,
                 ######END BUILD YOUR CITY#####
+                ##### BEING PROTECT YOUR LAND
+                ####### GRAPHS SIZE
+                'PYL_playTime_GraphSize':
+                    PYL_playTime_GraphSize,
+                'PYL_touchCount_GraphSize':
+                    PYL_touchCount_GraphSize,
+                'PYL_activitiesPlayedCounter_GraphSize':
+                    PYL_activitiesPlayedCounter_GraphSize,
+                'PYL_numberOfSessions_GraphSize':
+                    PYL_numberOfSessions_GraphSize,
+                'PYL_color_GraphSize':
+                    PYL_color_GraphSize,
+                'PYLcorrects_quantity_graph':
+                    PYLcorrects_quantity_graph,
+                'PYL_correctsxsession_GraphSize':
+                    PYL_correctsxsession_GraphSize,
+                'PYL_answer_GraphSize':
+                    PYL_answer_GraphSize,
+                'PYL_answerOA_GraphSize':
+                    PYL_answerOA_GraphSize,
+                'PYL_emociones_GraphSize':
+                    PYL_emociones_GraphSize,
+
+                'PYL_numberOfSessions_Dictionary':
+                    PYL_numberOfSessions_Dictionary,
+                'PYL_playTime_Dictionary':
+                    PYL_playTime_Dictionary,
+                'PYL_touchCount_Dictionary':
+                    PYL_touchCount_Dictionary,
+                'PYL_activitiesPlayedCounter_Dictionary':
+                    PYL_activitiesPlayedCounter_Dictionary,
+                'PYL_color_Dictionary':
+                    PYL_color_Dictionary,
+                'PYLcorrects_quantity_Dictionary':
+                    PYLcorrects_quantity_Dictionary,
+                'PYL_correctsxsession_Dictionary':
+                    PYL_correctsxsession_Dictionary,
+                'PYL_answer_Dictionary':
+                    PYL_answer_Dictionary,
+                'PYL_answerOA_Dictionary':
+                    PYL_answerOA_Dictionary,
+                'PYL_emociones_Dictionary':
+                    PYL_emociones_Dictionary,
+
+
             })
     # En otro caso redireccionamos al login
     return redirect('/login')
