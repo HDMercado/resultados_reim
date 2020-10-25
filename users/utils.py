@@ -3700,11 +3700,28 @@ def get_correctsxsession_PYL(request):
     final_base = ' a.id_user= u.id && b.usuario_id = a.id_user AND (a.id_elemento=280201) ' + query_params + ' GROUP BY day(a.datetime_touch) ORDER BY a.datetime_touch ASC'
     return start_base + final_base
 
+def PYL_getTimer(request):
+    query_params = ''
+
+    if request.GET.get('reim') and request.GET.get('reim') != '0':
+        query_params += " AND a.id_reim = " + request.GET.get('reim')
+    if request.GET.get('course') and request.GET.get('course') != '0':
+        query_params += " AND b.curso_id = " + request.GET.get('course')
+    if request.GET.get('school') and request.GET.get('school') != '0':
+        query_params += " AND b.colegio_id = " + request.GET.get('school')
+    if request.GET.get('student') and request.GET.get('student') != '0':
+        query_params += ' AND a.id_user=' + request.GET.get('student')
+    date = get_date_param_alumno_respuesta_actividad(request)
+
+    start_base = '  SELECT u.id, concat(u.nombres ," ", u.apellido_paterno ," ", u.apellido_materno) as nombre, concat(max(a.fila)) as Maximo, concat(min(a.fila)) as Minimo FROM alumno_respuesta_actividad a, usuario u, pertenece b WHERE' + date
+    final_base = ' a.id_user= u.id && b.usuario_id = a.id_user AND a.id_elemento = 280215 ' + query_params + ' GROUP BY u.id;'
+
+    return start_base + final_base
+
 
 ##ACTIVIDAD DRAW SOLUTIONS:
 
 def get_activities_colorPYL(request):
-    cursor = get_from_db()
     query_params = ''
 
     if request.GET.get('reim') and request.GET.get('reim') != '0':
@@ -3722,6 +3739,24 @@ def get_activities_colorPYL(request):
 
     return start_base + final_base
 
+def get_ElemVisual_PYL(request):
+    cursor = get_from_db()
+    query_params = ''
+
+    if request.GET.get('reim') and request.GET.get('reim') != '0':
+        query_params += " AND a.id_reim = " + request.GET.get('reim')
+    if request.GET.get('course') and request.GET.get('course') != '0':
+        query_params += " AND b.curso_id = " + request.GET.get('course')
+    if request.GET.get('school') and request.GET.get('school') != '0':
+        query_params += " AND b.colegio_id = " + request.GET.get('school')
+    if request.GET.get('student') and request.GET.get('student') != '0':
+        query_params += ' AND a.id_user=' + request.GET.get('student')
+    date = get_date_param_alumno_respuesta_actividad(request)
+
+    start_base = ' SELECT u.id, concat(u.nombres ," ", u.apellido_paterno ," ", u.apellido_materno) as nombre, count(if(a.id_elemento=280106,1,NULL)) Intensidad, count(if(a.id_elemento=280107,1,NULL)) Grosor, count(if(a.id_elemento=280105,1,NULL)) Borrar FROM alumno_respuesta_actividad a, usuario u, pertenece b  WHERE' + date
+    final_base = ' a.id_user= u.id && b.usuario_id = a.id_user ' + query_params +  ' GROUP BY u.id;'
+
+    return start_base + final_base
 
 ###### GALLERY
 
@@ -3804,3 +3839,4 @@ def PYL_Get_AnswerxOA(request):
     final_base = ' a.id_user= u.id && b.usuario_id = a.id_user and a.id_elemento = i.IdItem and i.objetivo_aprendizaje_id = o.id ' + query_params + ' GROUP BY o.id;'
 
     return start_base + final_base
+

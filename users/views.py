@@ -841,6 +841,8 @@ def welcome(request):
         PYL_answer_Dictionary = []
         PYL_answerOA_Dictionary = []
         PYL_emociones_Dictionary = []
+        PYL_timer_Dictionary = []
+        PYL_ElemVisual_Dictionary = []
 
         PYL_playTime_GraphSize = 0
         PYL_touchCount_GraphSize = 0
@@ -852,6 +854,8 @@ def welcome(request):
         PYL_answer_GraphSize = 0
         PYL_answerOA_GraphSize = 0
         PYL_emociones_GraphSize = 0
+        PYL_timer_GraphSize = 0
+        PYL_ElemVisual_GraphSize = 0
 
         if reim_num == "202":
 
@@ -960,6 +964,23 @@ def welcome(request):
                 })
             PYL_correctsxsession_GraphSize = len(get_correctsxsession_PYLResponse) * 40 + 20
 
+            get_timer_PYL_query = PYL_getTimer(request)
+            cursor.execute(get_timer_PYL_query)
+            queries.append({
+                "name": 'timer',
+                "query": get_timer_PYL_query
+            })
+            get_timer_PYLResponse = cursor.fetchall()
+            for row in get_timer_PYLResponse:
+                PYL_timer_Dictionary.append({
+                    'id': row[0],
+                    'nombre': row[1],
+                    'maximo': row[2],
+                    'minimo': row[3]
+
+                })
+            PYL_timer_GraphSize = len(get_timer_PYLResponse) * 40 + 20
+
             ##ACTIVIDAD DRAW SOLUTIONS
             PYLcolor_query = get_activities_colorPYL(request)
             queries.append({
@@ -987,6 +1008,23 @@ def welcome(request):
                 })
             PYL_color_GraphSize = len(
                 PYLcolor_QueryResponse) * 40 + 20
+        ####
+            PYL_ElemVisual_query = get_ElemVisual_PYL(request)
+            cursor.execute(PYL_ElemVisual_query)
+            queries.append({
+                "name": 'Get Number Of reaccion',
+                "query": PYL_ElemVisual_query
+            })
+            PYL_ElemVisual_query_Response = cursor.fetchall()
+            for row in PYL_ElemVisual_query_Response:
+                PYL_ElemVisual_Dictionary.append({
+                    'id': row[0],
+                    'nombre': row[1],
+                    'Intensidad': row[2],
+                    'Grosor': row[3],
+                    'Borrar': row[4],
+                })
+            PYL_ElemVisual_GraphSize = len(PYL_ElemVisual_query_Response) * 40 + 20
 
             ### ACTIVIDAD GALLERY
 
@@ -3839,6 +3877,11 @@ def welcome(request):
                     PYL_answerOA_GraphSize,
                 'PYL_emociones_GraphSize':
                     PYL_emociones_GraphSize,
+                'PYL_timer_GraphSize':
+                    PYL_timer_GraphSize,
+                'PYL_ElemVisual_GraphSize':
+                    PYL_ElemVisual_GraphSize,
+
 
                 'PYL_numberOfSessions_Dictionary':
                     PYL_numberOfSessions_Dictionary,
@@ -3860,9 +3903,12 @@ def welcome(request):
                     PYL_answerOA_Dictionary,
                 'PYL_emociones_Dictionary':
                     PYL_emociones_Dictionary,
+                'PYL_timer_Dictionary':
+                    PYL_timer_Dictionary,
+                'PYL_ElemVisual_Dictionary':
+                    PYL_ElemVisual_Dictionary,
 
-
-            })
+        })
     # En otro caso redireccionamos al login
     return redirect('/login')
 

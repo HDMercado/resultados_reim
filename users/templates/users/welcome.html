@@ -4277,7 +4277,34 @@
                                                 <div class="scroll_content">
                                                     {% comment %} <canvas id="ByC_NumberOfSessions" height=1620>{% load staticfiles %}</canvas> {% endcomment %}
                                                     <canvas id="PYL_NumberOfElement" height={{PyL_numberOfSessions_GraphSize}}>{% load staticfiles %}</canvas>
-
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="ibox ">
+                                            <div class="ibox-title">
+                                                <h5>Elementos recolectados durante la locomoción y manipulación del juego </h5><span class="  glyphicon glyphicon-info-sign" title="Cantidad elementos recolectados durante la manipulación - OA: EF04 OA01"></span>
+                                                <div class="ibox-tools"></div>
+                                            </div>
+                                            <div class="ibox-content">
+                                                <div class="scroll_content">
+                                                    {% comment %} <canvas id="ByC_NumberOfSessions" height=1620>{% load staticfiles %}</canvas> {% endcomment %}
+                                                    <canvas id="PyL_ElementsxSession" height={{PyL_numberOfSessions_GraphSize}}>{% load staticfiles %}</canvas>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="ibox ">
+                                            <div class="ibox-title">
+                                                <h5>Tiempo mínimo y máximo en segundos logrados sin chocar con un obstáculo  </h5><span class="  glyphicon glyphicon-info-sign" title="Cantidad elementos recolectados durante la manipulación - OA: EF04 OA01"></span>
+                                                <div class="ibox-tools"></div>
+                                            </div>
+                                            <div class="ibox-content">
+                                                <div class="scroll_content">
+                                                    {% comment %} <canvas id="ByC_NumberOfSessions" height=1620>{% load staticfiles %}</canvas> {% endcomment %}
+                                                    <canvas id="PYL_timer" height={{PyL_timer_GraphSize}}>{% load staticfiles %}</canvas>
                                                 </div>
                                             </div>
                                         </div>
@@ -4311,13 +4338,13 @@
                                     <div class="col-lg-6">
                                         <div class="ibox ">
                                             <div class="ibox-title">
-                                                <h5>Colores utilizados para realizar el dibujo </h5><span class="  glyphicon glyphicon-info-sign" title="Cantidad elementos recolectados durante la manipulación - OA: EF04 OA01"></span>
+                                                <h5>Elementos de lenguaje visual utilizados</h5><span class="  glyphicon glyphicon-info-sign" title="Cantidad elementos recolectados durante la manipulación - OA: EF04 OA01"></span>
                                                 <div class="ibox-tools"></div>
                                             </div>
                                             <div class="ibox-content">
                                                 <div class="scroll_content">
                                                     {% comment %} <canvas id="ByC_NumberOfSessions" height=1620>{% load staticfiles %}</canvas> {% endcomment %}
-                                                    <canvas id="PYL_Color" height={{PyL_numberOfSessions_GraphSize}}>{% load staticfiles %}</canvas>
+                                                    <canvas id="PYL_ElemVisual" height={{PyL_numberOfSessions_GraphSize}}>{% load staticfiles %}</canvas>
                                                 </div>
                                             </div>
                                         </div>
@@ -4412,7 +4439,7 @@
                     <strong>Copyright</strong>  &copy; 2020
 
 
-                    <!-- <button type="button" class="btn btn-link btn-sm" data-toggle="modal" data-target="#queriesModal">
+                    <button type="button" class="btn btn-link btn-sm" data-toggle="modal" data-target="#queriesModal">
                         queries
                     </button>
 
@@ -4434,7 +4461,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div> -->
+                    </div>
                 </div>
             </div>
         </div>
@@ -6232,7 +6259,7 @@
 
         
 
-        
+
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////FIN BUILD YOUR CITY//////////////////////////////////////////////////////
@@ -6342,13 +6369,6 @@
                 {% endif%}
 
 
-                //DUMMY VALUES:
-                {% comment %}
-                {% for item in "x"|ljust:"40" %}
-                    'Alumno '+ '{{forloop.counter}}',
-                {% endfor %}
-                {% endcomment %}
-
 
             ],
             datasets: [
@@ -6365,12 +6385,7 @@
                             {% endfor%}
                         {% endif%}
 
-                        //DUMMY VALUES:
-                        {% comment %}
-                        {% for item in "x"|ljust:"40" %}
-                            {{listOf100to2000by100|random}},
-                        {% endfor %}
-                        {% endcomment %}
+
                     ]
                 }
             ]
@@ -6470,7 +6485,54 @@
                     showLine:true
                 }
             ]
+
         };
+
+        var PYL_Timer_Data = {
+            labels: [
+                //CONNECT WITH BD:
+
+                {% if PYL_timer_Dictionary %}
+                    {% for touch in PYL_timer_Dictionary %}
+                        '{{touch.nombre}}',
+                    {% endfor%}
+                {% endif%}
+
+
+            ],
+            datasets: [
+                {
+                    label: "Tiempo máximo de permanencia",
+                    backgroundColor: 'rgb(92,107,192)',
+                    borderColor: "rgb(63,81,181)",
+                    pointBorderColor: "#fff",
+                    data: [
+                        //CONNECT WITH BD:
+                        {% if PYL_timer_Dictionary %}
+                            {% for touch in PYL_timer_Dictionary %}
+                                '{{touch.maximo}}',
+                            {% endfor%}
+                        {% endif%}
+                    ]
+                },
+                {
+                label: "Tiempo minimo de permanencia",
+                backgroundColor: 'rgb(148,220,130)',
+                borderColor: "rgb(71,159,50)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if PYL_timer_Dictionary %}
+                        {% for posicionamiento_PS in PYL_timer_Dictionary %}
+                            '{{posicionamiento_PS.minimo}}',
+                         {% endfor%}
+                    {% endif%}
+        ]
+        },
+            ],
+
+
+        };
+
 
 
         // ACTIVIDAD DRAW SOLUTIONS
@@ -6566,6 +6628,57 @@
                     {% if PYL_emociones_Dictionary %}
             {% for posicionamiento_PS in PYL_emociones_Dictionary %}
         '{{posicionamiento_PS.Feliz}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        },
+        ]
+        };
+
+        var PYL_ElemVisual_Data = {
+            labels: [
+                {% if PYL_ElemVisual_Dictionary %}
+        {% for posicionamiento_PS in PYL_ElemVisual_Dictionary %}
+        '{{posicionamiento_PS.nombre}}',
+        {% endfor%}
+        {% endif%}
+        ],
+        datasets: [
+            {
+                label: "Intensidad",
+                backgroundColor: 'rgb(236,64,122)',
+                borderColor: "rgb(233,30,99)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if PYL_ElemVisual_Dictionary %}
+            {% for posicionamiento_PS in PYL_ElemVisual_Dictionary %}
+        '{{posicionamiento_PS.Intensidad}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        },
+        {
+                label: "Grosor",
+                backgroundColor: 'rgb(171,71,188)',
+                borderColor: "rgb(156,39,176)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if PYL_ElemVisual_Dictionary %}
+            {% for posicionamiento_PS in PYL_ElemVisual_Dictionary %}
+        '{{posicionamiento_PS.Grosor}}',
+        {% endfor%}
+        {% endif%}
+        ]
+        },
+        {
+                label: "Goma",
+                backgroundColor: 'rgb(92,107,192)',
+                borderColor: "rgb(63,81,181)",
+                pointBorderColor: "#fff",
+                data: [
+                    {% if PYL_ElemVisual_Dictionary %}
+            {% for posicionamiento_PS in PYL_ElemVisual_Dictionary %}
+        '{{posicionamiento_PS.Borrar}}',
         {% endfor%}
         {% endif%}
         ]
@@ -6742,8 +6855,13 @@
             }
         if ($('#PyL_ElementsxSession').length){
             var ctx17 = document.getElementById("PyL_ElementsxSession").getContext("2d");
-            new Chart(ctx17, {type: 'line', data: PyL_ElementsxSession_Data, options:PyL_LineOptions});
+            new Chart(ctx17, {type: 'line', data: PyL_ElementsxSession_Data, options: PyL_LineOptions});
         }
+        if ($('#PYL_timer').length){
+            var ctx4 = document.getElementById("PYL_timer").getContext("2d");
+            new Chart(ctx4, {type: 'horizontalBar', data: PYL_Timer_Data, options: PyL_HorizontalBarOptions });
+        }
+
 
         //DRAW SOLUTIONS
 
@@ -6751,6 +6869,10 @@
             var ctx = document.getElementById("PYL_Color").getContext("2d");
             new Chart(ctx, {type: 'pie', data: PYL_Color_Data, options: PyL_PieOptions});
         }
+        if ($('#PYL_ElemVisual').length){
+            var ctx = document.getElementById("PYL_ElemVisual").getContext("2d");
+            new Chart(ctx, {type: 'horizontalBar', data: PYL_ElemVisual_Data, options: PyL_HorizontalBarOptions });
+            }
 
         //GALLERY
 
