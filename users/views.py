@@ -3355,7 +3355,228 @@ def welcome(request):
                     touch_all_OA1Bien_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
                 touch_all_OA1Bien_quantity_graph = len(touch_all_OA1Bien_quantity)*40+20
 
-            
+            ######INICIO TOYS COLECTION#####
+        
+        #Cantidad Sesiones
+        cant_sesiones = get_sesiones(request)
+        #print(cant_sesiones)
+        queries.append({"name": 'Sesiones', "query": cant_sesiones})
+        cursor.execute(cant_sesiones)
+        sesion_quantity1 = cursor.fetchall()
+        sesion_quantity1_response = []
+        for row in sesion_quantity1:
+            sesion_quantity1_response.append({ 'name': row[0], 'quantity': row[1] })
+        #print("sesion_quantity1_response")
+        #print(sesion_quantity1_response)
+        sesion_quantity1_graph = len(sesion_quantity1)*120+20
+
+        #Tiempo Sesiones
+        play_time = get_tiempo_total(request)
+        #print(play_time)
+        queries.append({"name": 'Sesiones', "query": play_time})
+        #print(queries)
+        cursor.execute(play_time)
+        tiempo_total_quantity1 = cursor.fetchall()
+        #print(tiempo_total_quantity)
+        tiempo_total_quantity1_response = []
+        for row in tiempo_total_quantity1:
+            tiempo_total_quantity1_response.append({ 'name': row[0], 'quantity': row[1] })
+        tiempo_total_quantity1_graph = len(tiempo_total_quantity1)*120+20
+
+        if reim_num=="205":
+
+            #Tiempo Promedio Sesiones
+            tiempo_promedio = get_tiempo_promedio(request)
+            queries.append({"name": 'Tiempo Promedio', "query": tiempo_promedio})
+            cursor.execute(tiempo_promedio)
+            tiempo_promedio_quantity1 = cursor.fetchall()
+            tiempo_promedio_quantity1_response = []
+            for row in tiempo_promedio_quantity1:
+                tiempo_promedio_quantity1_response.append({ 'id': row[0], 'name': row[1], 'time': row[2] })
+            tiempo_promedio_quantity1_graph = len(tiempo_promedio_quantity1)*40+20
+            #Solicitudes
+            solicitar = get_solicitudes(request)
+            queries.append({"name": 'Solicitudes Realizadas', "query": solicitar})
+            cursor.execute(solicitar)
+            solicitar_quantity1 = cursor.fetchall()
+            solicitar_quantity1_response = []
+            for row in solicitar_quantity1:
+                solicitar_quantity1_response.append({ 'name': row[0], 'quantity': row[1] })
+            solicitar_quantity1_graph = len(solicitar_quantity1)*40+20
+            #Colaboracion
+            colaborar = get_colaboraciones(request)
+            queries.append({"name": 'Colaboraciones Realizadas', "query": colaborar})
+            cursor.execute(colaborar)
+            colaborar_quantity1 = cursor.fetchall()
+            colaborar_quantity1_response = []
+            for row in colaborar_quantity1:
+                colaborar_quantity1_response.append({ 'name': row[0], 'quantity': row[1] })
+            colaborar_quantity1_graph = len(colaborar_quantity1)*40+20
+            #Colaboracion Recibida
+            colaborar_rec = get_colaboraciones_rec(request)
+            queries.append({"name": 'Colaboraciones Realizadas', "query": colaborar_rec})
+            cursor.execute(colaborar_rec)
+            colaborar_rec_quantity1 = cursor.fetchall()
+            colaborar_rec_quantity1_response = []
+            for row in colaborar_rec_quantity1:
+                colaborar_rec_quantity1_response.append({ 'name': row[1], 'quantity': row[2] })
+            colaborar_rec_quantity1_graph = len(colaborar_rec_quantity1)*40+20
+
+            #Lugares Elegidos
+            lugar_elegido = get_Lugar_Buscado(request)
+            queries.append({"name": 'Lugar Elegido', "query": lugar_elegido})
+            cursor.execute(lugar_elegido)
+            lugar_elegido_quantity1 = cursor.fetchall()
+            lugar_elegido_quantity1_response = []
+            for row in lugar_elegido_quantity1:
+                lugar_elegido_quantity1_response.append({ 'name': row[0], 'casa': row[1] , 'parque': row[2] , 'colegio': row[3] })
+            lugar_elegido_quantity1_graph = len(lugar_elegido_quantity1)*40+20
+            #Habitacion Elegidos
+            habitacion_elegido1 = get_Habitacion_Buscado1(request)
+            queries.append({"name": 'Habitacion Elegido 1', "query": habitacion_elegido1})
+            cursor.execute(habitacion_elegido1)
+            habitacion_elegido1_quantity1 = cursor.fetchall()
+            habitacion_elegido1_quantity1_response = []
+            for row in habitacion_elegido1_quantity1:
+                habitacion_elegido1_quantity1_response.append({ 'name': row[0], 'dormitorio': row[1] , 'cocina': row[2] , 'bano': row[3] , 'living': row[4] ,  'comedor': row[5] })
+            habitacion_elegido1_quantity1_graph = len(habitacion_elegido1_quantity1)*40+20
+            #Habitacion Elegidos
+            habitacion_elegido2 = get_Habitacion_Buscado2(request)
+            queries.append({"name": 'Habitacion Elegido 2', "query": habitacion_elegido2})
+            cursor.execute(habitacion_elegido2)
+            habitacion_elegido2_quantity1 = cursor.fetchall()
+            habitacion_elegido2_quantity1_response = []
+            for row in habitacion_elegido2_quantity1:
+                habitacion_elegido2_quantity1_response.append({ 'name': row[0], 'parque': row[1] })
+            habitacion_elegido2_quantity1_graph = len(habitacion_elegido2_quantity1)*40+20
+            #Habitacion Elegidos
+            habitacion_elegido3 = get_Habitacion_Buscado3(request)
+            queries.append({"name": 'Habitacion Elegido 3', "query": habitacion_elegido3})
+            cursor.execute(habitacion_elegido3)
+            habitacion_elegido3_quantity1 = cursor.fetchall()
+            habitacion_elegido3_quantity1_response = []
+            for row in habitacion_elegido3_quantity1:
+                habitacion_elegido3_quantity1_response.append({ 'name': row[0], 'pasillo': row[1] , 'sala': row[2] })
+            habitacion_elegido3_quantity1_graph = len(habitacion_elegido3_quantity1)*40+20
+            #General Desafíos
+            desafio = get_desafios(request)
+            queries.append({"name": 'Desafío', "query": desafio})
+            cursor.execute(desafio)
+            desafio_quantity1 = cursor.fetchall()
+            desafio_quantity1_response = []
+            for row in desafio_quantity1:
+                desafio_quantity1_response.append({ 'name': row[1] , 'no_realizado': row[2] , 'correctas': row[3] , 'incorrectas': row[4] })
+            desafio_quantity1_graph = len(desafio_quantity1)*40+20
+            #General Desafíos Porcentual
+            desafio_porcentual = get_desafios_porcentual(request)
+            queries.append({"name": 'Desafío Porcentual', "query": desafio_porcentual})
+            cursor.execute(desafio_porcentual)
+            desafio_porcentual_quantity1 = cursor.fetchall()
+            desafio_porcentual_quantity1_response = []
+            i=0
+            for row in desafio_porcentual_quantity1:
+                i=i+1
+                desafio_porcentual_quantity1_response.append({ 'name': i , 'correctas': row[1] })
+            desafio_porcentual_quantity1_graph = len(desafio_porcentual_quantity1)*40+20
+            #General no Desafíos
+            no_desafio = get_no_desafios(request)
+            queries.append({"name": 'Desafío', "query": no_desafio})
+            cursor.execute(no_desafio)
+            no_desafio_quantity1 = cursor.fetchall()
+            no_desafio_quantity1_response = []
+            for row in no_desafio_quantity1:
+                no_desafio_quantity1_response.append({ 'name': row[0] , 'cantidad': row[1]})
+            no_desafio_quantity1_graph = len(no_desafio_quantity1)*40+20
+            #desafio colores
+            colores=get_colores(request)
+            queries.append({"name": 'Colores General', "query": colores})
+            cursor.execute(colores)
+            colores_quantity1 = cursor.fetchall()
+            colores_quantity1_response=[]
+            for row in colores_quantity1:
+                colores_quantity1_response.append({ 'colores': row[1] , 'correctas': row[2] , 'incorrectas': row[3] })
+            colores_quantity1_graph = len(colores_quantity1)*40+20
+            #desafio formas
+            formas=get_formas(request)
+            queries.append({"name": 'Formas General', "query": formas})
+            cursor.execute(formas)
+            formas_quantity1 = cursor.fetchall()
+            formas_quantity1_response=[]
+            for row in formas_quantity1:
+                formas_quantity1_response.append({ 'formas': row[1] , 'correctas': row[2] , 'incorrectas': row[3] })
+            formas_quantity1_graph = len(formas_quantity1)*40+20
+            #desafio vocales
+            vocales=get_vocales(request)
+            queries.append({"name": 'Vocales General', "query": vocales})
+            cursor.execute(vocales)
+            vocales_quantity1 = cursor.fetchall()
+            vocales_quantity1_response=[]
+            for row in vocales_quantity1:
+                vocales_quantity1_response.append({ 'vocales': row[1] , 'correctas': row[2] , 'incorrectas': row[3] })
+            vocales_quantity1_graph = len(vocales_quantity1)*40+20
+            #desafio numeros
+            numeros=get_numeros(request)
+            queries.append({"name": 'Numeros General', "query": numeros})
+            cursor.execute(numeros)
+            numeros_quantity1 = cursor.fetchall()
+            numeros_quantity1_response=[]
+            for row in numeros_quantity1:
+                numeros_quantity1_response.append({ 'numeros': row[1] , 'correctas': row[2] , 'incorrectas': row[3] })
+            numeros_quantity1_graph = len(numeros_quantity1)*40+20
+            #ordenar
+            ordenar=get_ordenar(request)
+            queries.append({"name": 'Ordenar General', "query": ordenar})
+            cursor.execute(ordenar)
+            ordenar_quantity1 = cursor.fetchall()
+            ordenar_quantity1_response=[]
+            i=0
+            for row in ordenar_quantity1:
+                i=i+1
+                ordenar_quantity1_response.append({ 'name': i , 'correctas': row[1] })
+            ordenar_quantity1_graph = len(ordenar_quantity1)*40+20
+            #ordenar Resultados
+            ordenar_res=get_ordenar_resultados(request)
+            queries.append({"name": 'Ordenar Resultados General', "query": ordenar_res})
+            cursor.execute(ordenar_res)
+            ordenar_res_quantity1 = cursor.fetchall()
+            ordenar_res_quantity1_response=[]
+            i=0
+            for row in ordenar_res_quantity1:
+                ordenar_res_quantity1_response.append({ 'name': row[1] , 'correctas': row[2] , 'incorrectas': row[3] })
+            ordenar_res_quantity1_graph = len(ordenar_res_quantity1)*40+20
+            #buscar
+            buscar=get_buscar(request)
+            queries.append({"name": 'Buscar General', "query": buscar})
+            cursor.execute(buscar)
+            buscar_quantity1 = cursor.fetchall()
+            buscar_quantity1_response=[]
+            i=0
+            for row in buscar_quantity1:
+                i=i+1
+                buscar_quantity1_response.append({ 'name': i , 'correctas': row[1] })
+            #print(buscar_quantity1_response)
+            buscar_quantity1_graph = len(buscar_quantity1)*40+20
+            #buscar Resultados.
+            buscar_res=get_buscar_resultados(request)
+            queries.append({"name": 'Buscar General', "query": buscar_res})
+            cursor.execute(buscar_res)
+            buscar_res_quantity1 = cursor.fetchall()
+            buscar_res_quantity1_response=[]
+            for row in buscar_res_quantity1:
+                buscar_res_quantity1_response.append({ 'name': row[1] , 'correctas': row[2] , 'incorrectas': row[3] })
+            buscar_res_quantity1_graph = len(buscar_res_quantity1)*40+20
+            #donaciones
+            donaciones= get_donaciones(request)
+            queries.append({"name": 'Donaciones', "query": donaciones})
+            cursor.execute(donaciones)
+            donaciones_quantity1 = cursor.fetchall()
+            donaciones_quantity1_response=[]
+            i=0
+            for row in donaciones_quantity1:
+                donaciones_quantity1_response.append({ 'name': row[0] , 'cantidad': row[1]  })
+            donaciones_quantity1_graph = len(donaciones_quantity1)*40+20
+
+######FIN TOYS COLECTION#####
             
         ################################################################
         ############################RECICLANDO##########################
@@ -3882,7 +4103,6 @@ def welcome(request):
                 'PYL_ElemVisual_GraphSize':
                     PYL_ElemVisual_GraphSize,
 
-
                 'PYL_numberOfSessions_Dictionary':
                     PYL_numberOfSessions_Dictionary,
                 'PYL_playTime_Dictionary':
@@ -3907,8 +4127,78 @@ def welcome(request):
                     PYL_timer_Dictionary,
                 'PYL_ElemVisual_Dictionary':
                     PYL_ElemVisual_Dictionary,
+				######INICIO TOYS COLECTION#####
+                'sesion_quantity1': sesion_quantity1_response,
+                'tiempo_total_quantity1': tiempo_total_quantity1_response,
+                
+                'desafio_quantity1':desafio_quantity1_response,
+                'desafio_porcentual_quantity1':desafio_porcentual_quantity1_response,
+                'tiempo_promedio_quantity1': tiempo_promedio_quantity1_response,
+                'lugar_elegido_quantity1':lugar_elegido_quantity1_response,
+                'habitacion_elegido1_quantity1':habitacion_elegido1_quantity1_response,
+                'habitacion_elegido2_quantity1':habitacion_elegido2_quantity1_response,
+                'habitacion_elegido3_quantity1':habitacion_elegido3_quantity1_response,
+                'solicitar_quantity1':solicitar_quantity1_response,
+                'colaborar_quantity1':colaborar_quantity1_response,
+                'colaborar_rec_quantity1':colaborar_rec_quantity1_response,
+                'no_desafio_quantity1':no_desafio_quantity1_response,
+                'colores_quantity1':colores_quantity1_response,
+                'formas_quantity1':formas_quantity1_response,
+                'vocales_quantity1':vocales_quantity1_response,
+                'numeros_quantity1':numeros_quantity1_response,
+                'ordenar_quantity1':ordenar_quantity1_response,
+                'ordenar_res_quantity1':ordenar_res_quantity1_response,
+                'buscar_quantity1':buscar_quantity1_response,
+                'buscar_res_quantity1':buscar_res_quantity1_response,
+                'donaciones_quantity1':donaciones_quantity1_response,
 
-        })
+                'desafio':desafio,
+                'desafio_porcentual':desafio_porcentual,
+                'cant_usuarios':cant_usuarios,
+                'cant_sesiones':cant_sesiones,
+                'play_time':play_time,
+                'tiempo_promedio':tiempo_promedio,
+                'lugar_elegido':lugar_elegido,
+                'habitacion_elegido1':habitacion_elegido1,
+                'habitacion_elegido2':habitacion_elegido2,
+                'habitacion_elegido3':habitacion_elegido3,
+                'solicitar': solicitar,
+                'colaborar': colaborar,
+                'colaborar_rec': colaborar_rec,
+                'no_desafio': no_desafio,
+                'colores':colores,
+                'formas':formas,
+                'vocales':vocales,
+                'numeros':numeros,
+                'ordenar':ordenar,
+                'ordenar_res':ordenar_res,
+                'buscar':buscar,
+                'buscar_res':buscar_res,
+                'donaciones':donaciones,
+
+                'desafio_graph':desafio_quantity1_graph,
+                'desafio_porcentual_graph':desafio_porcentual_quantity1_graph,
+                'tiempo_promedio_graph':tiempo_promedio_quantity1_graph,
+                'tiempo_total_graph':tiempo_total_quantity1_graph,
+                'lugar_elegido_graph':lugar_elegido_quantity1_graph,
+                'habitacion_elegido1_graph':habitacion_elegido1_quantity1_graph,
+                'habitacion_elegido2_graph':habitacion_elegido2_quantity1_graph,
+                'habitacion_elegido3_graph':habitacion_elegido3_quantity1_graph,
+                'solicitar_graph': solicitar_quantity1_graph,
+                'colaborar_graph': colaborar_quantity1_graph,
+                'no_desafio_graph': no_desafio_quantity1_graph,
+                'colores_graph':colores_quantity1_graph,
+                'formas_graph':formas_quantity1_graph,
+                'vocales_graph':vocales_quantity1_graph,
+                'numeros_graph':numeros_quantity1_graph,
+                'sesion_graph':sesion_quantity1_graph,
+                'ordenar_graph':ordenar_quantity1_graph,
+                'ordenar_res_graph':ordenar_res_quantity1_graph,
+                'buscar_graph':buscar_quantity1_graph,
+                'buscar_res_graph':buscar_res_quantity1_graph,
+                'donaciones_graph':donaciones_quantity1_graph,
+				######FIN TOYS COLECTION#####
+            })
     # En otro caso redireccionamos al login
     return redirect('/login')
 
