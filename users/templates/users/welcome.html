@@ -1922,7 +1922,7 @@
             
             <!-- Fin Clean Ocean -->
 
-            {% if student_num == '0' and reim_num != '0' and reim_num != '1' and activity_num == '0' and reim_num != '3' and reim_num != '2' and reim_num != '4' and reim_num != '27' and reim_num != '202'%}
+            {% if student_num == '0' and reim_num != '0' and reim_num != '1' and activity_num == '0' and reim_num != '3' and reim_num != '2' and reim_num != '4' and reim_num != '27' and reim_num != '202' and reim_num != '206' %}
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
@@ -2892,12 +2892,12 @@
                                 <div class="col-lg-6">
                                     <div class="ibox ">
                                         <div class="ibox-title">
-                                            <h5>Minutos de juego</h5><span class="glyphicon glyphicon-info-sign" title="Gráfico que muestra el tiempo de juego por alumno en el REIM 'Clean Ocean'."></span>
+                                            <h5>Tiempo total </h5><span class="glyphicon glyphicon-info-sign" title="Gráfico que muestra el tiempo de juego por alumno de la actividad OCÉANO."></span>
                                             <div class="ibox-tools"></div>
                                         </div>
                                         <div class="ibox-content">
                                             <div class="scroll_content">
-                                                <canvas id="stacked" height={{game_time_graph}}>{% load staticfiles %}</canvas>
+                                                <canvas id="totaltimeRCOTotal" height={{time_act_RCOTotal_quantity_graph}}>{% load staticfiles %}</canvas>
                                             </div>
                                         </div>
                                     </div>
@@ -12207,6 +12207,42 @@ var CreacionData = {
             var ctx38 = document.getElementById("totaltimeRCO");
             new Chart(ctx38, {type: 'horizontalBar', data: ctx38data, options:barOptions});
         }
+
+        //////////////////////////////////////////////
+        //Tiempo Actividad
+        var ctx38data = {
+            labels:
+            [
+                {% if time_act_RCOTotal_quantity %}
+                    {% for time_act_RCO in time_act_RCOTotal_quantity %}
+                        '{{time_act_RCOTotal.name}}',
+                    {% endfor%}
+                {% endif%}
+            ],
+            datasets:
+            [
+                {
+                label: "Minutos de juego total",
+                backgroundColor: 'rgb(0, 255, 255)',
+                borderColor: "rgb(0, 255, 255)",
+                pointBorderColor: "#fff",
+                data:
+                [
+                    {% if time_act_RCOTotal_quantity %}
+                        {% for time_act_RCOTotal in time_act_RCOTotal_quantity %}
+                            '{{time_act_RCOTotal.quantity}}',
+                        {% endfor%}
+                    {% endif%}
+                ]
+                },
+            ]
+            };
+
+        if ($('#totaltimeRCOTotal').length){
+            var ctx38 = document.getElementById("totaltimeRCOTotal");
+            new Chart(ctx38, {type: 'horizontalBar', data: ctx38data, options:barOptions});
+        }
+        //////////////////////////////////////////////
 
         ///////Corectas Incorrectas////////////
         if ($('#prueba_RCO_2').length){

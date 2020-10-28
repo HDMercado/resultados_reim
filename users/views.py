@@ -3088,6 +3088,7 @@ def welcome(request):
         #List Querys
         touch_all_act206_quantity_response = []
         time_act_RCO_quantity_response = []
+        time_act_RCOTotal_quantity_response = []
         corrects_incorrects_quantity_response = []
         corrects_quantity_response = []
         incorrects_quantity_response = []
@@ -3119,6 +3120,7 @@ def welcome(request):
         #Size Graphs
         touch_all_act206_quantity_graph = 0
         time_act_RCO_quantity_graph = 0
+        time_act_RCOTotal_quantity_graph = 0
         corrects_quantity_graph = 0
         corrects_incorrects_quantity_graph = 0
         posicionamiento_RCO_graf = 0
@@ -3157,6 +3159,18 @@ def welcome(request):
                 for row in time_act_RCO_quantity:
                     time_act_RCO_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
                 time_act_RCO_quantity_graph = len(time_act_RCO_quantity)*40+20
+            
+            #########################################################
+            if activity_num=="0":
+                time_act_RCOTotal_query = get_time_act_RCOTotal(request)
+                cursor.execute(time_act_RCOTotal_query)
+                queries.append({"name": 'Time act RCOTotal query', "query": time_act_RCOTotal_query})
+                time_act_RCOTotal_quantity = cursor.fetchall()
+                #print ("Time act RCOTotal quantity" , time_act_RCOTotal_quantity)
+                for row in time_act_RCOTotal_quantity:
+                    time_act_RCOTotal_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+                time_act_RCOTotal_quantity_graph = len(time_act_RCOTotal_quantity)*40+20
+            #########################################################
 
             if activity_num=="9000" or activity_num=="9001" or activity_num=="9002" or activity_num=="9009" or activity_num=="9010":
                 #9000 9001 9002 9009 9010
@@ -3907,6 +3921,7 @@ def welcome(request):
                 #########################Inicio Reciclando cuido el oceano###############################
                 'touch_all_act206_quantity':touch_all_act206_quantity_response,
                 'time_act_RCO_quantity':time_act_RCO_quantity_response,
+                'time_act_RCOTotal_quantity':time_act_RCOTotal_quantity_response,
                 'corrects_incorrects_quantity':corrects_incorrects_quantity_response,
                 'corrects_quantity':corrects_quantity_response,
                 'incorrects_quantity':incorrects_quantity_response,
@@ -3929,6 +3944,7 @@ def welcome(request):
                 'touch_all_OA1Bien_quantity':touch_all_OA1Bien_quantity_response,
                 'elementos_analitica_RCO_quantity':elementos_analitica_RCO_quantity_response,
                 'time_act_RCO_quantity_graph':time_act_RCO_quantity_graph,
+                'time_act_RCOTotal_quantity_graph':time_act_RCOTotal_quantity_graph,
                 'touch_all_OA1Bien_quantity_graph':touch_all_OA1Bien_quantity_graph,
                 ########################FinReciclando###############################
                 #####BEGIN BUILD YOUR CITY#####
@@ -4198,7 +4214,7 @@ def welcome(request):
                 'donaciones_graph': donaciones_quantity1_graph,
 				######FIN TOYS COLECTION#####
             })
-        })
+        
     # En otro caso redireccionamos al login
     return redirect('/login')
 

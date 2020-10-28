@@ -3140,6 +3140,31 @@ def get_time_act_RCO(request):
     start_base = 'SELECT u.id, concat(u.nombres ," ", u.apellido_paterno ," ", u.apellido_materno) as nombre, IF (ROUND((SUM(TIMESTAMPDIFF(SECOND, a.inicio, a.final))))/60<1, 1,ROUND(SUM(TIMESTAMPDIFF(SECOND, a.inicio, a.final))/60)) as total_min FROM tiempoxactividad a, usuario u, pertenece b , nivel n , curso c, colegio co WHERE' + date
     final_base = ' n.id=b.nivel_id and b.curso_id = c.id and a.usuario_id = u.id and b.usuario_id=u.id and co.id = b.colegio_id' + query_params + ' group by u.id;'
     return start_base + final_base
+########################################
+#Timer
+def get_time_act_RCOTotal(request):
+    cursor = get_from_db()
+    query_params = ''
+
+    if request.GET.get('reim') and request.GET.get('reim') != '0':
+        query_params += " AND a.reim_id = " + request.GET.get('reim')
+    if request.GET.get('course') and request.GET.get('course') != '0':
+        query_params += " AND b.curso_id = " + request.GET.get('course')
+    if request.GET.get('school') and request.GET.get('school') != '0':
+        query_params += " AND b.colegio_id = " + request.GET.get('school')
+    if request.GET.get('activity') and request.GET.get('activity') != '0':
+        query_params += " AND a.actividad_id = " + request.GET.get('activity')
+    if request.GET.get('student') and request.GET.get('student') != '0':
+        query_params += " AND a.usuario_id = " + request.GET.get('student')
+
+    date = get_date_param_tiempoxactividad(request)
+
+    start_base = 'SELECT u.id, concat(u.nombres ," ", u.apellido_paterno ," ", u.apellido_materno) as nombre, IF (ROUND((SUM(TIMESTAMPDIFF(SECOND, a.inicio, a.final))))/60<1, 1,ROUND(SUM(TIMESTAMPDIFF(SECOND, a.inicio, a.final))/60)) as total_min FROM tiempoxactividad a, usuario u, pertenece b , nivel n , curso c, colegio co WHERE' + date
+    final_base = ' n.id=b.nivel_id and b.curso_id = c.id and a.usuario_id = u.id and b.usuario_id=u.id and co.id = b.colegio_id' + query_params + ' and a.actividad_id > 8999 AND a.actividad_id < 9011 group by u.id;'
+    print(start_base + final_base)
+    return start_base + final_base
+
+########################################
 #Correctas Incorrectas
 def get_corrects_incorrects_RCO(request):
 
