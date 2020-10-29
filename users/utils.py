@@ -4464,7 +4464,7 @@ def get_ordenar(request):
     sql +=' WHERE '  + date
     sql +=' b.colegio_id IN (SELECT colegio_id from pertenece p INNER JOIN usuario u1 ON (p.usuario_id = u1.id) WHERE username="' + request.user.username + '")'
     sql +=' AND b.curso_id IN (SELECT curso_id FROM pertenece WHERE usuario_id = (SELECT id FROM usuario WHERE username = "' + request.user.username + '"))'
-    sql +=' and are.id_elemento in(300211,300212,300210)' + query_params
+    sql +=' and are.id_elemento in(300211,300212,300213)' + query_params
     sql +=' group by date(datetime_touch)'
     sql +=' order by date(datetime_touch) asc;'
     return sql
@@ -4500,7 +4500,7 @@ def get_ordenar_resultados(request):
     sql +=' WHERE '  + date
     sql +=' b.colegio_id IN (SELECT colegio_id from pertenece p INNER JOIN usuario u1 ON (p.usuario_id = u1.id) WHERE username="' + request.user.username + '")'
     sql +=' AND b.curso_id IN (SELECT curso_id FROM pertenece WHERE usuario_id = (SELECT id FROM usuario WHERE username = "' + request.user.username + '"))'
-    sql +=' and are.id_elemento in(300211,300212,300210)' + query_params
+    sql +=' and are.id_elemento in(300211,300212,300213)' + query_params
     sql +=' group by descripcion order by descripcion asc;'
     return sql
 
