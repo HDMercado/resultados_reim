@@ -2936,7 +2936,10 @@ def welcome(request):
         Llave_tipo_response = []
         Respuestas_General_VencerAlConstructor_response = []
         Historial_Respuestas_response = []
+        Historial_Respuestas_Anexar_response = []
+        Historial_Respuestas_Dividir_response = []
         Historial_movimientos_response = []
+        tiempo_size = 0;
 
         if reim_num=="201":
             Llave_tipo_query = get_llave_Tipo(request)
@@ -2959,12 +2962,31 @@ def welcome(request):
 
             get_Historial_Respuestas_query = get_Historial_Respuestas(request)
             #print(porcentaje_llave_query)
-            queries.append({"name": 'porcentaje llave query', "query": get_Historial_Respuestas_query})
+            queries.append({"name": 'Historial Respuestas', "query": get_Historial_Respuestas_query})
             cursor.execute(get_Historial_Respuestas_query)
             get_Historial_Respuestas_query = cursor.fetchall()
 
             for row in get_Historial_Respuestas_query:
                 Historial_Respuestas_response.append({ 'name': row[0], 'Total': row[4], 'Incorrectas': row[5] , 'Correctas': row[6], 'Fecha': row[7] })
+
+            get_Historial_Respuestas_Anexar_query = get_Historial_Respuestas_Anexar(request)
+            #print(porcentaje_llave_query)
+            queries.append({"name": 'Historial Respuestas Anexar', "query": get_Historial_Respuestas_Anexar_query})
+            cursor.execute(get_Historial_Respuestas_Anexar_query)
+            get_Historial_Respuestas_Anexar_query = cursor.fetchall()
+
+            for row in get_Historial_Respuestas_Anexar_query:
+                Historial_Respuestas_Anexar_response.append({ 'name': row[0], 'Total': row[4], 'Incorrectas': row[5] , 'Correctas': row[6], 'Fecha': row[7] })
+
+            get_Historial_Respuestas_Dividir_query = get_Historial_Respuestas_Dividir(request)
+            #print(porcentaje_llave_query)
+            queries.append({"name": 'Historial Respuestas Anexar', "query": get_Historial_Respuestas_Dividir_query})
+            cursor.execute(get_Historial_Respuestas_Dividir_query)
+            get_Historial_Respuestas_Dividir_query = cursor.fetchall()
+
+            for row in get_Historial_Respuestas_Dividir_query:
+                Historial_Respuestas_Dividir_response.append({ 'name': row[0], 'Total': row[4], 'Incorrectas': row[5] , 'Correctas': row[6], 'Fecha': row[7] })
+
 
             get_Historial_movimientos_query = get_Historial_movimientos(request)
             #print(porcentaje_llave_query)
@@ -2999,7 +3021,7 @@ def welcome(request):
             #Porcentaje_Llaves
             Respuestas_Usuario_VencerAlConstructor_query = get_Respuestas_Usuario_VencerAlConstructor(request)
             #print(porcentaje_llave_query)
-            queries.append({"name": 'porcentaje llave query', "query": Respuestas_Usuario_VencerAlConstructor_query})
+            queries.append({"name": 'Respuestas Vencer al constructor', "query": Respuestas_Usuario_VencerAlConstructor_query})
             cursor.execute(Respuestas_Usuario_VencerAlConstructor_query)
             Respuestas_Usuario_VencerAlConstructor_query = cursor.fetchall()
 
@@ -3068,6 +3090,8 @@ def welcome(request):
             time_PS_quantity = cursor.fetchall()
             for row in time_PS_quantity:
                 time_PS_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+            tiempo_size = len(time_PS_quantity) * 40 + 20;
+
             #tiempo por actividad general
             tiempoXact_query = get_tiempoact(request)
             cursor.execute(tiempoXact_query)
@@ -3916,7 +3940,10 @@ def welcome(request):
                 'Llave_tipo': Llave_tipo_response,
                 'Respuestas_General_VencerAlConstructor': Respuestas_General_VencerAlConstructor_response,
                 'Historial_Respuestas': Historial_Respuestas_response,
+                'Historial_Respuestas_Anexar': Historial_Respuestas_Anexar_response,
+                'Historial_Respuestas_Dividir': Historial_Respuestas_Dividir_response,
                 'Historial_movimientos': Historial_movimientos_response,
+                'tiempo_size' : tiempo_size,
                 # FIN RECICLANDO CONSTRUYO
                 #########################Inicio Reciclando cuido el oceano###############################
                 'touch_all_act206_quantity':touch_all_act206_quantity_response,

@@ -2557,9 +2557,42 @@
 
                         <div class="wrapper wrapper-content">
                             {% if activity_num == '9006' %}
+                                <h1>Resultados Actividad : <strong>Vencer Al Constructor</strong></h1>
+                                <hr><br>
                             <div class="row" >
                                 <div class="col-lg-12">
-                                    {%if student_num != '0'%}
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="ibox">
+                                                <div class="ibox-title">
+                                                    <h5>Tiempo de juego total de la actividad</h5><span class="  glyphicon glyphicon-info-sign" title="Indica la cantidad de tiempo (en minutos) en que los/las alumnos/as han permanecido en la actividad Encuentra la Llave."></span>
+                                                    <div class="ibox-tools"></div>
+                                                </div>
+                                                <div class="ibox-content">
+                                                    <div class="scroll_content">
+                                                        <canvas id="tiempoActividadRC" height={{ tiempo_size }}></canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                            <div class="col-lg-6">
+                                                <div class="ibox ">
+                                                    <div class="ibox-title">
+                                                        <h5>Historial de Respuestas</h5><span class="  glyphicon glyphicon-info-sign" title="Indica la cantidad de touch dividido las veces que se ingreso a la actividad Puzzle en cada dia para poder evaluar el desarrollo de la habilidad de persistencia en los/las alumnos/as"></span>
+                                                        <div class="ibox-tools"></div>
+                                                    </div>
+                                                    <div class="ibox-content">
+                                                        <canvas id="historial_Respuestas" height=250>{% load staticfiles %}</canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+
+
+
+                                    </div>
+
 
                                     <div class="row">
                                         <div class="col-lg-6">
@@ -2570,10 +2603,10 @@
                                                 </div>
                                                 <div class="ibox-content">
                                                     {%if student_num == '0'%}
-                                                    <canvas id="porcentaje_alumnos_totales" height=100>{% load staticfiles %}</canvas>
+                                                    <canvas id="porcentaje_alumnos_totales" height=80>{% load staticfiles %}</canvas>
                                                     {% endif %}
                                                     {%if student_num != '0'%}
-                                                    <canvas id="porcentaje_alumnos_totales" height=100>{% load staticfiles %}</canvas>
+                                                    <canvas id="porcentaje_alumnos_totales" height=80>{% load staticfiles %}</canvas>
                                                     {% endif %}
                                                 </div>
                                             </div>
@@ -2587,76 +2620,37 @@
                                                 </div>
                                                 <div class="ibox-content">
                                                     {%if student_num == '0'%}
-                                                    <canvas id="preguntas_respondidas" height=70>{% load staticfiles %}</canvas>
+                                                    <canvas id="preguntas_respondidas" height=80>{% load staticfiles %}</canvas>
                                                     {% endif %}
                                                     {%if student_num != '0'%}
-                                                    <canvas id="preguntas_respondidas" height=70>{% load staticfiles %}</canvas>
+                                                    <canvas id="preguntas_respondidas" height=80>{% load staticfiles %}</canvas>
                                                     {% endif %}
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    {% endif %}
-                                    {%if student_num == '0'%}
                                     <div class="row">
                                         <div class="col-lg-6">
                                             <div class="ibox ">
                                                 <div class="ibox-title">
-                                                    <h5>Respuestas Generales Cantidad</h5><span class="  glyphicon glyphicon-info-sign" title="Indica la cantidad de touch dividido las veces que se ingreso a la actividad Puzzle en cada dia para poder evaluar el desarrollo de la habilidad de persistencia en los/las alumnos/as"></span>
+                                                    <h5>Historial de Respuestas Anexar Ceros</h5><span class="  glyphicon glyphicon-info-sign" title="Indica la cantidad de touch dividido las veces que se ingreso a la actividad Puzzle en cada dia para poder evaluar el desarrollo de la habilidad de persistencia en los/las alumnos/as"></span>
                                                     <div class="ibox-tools"></div>
                                                 </div>
                                                 <div class="ibox-content">
-                                                    <canvas id="respuestas_generales_cantidad" height=100>{% load staticfiles %}</canvas>
+                                                    <canvas id="historial_Respuestas_Anexar" height=250>{% load staticfiles %}</canvas>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-lg-6">
-                                            <div class="ibox ">
-                                                <div class="ibox-title">
-                                                    <h5>Respuestas Generales Porcentaje</h5><span class="  glyphicon glyphicon-info-sign" title="Indica la cantidad de touch dividido las veces que se ingreso a la actividad Puzzle en cada dia para poder evaluar el desarrollo de la habilidad de persistencia en los/las alumnos/as"></span>
-                                                    <div class="ibox-tools"></div>
-                                                </div>
-                                                <div class="ibox-content">
-                                                    <canvas id="respuestas_generales_porcentaje" height=70>{% load staticfiles %}</canvas>
-
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    {% endif %}
-                                    <div class="row">
-                                        {%if student_num != '0'%}
-                                        <div class="col-lg-6">
-                                            <div class="ibox ">
-                                                <div class="ibox-title">
-                                                    <h5>Historial de Respuestas</h5><span class="  glyphicon glyphicon-info-sign" title="Indica la cantidad de touch dividido las veces que se ingreso a la actividad Puzzle en cada dia para poder evaluar el desarrollo de la habilidad de persistencia en los/las alumnos/as"></span>
-                                                    <div class="ibox-tools"></div>
-                                                </div>
-                                                <div class="ibox-content">
-                                                    <canvas id="historial_Respuestas" height=200>{% load staticfiles %}</canvas>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        {% endif %}
-                                        <div class="col-lg-6">
-                                            <div class="ibox">
-                                                <div class="ibox-title">
-                                                    <h5>Tiempo de juego total de la actividad</h5><span class="  glyphicon glyphicon-info-sign" title="Indica la cantidad de tiempo (en minutos) en que los/las alumnos/as han permanecido en la actividad Encuentra la Llave."></span>
-                                                    <div class="ibox-tools"></div>
-                                                </div>
-                                                <div class="ibox-content">
-                                                    <div class="scroll_content">
-                                                        <canvas id="tiempoActividad" height=100>{% load staticfiles %}</canvas>
+                                            <div class="col-lg-6">
+                                                <div class="ibox ">
+                                                    <div class="ibox-title">
+                                                        <h5>Historial de Respuestas Dividir y Duplicar</h5><span class="  glyphicon glyphicon-info-sign" title="Indica la cantidad de touch dividido las veces que se ingreso a la actividad Puzzle en cada dia para poder evaluar el desarrollo de la habilidad de persistencia en los/las alumnos/as"></span>
+                                                        <div class="ibox-tools"></div>
+                                                    </div>
+                                                    <div class="ibox-content">
+                                                        <canvas id="historial_Respuestas_Dividir" height=250>{% load staticfiles %}</canvas>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </div>
-
-
-
-
-                                    </div>
                                 </div>
                             </div>
 
@@ -2665,6 +2659,8 @@
 
                             <!--LABERINTO -->
                             {% if activity_num == '9007' %}
+                                <h1>Resultados Actividad : <strong>Encuentra La Llave</strong></h1>
+                                <hr><br>
                             <div class="row" >
                                 <div class="col-lg-12">
                                     <div class="row">
@@ -2676,7 +2672,7 @@
                                                 </div>
                                                 <div class="ibox-content">
                                                     <div class="scroll_content">
-                                                        <canvas id="tiempoActividad" height=100>{% load staticfiles %}</canvas>
+                                                        <canvas id="tiempoActividadRC" height=100>{% load staticfiles %}</canvas>
                                                     </div>
                                                 </div>
                                             </div>
@@ -2799,7 +2795,7 @@
                                                 </div>
                                                 <div class="ibox-content">
                                                     <div class="scroll_content">
-                                                        <canvas id="tiempoActividad" height=100>{% load staticfiles %}</canvas>
+                                                        <canvas id="tiempoActividadRC" height=100>{% load staticfiles %}</canvas>
                                                     </div>
                                                 </div>
                                             </div>
@@ -11381,7 +11377,37 @@ var CreacionData = {
                 new Chart(ctx, {type: 'horizontalBar', data: MuyIndependienteCampo, options:barOptions});
             }            
     //#FIN REIM ID = 77, NOMBRE = BUSCANDO EL TESORO PERDIDO
-    // # Inicio Reclicando Construyo
+    // # Inicio Reciclando Construyo
+                 var tiempoActividadData = {
+            labels:
+                [
+                    {% if time_PS_quantity %}
+                        {% for time_PS in time_PS_quantity %}
+                            '{{time_PS.name}}',
+                        {% endfor%}
+                    {% endif%}
+                ],
+            datasets: [
+                {
+                    label: "Minutos de juego total",
+                    backgroundColor: 'rgb(255, 182, 193)',
+                    borderColor: "rgb(255, 182, 193)",
+                    pointBorderColor: "#fff",
+                    data: [
+                        {% if time_PS_quantity %}
+                            {% for time_PS in time_PS_quantity %}
+                                '{{time_PS.quantity}}',
+                            {% endfor%}
+                        {% endif%}
+                    ]
+                }
+            ]
+        };
+
+        if ($('#tiempoActividadRC').length){
+            var ctx = document.getElementById("tiempoActividadRC").getContext("2d");
+            new Chart(ctx, {type: 'horizontalBar', data: tiempoActividadData, options:barOptions});
+        }
         var Porcentaje_llave_data = {
             labels:
                 [
@@ -11394,8 +11420,8 @@ var CreacionData = {
         datasets: [
             {
                 label: "Porcentaje",
-                backgroundColor: 'rgb(38,198,218)',
-                borderColor: "rgb(0,172,193)",
+                backgroundColor: 'rgb(255, 182, 193)',
+                borderColor: "rgb(255, 182, 193)",
                 pointBorderColor: "#fff",
                 data: [
                     {% if Porcentaje_llave %}
@@ -11425,8 +11451,8 @@ var CreacionData = {
         datasets: [
             {
                 label: "Cantidad de movimientos en promedio",
-                backgroundColor: 'rgb(38,198,218)',
-                borderColor: "rgb(0,172,193)",
+                backgroundColor: 'rgb(255, 182, 193)',
+                borderColor: "rgb(255, 182, 193)",
                 pointBorderColor: "#fff",
                 data: [
                     {% if Promedio_intentos_llave %}
@@ -11456,8 +11482,8 @@ var CreacionData = {
         datasets: [
             {
                 label: "Cantidad de movimientos en promedio",
-                backgroundColor: 'rgb(38,198,218)',
-                borderColor: "rgb(0,172,193)",
+                backgroundColor: 'rgb(255, 182, 193)',
+                borderColor: "rgb(255, 182, 193)",
                 pointBorderColor: "#fff",
                 data: [
                     {% if Promedio_intentos_totales_llave %}
@@ -11487,8 +11513,8 @@ var CreacionData = {
         datasets: [
             {
                 label: "Correctos",
-                backgroundColor: 'rgb(38,198,218)',
-                borderColor: "rgb(0,172,193)",
+                backgroundColor: 'rgb(255, 182, 193)',
+                borderColor: "rgb(255, 182, 193)",
                 pointBorderColor: "#fff",
                 data: [
                     {% if Elementos_reciclados_usuario %}
@@ -11500,8 +11526,8 @@ var CreacionData = {
         },
         {
             label: "Incorrectos",
-                backgroundColor: 'rgb(255,0,0)',
-            borderColor: "rgb(253,4,61)",
+                backgroundColor: 'rgb(212, 204, 109 )',
+            borderColor: "rgb(212, 204, 109 )",
             pointBorderColor: "#fff",
             data: [
             {% if Elementos_reciclados_usuario_incorrecto %}
@@ -11534,8 +11560,8 @@ var CreacionData = {
             datasets: [
                 {
                     label: "Correctas",
-                    backgroundColor: 'rgb(38,198,218)',
-                    borderColor: "rgb(38,198,218)",
+                    backgroundColor: 'rgb(255, 182, 193)',
+                    borderColor: "rgb(255, 182, 193)",
                     pointBorderColor: "#fff",
                     data: [
                         {% if Respuestas_Usuario_VencerAlConstructor %}
@@ -11548,8 +11574,8 @@ var CreacionData = {
         },
         {
             label: "Incorrectas",
-                backgroundColor: 'rgb(255,89,0)',
-            borderColor: "rgb(255,89,0)",
+                backgroundColor: 'rgb(212, 204, 109 )',
+            borderColor: "rgb(212, 204, 109 )",
             pointBorderColor: "#fff",
             data: [
             {% if Respuestas_Usuario_VencerAlConstructor %}
@@ -11567,6 +11593,8 @@ var CreacionData = {
         if ($('#preguntas_respondidas').length){
             var ctx = document.getElementById("preguntas_respondidas").getContext("2d");
             new Chart(ctx, {type: 'horizontalBar', data: Preguntas_Respondidas_usuario_data, options: {
+                    responsive: true,
+
                     scales: {
                         xAxes: [{ stacked: true }],
                         yAxes: [{ stacked: true }]
@@ -11610,8 +11638,8 @@ var CreacionData = {
             datasets: [
                 {
                     label: "Porcentaje Correctas",
-                    backgroundColor: 'rgb(38,198,218)',
-                    borderColor: "rgb(38,198,218)",
+                    backgroundColor: 'rgb(255, 182, 193)',
+                    borderColor: "rgb(255, 182, 193)",
                     pointBorderColor: "#fff",
                     data: [
                         {% if Respuestas_Usuario_VencerAlConstructor %}
@@ -11624,8 +11652,8 @@ var CreacionData = {
         },
         {
             label: "Porcentaje Incorrectos",
-                backgroundColor: 'rgb(255,89,0)',
-            borderColor: "rgb(255,89,0)",
+                backgroundColor: 'rgb(212, 204, 109 )',
+            borderColor: "rgb(212, 204, 109 )",
             pointBorderColor: "#fff",
             data: [
             {% if Respuestas_Usuario_VencerAlConstructor %}
@@ -11663,8 +11691,8 @@ var CreacionData = {
         datasets: [
             {
                 label: "Porcentaje Correctas",
-                backgroundColor: 'rgb(38,198,218)',
-                borderColor: "rgb(38,198,218)",
+                backgroundColor: 'rgb(255, 182, 193)',
+                borderColor: "rgb(255, 182, 193)",
                 pointBorderColor: "#fff",
                 data: [
                     {% if Llave_tipo %}
@@ -11677,8 +11705,8 @@ var CreacionData = {
         },
         {
             label: "Porcentaje Incorrectos",
-                backgroundColor: 'rgb(255,89,0)',
-            borderColor: "rgb(255,89,0)",
+                backgroundColor: 'rgb(212, 204, 109 )',
+            borderColor: "rgb(212, 204, 109 )",
             pointBorderColor: "#fff",
             data: [
             {% if Llave_tipo %}
@@ -11716,8 +11744,8 @@ var CreacionData = {
         datasets: [
             {
                 label: "Correctas",
-                backgroundColor: 'rgb(38,198,218)',
-                borderColor: "rgb(38,198,218)",
+                backgroundColor: 'rgb(255, 182, 193)',
+                borderColor: "rgb(255, 182, 193)",
                 pointBorderColor: "#fff",
                 data: [
                     {% if Llave_tipo %}
@@ -11730,8 +11758,8 @@ var CreacionData = {
         },
         {
             label: "Incorrectos",
-                backgroundColor: 'rgb(255,89,0)',
-            borderColor: "rgb(255,89,0)",
+                backgroundColor: 'rgb(212, 204, 109 )',
+            borderColor: "rgb(212, 204, 109 )",
             pointBorderColor: "#fff",
             data: [
             {% if Llave_tipo %}
@@ -11769,8 +11797,8 @@ var CreacionData = {
         datasets: [
             {
                 label: "Correctas",
-                backgroundColor: 'rgb(38,198,218)',
-                borderColor: "rgb(38,198,218)",
+                backgroundColor: 'rgb(255, 182, 193)',
+                borderColor: "rgb(255, 182, 193)",
                 pointBorderColor: "#fff",
                 data: [
                     {% if Respuestas_General_VencerAlConstructor %}
@@ -11783,8 +11811,8 @@ var CreacionData = {
         },
         {
             label: "Incorrectos",
-                backgroundColor: 'rgb(255,89,0)',
-            borderColor: "rgb(255,89,0)",
+                backgroundColor: 'rgb(212, 204, 109 )',
+            borderColor: "rgb(212, 204, 109 )",
             pointBorderColor: "#fff",
             data: [
             {% if Respuestas_General_VencerAlConstructor %}
@@ -11822,8 +11850,8 @@ var CreacionData = {
         datasets: [
             {
                 label: "Correctas",
-                backgroundColor: 'rgb(38,198,218)',
-                borderColor: "rgb(38,198,218)",
+                backgroundColor: 'rgb(255, 182, 193)',
+                borderColor: "rgb(255, 182, 193)",
                 pointBorderColor: "#fff",
                 data: [
                     {% if Respuestas_General_VencerAlConstructor %}
@@ -11836,8 +11864,8 @@ var CreacionData = {
         },
         {
             label: "Incorrectos",
-                backgroundColor: 'rgb(255,89,0)',
-            borderColor: "rgb(255,89,0)",
+                backgroundColor: 'rgb(212, 204, 109 )',
+            borderColor: "rgb(212, 204, 109 )",
             pointBorderColor: "#fff",
             data: [
             {% if Respuestas_General_VencerAlConstructor %}
@@ -11880,11 +11908,11 @@ var CreacionData = {
         datasets: [
             {
                 label: "Correctas",
-                backgroundColor: 'rgb(38,198,218)',
-                borderColor: "rgb(38,198,218)",
+                backgroundColor: 'rgb(255, 182, 193)',
+                borderColor: "rgb(255, 182, 193)",
                 pointBorderColor: "#fff",
                 fill: false,
-                lineTension: 0,
+                lineTension: 0.1,
                 data: [
                     {% if Historial_Respuestas %}
             {% for time_PS in Historial_Respuestas %}
@@ -11899,11 +11927,11 @@ var CreacionData = {
         },
         {
             label: "Incorrectas",
-                backgroundColor: 'rgb(218,95,38)',
-            borderColor: "rgb(218,95,38)",
+                backgroundColor: 'rgb(212, 204, 109 )',
+            borderColor: "rgb(212, 204, 109 )",
             pointBorderColor: "#fff",
             fill: false,
-            lineTension: 0,
+            lineTension: 0.1,
             data: [
             {% if Historial_Respuestas %}
             {% for time_PS in Historial_Respuestas %}
@@ -11935,6 +11963,150 @@ var CreacionData = {
                 }});
         }
 
+        var historial_Respuestas_Anexar_data = {
+            labels: [
+                {% if Historial_Respuestas_Anexar %}
+                    {% for time_PS in Historial_Respuestas_Anexar %}
+                        "{{time_PS.Fecha}}",
+
+
+
+
+                    {% endfor%}
+                {% endif%}
+            ],
+
+
+            datasets: [
+                {
+                    label: "Correctas",
+                    backgroundColor: 'rgb(255, 182, 193)',
+                    borderColor: "rgb(255, 182, 193)",
+                    pointBorderColor: "#fff",
+                    fill: false,
+                    lineTension: 0.1,
+                    data: [
+                        {% if Historial_Respuestas_Anexar %}
+                            {% for time_PS in Historial_Respuestas_Anexar %}
+
+                                {{time_PS.Correctas}},
+
+
+                            {% endfor%}
+                        {% endif%}
+
+                    ]
+                },
+                {
+                    label: "Incorrectas",
+                    backgroundColor: 'rgb(212, 204, 109 )',
+                    borderColor: "rgb(212, 204, 109 )",
+                    pointBorderColor: "#fff",
+                    fill: false,
+                    lineTension: 0.1,
+                    data: [
+                        {% if Historial_Respuestas_Anexar %}
+                            {% for time_PS in Historial_Respuestas_Anexar %}
+
+                                {{time_PS.Incorrectas}},
+
+
+                            {% endfor%}
+                        {% endif%}
+
+                    ]
+                },
+
+            ]
+        };
+
+        if ($('#historial_Respuestas_Anexar').length){
+            var ctx = document.getElementById("historial_Respuestas_Anexar").getContext("2d");
+            new Chart(ctx, {type: 'line', data: historial_Respuestas_Anexar_data, options: {
+                    scales: {
+                        xAxes: [{
+                            ticks: {
+                                autoSkip: false,
+                                maxRotation: 90,
+                                minRotation: 90
+                            }
+                        }]
+                    }
+                }});
+        }
+
+        var historial_Respuestas_Dividir_data = {
+            labels: [
+                {% if Historial_Respuestas_Dividir %}
+                    {% for time_PS in Historial_Respuestas_Dividir %}
+                        "{{time_PS.Fecha}}",
+
+
+
+
+                    {% endfor%}
+                {% endif%}
+            ],
+
+
+            datasets: [
+                {
+                    label: "Correctas",
+                    backgroundColor: 'rgb(255, 182, 193)',
+                    borderColor: "rgb(255, 182, 193)",
+                    pointBorderColor: "#fff",
+                    fill: false,
+                    lineTension: 0.1,
+                    data: [
+                        {% if Historial_Respuestas_Dividir %}
+                            {% for time_PS in Historial_Respuestas_Dividir %}
+
+                                {{time_PS.Correctas}},
+
+
+                            {% endfor%}
+                        {% endif%}
+
+                    ]
+                },
+                {
+                    label: "Incorrectas",
+                    backgroundColor: 'rgb(212, 204, 109 )',
+                    borderColor: "rgb(212, 204, 109 )",
+                    pointBorderColor: "#fff",
+                    fill: false,
+                    lineTension: 0.1,
+                    data: [
+                        {% if Historial_Respuestas_Dividir %}
+                            {% for time_PS in Historial_Respuestas_Dividir %}
+
+                                {{time_PS.Incorrectas}},
+
+
+                            {% endfor%}
+                        {% endif%}
+
+                    ]
+                },
+
+            ]
+        };
+
+        if ($('#historial_Respuestas_Dividir').length){
+            var ctx = document.getElementById("historial_Respuestas_Dividir").getContext("2d");
+            new Chart(ctx, {type: 'line', data: historial_Respuestas_Dividir_data, options: {
+                    scales: {
+                        xAxes: [{
+                            ticks: {
+                                autoSkip: false,
+                                maxRotation: 90,
+                                minRotation: 90
+                            }
+                        }]
+                    }
+                }});
+        }
+
         var Tiempo_llave_data = {
             labels: [
                 {% if Historial_movimientos %}
@@ -11952,11 +12124,11 @@ var CreacionData = {
         datasets: [
             {
                 label: "Correctas",
-                backgroundColor: 'rgb(38,198,218)',
-                borderColor: "rgb(38,198,218)",
+                backgroundColor: 'rgb(255, 182, 193)',
+                borderColor: "rgb(255, 182, 193)",
                 pointBorderColor: "#fff",
                 fill: false,
-                lineTension: 0,
+                lineTension: 0.1,
                 data: [
                     {% if Historial_movimientos %}
             {% for time_PS in Historial_movimientos %}
@@ -11971,11 +12143,11 @@ var CreacionData = {
         },
         {
             label: "Incorrectas",
-                backgroundColor: 'rgb(218,95,38)',
-            borderColor: "rgb(218,95,38)",
+                backgroundColor: 'rgb(212, 204, 109 )',
+            borderColor: "rgb(212, 204, 109 )",
             pointBorderColor: "#fff",
             fill: false,
-            lineTension: 0,
+            lineTension: 0.1,
             data: [
             {% if Historial_movimientos %}
             {% for time_PS in Historial_movimientos %}
@@ -12105,39 +12277,6 @@ var CreacionData = {
                     }
                 }});
         }
-        /*var touchAnaliticaPSData = {
-            labels: [
-                {% if Porcentaje_llave %}
-                {% for touch_puzzle in Porcentaje_llave %}
-                '{{touch_puzzle.name}}',
-                {% endfor%}
-                {% endif%}
-                ],
-            datasets: [
-            {
-                label:[{% if nombre %}
-                {% for n in nombre %}
-                'Porcentaje  de {{n.name}}',
-                {% endfor %}
-                {% endif %}],
-                backgroundColor: 'rgb(0,188,212)',
-                borderColor: "rgb(3,155,229)",
-                pointBorderColor: "#fff",
-                data: [
-                    {% if Porcentaje_llave %}
-                    {% for touch_puzzle in Porcentaje_llave %}
-                    '{{touch_puzzle.porcentaje}}',
-                    {% endfor%}
-                    {% endif%}
-                    ],
-        }
-        ]
-        };
-        if ($('#llave_porcentaje').length){
-            var ctx22 = document.getElementById("llave_porcentaje").getContext("2d");
-            new Chart(ctx22, {type: 'horizontalBar', data: touchAnaliticaPSData, options: barOptions});
-        }*/
-    // # Fin Reciclando Construyo
 
     ////////////Inicio Reciclando cuido el Océano/////////////////////////
 
