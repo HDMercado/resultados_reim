@@ -2672,7 +2672,7 @@
                                                 </div>
                                                 <div class="ibox-content">
                                                     <div class="scroll_content">
-                                                        <canvas id="tiempoActividadRC" height=100>{% load staticfiles %}</canvas>
+                                                        <canvas id="tiempoActividadRC" height={{ tiempo_size }}>{% load staticfiles %}</canvas>
                                                     </div>
                                                 </div>
                                             </div>
@@ -2680,24 +2680,25 @@
                                         <div class="col-lg-6">
                                             <div class="ibox ">
                                                 <div class="ibox-title">
-                                                    <h5>Porcentaje por tipo de llave</h5><span class="  glyphicon glyphicon-info-sign" title="Indica la cantidad de touch dividido las veces que se ingreso a la actividad Puzzle en cada dia para poder evaluar el desarrollo de la habilidad de persistencia en los/las alumnos/as"></span>
+                                                    <h5>Linea de tiempo por intentos</h5><span class="  glyphicon glyphicon-info-sign" title="Indica la cantidad de touch dividido las veces que se ingreso a la actividad Puzzle en cada dia para poder evaluar el desarrollo de la habilidad de persistencia en los/las alumnos/as"></span>
                                                     <div class="ibox-tools"></div>
                                                 </div>
                                                 <div class="ibox-content">
                                                     {%if student_num == '0'%}
-                                                    <canvas id="tipo_llave" height=70>{% load staticfiles %}</canvas>
+                                                        <canvas id="Tiempo_llave" height=250>{% load staticfiles %}</canvas>
                                                     {% endif %}
                                                     {%if student_num != '0'%}
-                                                    <canvas id="tipo_llave" height=70>{% load staticfiles %}</canvas>
+                                                        <canvas id="Tiempo_llave" height=250>{% load staticfiles %}</canvas>
                                                     {% endif %}
                                                 </div>
                                             </div>
                                         </div>
 
 
+
                                     </div>
                                     {%if student_num == '0'%}
-                                    <div class="row">
+                                        <!-- <div class="row">
                                         <div class="col-lg-6">
                                             <div class="ibox ">
                                                 <div class="ibox-title">
@@ -2733,21 +2734,22 @@
 
 
                                     </div>
+                                    -->
                                     {% endif %}
-                                    {%if student_num != '0'%}
+
                                     <div class="row">
                                         <div class="col-lg-6">
                                             <div class="ibox ">
                                                 <div class="ibox-title">
-                                                    <h5>Linea de tiempo por intentos</h5><span class="  glyphicon glyphicon-info-sign" title="Indica la cantidad de touch dividido las veces que se ingreso a la actividad Puzzle en cada dia para poder evaluar el desarrollo de la habilidad de persistencia en los/las alumnos/as"></span>
+                                                    <h5>Porcentaje por tipo de llave</h5><span class="  glyphicon glyphicon-info-sign" title="Indica la cantidad de touch dividido las veces que se ingreso a la actividad Puzzle en cada dia para poder evaluar el desarrollo de la habilidad de persistencia en los/las alumnos/as"></span>
                                                     <div class="ibox-tools"></div>
                                                 </div>
                                                 <div class="ibox-content">
                                                     {%if student_num == '0'%}
-                                                    <canvas id="Tiempo_llave" height=200>{% load staticfiles %}</canvas>
+                                                        <canvas id="tipo_llave" height={{ Llave_tipo_size }}>{% load staticfiles %}</canvas>
                                                     {% endif %}
                                                     {%if student_num != '0'%}
-                                                    <canvas id="Tiempo_llave" height=200>{% load staticfiles %}</canvas>
+                                                        <canvas id="tipo_llave" height={{ Llave_tipo_size }}>{% load staticfiles %}</canvas>
                                                     {% endif %}
                                                 </div>
                                             </div>
@@ -2761,17 +2763,72 @@
                                                 </div>
                                                 <div class="ibox-content">
                                                     {%if student_num == '0'%}
-                                                    <canvas id="intentos_tipo_llave" height=70>{% load staticfiles %}</canvas>
+                                                    <canvas id="intentos_tipo_llave" height={{ Llave_tipo_size }}>{% load staticfiles %}</canvas>
                                                     {% endif %}
                                                     {%if student_num != '0'%}
-                                                    <canvas id="intentos_tipo_llave" height=70>{% load staticfiles %}</canvas>
+                                                    <canvas id="intentos_tipo_llave" height={{ Llave_tipo_size }}>{% load staticfiles %}</canvas>
                                                     {% endif %}
                                                 </div>
                                             </div>
                                         </div>
 
                                     </div>
-                                    {% endif %}
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="ibox ">
+                                                <div class="ibox-title">
+                                                    <h5>Linea de tiempo de llave Sol</h5><span class="  glyphicon glyphicon-info-sign" title="Indica la cantidad de touch dividido las veces que se ingreso a la actividad Puzzle en cada dia para poder evaluar el desarrollo de la habilidad de persistencia en los/las alumnos/as"></span>
+                                                    <div class="ibox-tools"></div>
+                                                </div>
+                                                <div class="ibox-content">
+                                                    {%if student_num == '0'%}
+                                                        <canvas id="Tiempo_llave_Sol" height=250>{% load staticfiles %}</canvas>
+                                                    {% endif %}
+                                                    {%if student_num != '0'%}
+                                                        <canvas id="Tiempo_llave_Sol" height=250>{% load staticfiles %}</canvas>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-6">
+                                            <div class="ibox ">
+                                                <div class="ibox-title">
+                                                    <h5>Linea de tiempo de llave Nube</h5><span class="  glyphicon glyphicon-info-sign" title="Indica la cantidad de touch dividido las veces que se ingreso a la actividad Puzzle en cada dia para poder evaluar el desarrollo de la habilidad de persistencia en los/las alumnos/as"></span>
+                                                    <div class="ibox-tools"></div>
+                                                </div>
+                                                <div class="ibox-content">
+                                                    {%if student_num == '0'%}
+                                                        <canvas id="Tiempo_llave_Nube" height=250>{% load staticfiles %}</canvas>
+                                                    {% endif %}
+                                                    {%if student_num != '0'%}
+                                                        <canvas id="Tiempo_llave_Nube" height=250>{% load staticfiles %}</canvas>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+
+
+                                        <div class="col-lg-6">
+                                            <div class="ibox ">
+                                                <div class="ibox-title">
+                                                    <h5>Linea de tiempo de llave Triangulo</h5><span class="  glyphicon glyphicon-info-sign" title="Indica la cantidad de touch dividido las veces que se ingreso a la actividad Puzzle en cada dia para poder evaluar el desarrollo de la habilidad de persistencia en los/las alumnos/as"></span>
+                                                    <div class="ibox-tools"></div>
+                                                </div>
+                                                <div class="ibox-content">
+                                                    {%if student_num == '0'%}
+                                                        <canvas id="Tiempo_llave_Triangulo" height=250>{% load staticfiles %}</canvas>
+                                                    {% endif %}
+                                                    {%if student_num != '0'%}
+                                                        <canvas id="Tiempo_llave_Triangulo" height=250>{% load staticfiles %}</canvas>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     {% comment %}
 
                                     {% endcomment %}
@@ -12179,6 +12236,222 @@ var CreacionData = {
                 }});
         }
 
+        var Tiempo_llave_Sol_data = {
+            labels: [
+                {% if Historial_movimientos_Sol %}
+                    {% for time_PS in Historial_movimientos_Sol %}
+                        "{{time_PS.Fecha}}",
+
+
+
+
+                    {% endfor%}
+                {% endif%}
+            ],
+
+
+            datasets: [
+                {
+                    label: "Correctas",
+                    backgroundColor: 'rgb(255, 182, 193)',
+                    borderColor: "rgb(255, 182, 193)",
+                    pointBorderColor: "#fff",
+                    fill: false,
+                    lineTension: 0.1,
+                    data: [
+                        {% if Historial_movimientos_Sol %}
+                            {% for time_PS in Historial_movimientos_Sol %}
+
+                                {{time_PS.Correctas}},
+
+
+                            {% endfor%}
+                        {% endif%}
+
+                    ]
+                },
+                {
+                    label: "Incorrectas",
+                    backgroundColor: 'rgb(212, 204, 109 )',
+                    borderColor: "rgb(212, 204, 109 )",
+                    pointBorderColor: "#fff",
+                    fill: false,
+                    lineTension: 0.1,
+                    data: [
+                        {% if Historial_movimientos_Sol %}
+                            {% for time_PS in Historial_movimientos_Sol %}
+
+                                {{time_PS.Incorrectas}},
+
+
+                            {% endfor%}
+                        {% endif%}
+
+                    ]
+                },
+
+            ]
+        };
+
+        if ($('#Tiempo_llave_Sol').length){
+            var ctx = document.getElementById("Tiempo_llave_Sol").getContext("2d");
+            new Chart(ctx, {type: 'line', data: Tiempo_llave_Sol_data, options: {
+                    scales: {
+                        xAxes: [{
+                            ticks: {
+                                autoSkip: false,
+                                maxRotation: 90,
+                                minRotation: 90
+                            }
+                        }]
+                    }
+                }});
+        }
+
+        var Tiempo_llave_Nube_data = {
+            labels: [
+                {% if Historial_movimientos_Nube %}
+                    {% for time_PS in Historial_movimientos_Nube %}
+                        "{{time_PS.Fecha}}",
+
+
+
+
+                    {% endfor%}
+                {% endif%}
+            ],
+
+
+            datasets: [
+                {
+                    label: "Correctas",
+                    backgroundColor: 'rgb(255, 182, 193)',
+                    borderColor: "rgb(255, 182, 193)",
+                    pointBorderColor: "#fff",
+                    fill: false,
+                    lineTension: 0.1,
+                    data: [
+                        {% if Historial_movimientos_Nube %}
+                            {% for time_PS in Historial_movimientos_Nube %}
+
+                                {{time_PS.Correctas}},
+
+
+                            {% endfor%}
+                        {% endif%}
+
+                    ]
+                },
+                {
+                    label: "Incorrectas",
+                    backgroundColor: 'rgb(212, 204, 109 )',
+                    borderColor: "rgb(212, 204, 109 )",
+                    pointBorderColor: "#fff",
+                    fill: false,
+                    lineTension: 0.1,
+                    data: [
+                        {% if Historial_movimientos_Nube %}
+                            {% for time_PS in Historial_movimientos_Nube %}
+
+                                {{time_PS.Incorrectas}},
+
+
+                            {% endfor%}
+                        {% endif%}
+
+                    ]
+                },
+
+            ]
+        };
+
+        if ($('#Tiempo_llave_Nube').length){
+            var ctx = document.getElementById("Tiempo_llave_Nube").getContext("2d");
+            new Chart(ctx, {type: 'line', data: Tiempo_llave_Nube_data, options: {
+                    scales: {
+                        xAxes: [{
+                            ticks: {
+                                autoSkip: false,
+                                maxRotation: 90,
+                                minRotation: 90
+                            }
+                        }]
+                    }
+                }});
+        }
+
+        var Tiempo_llave_Triangulo_data = {
+            labels: [
+                {% if Historial_movimientos_Triangulo %}
+                    {% for time_PS in Historial_movimientos_Triangulo %}
+                        "{{time_PS.Fecha}}",
+
+
+
+
+                    {% endfor%}
+                {% endif%}
+            ],
+
+
+            datasets: [
+                {
+                    label: "Correctas",
+                    backgroundColor: 'rgb(255, 182, 193)',
+                    borderColor: "rgb(255, 182, 193)",
+                    pointBorderColor: "#fff",
+                    fill: false,
+                    lineTension: 0.1,
+                    data: [
+                        {% if Historial_movimientos_Triangulo %}
+                            {% for time_PS in Historial_movimientos_Triangulo %}
+
+                                {{time_PS.Correctas}},
+
+
+                            {% endfor%}
+                        {% endif%}
+
+                    ]
+                },
+                {
+                    label: "Incorrectas",
+                    backgroundColor: 'rgb(212, 204, 109 )',
+                    borderColor: "rgb(212, 204, 109 )",
+                    pointBorderColor: "#fff",
+                    fill: false,
+                    lineTension: 0.1,
+                    data: [
+                        {% if Historial_movimientos_Triangulo %}
+                            {% for time_PS in Historial_movimientos_Triangulo %}
+
+                                {{time_PS.Incorrectas}},
+
+
+                            {% endfor%}
+                        {% endif%}
+
+                    ]
+                },
+
+            ]
+        };
+
+        if ($('#Tiempo_llave_Triangulo').length){
+            var ctx = document.getElementById("Tiempo_llave_Triangulo").getContext("2d");
+            new Chart(ctx, {type: 'line', data: Tiempo_llave_Triangulo_data, options: {
+                    scales: {
+                        xAxes: [{
+                            ticks: {
+                                autoSkip: false,
+                                maxRotation: 90,
+                                minRotation: 90
+                            }
+                        }]
+                    }
+                }});
+        }
+        
         var Cantidad_elementos_reciclados_general_data = {
             labels:
                 [

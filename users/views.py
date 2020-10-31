@@ -2939,7 +2939,11 @@ def welcome(request):
         Historial_Respuestas_Anexar_response = []
         Historial_Respuestas_Dividir_response = []
         Historial_movimientos_response = []
+        Historial_movimientos_Sol_response = []
+        Historial_movimientos_Nube_response = []
+        Historial_movimientos_Triangulo_response = []
         tiempo_size = 0;
+        Llave_tipo_size = 0;
 
         if reim_num=="201":
             Llave_tipo_query = get_llave_Tipo(request)
@@ -2950,6 +2954,7 @@ def welcome(request):
 
             for row in Llave_tipo_query:
                 Llave_tipo_response.append({ 'name': row[0], 'Total': row[1], 'Incorrectas': row[2] , 'Correctas': row[3] })
+            Llave_tipo_size = len(Llave_tipo_response)*40+20;
 
             Respuestas_General_VencerAlConstructor_query = get_Respuestas_General_VencerAlConstructor(request)
             #print(porcentaje_llave_query)
@@ -2990,13 +2995,39 @@ def welcome(request):
 
             get_Historial_movimientos_query = get_Historial_movimientos(request)
             #print(porcentaje_llave_query)
-            queries.append({"name": 'porcentaje llave query', "query": get_Historial_movimientos_query})
+            queries.append({"name": 'Historial Movimientos', "query": get_Historial_movimientos_query})
             cursor.execute(get_Historial_movimientos_query)
             get_Historial_movimientos_query = cursor.fetchall()
 
             for row in get_Historial_movimientos_query:
                 Historial_movimientos_response.append({ 'name': row[0], 'Total': row[4], 'Incorrectas': row[5] , 'Correctas': row[6], 'Fecha': row[7] })
 
+            get_Historial_movimientos_Sol_query = get_Historial_movimientos_Sol(request)
+            #print(porcentaje_llave_query)
+            queries.append({"name": 'Historial Movimientos Sol', "query": get_Historial_movimientos_Sol_query})
+            cursor.execute(get_Historial_movimientos_Sol_query)
+            get_Historial_movimientos_Sol_query = cursor.fetchall()
+
+            for row in get_Historial_movimientos_Sol_query:
+                Historial_movimientos_Sol_response.append({ 'name': row[0], 'Total': row[4], 'Incorrectas': row[5] , 'Correctas': row[6], 'Fecha': row[7] })
+
+            get_Historial_movimientos_Nube_query = get_Historial_movimientos_Nube(request)
+            #print(porcentaje_llave_query)
+            queries.append({"name": 'Historial Movimientos Sol', "query": get_Historial_movimientos_Nube_query})
+            cursor.execute(get_Historial_movimientos_Nube_query)
+            get_Historial_movimientos_Nube_query = cursor.fetchall()
+
+            for row in get_Historial_movimientos_Nube_query:
+                Historial_movimientos_Nube_response.append({ 'name': row[0], 'Total': row[4], 'Incorrectas': row[5] , 'Correctas': row[6], 'Fecha': row[7] })
+
+            get_Historial_movimientos_Triangulo_query = get_Historial_movimientos_Triangulo(request)
+            #print(porcentaje_llave_query)
+            queries.append({"name": 'Historial Movimientos Sol', "query": get_Historial_movimientos_Triangulo_query})
+            cursor.execute(get_Historial_movimientos_Triangulo_query)
+            get_Historial_movimientos_Triangulo_query = cursor.fetchall()
+
+            for row in get_Historial_movimientos_Triangulo_query:
+                Historial_movimientos_Triangulo_response.append({ 'name': row[0], 'Total': row[4], 'Incorrectas': row[5] , 'Correctas': row[6], 'Fecha': row[7] })
 
 
             ElementosRecicladosGeneral_tipo_query = get_ElementosRecicladosCorrectamente_Tipo(request)
@@ -3938,11 +3969,15 @@ def welcome(request):
                 'ElementosRecicladosGeneral_tipo': ElementosRecicladosGeneral_tipo_response,
                 'ElementosRecicladosGeneralIncorrectamente_tipo': ElementosRecicladosGeneralIncorrectamente_tipo_response,
                 'Llave_tipo': Llave_tipo_response,
+                'Llave_tipo_size': Llave_tipo_size,
                 'Respuestas_General_VencerAlConstructor': Respuestas_General_VencerAlConstructor_response,
                 'Historial_Respuestas': Historial_Respuestas_response,
                 'Historial_Respuestas_Anexar': Historial_Respuestas_Anexar_response,
                 'Historial_Respuestas_Dividir': Historial_Respuestas_Dividir_response,
                 'Historial_movimientos': Historial_movimientos_response,
+                'Historial_movimientos_Sol': Historial_movimientos_Sol_response,
+                'Historial_movimientos_Nube': Historial_movimientos_Nube_response,
+                'Historial_movimientos_Triangulo': Historial_movimientos_Triangulo_response,
                 'tiempo_size' : tiempo_size,
                 # FIN RECICLANDO CONSTRUYO
                 #########################Inicio Reciclando cuido el oceano###############################
