@@ -2942,9 +2942,11 @@ def welcome(request):
         Historial_movimientos_Sol_response = []
         Historial_movimientos_Nube_response = []
         Historial_movimientos_Triangulo_response = []
+        Historial_Reciclaje_response = []
         tiempo_size = 0;
         Llave_tipo_size = 0;
-
+        elementos_graph_size = 0;
+        Elementos_Reciclados_tipo_size = 0;
         if reim_num=="201":
             Llave_tipo_query = get_llave_Tipo(request)
             #print(porcentaje_llave_query)
@@ -3029,15 +3031,26 @@ def welcome(request):
             for row in get_Historial_movimientos_Triangulo_query:
                 Historial_movimientos_Triangulo_response.append({ 'name': row[0], 'Total': row[4], 'Incorrectas': row[5] , 'Correctas': row[6], 'Fecha': row[7] })
 
-
-            ElementosRecicladosGeneral_tipo_query = get_ElementosRecicladosCorrectamente_Tipo(request)
+            get_Historial_Reciclaje_query = get_Historial_Reciclaje(request)
             #print(porcentaje_llave_query)
-            queries.append({"name": 'porcentaje llave query', "query": ElementosRecicladosGeneral_tipo_query})
+            queries.append({"name": 'Historial Reciclaje', "query": get_Historial_Reciclaje_query})
+            cursor.execute(get_Historial_Reciclaje_query)
+            get_Historial_Reciclaje_query = cursor.fetchall()
+
+            for row in get_Historial_Reciclaje_query:
+                Historial_Reciclaje_response.append({ 'name': row[0], 'Total': row[4], 'Incorrectas': row[5] , 'Correctas': row[6], 'Fecha': row[7] })
+
+
+            ElementosRecicladosGeneral_tipo_query = get_ElementosReciclados_Tipo(request)
+            #print(porcentaje_llave_query)
+            queries.append({"name": 'Elementos Reciclados Tipo', "query": ElementosRecicladosGeneral_tipo_query})
             cursor.execute(ElementosRecicladosGeneral_tipo_query)
             ElementosRecicladosGeneral_tipo_query = cursor.fetchall()
 
             for row in ElementosRecicladosGeneral_tipo_query:
-                ElementosRecicladosGeneral_tipo_response.append({ 'id': row[0], 'Tipo': row[1], 'cantidad': row[2] })
+                ElementosRecicladosGeneral_tipo_response.append({ 'id': row[0], 'Total': row[1], 'Incorrectas': row[2]
+                                                                    , 'Correctas': row[3], 'Tipo': row[6]})
+            Elementos_Reciclados_tipo_size = len(ElementosRecicladosGeneral_tipo_response)*20+20
 
 
             ElementosRecicladosGeneralIncorrectamente_tipo_query = get_ElementosRecicladosIncorrectamente_Tipo(request)
@@ -3090,7 +3103,9 @@ def welcome(request):
             cursor.execute(elementos_reciclados_usuario_query)
             elementos_reciclados_usuario_query = cursor.fetchall()
             for row in elementos_reciclados_usuario_query:
-                elementos_reciclados_usuario_response.append({'nombre': row[0], 'cantidad': row[1], 'nombreElemento': row[2]})
+                elementos_reciclados_usuario_response.append({'nombre': row[0], 'Total': row[1], 'Incorrecta': row[2]
+                                                              , 'Correcta': row[3], 'Elemento': row[4]})
+            elementos_graph_size = len(elementos_reciclados_usuario_response)*20+20
 
             elementos_reciclados_usuario_incorrecto_query = get_elementos_reciclados_incorrecto_usuario(request)
             queries.append({"name": 'elementos reciclados incorrecto query', "query": elementos_reciclados_usuario_incorrecto_query})
@@ -3978,7 +3993,10 @@ def welcome(request):
                 'Historial_movimientos_Sol': Historial_movimientos_Sol_response,
                 'Historial_movimientos_Nube': Historial_movimientos_Nube_response,
                 'Historial_movimientos_Triangulo': Historial_movimientos_Triangulo_response,
+                'Historial_Reciclaje': Historial_Reciclaje_response,
                 'tiempo_size' : tiempo_size,
+                'elementos_graph_size' : elementos_graph_size,
+                'Elementos_Reciclados_tipo_size' : Elementos_Reciclados_tipo_size,
                 # FIN RECICLANDO CONSTRUYO
                 #########################Inicio Reciclando cuido el oceano###############################
                 'touch_all_act206_quantity':touch_all_act206_quantity_response,

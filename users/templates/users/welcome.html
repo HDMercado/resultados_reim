@@ -2840,6 +2840,8 @@
                             {% endif %}
 
                             {% if activity_num == '9008' %}
+                                <h1>Resultados Actividad : <strong>Limpiando el Bosque</strong></h1>
+                                <hr><br>
                             <div class="row" >
                                 <div class="col-lg-12">
 
@@ -2852,7 +2854,7 @@
                                                 </div>
                                                 <div class="ibox-content">
                                                     <div class="scroll_content">
-                                                        <canvas id="tiempoActividadRC" height=100>{% load staticfiles %}</canvas>
+                                                        <canvas id="tiempoActividadRC" height={{ tiempo_size }}>{% load staticfiles %}</canvas>
                                                     </div>
                                                 </div>
                                             </div>
@@ -2860,40 +2862,80 @@
                                         <div class="col-lg-6">
                                             <div class="ibox ">
                                                 <div class="ibox-title">
-                                                    <h5>Cantidad de elementos reciclados</h5><span class="  glyphicon glyphicon-info-sign" title="Indica la cantidad de touch dividido las veces que se ingreso a la actividad Puzzle en cada dia para poder evaluar el desarrollo de la habilidad de persistencia en los/las alumnos/as"></span>
+                                                    <h5>Linea de tiempo actividad Limpiar el Bosque</h5><span class="  glyphicon glyphicon-info-sign" title="Indica la cantidad de touch dividido las veces que se ingreso a la actividad Puzzle en cada dia para poder evaluar el desarrollo de la habilidad de persistencia en los/las alumnos/as"></span>
                                                     <div class="ibox-tools"></div>
                                                 </div>
                                                 <div class="ibox-content">
                                                     {%if student_num == '0'%}
-                                                    <canvas id="elementos_reciclados_usuarios" height={{elementos_PS_graf}}>{% load staticfiles %}</canvas>
+                                                        <canvas id="Tiempo_Reciclaje" height=250>{% load staticfiles %}</canvas>
                                                     {% endif %}
                                                     {%if student_num != '0'%}
-                                                    <canvas id="elementos_reciclados_usuarios" height={{elementos_PS_graf}}>{% load staticfiles %}</canvas>
+                                                        <canvas id="Tiempo_Reciclaje" height=250>{% load staticfiles %}</canvas>
                                                     {% endif %}
                                                 </div>
                                             </div>
                                         </div>
+
 
 
 
 
                                     </div>
                                 </div>
+
+                                <div class="col-lg-12">
+
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                        <div class="ibox ">
+                                            <div class="ibox-title">
+                                                <h5>Cantidad de elementos reciclados</h5><span class="  glyphicon glyphicon-info-sign" title="Indica la cantidad de touch dividido las veces que se ingreso a la actividad Puzzle en cada dia para poder evaluar el desarrollo de la habilidad de persistencia en los/las alumnos/as"></span>
+                                                <div class="ibox-tools"></div>
+                                            </div>
+                                            <div class="ibox-content">
+                                                {%if student_num == '0'%}
+                                                    <canvas id="elementos_reciclados_usuarios" height={{elementos_graph_size}}>{% load staticfiles %}</canvas>
+                                                {% endif %}
+                                                {%if student_num != '0'%}
+                                                    <canvas id="elementos_reciclados_usuarios" height={{elementos_graph_size}}>{% load staticfiles %}</canvas>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                        <div class="col-lg-6">
+                                            <div class="ibox ">
+                                                <div class="ibox-title">
+                                                    <h5>Porcentaje de elementos reciclados</h5><span class="  glyphicon glyphicon-info-sign" title="Indica la cantidad de touch dividido las veces que se ingreso a la actividad Puzzle en cada dia para poder evaluar el desarrollo de la habilidad de persistencia en los/las alumnos/as"></span>
+                                                    <div class="ibox-tools"></div>
+                                                </div>
+                                                <div class="ibox-content">
+                                                    {%if student_num == '0'%}
+                                                        <canvas id="elementos_reciclados_porcentaje" height={{elementos_graph_size}}>{% load staticfiles %}</canvas>
+                                                    {% endif %}
+                                                    {%if student_num != '0'%}
+                                                        <canvas id="elementos_reciclados_porcentaje" height={{elementos_graph_size}}>{% load staticfiles %}</canvas>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <div class="col-lg-12">
 
                                     <div class="row">
                                         <div class="col-lg-6">
                                             <div class="ibox ">
                                                 <div class="ibox-title">
-                                                    <h5>Cantidad de elementos por tipo reciclados correctamente</h5><span class="  glyphicon glyphicon-info-sign" title="Indica la cantidad de touch dividido las veces que se ingreso a la actividad Puzzle en cada dia para poder evaluar el desarrollo de la habilidad de persistencia en los/las alumnos/as"></span>
+                                                    <h5>Cantidad de elementos por tipo de material</h5><span class="  glyphicon glyphicon-info-sign" title="Indica la cantidad de touch dividido las veces que se ingreso a la actividad Puzzle en cada dia para poder evaluar el desarrollo de la habilidad de persistencia en los/las alumnos/as"></span>
                                                     <div class="ibox-tools"></div>
                                                 </div>
                                                 <div class="ibox-content">
                                                     {%if student_num == '0'%}
-                                                    <canvas id="elementos_reciclados_general" height=150>{% load staticfiles %}</canvas>
+                                                    <canvas id="elementos_reciclados_general" height={{ Elementos_Reciclados_tipo_size }}>{% load staticfiles %}</canvas>
                                                     {% endif %}
                                                     {%if student_num != '0'%}
-                                                    <canvas id="elementos_reciclados_general" height=150>{% load staticfiles %}</canvas>
+                                                    <canvas id="elementos_reciclados_general" height={{ Elementos_Reciclados_tipo_size }}>{% load staticfiles %}</canvas>
                                                     {% endif %}
                                                 </div>
                                             </div>
@@ -2902,15 +2944,15 @@
                                         <div class="col-lg-6">
                                             <div class="ibox ">
                                                 <div class="ibox-title">
-                                                    <h5>Cantidad de elementos por tipo reciclados Incorrectamente</h5><span class="  glyphicon glyphicon-info-sign" title="Indica la cantidad de touch dividido las veces que se ingreso a la actividad Puzzle en cada dia para poder evaluar el desarrollo de la habilidad de persistencia en los/las alumnos/as"></span>
+                                                    <h5>Porcentaje de elementos por tipo de material</h5><span class="  glyphicon glyphicon-info-sign" title="Indica la cantidad de touch dividido las veces que se ingreso a la actividad Puzzle en cada dia para poder evaluar el desarrollo de la habilidad de persistencia en los/las alumnos/as"></span>
                                                     <div class="ibox-tools"></div>
                                                 </div>
                                                 <div class="ibox-content">
                                                     {%if student_num == '0'%}
-                                                    <canvas id="elementos_reciclados_zona" height=150>{% load staticfiles %}</canvas>
+                                                    <canvas id="elementos_reciclados_zona" height={{ Elementos_Reciclados_tipo_size }}>{% load staticfiles %}</canvas>
                                                     {% endif %}
                                                     {%if student_num != '0'%}
-                                                    <canvas id="elementos_reciclados_zona" height=150>{% load staticfiles %}</canvas>
+                                                    <canvas id="elementos_reciclados_zona" height={{ Elementos_Reciclados_tipo_size }}>{% load staticfiles %}</canvas>
                                                     {% endif %}
                                                 </div>
                                             </div>
@@ -11563,7 +11605,7 @@ var CreacionData = {
                 [
                     {% if Elementos_reciclados_usuario %}
         {% for time_PS in Elementos_reciclados_usuario %}
-        '{{time_PS.nombreElemento}}',
+        '{{time_PS.Elemento}}',
         {% endfor%}
         {% endif%}
         ],
@@ -11576,7 +11618,7 @@ var CreacionData = {
                 data: [
                     {% if Elementos_reciclados_usuario %}
             {% for time_PS in Elementos_reciclados_usuario %}
-        {{time_PS.cantidad}},
+        {{time_PS.Correcta}},
         {% endfor%}
         {% endif%}
         ]
@@ -11587,9 +11629,9 @@ var CreacionData = {
             borderColor: "rgb(212, 204, 109 )",
             pointBorderColor: "#fff",
             data: [
-            {% if Elementos_reciclados_usuario_incorrecto %}
-            {% for time_PS in Elementos_reciclados_usuario_incorrecto %}
-            {{time_PS.cantidad}},
+            {% if Elementos_reciclados_usuario %}
+            {% for time_PS in Elementos_reciclados_usuario %}
+            {{time_PS.Incorrecta}},
             {% endfor%}
             {% endif%}
         ]
@@ -11601,6 +11643,57 @@ var CreacionData = {
         if ($('#elementos_reciclados_usuarios').length){
             var ctx = document.getElementById("elementos_reciclados_usuarios").getContext("2d");
             new Chart(ctx, {type: 'horizontalBar', data: Elementos_reciclados_usuario_data, options: {
+                    scales: {
+                        xAxes: [{ stacked: true }],
+                        yAxes: [{ stacked: true }]
+                    }
+                }});
+        }
+
+        var Elementos_reciclados_Porcentaje_data = {
+            labels:
+                [
+                    {% if Elementos_reciclados_usuario %}
+                        {% for time_PS in Elementos_reciclados_usuario %}
+                            '{{time_PS.Elemento}}',
+                        {% endfor%}
+                    {% endif%}
+                ],
+            datasets: [
+                {
+                    label: "Correctos",
+                    backgroundColor: 'rgb(255, 182, 193)',
+                    borderColor: "rgb(255, 182, 193)",
+                    pointBorderColor: "#fff",
+                    data: [
+                        {% if Elementos_reciclados_usuario %}
+                            {% for time_PS in Elementos_reciclados_usuario %}
+
+                                ({{time_PS.Correcta}}/({{time_PS.Total}}))*100,
+                            {% endfor%}
+                        {% endif%}
+                    ]
+                },
+                {
+                    label: "Incorrectos",
+                    backgroundColor: 'rgb(212, 204, 109 )',
+                    borderColor: "rgb(212, 204, 109 )",
+                    pointBorderColor: "#fff",
+                    data: [
+                        {% if Elementos_reciclados_usuario %}
+                            {% for time_PS in Elementos_reciclados_usuario %}
+                                ({{time_PS.Incorrecta}}/({{time_PS.Total}}))*100,
+                            {% endfor%}
+                        {% endif%}
+                    ]
+                },
+
+            ]
+        };
+
+        if ($('#elementos_reciclados_porcentaje').length){
+            var ctx = document.getElementById("elementos_reciclados_porcentaje").getContext("2d");
+            new Chart(ctx, {type: 'horizontalBar', data: Elementos_reciclados_Porcentaje_data, options: {
                     scales: {
                         xAxes: [{ stacked: true }],
                         yAxes: [{ stacked: true }]
@@ -12451,7 +12544,79 @@ var CreacionData = {
                     }
                 }});
         }
-        
+
+        var Tiempo_Reciclaje_data = {
+            labels: [
+                {% if Historial_Reciclaje %}
+                    {% for time_PS in Historial_Reciclaje %}
+                        "{{time_PS.Fecha}}",
+
+
+
+
+                    {% endfor%}
+                {% endif%}
+            ],
+
+
+            datasets: [
+                {
+                    label: "Correctas",
+                    backgroundColor: 'rgb(255, 182, 193)',
+                    borderColor: "rgb(255, 182, 193)",
+                    pointBorderColor: "#fff",
+                    fill: false,
+                    lineTension: 0.1,
+                    data: [
+                        {% if Historial_Reciclaje %}
+                            {% for time_PS in Historial_Reciclaje %}
+
+                                {{time_PS.Correctas}},
+
+
+                            {% endfor%}
+                        {% endif%}
+
+                    ]
+                },
+                {
+                    label: "Incorrectas",
+                    backgroundColor: 'rgb(212, 204, 109 )',
+                    borderColor: "rgb(212, 204, 109 )",
+                    pointBorderColor: "#fff",
+                    fill: false,
+                    lineTension: 0.1,
+                    data: [
+                        {% if Historial_Reciclaje %}
+                            {% for time_PS in Historial_Reciclaje %}
+
+                                {{time_PS.Incorrectas}},
+
+
+                            {% endfor%}
+                        {% endif%}
+
+                    ]
+                },
+
+            ]
+        };
+
+        if ($('#Tiempo_Reciclaje').length){
+            var ctx = document.getElementById("Tiempo_Reciclaje").getContext("2d");
+            new Chart(ctx, {type: 'line', data: Tiempo_Reciclaje_data, options: {
+                    scales: {
+                        xAxes: [{
+                            ticks: {
+                                autoSkip: false,
+                                maxRotation: 90,
+                                minRotation: 90
+                            }
+                        }]
+                    }
+                }});
+        }
+
         var Cantidad_elementos_reciclados_general_data = {
             labels:
                 [
@@ -12474,79 +12639,110 @@ var CreacionData = {
         {% endif%}
 
         ],
-        datasets: [
-            {
-                data: [{% if ElementosRecicladosGeneral_tipo %}
-            {% for time_PS in ElementosRecicladosGeneral_tipo %}
-        {{time_PS.cantidad}},
-        {% endfor%}
-        {% endif%}],
-        backgroundColor: ['rgb(0,34,255)','rgb(98,255,0)', 'rgb(255,230,0)','rgb(255,0,0)'
-            ,'rgb(113,0,125)']
-        },
+            datasets: [
+                {
+                    label: "Correctos",
+                    backgroundColor: 'rgb(255, 182, 193)',
+                    borderColor: "rgb(255, 182, 193)",
+                    pointBorderColor: "#fff",
+                    data: [
+                        {% if ElementosRecicladosGeneral_tipo %}
+                            {% for time_PS in ElementosRecicladosGeneral_tipo %}
 
+                                {{time_PS.Correctas}},
+                            {% endfor%}
+                        {% endif%}
+                    ]
+                },
+                {
+                    label: "Incorrectos",
+                    backgroundColor: 'rgb(212, 204, 109 )',
+                    borderColor: "rgb(212, 204, 109 )",
+                    pointBorderColor: "#fff",
+                    data: [
+                        {% if ElementosRecicladosGeneral_tipo %}
+                            {% for time_PS in ElementosRecicladosGeneral_tipo %}
+                                {{time_PS.Incorrectas}},
+                            {% endfor%}
+                        {% endif%}
+                    ]
+                },
 
-
-        ]
+            ]
         };
 
         if ($('#elementos_reciclados_general').length){
             var ctx = document.getElementById("elementos_reciclados_general").getContext("2d");
-            new Chart(ctx, {type: 'pie', data: Cantidad_elementos_reciclados_general_data, options: {
+            new Chart(ctx, {type: 'horizontalBar', data: Cantidad_elementos_reciclados_general_data, options: {
                     scales: {
-                        /*xAxes: [{ stacked: true }],
-                        yAxes: [{ stacked: true }]*/
+                        xAxes: [{ stacked: true }],
+                        yAxes: [{ stacked: true }]
                     }
                 }});
         }
+
 
         var Cantidad_elementos_reciclados_zona_data = {
 
             labels:
                 [
-                    {% if ElementosRecicladosGeneralIncorrectamente_tipo %}
-        {% for time_PS in ElementosRecicladosGeneralIncorrectamente_tipo %}
-        {%  if time_PS.Tipo == 1 %}
-        'Plastico',
-        {% endif%}
-        {%  if time_PS.Tipo == 2 %}
-        'Cartón',
-        {% endif%}
-        {%  if time_PS.Tipo == 3 %}
-        'Vidrio',
-        {% endif%}
-        {%  if time_PS.Tipo == 4 %}
-        'Metal',
-        {% endif%}
-        {% endfor%}
-        {% endif%}
-        ],
-        datasets: [
-            {
-                data: [
 
+                    {% if ElementosRecicladosGeneral_tipo %}
+                        {% for time_PS in ElementosRecicladosGeneral_tipo %}
+                            {%  if time_PS.Tipo == 1 %}
+                                'Plastico',
+                            {% endif%}
+                            {%  if time_PS.Tipo == 2 %}
+                                'Cartón',
+                            {% endif%}
+                            {%  if time_PS.Tipo == 3 %}
+                                'Vidrio',
+                            {% endif%}
+                            {%  if time_PS.Tipo == 4 %}
+                                'Metal',
+                            {% endif%}
+                        {% endfor%}
+                    {% endif%}
 
-                    {% if ElementosRecicladosGeneralIncorrectamente_tipo %}
-            {% for time_PS in ElementosRecicladosGeneralIncorrectamente_tipo %}
-        {{time_PS.cantidad}},
-        {% endfor%}
-        {% endif%}
-        ],
-        backgroundColor: ['rgb(0,34,255)','rgb(98,255,0)', 'rgb(255,230,0)','rgb(255,0,0)'
-            ,'rgb(113,0,125)']
-        },
+                ],
+            datasets: [
+                {
+                    label: "Correctos",
+                    backgroundColor: 'rgb(255, 182, 193)',
+                    borderColor: "rgb(255, 182, 193)",
+                    pointBorderColor: "#fff",
+                    data: [
+                        {% if ElementosRecicladosGeneral_tipo %}
+                            {% for time_PS in ElementosRecicladosGeneral_tipo %}
 
+                                ({{time_PS.Correctas}}/({{time_PS.Total}}))*100,
+                            {% endfor%}
+                        {% endif%}
+                    ]
+                },
+                {
+                    label: "Incorrectos",
+                    backgroundColor: 'rgb(212, 204, 109 )',
+                    borderColor: "rgb(212, 204, 109 )",
+                    pointBorderColor: "#fff",
+                    data: [
+                        {% if ElementosRecicladosGeneral_tipo %}
+                            {% for time_PS in ElementosRecicladosGeneral_tipo %}
+                                ({{time_PS.Incorrectas}}/({{time_PS.Total}}))*100,
+                            {% endfor%}
+                        {% endif%}
+                    ]
+                },
 
-
-        ]
+            ]
         };
 
         if ($('#elementos_reciclados_zona').length){
             var ctx = document.getElementById("elementos_reciclados_zona").getContext("2d");
-            new Chart(ctx, {type: 'pie', data: Cantidad_elementos_reciclados_zona_data, options: {
+            new Chart(ctx, {type: 'horizontalBar', data: Cantidad_elementos_reciclados_zona_data, options: {
                     scales: {
-                        /*xAxes: [{ stacked: true }],
-                        yAxes: [{ stacked: true }]*/
+                        xAxes: [{ stacked: true }],
+                        yAxes: [{ stacked: true }]
                     }
                 }});
         }
