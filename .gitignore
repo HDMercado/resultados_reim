@@ -2,3 +2,11 @@
 /.vscode/
 /resultadosReim/clean_ocean/__pycache__/
 /resultadosReim/plus_space/__pycache__/
+.idea/inspectionProfiles/profiles_settings.xml
+.idea/inspectionProfiles/Project_Default.xml
+.idea/jsLinters/jshint.xml
+.idea/misc.xml
+.idea/modules.xml
+.idea/resultados_reim.iml
+.idea/vcs.xml
+.idea/workspace.xml
