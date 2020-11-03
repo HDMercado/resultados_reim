@@ -1609,7 +1609,7 @@
             
             <!-- Fin Clean Ocean -->
 
-            {% if student_num == '0' and reim_num != '0' and reim_num != '1' and activity_num == '0' and reim_num != '3' and reim_num != '2' and reim_num != '4' %}
+            {% if student_num == '0' and reim_num != '0' and reim_num != '1' and activity_num == '0' and reim_num != '3' and reim_num != '2' and reim_num != '4' and reim_num != '201' %}
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
@@ -1922,7 +1922,7 @@
             
             <!-- Fin Clean Ocean -->
 
-            {% if student_num == '0' and reim_num != '0' and reim_num != '1' and activity_num == '0' and reim_num != '3' and reim_num != '2' and reim_num != '4' and reim_num != '27' %}
+            {% if student_num == '0' and reim_num != '0' and reim_num != '1' and activity_num == '0' and reim_num != '3' and reim_num != '2' and reim_num != '4' and reim_num != '27' and reim_num != '201' %}
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="row" {% if not activate_graphics %}style="display: none;"{% endif %}>
@@ -2552,7 +2552,656 @@
                     {% endif %}
                 <!--77 GRAFICO POR CURSO Y SIN ACTIVIDAD-->
                 <!-- #FIN REIM ID = 77, NOMBRE = BUSCANDO EL TESORO PERDIDO-->
+    <!--Inicio Reciclando Construyo -->
+    {% if reim_num == '201' %}
 
+        <div class="wrapper wrapper-content">
+
+
+        <!-- GENERAL RESULTS-->
+        {% if activity_num == '0' %}
+            <h1>Resultados Generales REIM: <strong>Reciclando Construyo</strong></h1>
+            <hr><br>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="row" >
+                        <div class="col-lg-6">
+                            <div class="ibox ">
+                                <div class="ibox-title">
+                                    <h5>Sesiones por Estudiante </h5><span class="  glyphicon glyphicon-info-sign" title="Cantidad de sesiones que cada niño/a realizó al jugar con BuildYourCity entre las fechas seleccionadas"></span>
+                                    <div class="ibox-tools"></div>
+                                </div>
+                                <div class="ibox-content">
+                                    <div class="scroll_content">
+                                        {% comment %} <canvas id="ByC_NumberOfSessions" height=1620>{% load staticfiles %}</canvas> {% endcomment %}
+                                        <canvas id="RC_NumberOfSessions" height={{RC_numberOfSessions_GraphSize}}>{% load staticfiles %}</canvas>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="ibox ">
+                                <div class="ibox-title">
+                                    <h5>Tiempo de juego por Estudiante </h5><span class="  glyphicon glyphicon-info-sign" title="Cantidad de tiempo (min) que cada niño/a ha jugado con BuildYourCity entre las fechas seleccionadas"></span>
+                                    <div class="ibox-tools"></div>
+                                </div>
+                                <div class="ibox-content">
+                                    <div class="scroll_content">
+                                        {% comment %} <canvas id="ByC_GameTime" height={{game_time_graph}}>{% load staticfiles %}</canvas> {% endcomment %}
+                                        <canvas id="RC_PlayTime" height={{RC_playTime_GraphSize}}>{% load staticfiles %}</canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+            <div class="col-lg-12">
+            <div class="row">
+            <div class="col-lg-6">
+                <div class="ibox">
+                    <div class="ibox-title">
+                        <h5>Cantidad de toques a la pantalla por Estudiante </h5><span class="  glyphicon glyphicon-info-sign" title="Cantidad de toques a la pantalla que cada niño/a realizó al jugar con BuildYourCity entre las fechas seleccionadas"></span>
+                        <div class="ibox-tools"></div>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="scroll_content">
+                            {% comment %} <canvas id="horizontalBar" height={{game_time_graph}}>{% load staticfiles %}</canvas> {% endcomment %}
+                            <canvas id="RC_TouchCountInGame" height={{RC_touchCount_GraphSize}}>{% load staticfiles %}</canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="ibox ">
+                    <div class="ibox-title">
+                        <h5>Preferencia de Actividades </h5><span class="  glyphicon glyphicon-info-sign" title="Numero de ingresos a cada actividad de BuildYourCity entre las fechas seleccionadas"></span>
+                        <div class="ibox-tools"></div>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="scroll_content">
+                            <canvas id="RC_ActivityPreference">{% load staticfiles %}</canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+
+
+        {% if activity_num == '9006' %}
+            <h1>Resultados Actividad : <strong>Vencer Al Constructor</strong></h1>
+
+            <hr><br>
+            <div style="background-color: #E8E8E8; margin: 30px; text-align: center;">
+                <img align="center" alt="image" src="{% static 'img/vencer_al_constructor.PNG' %}"/>
+            </div>
+            <div class="row" >
+            <div class="col-lg-12">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="ibox">
+                        <div class="ibox-title">
+                            <h5>Tiempo total en actividad Agrupados por alumn@</h5><span class="  glyphicon glyphicon-info-sign" title="Indica la cantidad de tiempo (en minutos) en que los/las alumnos/as han permanecido en la actividad Vence al constructor."></span>
+                            <div class="ibox-tools"></div>
+                        </div>
+                        <div class="ibox-content">
+                            <div class="scroll_content">
+                                <canvas id="tiempoActividadRC" height={{ tiempo_size }}></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="ibox ">
+                        <div class="ibox-title">
+                            <h5>Linea de tiempo de actividad Vencer al Constructor</h5><span class="  glyphicon glyphicon-info-sign" title="Indica la cantidad de preguntas respondidas correctas e incorrectas en los dias jugados por el alumn@"></span>
+                            <div class="ibox-tools"></div>
+                        </div>
+                        <div class="ibox-content">
+                            <canvas id="historial_Respuestas" height=250>{% load staticfiles %}</canvas>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+            </div>
+
+
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="ibox ">
+                        <div class="ibox-title">
+                            <h5>Porcentaje de preguntas respondidas</h5><span class="  glyphicon glyphicon-info-sign" title="Indica la cantidad en porcentaje de preguntas respondidas correctas e incorrectas separado por tipo de preguntas"></span>
+                            <div class="ibox-tools"></div>
+                        </div>
+                        <div class="ibox-content">
+                            {%if student_num == '0'%}
+                                <canvas id="porcentaje_alumnos_totales" height=80>{% load staticfiles %}</canvas>
+                            {% endif %}
+                            {%if student_num != '0'%}
+                                <canvas id="porcentaje_alumnos_totales" height=80>{% load staticfiles %}</canvas>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="ibox ">
+                        <div class="ibox-title">
+                            <h5>Cantidad de preguntas respondidas</h5><span class="  glyphicon glyphicon-info-sign" title="Indica la cantidad de preguntas respondidas correctas e incorrectas separado por tipo de preguntas"></span>
+                            <div class="ibox-tools"></div>
+                        </div>
+                        <div class="ibox-content">
+                            {%if student_num == '0'%}
+                                <canvas id="preguntas_respondidas" height=80>{% load staticfiles %}</canvas>
+                            {% endif %}
+                            {%if student_num != '0'%}
+                                <canvas id="preguntas_respondidas" height=80>{% load staticfiles %}</canvas>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="ibox ">
+                        <div class="ibox-title">
+                            <h5>Historial de Respuestas Anexar Ceros</h5><span class="  glyphicon glyphicon-info-sign" title="Indica la cantidad de preguntas del tipo anexar ceros respondidas correctas e incorrectas a lo largo del tiempo"></span>
+                            <div class="ibox-tools"></div>
+                        </div>
+                        <div class="ibox-content">
+                            <canvas id="historial_Respuestas_Anexar" height=250>{% load staticfiles %}</canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="ibox ">
+                        <div class="ibox-title">
+                            <h5>Historial de Respuestas Dividir y Duplicar</h5><span class="  glyphicon glyphicon-info-sign" title="Indica la cantidad de preguntas del tipo dividir y duplicar respondidas correctas e incorrectas a lo largo del tiempo"></span>
+                            <div class="ibox-tools"></div>
+                        </div>
+                        <div class="ibox-content">
+                            <canvas id="historial_Respuestas_Dividir" height=250>{% load staticfiles %}</canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        {% endif %}
+
+        <!--LABERINTO -->
+        {% if activity_num == '9007' %}
+            <h1>Resultados Actividad : <strong>Encuentra La Llave</strong></h1>
+            <hr><br>
+            <div style="background-color: #E8E8E8; margin: 30px; text-align: center;">
+                <img align="center" alt="image" src="{% static 'img/encuentra_la_llave.PNG' %}"/>
+            </div>
+            <div class="row" >
+                <div class="col-lg-12">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="ibox">
+                                <div class="ibox-title">
+                                    <h5>Tiempo total en actividad Agrupados por alumn@</h5><span class="  glyphicon glyphicon-info-sign" title="Indica la cantidad de tiempo (en minutos) en que los/las alumnos/as han permanecido en la actividad Encuentra la Llave."></span>
+                                    <div class="ibox-tools"></div>
+                                </div>
+                                <div class="ibox-content">
+                                    <div class="scroll_content">
+                                        <canvas id="tiempoActividadRC" height={{ tiempo_size }}>{% load staticfiles %}</canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="ibox ">
+                                <div class="ibox-title">
+                                    <h5>Linea de tiempo por intentos</h5><span class="  glyphicon glyphicon-info-sign" title="Indica la cantidad de intentos correctos e incorrectos a lo largo del tiempo"></span>
+                                    <div class="ibox-tools"></div>
+                                </div>
+                                <div class="ibox-content">
+                                    {%if student_num == '0'%}
+                                        <canvas id="Tiempo_llave" height=250>{% load staticfiles %}</canvas>
+                                    {% endif %}
+                                    {%if student_num != '0'%}
+                                        <canvas id="Tiempo_llave" height=250>{% load staticfiles %}</canvas>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                    {%if student_num == '0'%}
+                        <!-- <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="ibox ">
+                                                <div class="ibox-title">
+                                                    <h5>Cantidad de movimientos en promedio para completar la actividad</h5><span class="  glyphicon glyphicon-info-sign" title="Indica la cantidad de touch dividido las veces que se ingreso a la actividad Puzzle en cada dia para poder evaluar el desarrollo de la habilidad de persistencia en los/las alumnos/as"></span>
+                                                    <div class="ibox-tools"></div>
+                                                </div>
+                                                <div class="ibox-content">
+                                                    {%if student_num == '0'%}
+                                                    <canvas id="llave_promedio_intentos" height=100>{% load staticfiles %}</canvas>
+                                                    {% endif %}
+                                                    {%if student_num != '0'%}
+                                                    <canvas id="llave_promedio_intentos" height=100>{% load staticfiles %}</canvas>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="ibox ">
+                                                <div class="ibox-title">
+                                                    <h5>Cantidad de movimientos en promedio en la actividad</h5><span class="  glyphicon glyphicon-info-sign" title="Indica la cantidad de touch dividido las veces que se ingreso a la actividad Puzzle en cada dia para poder evaluar el desarrollo de la habilidad de persistencia en los/las alumnos/as"></span>
+                                                    <div class="ibox-tools"></div>
+                                                </div>
+                                                <div class="ibox-content">
+                                                    {%if student_num == '0'%}
+                                                    <canvas id="llave_promedio_intentos_totales" height=100>{% load staticfiles %}</canvas>
+                                                    {% endif %}
+                                                    {%if student_num != '0'%}
+                                                    <canvas id="llave_promedio_intentos_totales" height=100>{% load staticfiles %}</canvas>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                    -->
+                    {% endif %}
+
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="ibox ">
+                                <div class="ibox-title">
+                                    <h5>Porcentaje completitud e incompletitud por forma de llave</h5><span class="  glyphicon glyphicon-info-sign" title="Indica el porcentaje de intentos correctos e incorrectos segun la forma de llave"></span>
+                                    <div class="ibox-tools"></div>
+                                </div>
+                                <div class="ibox-content">
+                                    {%if student_num == '0'%}
+                                        <canvas id="tipo_llave" height={{ Llave_tipo_size }}>{% load staticfiles %}</canvas>
+                                    {% endif %}
+                                    {%if student_num != '0'%}
+                                        <canvas id="tipo_llave" height={{ Llave_tipo_size }}>{% load staticfiles %}</canvas>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="ibox ">
+                                <div class="ibox-title">
+                                    <h5>Intentos por tipo de llave</h5><span class="  glyphicon glyphicon-info-sign" title="Indica la cantidad de intentos correctos e incorrectos segun la forma de llave"></span>
+                                    <div class="ibox-tools"></div>
+                                </div>
+                                <div class="ibox-content">
+                                    {%if student_num == '0'%}
+                                        <canvas id="intentos_tipo_llave" height={{ Llave_tipo_size }}>{% load staticfiles %}</canvas>
+                                    {% endif %}
+                                    {%if student_num != '0'%}
+                                        <canvas id="intentos_tipo_llave" height={{ Llave_tipo_size }}>{% load staticfiles %}</canvas>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="ibox ">
+                                <div class="ibox-title">
+                                    <h5>Linea de tiempo de llave Sol</h5><span class="  glyphicon glyphicon-info-sign" title="Linea de tiempo con los intentos satisfactorios e insatisfactorios con la llave con forma de sol"></span>
+                                    <div class="ibox-tools"></div>
+                                </div>
+                                <div class="ibox-content">
+                                    {%if student_num == '0'%}
+                                        <canvas id="Tiempo_llave_Sol" height=250>{% load staticfiles %}</canvas>
+                                    {% endif %}
+                                    {%if student_num != '0'%}
+                                        <canvas id="Tiempo_llave_Sol" height=250>{% load staticfiles %}</canvas>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="ibox ">
+                                <div class="ibox-title">
+                                    <h5>Linea de tiempo de llave Nube</h5><span class="  glyphicon glyphicon-info-sign" title="Linea de tiempo con los intentos satisfactorios e insatisfactorios con la llave con forma de nube"></span>
+                                    <div class="ibox-tools"></div>
+                                </div>
+                                <div class="ibox-content">
+                                    {%if student_num == '0'%}
+                                        <canvas id="Tiempo_llave_Nube" height=250>{% load staticfiles %}</canvas>
+                                    {% endif %}
+                                    {%if student_num != '0'%}
+                                        <canvas id="Tiempo_llave_Nube" height=250>{% load staticfiles %}</canvas>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+
+
+                        <div class="col-lg-6">
+                            <div class="ibox ">
+                                <div class="ibox-title">
+                                    <h5>Linea de tiempo de llave Triangulo</h5><span class="  glyphicon glyphicon-info-sign" title="Linea de tiempo con los intentos satisfactorios e insatisfactorios con la llave con forma de triangulo"></span>
+                                    <div class="ibox-tools"></div>
+                                </div>
+                                <div class="ibox-content">
+                                    {%if student_num == '0'%}
+                                        <canvas id="Tiempo_llave_Triangulo" height=250>{% load staticfiles %}</canvas>
+                                    {% endif %}
+                                    {%if student_num != '0'%}
+                                        <canvas id="Tiempo_llave_Triangulo" height=250>{% load staticfiles %}</canvas>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% comment %}
+
+                                    {% endcomment %}
+                </div>
+
+            </div>
+
+
+        {% endif %}
+
+        {% if activity_num == '9008' %}
+            <h1>Resultados Actividad : <strong>Limpia el Bosque</strong></h1>
+            <hr><br>
+            <div style="background-color: #E8E8E8; margin: 30px; text-align: center;">
+                <img align="center" alt="image" src="{% static 'img/limpia_el_bosque.PNG' %}"/>
+            </div>
+            <div class="row" >
+                <div class="col-lg-12">
+
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="ibox">
+                                <div class="ibox-title">
+                                    <h5>Tiempo total en actividad Agrupados por alumn@</h5><span class="  glyphicon glyphicon-info-sign" title="Indica la cantidad de tiempo (en minutos) en que los/las alumnos/as han permanecido en la actividad Limpiando El Bosque."></span>
+                                    <div class="ibox-tools"></div>
+                                </div>
+                                <div class="ibox-content">
+                                    <div class="scroll_content">
+                                        <canvas id="tiempoActividadRC" height={{ tiempo_size }}>{% load staticfiles %}</canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="ibox ">
+                                <div class="ibox-title">
+                                    <h5>Linea de tiempo actividad Limpiar el Bosque</h5><span class="  glyphicon glyphicon-info-sign" title="Linea de tiempo con los elementos que el alumn@ lleva al basurero del color correspondiente a lo largo del tiempo"></span>
+                                    <div class="ibox-tools"></div>
+                                </div>
+                                <div class="ibox-content">
+                                    {%if student_num == '0'%}
+                                        <canvas id="Tiempo_Reciclaje" height=250>{% load staticfiles %}</canvas>
+                                    {% endif %}
+                                    {%if student_num != '0'%}
+                                        <canvas id="Tiempo_Reciclaje" height=250>{% load staticfiles %}</canvas>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+
+                    </div>
+                </div>
+
+                <div class="col-lg-12">
+
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="ibox ">
+                                <div class="ibox-title">
+                                    <h5>Elementos llevados a los basureros de reciclaje en cantidad</h5><span class="  glyphicon glyphicon-info-sign" title="Indica el porcentaje de elementos llevados a los basureros separados por los correctos e incorrectos"></span>
+                                    <div class="ibox-tools"></div>
+                                </div>
+                                <div class="ibox-content">
+                                    {%if student_num == '0'%}
+                                        <canvas id="elementos_reciclados_usuarios" height={{elementos_graph_size}}>{% load staticfiles %}</canvas>
+                                    {% endif %}
+                                    {%if student_num != '0'%}
+                                        <canvas id="elementos_reciclados_usuarios" height={{elementos_graph_size}}>{% load staticfiles %}</canvas>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="ibox ">
+                                <div class="ibox-title">
+                                    <h5>Elementos llevados a los basureros de reciclaje en porcentaje</h5><span class="  glyphicon glyphicon-info-sign" title="Indica el porcentaje de elementos llevados a los basureros separados por los correctos e incorrectos"></span>
+                                    <div class="ibox-tools"></div>
+                                </div>
+                                <div class="ibox-content">
+                                    {%if student_num == '0'%}
+                                        <canvas id="elementos_reciclados_porcentaje" height={{elementos_graph_size}}>{% load staticfiles %}</canvas>
+                                    {% endif %}
+                                    {%if student_num != '0'%}
+                                        <canvas id="elementos_reciclados_porcentaje" height={{elementos_graph_size}}>{% load staticfiles %}</canvas>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-12">
+
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="ibox ">
+                                <div class="ibox-title">
+                                    <h5>Elementos llevados a los basureros de reciclaje tipo de material en cantidad</h5><span class="  glyphicon glyphicon-info-sign" title="Indica la cantidad de elementos llevados a los basureros categorizados por tipo de material, dividido en correctos e incorrectos"></span>
+                                    <div class="ibox-tools"></div>
+                                </div>
+                                <div class="ibox-content">
+                                    {%if student_num == '0'%}
+                                        <canvas id="elementos_reciclados_general" height={{ Elementos_Reciclados_tipo_size }}>{% load staticfiles %}</canvas>
+                                    {% endif %}
+                                    {%if student_num != '0'%}
+                                        <canvas id="elementos_reciclados_general" height={{ Elementos_Reciclados_tipo_size }}>{% load staticfiles %}</canvas>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="ibox ">
+                                <div class="ibox-title">
+                                    <h5>Elementos llevados a los basureros de reciclaje tipo de material en porcentaje</h5><span class="  glyphicon glyphicon-info-sign" title="Indica el porcentaje de elementos llevados a los basureros categorizados por tipo de material, dividido en correctos e incorrectos"></span>
+                                    <div class="ibox-tools"></div>
+                                </div>
+                                <div class="ibox-content">
+                                    {%if student_num == '0'%}
+                                        <canvas id="elementos_reciclados_zona" height={{ Elementos_Reciclados_tipo_size }}>{% load staticfiles %}</canvas>
+                                    {% endif %}
+                                    {%if student_num != '0'%}
+                                        <canvas id="elementos_reciclados_zona" height={{ Elementos_Reciclados_tipo_size }}>{% load staticfiles %}</canvas>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="ibox ">
+                                <div class="ibox-title">
+                                    <h5>Linea de tiempo de los elementos de plastico</h5><span class="  glyphicon glyphicon-info-sign" title="Linea de tiempo de elementos de plastico llevados a los basureros, divididos en correctos e incorrectos"></span>
+                                    <div class="ibox-tools"></div>
+                                </div>
+                                <div class="ibox-content">
+                                    {%if student_num == '0'%}
+                                        <canvas id="Tiempo_Reciclaje_plastico" height=250>{% load staticfiles %}</canvas>
+                                    {% endif %}
+                                    {%if student_num != '0'%}
+                                        <canvas id="Tiempo_Reciclaje_plastico" height=250>{% load staticfiles %}</canvas>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="ibox ">
+                                <div class="ibox-title">
+                                    <h5>Linea de tiempo de los elementos de cartón</h5><span class="  glyphicon glyphicon-info-sign" title="Linea de tiempo de elementos de cartón llevados a los basureros, divididos en correctos e incorrectos"></span>
+                                    <div class="ibox-tools"></div>
+                                </div>
+                                <div class="ibox-content">
+                                    {%if student_num == '0'%}
+                                        <canvas id="Tiempo_Reciclaje_carton" height=250>{% load staticfiles %}</canvas>
+                                    {% endif %}
+                                    {%if student_num != '0'%}
+                                        <canvas id="Tiempo_Reciclaje_carton" height=250>{% load staticfiles %}</canvas>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="ibox ">
+                                <div class="ibox-title">
+                                    <h5>Linea de tiempo de los elementos de vidrio</h5><span class="  glyphicon glyphicon-info-sign" title="Linea de tiempo de elementos de vidrio llevados a los basureros, divididos en correctos e incorrectos"></span>
+                                    <div class="ibox-tools"></div>
+                                </div>
+                                <div class="ibox-content">
+                                    {%if student_num == '0'%}
+                                        <canvas id="Tiempo_Reciclaje_vidrio" height=250>{% load staticfiles %}</canvas>
+                                    {% endif %}
+                                    {%if student_num != '0'%}
+                                        <canvas id="Tiempo_Reciclaje_vidrio" height=250>{% load staticfiles %}</canvas>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="ibox ">
+                                <div class="ibox-title">
+                                    <h5>Linea de tiempo de los elementos metalicos</h5><span class="  glyphicon glyphicon-info-sign" title="Linea de tiempo de elementos de metal llevados a los basureros, divididos en correctos e incorrectos"></span>
+                                    <div class="ibox-tools"></div>
+                                </div>
+                                <div class="ibox-content">
+                                    {%if student_num == '0'%}
+                                        <canvas id="Tiempo_Reciclaje_metal" height=250>{% load staticfiles %}</canvas>
+                                    {% endif %}
+                                    {%if student_num != '0'%}
+                                        <canvas id="Tiempo_Reciclaje_metal" height=250>{% load staticfiles %}</canvas>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        {% endif %}
+
+        {% if activity_num == '9005' %}
+            <h1>Resultados Actividad : <strong>Construyendo Mi Ciudad</strong></h1>
+            <hr><br>
+            <div style="background-color: #E8E8E8; margin: 30px; text-align: center;">
+                <img align="center" alt="image" src="{% static 'img/construyendo_mi_ciudad.PNG' %}"/>
+            </div>
+            <div class="row" >
+                <div class="col-lg-12">
+
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="ibox">
+                                <div class="ibox-title">
+                                    <h5>Tiempo total en actividad Agrupados por alumn@</h5><span class="  glyphicon glyphicon-info-sign" title="Indica la cantidad de tiempo (en minutos) en que los/las alumnos/as han permanecido en la actividad Encuentra la Llave."></span>
+                                    <div class="ibox-tools"></div>
+                                </div>
+                                <div class="ibox-content">
+                                    <div class="scroll_content">
+                                        <canvas id="tiempoActividadRC" height={{ tiempo_size }}>{% load staticfiles %}</canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="ibox ">
+                                <div class="ibox-title">
+                                    <h5>Linea de tiempo actividad Construyendo Mi Ciudad</h5><span class="  glyphicon glyphicon-info-sign" title="Linea de tiempo de construcciones realizadas, separadas por tipo elemento construido"></span>
+                                    <div class="ibox-tools"></div>
+                                </div>
+                                <div class="ibox-content">
+                                    {%if student_num == '0'%}
+                                        <canvas id="Tiempo_Construir" height=250>{% load staticfiles %}</canvas>
+                                    {% endif %}
+                                    {%if student_num != '0'%}
+                                        <canvas id="Tiempo_Construir" height=250>{% load staticfiles %}</canvas>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+
+                    </div>
+                </div>
+
+                <div class="col-lg-12">
+
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="ibox ">
+                                <div class="ibox-title">
+                                    <h5>Porcentaje elementos construidos</h5><span class="  glyphicon glyphicon-info-sign" title="Indica la cantidad de touch dividido las veces que se ingreso a la actividad Puzzle en cada dia para poder evaluar el desarrollo de la habilidad de persistencia en los/las alumnos/as"></span>
+                                    <div class="ibox-tools"></div>
+                                </div>
+                                <div class="ibox-content">
+                                    {%if student_num == '0'%}
+                                        <canvas id="porcentaje_elementos_construidos" height=100>{% load staticfiles %}</canvas>
+                                    {% endif %}
+                                    {%if student_num != '0'%}
+                                        <canvas id="porcentaje_elementos_construidos" height=100>{% load staticfiles %}</canvas>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </div>
+
+
+        {% endif %}
+
+    {% endif %}
+
+    <!--FIN Reciclando Construyo -->
 
                 <!-- BUILD YOUR CITY -->
                 {% if reim_num == '27' %}
@@ -8692,6 +9341,1963 @@ var CreacionData = {
                 new Chart(ctx, {type: 'horizontalBar', data: MuyIndependienteCampo, options:barOptions});
             }            
     //#FIN REIM ID = 77, NOMBRE = BUSCANDO EL TESORO PERDIDO
+
+        // # Inicio Reciclando Construyo
+        //GRAPHS SETTINGS:
+        //0.- REIM:
+        //0.1.- SESSIONS COUNTER:
+        var RC_NumberOfSessions_Data = {
+            labels: [
+                //CONNECT WITH BD:
+                {% if RC_numberOfSessions_Dictionary %}
+                    {% for session in RC_numberOfSessions_Dictionary %}
+                        '{{session.name}}',
+                    {% endfor%}
+                {% endif%}
+
+                //DUMMY VALUES:
+                {% comment %}
+                {% for item in "x"|ljust:"40" %}
+                    'Alumno '+ '{{forloop.counter}}',
+                {% endfor %}
+                'Alumno 1', 'Alumno 2', 'Alumno 3'
+                {% endcomment %}
+
+            ],
+            datasets: [
+                {
+                    label: "Numero de sesiones iniciadas",
+                    backgroundColor: 'rgb(255,152,0)',
+                    borderColor: "rgb(251,104,0)",
+                    pointBorderColor: "#fff",
+                    data: [
+                        //CONNECT WITH BD:
+                        {% if RC_numberOfSessions_Dictionary %}
+                            {% for session in RC_numberOfSessions_Dictionary %}
+                                '{{session.quantity}}',
+                            {% endfor%}
+                        {% endif%}
+
+                        //DUMMY VALUES:
+                        {% comment %}
+                        {% for item in "x"|ljust:"40" %}
+                            {{listOfFirst50Numbers|random}},
+                        {% endfor %}
+                        {% endcomment %}
+                    ]
+                }
+            ]
+        };
+
+        //0.2.- PLAY TIME:
+        var RC_PlayTime_Data = {
+            labels:
+                [
+                    //CONNECT WITH BD:
+                    {% if RC_playTime_Dictionary %}
+                        {% for user in RC_playTime_Dictionary %}
+                            '{{user.name}}',
+                        {% endfor%}
+                    {% endif%}
+
+                    //DUMMY VALUES:
+                    {% comment %}
+                    {% for item in "x"|ljust:"40" %}
+                       'Alumno '+ '{{forloop.counter}}',
+                    {% endfor %}
+                    {% endcomment %}
+                ],
+
+            datasets: [
+                {
+                    label: "Tiempo de juego en minutos",
+                    backgroundColor: 'rgb(33,143,192)',
+                    borderColor: "rgb(33,143,92)",
+                    pointBorderColor: "#fff",
+                    data:
+                        [
+                            //CONNECT WITH BD:
+                            {% if RC_playTime_Dictionary %}
+                                {% for user in RC_playTime_Dictionary %}
+                                    '{{user.playTime}}',
+                                {% endfor%}
+                            {% endif%}
+
+                            //DUMMY VALUES:
+                            {% comment %} {% for item in "x"|ljust:"40" %}
+                                 {{listOfFirst50Numbers|random}},
+                            {% endfor %} {% endcomment %}
+                        ]
+                }
+            ]
+        };
+
+
+        //0.3.- TOUCH COUNT:
+        var RC_TouchCountInGame_Data = {
+            labels: [
+                //CONNECT WITH BD:
+
+                {% if RC_touchCount_Dictionary %}
+                    {% for touch in RC_touchCount_Dictionary %}
+                        '{{touch.name}}',
+                    {% endfor%}
+                {% endif%}
+
+
+
+            ],
+            datasets: [
+                {
+                    label: "Numero de toques en pantalla",
+                    backgroundColor: 'rgb(92,107,192)',
+                    borderColor: "rgb(63,81,181)",
+                    pointBorderColor: "#fff",
+                    data: [
+                        //CONNECT WITH BD:
+                        {% if RC_touchCount_Dictionary %}
+                            {% for touch in RC_touchCount_Dictionary %}
+                                '{{touch.touchCount}}',
+                            {% endfor%}
+                        {% endif%}
+
+
+                    ]
+                }
+            ]
+        };
+        //0.4.- ACTIVITY PREFERENCE:
+        var RC_ActivityPreference_Data = {
+            labels: [
+                //CONNECT WITH BD:
+
+                {% if RC_activitiesPlayedCounter_Dictionary %}
+                    {% for actividad in RC_activitiesPlayedCounter_Dictionary %}
+                        '{{actividad.name}}',
+                    {% endfor%}
+                {% endif%}
+
+
+            ],
+            datasets:
+                [
+                    {
+                        backgroundColor: ['rgb(236,112,99)','rgb(175,122,197)','rgb(93,173,226)','rgb(245,176,65)','rgb(253,216,53)','rgb(72,201,176)'],
+                        pointBorderColor: "#fff",
+                        data: [
+                            //CONNECT WITH BD:
+
+                            {% if RC_activitiesPlayedCounter_Dictionary %}
+                                {% for actividad in RC_activitiesPlayedCounter_Dictionary %}
+                                    '{{actividad.counter}}',
+                                {% endfor%}
+                            {% endif%}
+
+
+                            //DUMMY VALUES:
+                            {% comment %}
+                            {% for item in "x"|ljust:"4" %}
+                                {{listOfFirst50Numbers|random}},
+                            {% endfor %}
+                            {% endcomment %}
+                        ]
+                    }
+                ]
+        };
+
+        ////////////////////
+        //GRAPH OPTIONS:
+        ////////////////////
+        var RC_PieOptions = {
+            scale: {
+                angleLines: {
+                    display: false
+                },
+                ticks: {
+                    suggestedMin: 0,
+                    suggestedMax: 5
+                }
+            }
+        };
+
+        var RC_HorizontalBarOptions = {
+            animation: false,
+            isFixedWidth:true,
+            barWidth:50,
+            barValueSpacing: 1,
+            scales: {
+                xAxes:[{
+                    ticks: {
+                        min: 0,
+                        callback: function(value, index, values) {
+                            if (Math.floor(value) === value) {
+                                return value;
+                            }
+                        }
+                    },
+                }],
+
+            },
+            display: true,
+        };
+
+        //APPLY GRAPH SETTINGS:
+        //GENERAL RESULTS:
+        if ($('#RC_PlayTime').length){
+            var ctx = document.getElementById("RC_PlayTime").getContext("2d");
+            new Chart(ctx, {type: 'horizontalBar', data: RC_PlayTime_Data, options: RC_HorizontalBarOptions } );
+        }
+
+        if ($('#RC_TouchCountInGame').length){
+            var ctx = document.getElementById("RC_TouchCountInGame").getContext("2d");
+            new Chart(ctx, {type: 'horizontalBar', data: RC_TouchCountInGame_Data, options: RC_HorizontalBarOptions } );
+        }
+
+        if ($('#RC_NumberOfSessions').length){
+            var ctx = document.getElementById("RC_NumberOfSessions").getContext("2d");
+            new Chart(ctx, {type: 'horizontalBar', data: RC_NumberOfSessions_Data, options: RC_HorizontalBarOptions } );
+        }
+
+        if ($('#RC_ActivityPreference').length){
+            var ctx28 = document.getElementById("RC_ActivityPreference").getContext("2d");
+            new Chart(ctx28, {type: 'pie', data: RC_ActivityPreference_Data, options: RC_PieOptions});
+        }
+
+
+        var tiempoActividadData = {
+            labels:
+                [
+                    {% if time_PS_quantity %}
+                        {% for time_PS in time_PS_quantity %}
+                            '{{time_PS.name}}',
+                        {% endfor%}
+                    {% endif%}
+                ],
+            datasets: [
+                {
+                    label: "Minutos de juego total",
+                    backgroundColor: 'rgb(82, 100, 211 )',
+                    borderColor: "rgb(82, 100, 211 )",
+                    pointBorderColor: "#fff",
+                    data: [
+                        {% if time_PS_quantity %}
+                            {% for time_PS in time_PS_quantity %}
+                                '{{time_PS.quantity}}',
+                            {% endfor%}
+                        {% endif%}
+                    ]
+                }
+            ]
+        };
+
+        if ($('#tiempoActividadRC').length){
+            var ctx = document.getElementById("tiempoActividadRC").getContext("2d");
+            new Chart(ctx, {type: 'horizontalBar', data: tiempoActividadData, options:barOptions});
+        }
+        var Porcentaje_llave_data = {
+            labels:
+                [
+                    {% if Porcentaje_llave %}
+                        {% for time_PS in Porcentaje_llave %}
+                            '{{time_PS.name}}',
+                        {% endfor%}
+                    {% endif%}
+                ],
+            datasets: [
+                {
+                    label: "Porcentaje",
+                    backgroundColor: 'rgb(82, 100, 211 )',
+                    borderColor: "rgb(82, 100, 211 )",
+                    pointBorderColor: "#fff",
+                    data: [
+                        {% if Porcentaje_llave %}
+                            {% for time_PS in Porcentaje_llave %}
+                                '{{time_PS.porcentaje}}',
+                            {% endfor%}
+                        {% endif%}
+                    ]
+                }
+            ]
+        };
+
+        if ($('#llave_porcentaje').length){
+            var ctx = document.getElementById("llave_porcentaje").getContext("2d");
+            new Chart(ctx, {type: 'horizontalBar', data: Porcentaje_llave_data, options:barOptions});
+        }
+
+        var Promedio_intentos_data = {
+            labels:
+                [
+                    {% if Promedio_intentos_llave %}
+                        {% for time_PS in Promedio_intentos_llave %}
+                            '{{time_PS.name}}',
+                        {% endfor%}
+                    {% endif%}
+                ],
+            datasets: [
+                {
+                    label: "Cantidad de movimientos en promedio",
+                    backgroundColor: 'rgb(82, 100, 211 )',
+                    borderColor: "rgb(82, 100, 211 )",
+                    pointBorderColor: "#fff",
+                    data: [
+                        {% if Promedio_intentos_llave %}
+                            {% for time_PS in Promedio_intentos_llave %}
+                                '{{time_PS.promedio}}',
+                            {% endfor%}
+                        {% endif%}
+                    ]
+                }
+            ]
+        };
+
+        if ($('#llave_promedio_intentos').length){
+            var ctx = document.getElementById("llave_promedio_intentos").getContext("2d");
+            new Chart(ctx, {type: 'horizontalBar', data: Promedio_intentos_data, options:barOptions});
+        }
+
+        var Promedio_intentos_totales_data = {
+            labels:
+                [
+                    {% if Promedio_intentos_totales_llave %}
+                        {% for time_PS in Promedio_intentos_totales_llave %}
+                            '{{time_PS.name}}',
+                        {% endfor%}
+                    {% endif%}
+                ],
+            datasets: [
+                {
+                    label: "Cantidad de movimientos en promedio",
+                    backgroundColor: 'rgb(82, 100, 211 )',
+                    borderColor: "rgb(82, 100, 211 )",
+                    pointBorderColor: "#fff",
+                    data: [
+                        {% if Promedio_intentos_totales_llave %}
+                            {% for time_PS in Promedio_intentos_totales_llave %}
+                                '{{time_PS.promedio}}',
+                            {% endfor%}
+                        {% endif%}
+                    ]
+                }
+            ]
+        };
+
+        if ($('#llave_promedio_intentos_totales').length){
+            var ctx = document.getElementById("llave_promedio_intentos_totales").getContext("2d");
+            new Chart(ctx, {type: 'horizontalBar', data: Promedio_intentos_totales_data, options:barOptions});
+        }
+
+        var Elementos_reciclados_usuario_data = {
+            labels:
+                [
+                    {% if Elementos_reciclados_usuario %}
+                        {% for time_PS in Elementos_reciclados_usuario %}
+                            '{{time_PS.Elemento}}',
+                        {% endfor%}
+                    {% endif%}
+                ],
+            datasets: [
+                {
+                    label: "Correctos",
+                    backgroundColor: 'rgb(82, 100, 211 )',
+                    borderColor: "rgb(82, 100, 211 )",
+                    pointBorderColor: "#fff",
+                    data: [
+                        {% if Elementos_reciclados_usuario %}
+                            {% for time_PS in Elementos_reciclados_usuario %}
+                                {{time_PS.Correcta}},
+                            {% endfor%}
+                        {% endif%}
+                    ]
+                },
+                {
+                    label: "Incorrectos",
+                    backgroundColor: 'rgb(212, 204, 109 )',
+                    borderColor: "rgb(212, 204, 109 )",
+                    pointBorderColor: "#fff",
+                    data: [
+                        {% if Elementos_reciclados_usuario %}
+                            {% for time_PS in Elementos_reciclados_usuario %}
+                                {{time_PS.Incorrecta}},
+                            {% endfor%}
+                        {% endif%}
+                    ]
+                },
+
+            ]
+        };
+
+        if ($('#elementos_reciclados_usuarios').length){
+            var ctx = document.getElementById("elementos_reciclados_usuarios").getContext("2d");
+            new Chart(ctx, {type: 'horizontalBar', data: Elementos_reciclados_usuario_data, options: {
+                    scales: {
+                        xAxes: [{ stacked: true }],
+                        yAxes: [{ stacked: true }]
+                    }
+                }});
+        }
+
+        var Elementos_reciclados_Porcentaje_data = {
+            labels:
+                [
+                    {% if Elementos_reciclados_usuario %}
+                        {% for time_PS in Elementos_reciclados_usuario %}
+                            '{{time_PS.Elemento}}',
+                        {% endfor%}
+                    {% endif%}
+                ],
+            datasets: [
+                {
+                    label: "Correctos",
+                    backgroundColor: 'rgb(82, 100, 211 )',
+                    borderColor: "rgb(82, 100, 211 )",
+                    pointBorderColor: "#fff",
+                    data: [
+                        {% if Elementos_reciclados_usuario %}
+                            {% for time_PS in Elementos_reciclados_usuario %}
+
+                                ({{time_PS.Correcta}}/({{time_PS.Total}}))*100,
+                            {% endfor%}
+                        {% endif%}
+                    ]
+                },
+                {
+                    label: "Incorrectos",
+                    backgroundColor: 'rgb(212, 204, 109 )',
+                    borderColor: "rgb(212, 204, 109 )",
+                    pointBorderColor: "#fff",
+                    data: [
+                        {% if Elementos_reciclados_usuario %}
+                            {% for time_PS in Elementos_reciclados_usuario %}
+                                ({{time_PS.Incorrecta}}/({{time_PS.Total}}))*100,
+                            {% endfor%}
+                        {% endif%}
+                    ]
+                },
+
+            ]
+        };
+
+        if ($('#elementos_reciclados_porcentaje').length){
+            var ctx = document.getElementById("elementos_reciclados_porcentaje").getContext("2d");
+            new Chart(ctx, {type: 'horizontalBar', data: Elementos_reciclados_Porcentaje_data, options: {
+                    scales: {
+                        xAxes: [{ stacked: true }],
+                        yAxes: [{ stacked: true }]
+                    }
+                }});
+        }
+
+        var Preguntas_Respondidas_usuario_data = {
+            labels:
+                [
+                    'Anexar Ceros','Doblar y Dividir'
+
+                ],
+            datasets: [
+                {
+                    label: "Correctas",
+                    backgroundColor: 'rgb(82, 100, 211 )',
+                    borderColor: "rgb(82, 100, 211 )",
+                    pointBorderColor: "#fff",
+                    data: [
+                        {% if Respuestas_Usuario_VencerAlConstructor %}
+                            {% for time_PS in Respuestas_Usuario_VencerAlConstructor %}
+                                {{time_PS.Correctas}},
+
+                            {% endfor%}
+                        {% endif%}
+                    ]
+                },
+                {
+                    label: "Incorrectas",
+                    backgroundColor: 'rgb(212, 204, 109 )',
+                    borderColor: "rgb(212, 204, 109 )",
+                    pointBorderColor: "#fff",
+                    data: [
+                        {% if Respuestas_Usuario_VencerAlConstructor %}
+                            {% for time_PS in Respuestas_Usuario_VencerAlConstructor %}
+                                {{time_PS.Incorrectas}},
+
+                            {% endfor%}
+                        {% endif%}
+                    ]
+                },
+
+            ]
+        };
+
+        if ($('#preguntas_respondidas').length){
+            var ctx = document.getElementById("preguntas_respondidas").getContext("2d");
+            new Chart(ctx, {type: 'horizontalBar', data: Preguntas_Respondidas_usuario_data, options: {
+                    responsive: true,
+
+                    scales: {
+                        xAxes: [{ stacked: true }],
+                        yAxes: [{ stacked: true }]
+
+                    }
+                }});
+        }
+
+        var Preguntas_Respondidas_circular_usuario_data = {
+            labels:
+                [
+                    'Correctas',
+                    'Incorrectas',
+                ],
+            datasets: [
+                {
+                    data: [10, 20],
+                    backgroundColor: ['rgb(0,34,255)','rgb(98,255,0)']
+                },
+
+
+
+            ]
+        };
+
+        if ($('#Preguntas_Respondidas_circular').length){
+            var ctx = document.getElementById("Preguntas_Respondidas_circular").getContext("2d");
+            new Chart(ctx, {type: 'doughnut', data: Preguntas_Respondidas_circular_usuario_data, options: {
+                    scales: {
+                        /*xAxes: [{ stacked: true }],
+                        yAxes: [{ stacked: true }]*/
+                    }
+                }});
+        }
+
+        var Porcentaje_Construir_data = {
+            labels:
+                [
+                    'Carretera',
+                    'Casa',
+                    'Tienda',
+                    'Edificio',
+                ],
+            datasets: [
+                {
+                    data: [
+                        {% if Construir_Total %}
+                            {% for time_PS in Construir_Total %}
+                                {% if time_PS.Carretera != None %}
+                                    Math.round({{time_PS.Carretera}}/10),
+                                {% endif %}
+                                {% if time_PS.Carretera == None %}
+                                    0,
+                                {% endif %}
+                                {% if time_PS.Casa != None %}
+                                    {{time_PS.Casa}},
+                                {% endif %}
+                                {% if time_PS.Casa == None %}
+                                    0,
+                                {% endif %}
+                                {% if time_PS.Tienda != None %}
+                                    {{time_PS.Tienda}},
+                                {% endif %}
+                                {% if time_PS.Tienda == None %}
+                                    0,
+                                {% endif %}
+                                {% if time_PS.Edifico != None %}
+                                    {{time_PS.Edifico}},
+                                {% endif %}
+                                {% if time_PS.Edifico == None %}
+                                    0,
+                                {% endif %}
+                                    
+
+                            {% endfor%}
+                        {% endif %}
+                    ],
+                    backgroundColor: ['rgb(58,17,207)','rgb(110,2,165)', 'rgb(3,83,19)','rgb(140,39,1)']
+                },
+
+
+
+            ]
+        };
+
+        if ($('#porcentaje_elementos_construidos').length){
+            var ctx = document.getElementById("porcentaje_elementos_construidos").getContext("2d");
+            new Chart(ctx, {type: 'doughnut', data: Porcentaje_Construir_data, options: {
+                    scales: {
+                        /*xAxes: [{ stacked: true }],
+                        yAxes: [{ stacked: true }]*/
+                    }
+                }});
+        }
+
+        var Preguntas_Respondidas_porcantaje_usuario_data = {
+            labels:
+                [
+                    'Anexar Ceros','Doblar y Dividir'
+                ],
+            datasets: [
+                {
+                    label: "Porcentaje Correctas",
+                    backgroundColor: 'rgb(82, 100, 211 )',
+                    borderColor: "rgb(82, 100, 211 )",
+                    pointBorderColor: "#fff",
+                    data: [
+                        {% if Respuestas_Usuario_VencerAlConstructor %}
+                            {% for time_PS in Respuestas_Usuario_VencerAlConstructor %}
+                                ({{time_PS.Correctas}}/({{time_PS.Incorrectas}}+{{time_PS.Correctas}}))*100,
+
+                            {% endfor%}
+                        {% endif%}
+                    ]
+                },
+                {
+                    label: "Porcentaje Incorrectos",
+                    backgroundColor: 'rgb(212, 204, 109 )',
+                    borderColor: "rgb(212, 204, 109 )",
+                    pointBorderColor: "#fff",
+                    data: [
+                        {% if Respuestas_Usuario_VencerAlConstructor %}
+                            {% for time_PS in Respuestas_Usuario_VencerAlConstructor %}
+                                ({{time_PS.Incorrectas}}/({{time_PS.Incorrectas}}+{{time_PS.Correctas}}))*100,
+
+                            {% endfor%}
+                        {% endif%}
+                    ]
+                },
+
+            ]
+        };
+
+        if ($('#porcentaje_alumnos_totales').length){
+            var ctx = document.getElementById("porcentaje_alumnos_totales").getContext("2d");
+            new Chart(ctx, {type: 'horizontalBar', data: Preguntas_Respondidas_porcantaje_usuario_data, options: {
+                    scales: {
+                        xAxes: [{ stacked: true }],
+                        yAxes: [{ stacked: true }]
+                    }
+                }});
+        }
+
+        var tipo_llave_data = {
+            labels:
+                [
+                    {% if Llave_tipo %}
+                        {% for time_PS in Llave_tipo %}
+                            '{{ time_PS.name }}',
+
+                        {% endfor%}
+                    {% endif%}
+                ],
+            datasets: [
+                {
+                    label: "Porcentaje Correctas",
+                    backgroundColor: 'rgb(82, 100, 211 )',
+                    borderColor: "rgb(82, 100, 211 )",
+                    pointBorderColor: "#fff",
+                    data: [
+                        {% if Llave_tipo %}
+                            {% for time_PS in Llave_tipo %}
+                                ({{time_PS.Correctas}}/({{time_PS.Incorrectas}}+{{time_PS.Correctas}}))*100,
+
+                            {% endfor%}
+                        {% endif%}
+                    ]
+                },
+                {
+                    label: "Porcentaje Incorrectos",
+                    backgroundColor: 'rgb(212, 204, 109 )',
+                    borderColor: "rgb(212, 204, 109 )",
+                    pointBorderColor: "#fff",
+                    data: [
+                        {% if Llave_tipo %}
+                            {% for time_PS in Llave_tipo %}
+                                ({{time_PS.Incorrectas}}/({{time_PS.Incorrectas}}+{{time_PS.Correctas}}))*100,
+
+                            {% endfor%}
+                        {% endif%}
+                    ]
+                },
+
+            ]
+        };
+
+        if ($('#tipo_llave').length){
+            var ctx = document.getElementById("tipo_llave").getContext("2d");
+            new Chart(ctx, {type: 'horizontalBar', data: tipo_llave_data, options: {
+                    scales: {
+                        xAxes: [{ stacked: true }],
+                        yAxes: [{ stacked: true }]
+                    }
+                }});
+        }
+
+        var intentos_tipo_llave_data = {
+            labels:
+                [
+                    {% if Llave_tipo %}
+                        {% for time_PS in Llave_tipo %}
+                            '{{ time_PS.name }}',
+
+                        {% endfor%}
+                    {% endif%}
+                ],
+            datasets: [
+                {
+                    label: "Correctas",
+                    backgroundColor: 'rgb(82, 100, 211 )',
+                    borderColor: "rgb(82, 100, 211 )",
+                    pointBorderColor: "#fff",
+                    data: [
+                        {% if Llave_tipo %}
+                            {% for time_PS in Llave_tipo %}
+                                {{time_PS.Correctas}},
+
+                            {% endfor%}
+                        {% endif%}
+                    ]
+                },
+                {
+                    label: "Incorrectos",
+                    backgroundColor: 'rgb(212, 204, 109 )',
+                    borderColor: "rgb(212, 204, 109 )",
+                    pointBorderColor: "#fff",
+                    data: [
+                        {% if Llave_tipo %}
+                            {% for time_PS in Llave_tipo %}
+                                {{time_PS.Incorrectas}},
+
+                            {% endfor%}
+                        {% endif%}
+                    ]
+                },
+
+            ]
+        };
+
+        if ($('#intentos_tipo_llave').length){
+            var ctx = document.getElementById("intentos_tipo_llave").getContext("2d");
+            new Chart(ctx, {type: 'horizontalBar', data: intentos_tipo_llave_data, options: {
+                    scales: {
+                        xAxes: [{ stacked: true }],
+                        yAxes: [{ stacked: true }]
+                    }
+                }});
+        }
+
+        var respuestas_generales_cantidad_data = {
+            labels:
+                [
+                    {% if Respuestas_General_VencerAlConstructor %}
+                        {% for time_PS in Respuestas_General_VencerAlConstructor %}
+                            '{{ time_PS.name }}',
+
+                        {% endfor%}
+                    {% endif%}
+                ],
+            datasets: [
+                {
+                    label: "Correctas",
+                    backgroundColor: 'rgb(82, 100, 211 )',
+                    borderColor: "rgb(82, 100, 211 )",
+                    pointBorderColor: "#fff",
+                    data: [
+                        {% if Respuestas_General_VencerAlConstructor %}
+                            {% for time_PS in Respuestas_General_VencerAlConstructor %}
+                                {{time_PS.Correctas}},
+
+                            {% endfor%}
+                        {% endif%}
+                    ]
+                },
+                {
+                    label: "Incorrectos",
+                    backgroundColor: 'rgb(212, 204, 109 )',
+                    borderColor: "rgb(212, 204, 109 )",
+                    pointBorderColor: "#fff",
+                    data: [
+                        {% if Respuestas_General_VencerAlConstructor %}
+                            {% for time_PS in Respuestas_General_VencerAlConstructor %}
+                                {{time_PS.Incorrectas}},
+
+                            {% endfor%}
+                        {% endif%}
+                    ]
+                },
+
+            ]
+        };
+
+        if ($('#respuestas_generales_cantidad').length){
+            var ctx = document.getElementById("respuestas_generales_cantidad").getContext("2d");
+            new Chart(ctx, {type: 'horizontalBar', data: respuestas_generales_cantidad_data, options: {
+                    scales: {
+                        xAxes: [{ stacked: true }],
+                        yAxes: [{ stacked: true }]
+                    }
+                }});
+        }
+
+        var respuestas_generales_porcentaje_data = {
+            labels:
+                [
+                    {% if Respuestas_General_VencerAlConstructor %}
+                        {% for time_PS in Respuestas_General_VencerAlConstructor %}
+                            '{{ time_PS.name }}',
+
+                        {% endfor%}
+                    {% endif%}
+                ],
+            datasets: [
+                {
+                    label: "Correctas",
+                    backgroundColor: 'rgb(82, 100, 211 )',
+                    borderColor: "rgb(82, 100, 211 )",
+                    pointBorderColor: "#fff",
+                    data: [
+                        {% if Respuestas_General_VencerAlConstructor %}
+                            {% for time_PS in Respuestas_General_VencerAlConstructor %}
+                                (({{time_PS.Correctas}}/{{time_PS.Total}})*100),
+
+                            {% endfor%}
+                        {% endif%}
+                    ]
+                },
+                {
+                    label: "Incorrectos",
+                    backgroundColor: 'rgb(212, 204, 109 )',
+                    borderColor: "rgb(212, 204, 109 )",
+                    pointBorderColor: "#fff",
+                    data: [
+                        {% if Respuestas_General_VencerAlConstructor %}
+                            {% for time_PS in Respuestas_General_VencerAlConstructor %}
+                                (({{time_PS.Incorrectas}}/{{time_PS.Total}})*100),
+
+
+                            {% endfor%}
+                        {% endif%}
+                    ]
+                },
+
+            ]
+        };
+
+        if ($('#respuestas_generales_porcentaje').length){
+            var ctx = document.getElementById("respuestas_generales_porcentaje").getContext("2d");
+            new Chart(ctx, {type: 'horizontalBar', data: respuestas_generales_porcentaje_data, options: {
+                    scales: {
+                        xAxes: [{ stacked: true }],
+                        yAxes: [{ stacked: true }]
+                    }
+                }});
+        }
+
+        var historial_Respuestas_data = {
+            labels: [
+                {% if Historial_Respuestas %}
+                    {% for time_PS in Historial_Respuestas %}
+                        "{{time_PS.Fecha}}",
+
+
+
+
+                    {% endfor%}
+                {% endif%}
+            ],
+
+
+            datasets: [
+                {
+                    label: "Correctas",
+                    backgroundColor: 'rgb(82, 100, 211 )',
+                    borderColor: "rgb(82, 100, 211 )",
+                    pointBorderColor: "#fff",
+                    fill: false,
+                    lineTension: 0.1,
+                    data: [
+                        {% if Historial_Respuestas %}
+                            {% for time_PS in Historial_Respuestas %}
+
+                                {{time_PS.Correctas}},
+
+
+                            {% endfor%}
+                        {% endif%}
+
+                    ]
+                },
+                {
+                    label: "Incorrectas",
+                    backgroundColor: 'rgb(212, 204, 109 )',
+                    borderColor: "rgb(212, 204, 109 )",
+                    pointBorderColor: "#fff",
+                    fill: false,
+                    lineTension: 0.1,
+                    data: [
+                        {% if Historial_Respuestas %}
+                            {% for time_PS in Historial_Respuestas %}
+
+                                {{time_PS.Incorrectas}},
+
+
+                            {% endfor%}
+                        {% endif%}
+
+                    ]
+                },
+
+            ]
+        };
+
+        if ($('#historial_Respuestas').length){
+            var ctx = document.getElementById("historial_Respuestas").getContext("2d");
+            new Chart(ctx, {type: 'line', data: historial_Respuestas_data, options: {
+                    scales: {
+                        xAxes: [{
+                            ticks: {
+                                autoSkip: false,
+                                maxRotation: 90,
+                                minRotation: 90
+                            }
+                        }]
+                    }
+                }});
+        }
+
+        var historial_Respuestas_Anexar_data = {
+            labels: [
+                {% if Historial_Respuestas_Anexar %}
+                    {% for time_PS in Historial_Respuestas_Anexar %}
+                        "{{time_PS.Fecha}}",
+
+
+
+
+                    {% endfor%}
+                {% endif%}
+            ],
+
+
+            datasets: [
+                {
+                    label: "Correctas",
+                    backgroundColor: 'rgb(82, 100, 211 )',
+                    borderColor: "rgb(82, 100, 211 )",
+                    pointBorderColor: "#fff",
+                    fill: false,
+                    lineTension: 0.1,
+                    data: [
+                        {% if Historial_Respuestas_Anexar %}
+                            {% for time_PS in Historial_Respuestas_Anexar %}
+
+                                {{time_PS.Correctas}},
+
+
+                            {% endfor%}
+                        {% endif%}
+
+                    ]
+                },
+                {
+                    label: "Incorrectas",
+                    backgroundColor: 'rgb(212, 204, 109 )',
+                    borderColor: "rgb(212, 204, 109 )",
+                    pointBorderColor: "#fff",
+                    fill: false,
+                    lineTension: 0.1,
+                    data: [
+                        {% if Historial_Respuestas_Anexar %}
+                            {% for time_PS in Historial_Respuestas_Anexar %}
+
+                                {{time_PS.Incorrectas}},
+
+
+                            {% endfor%}
+                        {% endif%}
+
+                    ]
+                },
+
+            ]
+        };
+
+        if ($('#historial_Respuestas_Anexar').length){
+            var ctx = document.getElementById("historial_Respuestas_Anexar").getContext("2d");
+            new Chart(ctx, {type: 'line', data: historial_Respuestas_Anexar_data, options: {
+                    scales: {
+                        xAxes: [{
+                            ticks: {
+                                autoSkip: false,
+                                maxRotation: 90,
+                                minRotation: 90
+                            }
+                        }]
+                    }
+                }});
+        }
+
+        var historial_Respuestas_Dividir_data = {
+            labels: [
+                {% if Historial_Respuestas_Dividir %}
+                    {% for time_PS in Historial_Respuestas_Dividir %}
+                        "{{time_PS.Fecha}}",
+
+
+
+
+                    {% endfor%}
+                {% endif%}
+            ],
+
+
+            datasets: [
+                {
+                    label: "Correctas",
+                    backgroundColor: 'rgb(82, 100, 211 )',
+                    borderColor: "rgb(82, 100, 211 )",
+                    pointBorderColor: "#fff",
+                    fill: false,
+                    lineTension: 0.1,
+                    data: [
+                        {% if Historial_Respuestas_Dividir %}
+                            {% for time_PS in Historial_Respuestas_Dividir %}
+
+                                {{time_PS.Correctas}},
+
+
+                            {% endfor%}
+                        {% endif%}
+
+                    ]
+                },
+                {
+                    label: "Incorrectas",
+                    backgroundColor: 'rgb(212, 204, 109 )',
+                    borderColor: "rgb(212, 204, 109 )",
+                    pointBorderColor: "#fff",
+                    fill: false,
+                    lineTension: 0.1,
+                    data: [
+                        {% if Historial_Respuestas_Dividir %}
+                            {% for time_PS in Historial_Respuestas_Dividir %}
+
+                                {{time_PS.Incorrectas}},
+
+
+                            {% endfor%}
+                        {% endif%}
+
+                    ]
+                },
+
+            ]
+        };
+
+        if ($('#historial_Respuestas_Dividir').length){
+            var ctx = document.getElementById("historial_Respuestas_Dividir").getContext("2d");
+            new Chart(ctx, {type: 'line', data: historial_Respuestas_Dividir_data, options: {
+                    scales: {
+                        xAxes: [{
+                            ticks: {
+                                autoSkip: false,
+                                maxRotation: 90,
+                                minRotation: 90
+                            }
+                        }]
+                    }
+                }});
+        }
+
+        var Tiempo_llave_data = {
+            labels: [
+                {% if Historial_movimientos %}
+                    {% for time_PS in Historial_movimientos %}
+                        "{{time_PS.Fecha}}",
+
+
+
+
+                    {% endfor%}
+                {% endif%}
+            ],
+
+
+            datasets: [
+                {
+                    label: "Correctas",
+                    backgroundColor: 'rgb(82, 100, 211 )',
+                    borderColor: "rgb(82, 100, 211 )",
+                    pointBorderColor: "#fff",
+                    fill: false,
+                    lineTension: 0.1,
+                    data: [
+                        {% if Historial_movimientos %}
+                            {% for time_PS in Historial_movimientos %}
+
+                                {{time_PS.Correctas}},
+
+
+                            {% endfor%}
+                        {% endif%}
+
+                    ]
+                },
+                {
+                    label: "Incorrectas",
+                    backgroundColor: 'rgb(212, 204, 109 )',
+                    borderColor: "rgb(212, 204, 109 )",
+                    pointBorderColor: "#fff",
+                    fill: false,
+                    lineTension: 0.1,
+                    data: [
+                        {% if Historial_movimientos %}
+                            {% for time_PS in Historial_movimientos %}
+
+                                {{time_PS.Incorrectas}},
+
+
+                            {% endfor%}
+                        {% endif%}
+
+                    ]
+                },
+
+            ]
+        };
+
+        if ($('#Tiempo_llave').length){
+            var ctx = document.getElementById("Tiempo_llave").getContext("2d");
+            new Chart(ctx, {type: 'line', data: Tiempo_llave_data, options: {
+                    scales: {
+                        xAxes: [{
+                            ticks: {
+                                autoSkip: false,
+                                maxRotation: 90,
+                                minRotation: 90
+                            }
+                        }]
+                    }
+                }});
+        }
+
+        var Tiempo_llave_Sol_data = {
+            labels: [
+                {% if Historial_movimientos_Sol %}
+                    {% for time_PS in Historial_movimientos_Sol %}
+                        "{{time_PS.Fecha}}",
+
+
+
+
+                    {% endfor%}
+                {% endif%}
+            ],
+
+
+            datasets: [
+                {
+                    label: "Correctas",
+                    backgroundColor: 'rgb(82, 100, 211 )',
+                    borderColor: "rgb(82, 100, 211 )",
+                    pointBorderColor: "#fff",
+                    fill: false,
+                    lineTension: 0.1,
+                    data: [
+                        {% if Historial_movimientos_Sol %}
+                            {% for time_PS in Historial_movimientos_Sol %}
+
+                                {{time_PS.Correctas}},
+
+
+                            {% endfor%}
+                        {% endif%}
+
+                    ]
+                },
+                {
+                    label: "Incorrectas",
+                    backgroundColor: 'rgb(212, 204, 109 )',
+                    borderColor: "rgb(212, 204, 109 )",
+                    pointBorderColor: "#fff",
+                    fill: false,
+                    lineTension: 0.1,
+                    data: [
+                        {% if Historial_movimientos_Sol %}
+                            {% for time_PS in Historial_movimientos_Sol %}
+
+                                {{time_PS.Incorrectas}},
+
+
+                            {% endfor%}
+                        {% endif%}
+
+                    ]
+                },
+
+            ]
+        };
+
+        if ($('#Tiempo_llave_Sol').length){
+            var ctx = document.getElementById("Tiempo_llave_Sol").getContext("2d");
+            new Chart(ctx, {type: 'line', data: Tiempo_llave_Sol_data, options: {
+                    scales: {
+                        xAxes: [{
+                            ticks: {
+                                autoSkip: false,
+                                maxRotation: 90,
+                                minRotation: 90
+                            }
+                        }]
+                    }
+                }});
+        }
+
+        var Tiempo_llave_Nube_data = {
+            labels: [
+                {% if Historial_movimientos_Nube %}
+                    {% for time_PS in Historial_movimientos_Nube %}
+                        "{{time_PS.Fecha}}",
+
+
+
+
+                    {% endfor%}
+                {% endif%}
+            ],
+
+
+            datasets: [
+                {
+                    label: "Correctas",
+                    backgroundColor: 'rgb(82, 100, 211 )',
+                    borderColor: "rgb(82, 100, 211 )",
+                    pointBorderColor: "#fff",
+                    fill: false,
+                    lineTension: 0.1,
+                    data: [
+                        {% if Historial_movimientos_Nube %}
+                            {% for time_PS in Historial_movimientos_Nube %}
+
+                                {{time_PS.Correctas}},
+
+
+                            {% endfor%}
+                        {% endif%}
+
+                    ]
+                },
+                {
+                    label: "Incorrectas",
+                    backgroundColor: 'rgb(212, 204, 109 )',
+                    borderColor: "rgb(212, 204, 109 )",
+                    pointBorderColor: "#fff",
+                    fill: false,
+                    lineTension: 0.1,
+                    data: [
+                        {% if Historial_movimientos_Nube %}
+                            {% for time_PS in Historial_movimientos_Nube %}
+
+                                {{time_PS.Incorrectas}},
+
+
+                            {% endfor%}
+                        {% endif%}
+
+                    ]
+                },
+
+            ]
+        };
+
+        if ($('#Tiempo_llave_Nube').length){
+            var ctx = document.getElementById("Tiempo_llave_Nube").getContext("2d");
+            new Chart(ctx, {type: 'line', data: Tiempo_llave_Nube_data, options: {
+                    scales: {
+                        xAxes: [{
+                            ticks: {
+                                autoSkip: false,
+                                maxRotation: 90,
+                                minRotation: 90
+                            }
+                        }]
+                    }
+                }});
+        }
+
+        var Tiempo_llave_Triangulo_data = {
+            labels: [
+                {% if Historial_movimientos_Triangulo %}
+                    {% for time_PS in Historial_movimientos_Triangulo %}
+                        "{{time_PS.Fecha}}",
+
+
+
+
+                    {% endfor%}
+                {% endif%}
+            ],
+
+
+            datasets: [
+                {
+                    label: "Correctas",
+                    backgroundColor: 'rgb(82, 100, 211 )',
+                    borderColor: "rgb(82, 100, 211 )",
+                    pointBorderColor: "#fff",
+                    fill: false,
+                    lineTension: 0.1,
+                    data: [
+                        {% if Historial_movimientos_Triangulo %}
+                            {% for time_PS in Historial_movimientos_Triangulo %}
+
+                                {{time_PS.Correctas}},
+
+
+                            {% endfor%}
+                        {% endif%}
+
+                    ]
+                },
+                {
+                    label: "Incorrectas",
+                    backgroundColor: 'rgb(212, 204, 109 )',
+                    borderColor: "rgb(212, 204, 109 )",
+                    pointBorderColor: "#fff",
+                    fill: false,
+                    lineTension: 0.1,
+                    data: [
+                        {% if Historial_movimientos_Triangulo %}
+                            {% for time_PS in Historial_movimientos_Triangulo %}
+
+                                {{time_PS.Incorrectas}},
+
+
+                            {% endfor%}
+                        {% endif%}
+
+                    ]
+                },
+
+            ]
+        };
+
+        if ($('#Tiempo_llave_Triangulo').length){
+            var ctx = document.getElementById("Tiempo_llave_Triangulo").getContext("2d");
+            new Chart(ctx, {type: 'line', data: Tiempo_llave_Triangulo_data, options: {
+                    scales: {
+                        xAxes: [{
+                            ticks: {
+                                autoSkip: false,
+                                maxRotation: 90,
+                                minRotation: 90
+                            }
+                        }]
+                    }
+                }});
+        }
+
+        var Tiempo_Reciclaje_data = {
+            labels: [
+                {% if Historial_Reciclaje %}
+                    {% for time_PS in Historial_Reciclaje %}
+                        "{{time_PS.Fecha}}",
+
+
+
+
+                    {% endfor%}
+                {% endif%}
+            ],
+
+
+            datasets: [
+                {
+                    label: "Correctas",
+                    backgroundColor: 'rgb(82, 100, 211 )',
+                    borderColor: "rgb(82, 100, 211 )",
+                    pointBorderColor: "#fff",
+                    fill: false,
+                    lineTension: 0.1,
+                    data: [
+                        {% if Historial_Reciclaje %}
+                            {% for time_PS in Historial_Reciclaje %}
+
+                                {{time_PS.Correctas}},
+
+
+                            {% endfor%}
+                        {% endif%}
+
+                    ]
+                },
+                {
+                    label: "Incorrectas",
+                    backgroundColor: 'rgb(212, 204, 109 )',
+                    borderColor: "rgb(212, 204, 109 )",
+                    pointBorderColor: "#fff",
+                    fill: false,
+                    lineTension: 0.1,
+                    data: [
+                        {% if Historial_Reciclaje %}
+                            {% for time_PS in Historial_Reciclaje %}
+
+                                {{time_PS.Incorrectas}},
+
+
+                            {% endfor%}
+                        {% endif%}
+
+                    ]
+                },
+
+            ]
+        };
+
+        if ($('#Tiempo_Reciclaje').length){
+            var ctx = document.getElementById("Tiempo_Reciclaje").getContext("2d");
+            new Chart(ctx, {type: 'line', data: Tiempo_Reciclaje_data, options: {
+                    scales: {
+                        xAxes: [{
+                            ticks: {
+                                autoSkip: false,
+                                maxRotation: 90,
+                                minRotation: 90
+                            }
+                        }]
+                    }
+                }});
+        }
+
+        var Tiempo_Reciclaje_Plastico_data = {
+            labels: [
+                {% if Historial_Reciclaje_Plastico %}
+                    {% for time_PS in Historial_Reciclaje_Plastico %}
+                        "{{time_PS.Fecha}}",
+
+
+
+
+                    {% endfor%}
+                {% endif%}
+            ],
+
+
+            datasets: [
+                {
+                    label: "Correctas",
+                    backgroundColor: 'rgb(82, 100, 211 )',
+                    borderColor: "rgb(82, 100, 211 )",
+                    pointBorderColor: "#fff",
+                    fill: false,
+                    lineTension: 0.1,
+                    data: [
+                        {% if Historial_Reciclaje_Plastico %}
+                            {% for time_PS in Historial_Reciclaje_Plastico %}
+
+                                {{time_PS.Correcta}},
+
+
+                            {% endfor%}
+                        {% endif%}
+
+                    ]
+                },
+                {
+                    label: "Incorrectas",
+                    backgroundColor: 'rgb(212, 204, 109 )',
+                    borderColor: "rgb(212, 204, 109 )",
+                    pointBorderColor: "#fff",
+                    fill: false,
+                    lineTension: 0.1,
+                    data: [
+                        {% if Historial_Reciclaje_Plastico %}
+                            {% for time_PS in Historial_Reciclaje_Plastico %}
+
+                                {{time_PS.Incorrecta}},
+
+
+                            {% endfor%}
+                        {% endif%}
+
+                    ]
+                },
+
+            ]
+        };
+
+        if ($('#Tiempo_Reciclaje_plastico').length){
+            var ctx = document.getElementById("Tiempo_Reciclaje_plastico").getContext("2d");
+            new Chart(ctx, {type: 'line', data: Tiempo_Reciclaje_Plastico_data, options: {
+                    scales: {
+                        xAxes: [{
+                            ticks: {
+                                autoSkip: false,
+                                maxRotation: 90,
+                                minRotation: 90
+                            }
+                        }]
+                    }
+                }});
+        }
+
+        var Tiempo_Reciclaje_Carton_data = {
+            labels: [
+                {% if Historial_Reciclaje_Carton %}
+                    {% for time_PS in Historial_Reciclaje_Carton %}
+                        "{{time_PS.Fecha}}",
+
+
+
+
+                    {% endfor%}
+                {% endif%}
+            ],
+
+
+            datasets: [
+                {
+                    label: "Correctas",
+                    backgroundColor: 'rgb(82, 100, 211 )',
+                    borderColor: "rgb(82, 100, 211 )",
+                    pointBorderColor: "#fff",
+                    fill: false,
+                    lineTension: 0.1,
+                    data: [
+                        {% if Historial_Reciclaje_Carton %}
+                            {% for time_PS in Historial_Reciclaje_Carton %}
+
+                                {{time_PS.Correcta}},
+
+
+                            {% endfor%}
+                        {% endif%}
+
+                    ]
+                },
+                {
+                    label: "Incorrectas",
+                    backgroundColor: 'rgb(212, 204, 109 )',
+                    borderColor: "rgb(212, 204, 109 )",
+                    pointBorderColor: "#fff",
+                    fill: false,
+                    lineTension: 0.1,
+                    data: [
+                        {% if Historial_Reciclaje_Carton %}
+                            {% for time_PS in Historial_Reciclaje_Carton %}
+
+                                {{time_PS.Incorrecta}},
+
+
+                            {% endfor%}
+                        {% endif%}
+
+                    ]
+                },
+
+            ]
+        };
+
+        if ($('#Tiempo_Reciclaje_carton').length){
+            var ctx = document.getElementById("Tiempo_Reciclaje_carton").getContext("2d");
+            new Chart(ctx, {type: 'line', data: Tiempo_Reciclaje_Carton_data, options: {
+                    scales: {
+                        xAxes: [{
+                            ticks: {
+                                autoSkip: false,
+                                maxRotation: 90,
+                                minRotation: 90
+                            }
+                        }]
+                    }
+                }});
+        }
+
+        var Tiempo_Reciclaje_Vidrio_data = {
+            labels: [
+                {% if Historial_Reciclaje_Vidrio %}
+                    {% for time_PS in Historial_Reciclaje_Vidrio %}
+                        "{{time_PS.Fecha}}",
+
+
+
+
+                    {% endfor%}
+                {% endif%}
+            ],
+
+
+            datasets: [
+                {
+                    label: "Correctas",
+                    backgroundColor: 'rgb(82, 100, 211 )',
+                    borderColor: "rgb(82, 100, 211 )",
+                    pointBorderColor: "#fff",
+                    fill: false,
+                    lineTension: 0.1,
+                    data: [
+                        {% if Historial_Reciclaje_Vidrio %}
+                            {% for time_PS in Historial_Reciclaje_Vidrio %}
+
+                                {{time_PS.Correcta}},
+
+
+                            {% endfor%}
+                        {% endif%}
+
+                    ]
+                },
+                {
+                    label: "Incorrectas",
+                    backgroundColor: 'rgb(212, 204, 109 )',
+                    borderColor: "rgb(212, 204, 109 )",
+                    pointBorderColor: "#fff",
+                    fill: false,
+                    lineTension: 0.1,
+                    data: [
+                        {% if Historial_Reciclaje_Vidrio %}
+                            {% for time_PS in Historial_Reciclaje_Vidrio %}
+
+                                {{time_PS.Incorrecta}},
+
+
+                            {% endfor%}
+                        {% endif%}
+
+                    ]
+                },
+
+            ]
+        };
+
+        if ($('#Tiempo_Reciclaje_vidrio').length){
+            var ctx = document.getElementById("Tiempo_Reciclaje_vidrio").getContext("2d");
+            new Chart(ctx, {type: 'line', data: Tiempo_Reciclaje_Vidrio_data, options: {
+                    scales: {
+                        xAxes: [{
+                            ticks: {
+                                autoSkip: false,
+                                maxRotation: 90,
+                                minRotation: 90
+                            }
+                        }]
+                    }
+                }});
+        }
+
+        var Tiempo_Reciclaje_Metal_data = {
+            labels: [
+                {% if Historial_Reciclaje_Metal %}
+                    {% for time_PS in Historial_Reciclaje_Metal %}
+                        "{{time_PS.Fecha}}",
+
+
+
+
+                    {% endfor%}
+                {% endif%}
+            ],
+
+
+            datasets: [
+                {
+                    label: "Correctas",
+                    backgroundColor: 'rgb(82, 100, 211 )',
+                    borderColor: "rgb(82, 100, 211 )",
+                    pointBorderColor: "#fff",
+                    fill: false,
+                    lineTension: 0.1,
+                    data: [
+                        {% if Historial_Reciclaje_Metal %}
+                            {% for time_PS in Historial_Reciclaje_Metal %}
+
+                                {{time_PS.Correcta}},
+
+
+                            {% endfor%}
+                        {% endif%}
+
+                    ]
+                },
+                {
+                    label: "Incorrectas",
+                    backgroundColor: 'rgb(212, 204, 109 )',
+                    borderColor: "rgb(212, 204, 109 )",
+                    pointBorderColor: "#fff",
+                    fill: false,
+                    lineTension: 0.1,
+                    data: [
+                        {% if Historial_Reciclaje_Metal %}
+                            {% for time_PS in Historial_Reciclaje_Metal %}
+
+                                {{time_PS.Incorrecta}},
+
+
+                            {% endfor%}
+                        {% endif%}
+
+                    ]
+                },
+
+            ]
+        };
+
+        if ($('#Tiempo_Reciclaje_metal').length){
+            var ctx = document.getElementById("Tiempo_Reciclaje_metal").getContext("2d");
+            new Chart(ctx, {type: 'line', data: Tiempo_Reciclaje_Metal_data, options: {
+                    scales: {
+                        xAxes: [{
+                            ticks: {
+                                autoSkip: false,
+                                maxRotation: 90,
+                                minRotation: 90
+                            }
+                        }]
+                    }
+                }});
+        }
+
+
+        var Tiempo_Construir_data = {
+            labels: [
+                {% if Historial_Construir %}
+                    {% for time_PS in Historial_Construir %}
+                        "{{time_PS.Fecha}}",
+
+
+
+
+                    {% endfor%}
+                {% endif%}
+            ],
+
+
+            datasets: [
+                {
+                    label: "Carreteras",
+                    backgroundColor: 'rgb(82, 100, 211 )',
+                    borderColor: "rgb(82, 100, 211 )",
+                    pointBorderColor: "#fff",
+                    fill: false,
+                    lineTension: 0.1,
+                    data: [
+                        {% if Historial_Construir %}
+                            {% for time_PS in Historial_Construir %}
+                                {% if time_PS.Carretera != None %}
+                                Math.round({{time_PS.Carretera}}/10),
+                                {% endif%}
+                                {% if time_PS.Carretera == None %}
+                                    0,
+                                {% endif%}
+
+
+                            {% endfor%}
+                        {% endif%}
+
+                    ]
+                },
+                {
+                    label: "Casas",
+                    backgroundColor: 'rgb(100,22,212)',
+                    borderColor: "rgb(100,22,212)",
+                    pointBorderColor: "#fff",
+                    fill: false,
+                    lineTension: 0.1,
+                    data: [
+                        {% if Historial_Construir %}
+                            {% for time_PS in Historial_Construir %}
+
+                                {{time_PS.Casa}},
+
+
+                            {% endfor%}
+                        {% endif%}
+
+                    ]
+                },
+                {
+                    label: "Tiendas",
+                    backgroundColor: 'rgb(38,7,153)',
+                    borderColor: "rgb(38,7,153)",
+                    pointBorderColor: "#fff",
+                    fill: false,
+                    lineTension: 0.1,
+                    data: [
+                        {% if Historial_Construir %}
+                            {% for time_PS in Historial_Construir %}
+
+                                {{time_PS.Tienda}},
+
+
+                            {% endfor%}
+                        {% endif%}
+
+                    ]
+                },
+                {
+                    label: "Edificios",
+                    backgroundColor: 'rgb(212,204,109)',
+                    borderColor: "rgb(212, 204, 109 )",
+                    pointBorderColor: "#fff",
+                    fill: false,
+                    lineTension: 0.1,
+                    data: [
+                        {% if Historial_Construir %}
+                            {% for time_PS in Historial_Construir %}
+
+                                {{time_PS.Edifico}},
+
+
+                            {% endfor%}
+                        {% endif%}
+
+                    ]
+                },
+
+            ]
+        };
+
+        if ($('#Tiempo_Construir').length){
+            var ctx = document.getElementById("Tiempo_Construir").getContext("2d");
+            new Chart(ctx, {type: 'line', data: Tiempo_Construir_data, options: {
+                    scales: {
+                        xAxes: [{
+                            ticks: {
+                                autoSkip: false,
+                                maxRotation: 90,
+                                minRotation: 90
+                            }
+                        }]
+                    }
+                }});
+        }
+
+
+        var Cantidad_elementos_reciclados_general_data = {
+            labels:
+                [
+
+                    {% if ElementosRecicladosGeneral_tipo %}
+                        {% for time_PS in ElementosRecicladosGeneral_tipo %}
+                            {%  if time_PS.Tipo == 1 %}
+                                'Plastico',
+                            {% endif%}
+                            {%  if time_PS.Tipo == 2 %}
+                                'Cartón',
+                            {% endif%}
+                            {%  if time_PS.Tipo == 3 %}
+                                'Vidrio',
+                            {% endif%}
+                            {%  if time_PS.Tipo == 4 %}
+                                'Metal',
+                            {% endif%}
+                        {% endfor%}
+                    {% endif%}
+
+                ],
+            datasets: [
+                {
+                    label: "Correctos",
+                    backgroundColor: 'rgb(82, 100, 211 )',
+                    borderColor: "rgb(82, 100, 211 )",
+                    pointBorderColor: "#fff",
+                    data: [
+                        {% if ElementosRecicladosGeneral_tipo %}
+                            {% for time_PS in ElementosRecicladosGeneral_tipo %}
+
+                                {{time_PS.Correctas}},
+                            {% endfor%}
+                        {% endif%}
+                    ]
+                },
+                {
+                    label: "Incorrectos",
+                    backgroundColor: 'rgb(212, 204, 109 )',
+                    borderColor: "rgb(212, 204, 109 )",
+                    pointBorderColor: "#fff",
+                    data: [
+                        {% if ElementosRecicladosGeneral_tipo %}
+                            {% for time_PS in ElementosRecicladosGeneral_tipo %}
+                                {{time_PS.Incorrectas}},
+                            {% endfor%}
+                        {% endif%}
+                    ]
+                },
+
+            ]
+        };
+
+        if ($('#elementos_reciclados_general').length){
+            var ctx = document.getElementById("elementos_reciclados_general").getContext("2d");
+            new Chart(ctx, {type: 'horizontalBar', data: Cantidad_elementos_reciclados_general_data, options: {
+                    scales: {
+                        xAxes: [{ stacked: true }],
+                        yAxes: [{ stacked: true }]
+                    }
+                }});
+        }
+
+
+        var Cantidad_elementos_reciclados_zona_data = {
+
+            labels:
+                [
+
+                    {% if ElementosRecicladosGeneral_tipo %}
+                        {% for time_PS in ElementosRecicladosGeneral_tipo %}
+                            {%  if time_PS.Tipo == 1 %}
+                                'Plastico',
+                            {% endif%}
+                            {%  if time_PS.Tipo == 2 %}
+                                'Cartón',
+                            {% endif%}
+                            {%  if time_PS.Tipo == 3 %}
+                                'Vidrio',
+                            {% endif%}
+                            {%  if time_PS.Tipo == 4 %}
+                                'Metal',
+                            {% endif%}
+                        {% endfor%}
+                    {% endif%}
+
+                ],
+            datasets: [
+                {
+                    label: "Correctos",
+                    backgroundColor: 'rgb(82, 100, 211 )',
+                    borderColor: "rgb(82, 100, 211 )",
+                    pointBorderColor: "#fff",
+                    data: [
+                        {% if ElementosRecicladosGeneral_tipo %}
+                            {% for time_PS in ElementosRecicladosGeneral_tipo %}
+
+                                ({{time_PS.Correctas}}/({{time_PS.Total}}))*100,
+                            {% endfor%}
+                        {% endif%}
+                    ]
+                },
+                {
+                    label: "Incorrectos",
+                    backgroundColor: 'rgb(212, 204, 109 )',
+                    borderColor: "rgb(212, 204, 109 )",
+                    pointBorderColor: "#fff",
+                    data: [
+                        {% if ElementosRecicladosGeneral_tipo %}
+                            {% for time_PS in ElementosRecicladosGeneral_tipo %}
+                                ({{time_PS.Incorrectas}}/({{time_PS.Total}}))*100,
+                            {% endfor%}
+                        {% endif%}
+                    ]
+                },
+
+            ]
+        };
+
+        if ($('#elementos_reciclados_zona').length){
+            var ctx = document.getElementById("elementos_reciclados_zona").getContext("2d");
+            new Chart(ctx, {type: 'horizontalBar', data: Cantidad_elementos_reciclados_zona_data, options: {
+                    scales: {
+                        xAxes: [{ stacked: true }],
+                        yAxes: [{ stacked: true }]
+                    }
+                }});
+        }
+    // ## Fin Reciclando Construyo
 
     </script>
 

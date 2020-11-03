@@ -2670,6 +2670,381 @@ def welcome(request):
 
 #FIN REIM ID = 77, NOMBRE = BUSCANDO EL TESORO PERDIDO
 
+        # INICIO Reciclando Construyo ---
+        porcentaje_llave_quantity_response = []
+        promedio_intentos_response = []
+        promedio_intentos_totales_response = []
+        elementos_reciclados_usuario_response = []
+        elementos_reciclados_usuario_incorrecto_response = []
+        Respuestas_Usuario_VencerAlConstructorresponse = []
+        ElementosRecicladosGeneral_tipo_response = []
+        ElementosRecicladosGeneralIncorrectamente_tipo_response = []
+        Llave_tipo_response = []
+        Respuestas_General_VencerAlConstructor_response = []
+        Historial_Respuestas_response = []
+        Historial_Respuestas_Anexar_response = []
+        Historial_Respuestas_Dividir_response = []
+        Historial_movimientos_response = []
+        Historial_movimientos_Sol_response = []
+        Historial_movimientos_Nube_response = []
+        Historial_movimientos_Triangulo_response = []
+        Historial_Reciclaje_response = []
+        Historial_Reciclaje_Plastico_response = []
+        Historial_Reciclaje_Carton_response = []
+        Historial_Reciclaje_Vidrio_response = []
+        Historial_Reciclaje_Metal_response = []
+        Historial_Construir_response = []
+        Construir_Total_response = []
+        tiempo_size = 0;
+        Llave_tipo_size = 0;
+        elementos_graph_size = 0;
+        Elementos_Reciclados_tipo_size = 0;
+
+
+
+        RC_numberOfSessions_Dictionary = []
+        RC_playTime_Dictionary = []
+        RC_touchCount_Dictionary = []
+        RC_activitiesPlayedCounter_Dictionary = []
+
+        RC_playTime_GraphSize = 0
+        RC_touchCount_GraphSize = 0
+        RC_activitiesPlayedCounter_GraphSize = 0
+        RC_numberOfSessions_GraphSize = 0
+
+        if reim_num=="201":
+
+            ##GET NUMBER OF SESSIONS##
+            RCgetNumberOfSessions_query = get_number_of_sessionsRC(request)
+            cursor.execute(RCgetNumberOfSessions_query)
+            queries.append({
+                "name": 'Get Number Of Sessions',
+                "query": RCgetNumberOfSessions_query
+            })
+            RCnumberOfSessions_QueryResponse = cursor.fetchall()
+            # print ("analytics1_co_quantity", analytics1_co_quantity)
+            for row in RCnumberOfSessions_QueryResponse:
+                RC_numberOfSessions_Dictionary.append({
+                    'id': row[0],
+                    'name': row[1],
+                    'quantity': row[2]
+                })
+            RC_numberOfSessions_GraphSize = len(RCnumberOfSessions_QueryResponse) * 40 + 20
+
+            ##PLAYTIME REIM##
+            getPlayTimeRC = get_playtimeRC(request)
+            cursor.execute(getPlayTimeRC)
+            queries.append({
+                "name": 'Get PlayTime of REIM',
+                "query": getPlayTimeRC
+            })
+            RCplayTime_QueryResponse = cursor.fetchall()
+            print("playTime_QueryResponse", RCplayTime_QueryResponse)
+            for row in RCplayTime_QueryResponse:
+                RC_playTime_Dictionary.append({
+                    'id': row[0],
+                    'name': row[1],
+                    'playTime': row[2]
+                })
+            RC_playTime_GraphSize = len(RCplayTime_QueryResponse) * 40 + 20
+
+            ##TOUCH COUNT REIM##
+            RCtouch_query = get_touch_count(request)
+            queries.append({"name": 'Get Touch Count', "query": RCtouch_query})
+            cursor.execute(touch_query)
+            RCtouchCount_QueryResponse = cursor.fetchall()
+            for row in RCtouchCount_QueryResponse:
+                RC_touchCount_Dictionary.append({
+                    'id': row[0],
+                    'name': row[1],
+                    'touchCount': row[2]
+                })
+            RC_touchCount_GraphSize = len(RCtouchCount_QueryResponse) * 40 + 20
+
+            ##ACTIVITIES PLAYED COUNTER##
+            RCtouch_query = get_activities_played_counterRC(request)
+            queries.append({
+                "name": 'Activities Played Counter',
+                "query": RCtouch_query
+            })
+            cursor.execute(RCtouch_query)
+            RCactivitiesPlayedCounter_QueryResponse = cursor.fetchall()
+            for row in RCactivitiesPlayedCounter_QueryResponse:
+                name = ''
+                if row[0] == 9005:
+                    name = 'Actividad : Construyendo Mi Ciudad'
+                elif row[0] == 9006:
+                    name = 'Actividad : Vencer Al Constructor'
+                elif row[0] == 9007:
+                    name = 'Actividad : Buscar la Llave'
+                elif row[0] == 9008:
+                    name = 'Actividad : Limpiar el Bosque'
+                RC_activitiesPlayedCounter_Dictionary.append({
+                    'id': row[0],
+                    'name': name,
+                    'counter': row[1]
+                })
+            RC_activitiesPlayedCounter_GraphSize = len(
+                RCactivitiesPlayedCounter_QueryResponse) * 40 + 20
+
+            Llave_tipo_query = get_llave_Tipo(request)
+            #print(porcentaje_llave_query)
+            queries.append({"name": 'porcentaje llave query', "query": Llave_tipo_query})
+            cursor.execute(Llave_tipo_query)
+            Llave_tipo_query = cursor.fetchall()
+
+            for row in Llave_tipo_query:
+                Llave_tipo_response.append({ 'name': row[0], 'Total': row[1], 'Incorrectas': row[2] , 'Correctas': row[3] })
+            Llave_tipo_size = len(Llave_tipo_response)*40+20;
+
+            Respuestas_General_VencerAlConstructor_query = get_Respuestas_General_VencerAlConstructor(request)
+            #print(porcentaje_llave_query)
+            queries.append({"name": 'porcentaje llave query', "query": Respuestas_General_VencerAlConstructor_query})
+            cursor.execute(Respuestas_General_VencerAlConstructor_query)
+            Respuestas_General_VencerAlConstructor_query = cursor.fetchall()
+
+            for row in Respuestas_General_VencerAlConstructor_query:
+                Respuestas_General_VencerAlConstructor_response.append({ 'name': row[0], 'Total': row[4], 'Incorrectas': row[5] , 'Correctas': row[6] })
+
+            get_Historial_Respuestas_query = get_Historial_Respuestas(request)
+            #print(porcentaje_llave_query)
+            queries.append({"name": 'Historial Respuestas', "query": get_Historial_Respuestas_query})
+            cursor.execute(get_Historial_Respuestas_query)
+            get_Historial_Respuestas_query = cursor.fetchall()
+
+            for row in get_Historial_Respuestas_query:
+                Historial_Respuestas_response.append({ 'name': row[0], 'Total': row[4], 'Incorrectas': row[5] , 'Correctas': row[6], 'Fecha': row[7] })
+
+            get_Historial_Respuestas_Anexar_query = get_Historial_Respuestas_Anexar(request)
+            #print(porcentaje_llave_query)
+            queries.append({"name": 'Historial Respuestas Anexar', "query": get_Historial_Respuestas_Anexar_query})
+            cursor.execute(get_Historial_Respuestas_Anexar_query)
+            get_Historial_Respuestas_Anexar_query = cursor.fetchall()
+
+            for row in get_Historial_Respuestas_Anexar_query:
+                Historial_Respuestas_Anexar_response.append({ 'name': row[0], 'Total': row[4], 'Incorrectas': row[5] , 'Correctas': row[6], 'Fecha': row[7] })
+
+            get_Historial_Respuestas_Dividir_query = get_Historial_Respuestas_Dividir(request)
+            #print(porcentaje_llave_query)
+            queries.append({"name": 'Historial Respuestas Anexar', "query": get_Historial_Respuestas_Dividir_query})
+            cursor.execute(get_Historial_Respuestas_Dividir_query)
+            get_Historial_Respuestas_Dividir_query = cursor.fetchall()
+
+            for row in get_Historial_Respuestas_Dividir_query:
+                Historial_Respuestas_Dividir_response.append({ 'name': row[0], 'Total': row[4], 'Incorrectas': row[5] , 'Correctas': row[6], 'Fecha': row[7] })
+
+
+            get_Historial_movimientos_query = get_Historial_movimientos(request)
+            #print(porcentaje_llave_query)
+            queries.append({"name": 'Historial Movimientos', "query": get_Historial_movimientos_query})
+            cursor.execute(get_Historial_movimientos_query)
+            get_Historial_movimientos_query = cursor.fetchall()
+
+            for row in get_Historial_movimientos_query:
+                Historial_movimientos_response.append({ 'name': row[0], 'Total': row[4], 'Incorrectas': row[5] , 'Correctas': row[6], 'Fecha': row[7] })
+
+            get_Historial_movimientos_Sol_query = get_Historial_movimientos_Sol(request)
+            #print(porcentaje_llave_query)
+            queries.append({"name": 'Historial Movimientos Sol', "query": get_Historial_movimientos_Sol_query})
+            cursor.execute(get_Historial_movimientos_Sol_query)
+            get_Historial_movimientos_Sol_query = cursor.fetchall()
+
+            for row in get_Historial_movimientos_Sol_query:
+                Historial_movimientos_Sol_response.append({ 'name': row[0], 'Total': row[4], 'Incorrectas': row[5] , 'Correctas': row[6], 'Fecha': row[7] })
+
+            get_Historial_movimientos_Nube_query = get_Historial_movimientos_Nube(request)
+            #print(porcentaje_llave_query)
+            queries.append({"name": 'Historial Movimientos Sol', "query": get_Historial_movimientos_Nube_query})
+            cursor.execute(get_Historial_movimientos_Nube_query)
+            get_Historial_movimientos_Nube_query = cursor.fetchall()
+
+            for row in get_Historial_movimientos_Nube_query:
+                Historial_movimientos_Nube_response.append({ 'name': row[0], 'Total': row[4], 'Incorrectas': row[5] , 'Correctas': row[6], 'Fecha': row[7] })
+
+            get_Historial_movimientos_Triangulo_query = get_Historial_movimientos_Triangulo(request)
+            #print(porcentaje_llave_query)
+            queries.append({"name": 'Historial Movimientos Sol', "query": get_Historial_movimientos_Triangulo_query})
+            cursor.execute(get_Historial_movimientos_Triangulo_query)
+            get_Historial_movimientos_Triangulo_query = cursor.fetchall()
+
+            for row in get_Historial_movimientos_Triangulo_query:
+                Historial_movimientos_Triangulo_response.append({ 'name': row[0], 'Total': row[4], 'Incorrectas': row[5] , 'Correctas': row[6], 'Fecha': row[7] })
+
+            get_Historial_Reciclaje_query = get_Historial_Reciclaje(request)
+            #print(porcentaje_llave_query)
+            queries.append({"name": 'Historial Reciclaje', "query": get_Historial_Reciclaje_query})
+            cursor.execute(get_Historial_Reciclaje_query)
+            get_Historial_Reciclaje_query = cursor.fetchall()
+
+            for row in get_Historial_Reciclaje_query:
+                Historial_Reciclaje_response.append({ 'name': row[0], 'Total': row[4], 'Incorrectas': row[5] , 'Correctas': row[6], 'Fecha': row[7] })
+
+
+            get_Historial_Reciclaje_Plastico_query = get_Historial_Reciclaje_Plastico(request)
+            #print(porcentaje_llave_query)
+            queries.append({"name": 'Historial Reciclaje Plastico', "query": get_Historial_Reciclaje_Plastico_query})
+            cursor.execute(get_Historial_Reciclaje_Plastico_query)
+            get_Historial_Reciclaje_Plastico_query = cursor.fetchall()
+
+            for row in get_Historial_Reciclaje_Plastico_query:
+                Historial_Reciclaje_Plastico_response.append({ 'Total': row[0], 'Incorrecta': row[1], 'Correcta' : row[2] ,'Fecha': row[3] })
+
+            get_Historial_Reciclaje_Carton_query = get_Historial_Reciclaje_Carton(request)
+            #print(porcentaje_llave_query)
+            queries.append({"name": 'Historial Reciclaje Plastico', "query": get_Historial_Reciclaje_Carton_query})
+            cursor.execute(get_Historial_Reciclaje_Carton_query)
+            get_Historial_Reciclaje_Carton_query = cursor.fetchall()
+
+            for row in get_Historial_Reciclaje_Carton_query:
+                Historial_Reciclaje_Carton_response.append({ 'Total': row[0], 'Incorrecta': row[1], 'Correcta' : row[2] ,'Fecha': row[3] })
+
+            get_Historial_Reciclaje_Vidrio_query = get_Historial_Reciclaje_Vidrio(request)
+            #print(porcentaje_llave_query)
+            queries.append({"name": 'Historial Reciclaje Plastico', "query": get_Historial_Reciclaje_Vidrio_query})
+            cursor.execute(get_Historial_Reciclaje_Vidrio_query)
+            get_Historial_Reciclaje_Vidrio_query = cursor.fetchall()
+
+            for row in get_Historial_Reciclaje_Vidrio_query:
+                Historial_Reciclaje_Vidrio_response.append({ 'Total': row[0], 'Incorrecta': row[1], 'Correcta' : row[2] ,'Fecha': row[3] })
+
+            get_Historial_Reciclaje_Metal_query = get_Historial_Reciclaje_Metal(request)
+            #print(porcentaje_llave_query)
+            queries.append({"name": 'Historial Reciclaje Plastico', "query": get_Historial_Reciclaje_Metal_query})
+            cursor.execute(get_Historial_Reciclaje_Metal_query)
+            get_Historial_Reciclaje_Metal_query = cursor.fetchall()
+
+            for row in get_Historial_Reciclaje_Metal_query:
+                Historial_Reciclaje_Metal_response.append({ 'Total': row[0], 'Incorrecta': row[1], 'Correcta' : row[2] ,'Fecha': row[3] })
+
+            get_Historial_Construir_query = get_Historial_Construir(request)
+            #print(porcentaje_llave_query)
+            queries.append({"name": 'Historial Construir', "query": get_Historial_Construir_query})
+            cursor.execute(get_Historial_Construir_query)
+            get_Historial_Construir_query = cursor.fetchall()
+
+            for row in get_Historial_Construir_query:
+                Historial_Construir_response.append({ 'Total': row[0], 'Carretera': row[1], 'Casa' : row[2]
+                                                        ,'Tienda': row[3],'Edifico': row[4],'Fecha': row[5]  })
+
+            get_Construir_Total_query = get_Construir_total(request)
+            #print(porcentaje_llave_query)
+            queries.append({"name": 'Total Construir', "query": get_Construir_Total_query})
+            cursor.execute(get_Construir_Total_query)
+            get_Construir_Total_query = cursor.fetchall()
+
+            for row in get_Construir_Total_query:
+                Construir_Total_response.append({ 'Total': row[0], 'Carretera': row[1], 'Casa' : row[2]
+                                                    ,'Tienda': row[3],'Edifico': row[4],'Fecha': row[5]  })
+
+            ElementosRecicladosGeneral_tipo_query = get_ElementosReciclados_Tipo(request)
+            #print(porcentaje_llave_query)
+            queries.append({"name": 'Elementos Reciclados Tipo', "query": ElementosRecicladosGeneral_tipo_query})
+            cursor.execute(ElementosRecicladosGeneral_tipo_query)
+            ElementosRecicladosGeneral_tipo_query = cursor.fetchall()
+
+            for row in ElementosRecicladosGeneral_tipo_query:
+                ElementosRecicladosGeneral_tipo_response.append({ 'id': row[0], 'Total': row[1], 'Incorrectas': row[2]
+                                                                    , 'Correctas': row[3], 'Tipo': row[6]})
+            Elementos_Reciclados_tipo_size = len(ElementosRecicladosGeneral_tipo_response)*20+20
+
+
+            ElementosRecicladosGeneralIncorrectamente_tipo_query = get_ElementosRecicladosIncorrectamente_Tipo(request)
+            #print(porcentaje_llave_query)
+            queries.append({"name": 'porcentaje llave query', "query": ElementosRecicladosGeneralIncorrectamente_tipo_query})
+            cursor.execute(ElementosRecicladosGeneralIncorrectamente_tipo_query)
+            ElementosRecicladosGeneralIncorrectamente_tipo_query = cursor.fetchall()
+
+            for row in ElementosRecicladosGeneralIncorrectamente_tipo_query:
+                ElementosRecicladosGeneralIncorrectamente_tipo_response.append({ 'id': row[0], 'Tipo': row[1], 'cantidad': row[2] })
+
+            #Porcentaje_Llaves
+            Respuestas_Usuario_VencerAlConstructor_query = get_Respuestas_Usuario_VencerAlConstructor(request)
+            #print(porcentaje_llave_query)
+            queries.append({"name": 'Respuestas Vencer al constructor', "query": Respuestas_Usuario_VencerAlConstructor_query})
+            cursor.execute(Respuestas_Usuario_VencerAlConstructor_query)
+            Respuestas_Usuario_VencerAlConstructor_query = cursor.fetchall()
+
+            for row in Respuestas_Usuario_VencerAlConstructor_query:
+
+                Respuestas_Usuario_VencerAlConstructorresponse.append({ 'id': row[0], 'CantidadTotal': row[2], 'Incorrectas': row[3], 'Correctas': row[4]})
+
+            #Porcentaje_Llaves
+            porcentaje_llave_query = get_porcentaje_llave(request)
+            #print(porcentaje_llave_query)
+            queries.append({"name": 'porcentaje llave query', "query": porcentaje_llave_query})
+            cursor.execute(porcentaje_llave_query)
+            porcentaje_llave_query = cursor.fetchall()
+            for row in porcentaje_llave_query:
+                porcentaje_llave_quantity_response.append({ 'id': row[0], 'name': row[0], 'porcentaje': row[1] })
+            #promedio_intentos_satisfactorios
+            promedio_intentos_query = get_promedio_intentos(request)
+            queries.append({"name": 'promedio intentos query', "query": promedio_intentos_query})
+            cursor.execute(promedio_intentos_query)
+            promedio_intentos_query = cursor.fetchall()
+            for row in promedio_intentos_query:
+                promedio_intentos_response.append({ 'id': row[0], 'name': row[0], 'promedio': row[1] })
+            #promedio_intentos_totales
+            promedio_intentos_totales_query = get_promedio_intentos_totales(request)
+            queries.append({"name": 'promedio intentos totales query', "query": promedio_intentos_totales_query})
+            cursor.execute(promedio_intentos_totales_query)
+            #print(promedio_intentos_totales_query)
+            promedio_intentos_totales_query = cursor.fetchall()
+            for row in promedio_intentos_totales_query:
+                promedio_intentos_totales_response.append({ 'id': row[0], 'name': row[0], 'promedio': row[1] })
+
+
+            elementos_reciclados_usuario_query = get_elementos_reciclados_usuario(request)
+            queries.append({"name": 'elementos reciclados query', "query": elementos_reciclados_usuario_query})
+            cursor.execute(elementos_reciclados_usuario_query)
+            elementos_reciclados_usuario_query = cursor.fetchall()
+            for row in elementos_reciclados_usuario_query:
+                elementos_reciclados_usuario_response.append({'nombre': row[0], 'Total': row[1], 'Incorrecta': row[2]
+                                                                 , 'Correcta': row[3], 'Elemento': row[4]})
+            elementos_graph_size = len(elementos_reciclados_usuario_response)*20+20
+
+            elementos_reciclados_usuario_incorrecto_query = get_elementos_reciclados_incorrecto_usuario(request)
+            queries.append({"name": 'elementos reciclados incorrecto query', "query": elementos_reciclados_usuario_incorrecto_query})
+            cursor.execute(elementos_reciclados_usuario_incorrecto_query)
+            elementos_reciclados_usuario_incorrecto_query = cursor.fetchall()
+            for row in elementos_reciclados_usuario_incorrecto_query:
+                elementos_reciclados_usuario_incorrecto_response.append(
+                    {'nombre': row[0], 'cantidad': row[1], 'nombreElemento': row[2]})
+
+            #General
+            nombre_query = get_name_student(request)
+            queries.append({"name": 'nombre estudiante', "query": nombre_query})
+            cursor.execute(nombre_query)
+            nombre_quantity = cursor.fetchall()
+            for row in nombre_quantity:
+                nombre.append({ 'name': row[0]})
+
+            sesiones_PS_query = get_time_act_co(request)
+            queries.append({"name": 'Tiempo Actividad query', "query": sesiones_PS_query})
+            cursor.execute(sesiones_PS_query)
+            sesiones_PS_quantity = cursor.fetchall()
+            for row in sesiones_PS_quantity:
+                sesiones_PS_quantity_response.append({ 'id': row[0]})
+
+            time_PS_query = get_time_act_co(request)
+            queries.append({"name": 'Tiempo Actividad query', "query": time_PS_query})
+            cursor.execute(time_PS_query)
+            time_PS_quantity = cursor.fetchall()
+            for row in time_PS_quantity:
+                time_PS_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+            tiempo_size = len(time_PS_quantity) * 40 + 20;
+
+            #tiempo por actividad general
+            tiempoXact_query = get_tiempoact(request)
+            cursor.execute(tiempoXact_query)
+            queries.append({"name": 'TiempoXact query', "query": tiempoXact_query})
+            tiempoXact_quantity = cursor.fetchall()
+            #print("tiempoXact quantity", tiempoXact_quantity)
+            for row in tiempoXact_quantity:
+                tiempoXact_quantity_response.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+
+
+        # FIN Reciclando Construyo ---
+
 #Cantidad de Sesiones
         session_query = get_session_query(request)
         cursor.execute(session_query)
@@ -2979,6 +3354,54 @@ def welcome(request):
                 'tamaño_actividad_alumno':
                 tamaña_grafico_por_actividad,
                 #FIN REIM ID = 77, NOMBRE = BUSCANDO EL TESORO PERDIDO
+
+                # INICIO RECICLANDO CONSTRUYO
+                'Porcentaje_llave':porcentaje_llave_quantity_response,
+                'Promedio_intentos_llave':promedio_intentos_response,
+                'Promedio_intentos_totales_llave':promedio_intentos_totales_response,
+                'Elementos_reciclados_usuario':elementos_reciclados_usuario_response,
+                'Elementos_reciclados_usuario_incorrecto': elementos_reciclados_usuario_incorrecto_response,
+                'Respuestas_Usuario_VencerAlConstructor': Respuestas_Usuario_VencerAlConstructorresponse,
+                'ElementosRecicladosGeneral_tipo': ElementosRecicladosGeneral_tipo_response,
+                'ElementosRecicladosGeneralIncorrectamente_tipo': ElementosRecicladosGeneralIncorrectamente_tipo_response,
+                'Llave_tipo': Llave_tipo_response,
+                'Llave_tipo_size': Llave_tipo_size,
+                'Respuestas_General_VencerAlConstructor': Respuestas_General_VencerAlConstructor_response,
+                'Historial_Respuestas': Historial_Respuestas_response,
+                'Historial_Respuestas_Anexar': Historial_Respuestas_Anexar_response,
+                'Historial_Respuestas_Dividir': Historial_Respuestas_Dividir_response,
+                'Historial_movimientos': Historial_movimientos_response,
+                'Historial_movimientos_Sol': Historial_movimientos_Sol_response,
+                'Historial_movimientos_Nube': Historial_movimientos_Nube_response,
+                'Historial_movimientos_Triangulo': Historial_movimientos_Triangulo_response,
+                'Historial_Reciclaje': Historial_Reciclaje_response,
+                'Historial_Reciclaje_Plastico': Historial_Reciclaje_Plastico_response,
+                'Historial_Reciclaje_Carton': Historial_Reciclaje_Carton_response,
+                'Historial_Reciclaje_Vidrio': Historial_Reciclaje_Vidrio_response,
+                'Historial_Reciclaje_Metal': Historial_Reciclaje_Metal_response,
+                'Historial_Construir': Historial_Construir_response,
+                'Construir_Total': Construir_Total_response,
+                'tiempo_size' : tiempo_size,
+                'elementos_graph_size' : elementos_graph_size,
+                'Elementos_Reciclados_tipo_size' : Elementos_Reciclados_tipo_size,
+                'RC_numberOfSessions_Dictionary':
+                    RC_numberOfSessions_Dictionary,
+                'RC_playTime_Dictionary':
+                    RC_playTime_Dictionary,
+                'RC_touchCount_Dictionary':
+                    RC_touchCount_Dictionary,
+                'RC_activitiesPlayedCounter_Dictionary':
+                    RC_activitiesPlayedCounter_Dictionary,
+                'RC_playTime_GraphSize':
+                    RC_playTime_GraphSize,
+                'RC_touchCount_GraphSize':
+                    RC_touchCount_GraphSize,
+                'RC_activitiesPlayedCounter_GraphSize':
+                    RC_activitiesPlayedCounter_GraphSize,
+                'RC_numberOfSessions_GraphSize':
+                    RC_numberOfSessions_GraphSize,
+                # FIN RECICLANDO CONSTRUYO
+
                 #####BEGIN BUILD YOUR CITY#####
                 #LISTS OF DUMMY VALUES (FRONTEND TEST):
                 'listOfFirst50Numbers': [
