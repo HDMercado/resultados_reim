@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+    <data-source source="LOCAL" name="db" uuid="e8bda124-6365-45f3-9c81-7751f1cd1ebb">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:C:\Users\ivanr\OneDrive\Escritorio\GitHub\actu2\resultados_reim\db.sqlite3</jdbc-url>
+    </data-source>
+  </component>
+</project>
